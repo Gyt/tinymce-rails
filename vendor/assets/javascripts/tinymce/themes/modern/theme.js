@@ -1,5 +1,18241 @@
-!function(){var a={},b=function(b){for(var c=a[b],e=c.deps,f=c.defn,g=e.length,h=new Array(g),i=0;i<g;++i)h[i]=d(e[i]);var j=f.apply(null,h);if(void 0===j)throw"module ["+b+"] returned undefined";c.instance=j},c=function(b,c,d){if("string"!=typeof b)throw"module id must be a string";if(void 0===c)throw"no dependencies for "+b;if(void 0===d)throw"no definition function for "+b;a[b]={deps:c,defn:d,instance:void 0}},d=function(c){var d=a[c];if(void 0===d)throw"module ["+c+"] was undefined";return void 0===d.instance&&b(c),d.instance},e=function(a,b){for(var c=a.length,e=new Array(c),f=0;f<c;++f)e[f]=d(a[f]);b.apply(null,e)},f={};f.bolt={module:{api:{define:c,require:e,demand:d}}};var g=c,h=function(a,b){g(a,[],function(){return b})};h("1",window),h("6",tinymce.util.Tools.resolve),g("2",["6"],function(a){return a("tinymce.ThemeManager")}),g("13",["6"],function(a){return a("tinymce.EditorManager")}),g("c",["6"],function(a){return a("tinymce.util.Tools")}),g("2f",["13","c"],function(a,b){var c=function(a){return a.getParam("branding",!0)},d=function(a){return e(a)!==!1},e=function(a){return a.getParam("menubar")},f=function(a){return a.getParam("statusbar",!0)},g=function(a){return a.getParam("toolbar_items_size")},h=function(a){var b=a.getParam("resize","vertical");return b===!1?"none":"both"===b?"both":"vertical"},i=function(a){return a.getParam("readonly",!1)},j=function(a){return a.getParam("fixed_toolbar_container")},k=function(a){return a.getParam("inline_toolbar_position_handler")},l=function(a){return a.getParam("menu")},m=function(a){return a.getParam("removed_menuitems","")},n=function(a){return a.getParam("min_width",100)},o=function(a){return a.getParam("min_height",100)},p=function(a){return a.getParam("max_width",65535)},q=function(a){return a.getParam("max_height",65535)},r=function(b){var c=b.settings,d=c.skin,e=c.skin_url;if(d!==!1){var f=d?d:"lightgray";e=e?b.documentBaseURI.toAbsolute(e):a.baseURL+"/skins/"+f}return e},s=function(a){return a.settings.skin===!1},t=function(a){return a.getParam("inline",!1)},u=function(a,b){for(var c=[],d=1;d<10;d++){var e=a["toolbar"+d];if(!e)break;c.push(e)}var f=a.toolbar?[a.toolbar]:[b];return c.length>0?c:f},v=function(a){var c=a.getParam("toolbar"),d="undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image";return c===!1?[]:b.isArray(c)?b.grep(c,function(a){return a.length>0}):u(a.settings,d)};return{isBrandingEnabled:c,hasMenubar:d,getMenubar:e,hasStatusbar:f,getToolbarSize:g,getResize:h,isReadOnly:i,getFixedToolbarContainer:j,getInlineToolbarPositionHandler:k,getMenu:l,getRemovedMenuItems:m,getMinWidth:n,getMinHeight:o,getMaxWidth:p,getMaxHeight:q,getSkinUrl:r,isSkinDisabled:s,isInline:t,getToolbars:v}}),g("2j",["6"],function(a){return a("tinymce.dom.DOMUtils")}),g("b",["6"],function(a){return a("tinymce.ui.Factory")}),g("37",["6"],function(a){return a("tinymce.util.I18n")}),g("2k",[],function(){var a=function(a){return a.fire("SkinLoaded")},b=function(a){return a.fire("ResizeEditor")},c=function(a){return a.fire("BeforeRenderUI")};return{fireSkinLoaded:a,fireResizeEditor:b,fireBeforeRenderUI:c}}),g("38",[],function(){var a=function(a,b){return function(){var c=a.find(b)[0];c&&c.focus(!0)}},b=function(b,c){b.shortcuts.add("Alt+F9","",a(c,"menubar")),b.shortcuts.add("Alt+F10,F10","",a(c,"toolbar")),b.shortcuts.add("Alt+F11","",a(c,"elementpath")),c.on("cancel",function(){b.focus()})};return{addKeys:b}}),h("12",document),g("3p",["6"],function(a){return a("tinymce.geom.Rect")}),g("2u",["6"],function(a){return a("tinymce.util.Delay")}),g("3d",["b","c","2f"],function(a,b,c){var d=function(c,d,e){var f,g=[];if(d)return b.each(d.split(/[ ,]/),function(b){var d,h=function(){var a=c.selection;b.settings.stateSelector&&a.selectorChanged(b.settings.stateSelector,function(a){b.active(a)},!0),b.settings.disabledStateSelector&&a.selectorChanged(b.settings.disabledStateSelector,function(a){b.disabled(a)})};"|"===b?f=null:(f||(f={type:"buttongroup",items:[]},g.push(f)),c.buttons[b]&&(d=b,b=c.buttons[d],"function"==typeof b&&(b=b()),b.type=b.type||"button",b.size=e,b=a.create(b),f.items.push(b),c.initialized?h():c.on("init",h)))}),{type:"toolbar",layout:"flow",items:g}},e=function(a,e){var f=[],g=function(b){b&&f.push(d(a,b,e))};if(b.each(c.getToolbars(a),function(a){g(a)}),f.length)return{type:"panel",layout:"stack",classes:"toolbar-grp",ariaRoot:!0,ariaRemember:!0,items:f}};return{createToolbar:d,createToolbars:e}}),g("39",["12","2j","3p","b","2u","c","2f","3d"],function(a,b,c,d,e,f,g,h){var i=b.DOM,j=function(a){return{left:a.x,top:a.y,width:a.w,height:a.h,right:a.x+a.w,bottom:a.y+a.h}},k=function(a){f.each(a.contextToolbars,function(a){a.panel&&a.panel.hide()})},l=function(a,b){a.moveTo(b.left,b.top)},m=function(a,b,c){b=b?b.substr(0,2):"",f.each({t:"down",b:"up"},function(d,e){a.classes.toggle("arrow-"+d,c(e,b.substr(0,1)))}),f.each({l:"left",r:"right"},function(d,e){a.classes.toggle("arrow-"+d,c(e,b.substr(1,1)))})},n=function(a,b,c,d,e,f){return f=j({x:b,y:c,w:f.w,h:f.h}),a&&(f=a({elementRect:j(d),contentAreaRect:j(e),panelRect:f})),f},o=function(b){var j,o=function(){return b.contextToolbars||[]},p=function(a){var c,d,e;return c=i.getPos(b.getContentAreaContainer()),d=b.dom.getRect(a),e=b.dom.getRoot(),"BODY"===e.nodeName&&(d.x-=e.ownerDocument.documentElement.scrollLeft||e.scrollLeft,d.y-=e.ownerDocument.documentElement.scrollTop||e.scrollTop),d.x+=c.x,d.y+=c.y,d},q=function(a,d){var e,f,h,j,o,q,r,s,t=g.getInlineToolbarPositionHandler(b);if(!b.removed){if(!a||!a.toolbar.panel)return void k(b);if(r=["bc-tc","tc-bc","tl-bl","bl-tl","tr-br","br-tr"],o=a.toolbar.panel,d&&o.show(),h=p(a.element),f=i.getRect(o.getEl()),j=i.getRect(b.getContentAreaContainer()||b.getBody()),s=25,"inline"!==i.getStyle(a.element,"display",!0)){var u=a.element.getBoundingClientRect();h.w=u.width,h.h=u.height}b.inline||(j.w=b.getDoc().documentElement.offsetWidth),b.selection.controlSelection.isResizable(a.element)&&h.w<s&&(h=c.inflate(h,0,8)),e=c.findBestRelativePosition(f,h,j,r),h=c.clamp(h,j),e?(q=c.relativePosition(f,h,e),l(o,n(t,q.x,q.y,h,j,f))):(j.h+=f.h,h=c.intersect(j,h),h?(e=c.findBestRelativePosition(f,h,j,["bc-tc","bl-tl","br-tr"]),e?(q=c.relativePosition(f,h,e),l(o,n(t,q.x,q.y,h,j,f))):l(o,n(t,h.x,h.y,h,j,f))):o.hide()),m(o,e,function(a,b){return a===b})}},r=function(a){return function(){var c=function(){b.selection&&q(v(b.selection.getNode()),a)};e.requestAnimationFrame(c)}},s=function(){j||(j=b.selection.getScrollContainer()||b.getWin(),i.bind(j,"scroll",r(!0)),b.on("remove",function(){i.unbind(j,"scroll")}))},t=function(c){var e;return c.toolbar.panel?(c.toolbar.panel.show(),void q(c)):(s(),e=d.create({type:"floatpanel",role:"dialog",classes:"tinymce tinymce-inline arrow",ariaLabel:"Inline toolbar",layout:"flex",direction:"column",align:"stretch",autohide:!1,autofix:!0,fixed:!0,border:1,items:h.createToolbar(b,c.toolbar.items),oncancel:function(){b.focus()}}),c.toolbar.panel=e,e.renderTo(a.body).reflow(),void q(c))},u=function(){f.each(o(),function(a){a.panel&&a.panel.hide()})},v=function(a){var c,d,e,f=o();for(e=b.$(a).parents().add(a),c=e.length-1;c>=0;c--)for(d=f.length-1;d>=0;d--)if(f[d].predicate(e[c]))return{toolbar:f[d],element:e[c]};return null};b.on("click keyup setContent ObjectResized",function(a){("setcontent"!==a.type||a.selection)&&e.setEditorTimeout(b,function(){var a;a=v(b.selection.getNode()),a?(u(),t(a)):u()})}),b.on("blur hide contextmenu",u),b.on("ObjectResizeStart",function(){var a=v(b.selection.getNode());a&&a.toolbar.panel&&a.toolbar.panel.hide()}),b.on("ResizeEditor ResizeWindow",r(!0)),b.on("nodeChange",r(!1)),b.on("remove",function(){f.each(o(),function(a){a.panel&&a.panel.remove()}),b.contextToolbars={}}),b.shortcuts.add("ctrl+shift+e > ctrl+shift+p","",function(){var a=v(b.selection.getNode());a&&a.toolbar.panel&&a.toolbar.panel.items()[0].focus()})};return{addContextualToolbars:o}}),h("2y",Array),h("2z",Error),g("z",["2y","2z"],function(a,b){var c=function(){},d=function(a,b){return function(){return a(b.apply(null,arguments))}},e=function(a){return function(){return a}},f=function(a){return a},g=function(a,b){return a===b},h=function(b){for(var c=new a(arguments.length-1),d=1;d<arguments.length;d++)c[d-1]=arguments[d];return function(){for(var d=new a(arguments.length),e=0;e<d.length;e++)d[e]=arguments[e];var f=c.concat(d);return b.apply(null,f)}},i=function(a){return function(){return!a.apply(null,arguments)}},j=function(a){return function(){throw new b(a)}},k=function(a){return a()},l=function(a){a()},m=e(!1),n=e(!0);return{noop:c,compose:d,constant:e,identity:f,tripleEquals:g,curry:h,not:i,die:j,apply:k,call:l,never:m,always:n}}),h("3q",Object),g("3g",["z","3q"],function(a,b){var c=a.never,d=a.always,e=function(){return f},f=function(){var f=function(a){return a.isNone()},g=function(a){return a()},h=function(a){return a},i=function(){},j={fold:function(a,b){return a()},is:c,isSome:c,isNone:d,getOr:h,getOrThunk:g,getOrDie:function(a){throw new Error(a||"error: getOrDie called on none.")},or:h,orThunk:g,map:e,ap:e,each:i,bind:e,flatten:e,exists:c,forall:d,filter:e,equals:f,equals_:f,toArray:function(){return[]},toString:a.constant("none()")};return b.freeze&&b.freeze(j),j}(),g=function(a){var b=function(){return a},h=function(){return k},i=function(b){return g(b(a))},j=function(b){return b(a)},k={fold:function(b,c){return c(a)},is:function(b){return a===b},isSome:d,isNone:c,getOr:b,getOrThunk:b,getOrDie:b,or:h,orThunk:h,map:i,ap:function(b){return b.fold(e,function(b){return g(b(a))})},each:function(b){b(a)},bind:j,flatten:b,exists:j,forall:j,filter:function(b){return b(a)?k:f},equals:function(b){return b.is(a)},equals_:function(b,d){return b.fold(c,function(b){return d(a,b)})},toArray:function(){return[a]},toString:function(){return"some("+a+")"}};return k},h=function(a){return null===a||void 0===a?f:g(a)};return{some:g,none:e,from:h}}),h("3h",String),g("2l",["3g","2y","2z","3h"],function(a,b,c,d){var e=function(){var a=b.prototype.indexOf,c=function(b,c){return a.call(b,c)},d=function(a,b){return u(a,b)};return void 0===a?d:c}(),f=function(b,c){var d=e(b,c);return d===-1?a.none():a.some(d)},g=function(a,b){return e(a,b)>-1},h=function(a,b){return t(a,b).isSome()},i=function(a,b){for(var c=[],d=0;d<a;d++)c.push(b(d));return c},j=function(a,b){for(var c=[],d=0;d<a.length;d+=b){var e=a.slice(d,d+b);c.push(e)}return c},k=function(a,c){for(var d=a.length,e=new b(d),f=0;f<d;f++){var g=a[f];e[f]=c(g,f,a)}return e},l=function(a,b){for(var c=0,d=a.length;c<d;c++){var e=a[c];b(e,c,a)}},m=function(a,b){for(var c=a.length-1;c>=0;c--){var d=a[c];b(d,c,a)}},n=function(a,b){for(var c=[],d=[],e=0,f=a.length;e<f;e++){var g=a[e],h=b(g,e,a)?c:d;h.push(g)}return{pass:c,fail:d}},o=function(a,b){for(var c=[],d=0,e=a.length;d<e;d++){var f=a[d];b(f,d,a)&&c.push(f)}return c},p=function(a,b){if(0===a.length)return[];for(var c=b(a[0]),d=[],e=[],f=0,g=a.length;f<g;f++){var h=a[f],i=b(h);i!==c&&(d.push(e),e=[]),c=i,e.push(h)}return 0!==e.length&&d.push(e),d},q=function(a,b,c){return m(a,function(a){c=b(c,a)}),c},r=function(a,b,c){return l(a,function(a){c=b(c,a)}),c},s=function(b,c){for(var d=0,e=b.length;d<e;d++){var f=b[d];if(c(f,d,b))return a.some(f)}return a.none()},t=function(b,c){for(var d=0,e=b.length;d<e;d++){var f=b[d];if(c(f,d,b))return a.some(d)}return a.none()},u=function(a,b){for(var c=0,d=a.length;c<d;++c)if(a[c]===b)return c;return-1},v=b.prototype.push,w=function(a){for(var d=[],e=0,f=a.length;e<f;++e){if(!b.prototype.isPrototypeOf(a[e]))throw new c("Arr.flatten item "+e+" was not an array, input: "+a);v.apply(d,a[e])}return d},x=function(a,b){var c=k(a,b);return w(c)},y=function(a,b){for(var c=0,d=a.length;c<d;++c){var e=a[c];if(b(e,c,a)!==!0)return!1}return!0},z=function(a,b){return a.length===b.length&&y(a,function(a,c){return a===b[c]})},A=b.prototype.slice,B=function(a){var b=A.call(a,0);return b.reverse(),b},C=function(a,b){return o(a,function(a){return!g(b,a)})},D=function(a,b){for(var c={},e=0,f=a.length;e<f;e++){var g=a[e];c[d(g)]=b(g,e)}return c},E=function(a){return[a]},F=function(a,b){var c=A.call(a,0);return c.sort(b),c},G=function(b){return 0===b.length?a.none():a.some(b[0])},H=function(b){return 0===b.length?a.none():a.some(b[b.length-1])};return{map:k,each:l,eachr:m,partition:n,filter:o,groupBy:p,indexOf:f,foldr:q,foldl:r,find:s,findIndex:t,flatten:w,bind:x,forall:y,exists:h,contains:g,equal:z,reverse:B,chunk:j,difference:C,mapToObject:D,pure:E,sort:F,range:i,head:G,last:H}}),g("3a",["2l","c","2f"],function(a,b,c){var d={file:{title:"File",items:"newdocument restoredraft | preview | print"},edit:{title:"Edit",items:"undo redo | cut copy paste pastetext | selectall"},view:{title:"View",items:"code | visualaid visualchars visualblocks | spellchecker | preview fullscreen"},insert:{title:"Insert",items:"image link media template codesample inserttable | charmap hr | pagebreak nonbreaking anchor toc | insertdatetime"},format:{title:"Format",items:"bold italic underline strikethrough superscript subscript codeformat | blockformats align | removeformat"},tools:{title:"Tools",items:"spellchecker spellcheckerlanguage | a11ycheck"},table:{title:"Table"},help:{title:"Help"}},e=function(){return{name:"|",item:{text:"|"}}},f=function(a,b){var c=b?{name:a,item:b}:null;return"|"===a?e():c},g=function(b,c){return a.findIndex(b,function(a){return a.name===c}).isSome()},h=function(a){return a&&"|"===a.item.text},i=function(b,c){var d=a.filter(b,function(a){return c.hasOwnProperty(a.name)===!1}),e=a.filter(d,function(a,b,c){return!h(a)||!h(c[b-1])});return a.filter(e,function(a,b,c){return!h(a)||b>0&&b<c.length-1})},j=function(c,h,j,k){var l,m,n,o;return h?(m=h[k],o=!0):m=d[k],m&&(l={text:m.title},n=[],b.each((m.items||"").split(/[ ,]/),function(a){var b=f(a,c[a]);b&&n.push(b)}),o||b.each(c,function(a,b){a.context!==k||g(n,b)||("before"===a.separator&&n.push(e()),a.prependToContext?n.unshift(f(b,a)):n.push(f(b,a)),"after"===a.separator&&n.push(e()))}),l.menu=a.map(i(n,j),function(a){return a.item}),!l.menu.length)?null:l},k=function(a){var b,e=[],f=c.getMenu(a);if(f)for(b in f)e.push(b);else for(b in d)e.push(b);return e},l=function(a){for(var d=[],e=k(a),f=b.makeMap(c.getRemovedMenuItems(a).split(/[ ,]/)),g=c.getMenubar(a),h="string"==typeof g?g.split(/[ ,]/):e,i=0;i<h.length;i++){var l=h[i],m=j(a.menuItems,c.getMenu(a),f,l);m&&d.push(m)}return d};return{createMenuButtons:l}}),g("8",["2j","2k","2f"],function(a,b,c){var d=a.DOM,e=function(a){return{width:a.clientWidth,height:a.clientHeight}},f=function(a,f,g){var h,i,j,k;h=a.getContainer(),i=a.getContentAreaContainer().firstChild,j=e(h),k=e(i),null!==f&&(f=Math.max(c.getMinWidth(a),f),f=Math.min(c.getMaxWidth(a),f),d.setStyle(h,"width",f+(j.width-k.width)),d.setStyle(i,"width",f)),g=Math.max(c.getMinHeight(a),g),g=Math.min(c.getMaxHeight(a),g),d.setStyle(i,"height",g),b.fireResizeEditor(a)},g=function(a,b,c){var d=a.getContentAreaContainer();f(a,d.clientWidth+b,d.clientHeight+c)};return{resizeTo:f,resizeBy:g}}),g("14",["6"],function(a){return a("tinymce.Env")}),g("3b",["14","b","c","2k"],function(a,b,c,d){var e=function(a){return{element:function(){return a}}},f=function(a,b,c){var d=a.settings[c];d&&d(e(b.getEl("body")))},g=function(a,b,d){c.each(d,function(c){var d=b.items().filter("#"+c.name)[0];d&&d.visible()&&c.name!==a&&(f(c,d,"onhide"),d.visible(!1))})},h=function(a){a.items().each(function(a){a.active(!1)})},i=function(a,b){return c.grep(a,function(a){return a.name===b})[0]},j=function(a,c,e){return function(j){var k=j.control,l=k.parents().filter("panel")[0],m=l.find("#"+c)[0],n=i(e,c);g(c,l,e),h(k.parent()),m&&m.visible()?(f(n,m,"onhide"),m.hide(),k.active(!1)):(m?(m.show(),f(n,m,"onshow")):(m=b.create({type:"container",name:c,layout:"stack",classes:"sidebar-panel",html:""}),l.prepend(m),f(n,m,"onrender"),f(n,m,"onshow")),k.active(!0)),d.fireResizeEditor(a)}},k=function(){return!a.ie||a.ie>=11},l=function(a){return!(!k()||!a.sidebars)&&a.sidebars.length>0},m=function(a){var b=c.map(a.sidebars,function(b){var c=b.settings;return{type:"button",icon:c.icon,image:c.image,tooltip:c.tooltip,onclick:j(a,b.name,a.sidebars)}});return{type:"panel",name:"sidebar",layout:"stack",classes:"sidebar",items:[{type:"toolbar",layout:"stack",classes:"sidebar-toolbar",items:b}]}};return{hasSidebar:l,createSidebar:m}}),g("3c",["2k"],function(a){var b=function(b){var c=function(){b._skinLoaded=!0,a.fireSkinLoaded(b)};return function(){b.initialized?c():b.on("init",c)}};return{fireSkinLoaded:b}}),g("2g",["2j","b","37","c","2k","2f","38","39","3a","8","3b","3c","3d"],function(a,b,c,d,e,f,g,h,i,j,k,l,m){var n=a.DOM,o=function(a){return function(b){a.find("*").disabled("readonly"===b.mode)}},p=function(a){return{type:"panel",name:"iframe",layout:"stack",classes:"edit-area",border:a,html:""}},q=function(a){return{type:"panel",layout:"stack",classes:"edit-aria-container",border:"1 0 0 0",items:[p("0"),k.createSidebar(a)]}},r=function(a,d,r){var s,t,u;if(f.isSkinDisabled(a)===!1&&r.skinUiCss?n.styleSheetLoader.load(r.skinUiCss,l.fireSkinLoaded(a)):l.fireSkinLoaded(a)(),s=d.panel=b.create({type:"panel",role:"application",classes:"tinymce",style:"visibility: hidden",layout:"stack",border:1,items:[{type:"container",classes:"top-part",items:[f.hasMenubar(a)===!1?null:{type:"menubar",border:"0 0 1 0",items:i.createMenuButtons(a)},m.createToolbars(a,f.getToolbarSize(a))]},k.hasSidebar(a)?q(a):p("1 0 0 0")]}),"none"!==f.getResize(a)&&(t={type:"resizehandle",direction:f.getResize(a),onResizeStart:function(){var b=a.getContentAreaContainer().firstChild;u={width:b.clientWidth,height:b.clientHeight}},onResize:function(b){"both"===f.getResize(a)?j.resizeTo(a,u.width+b.deltaX,u.height+b.deltaY):j.resizeTo(a,null,u.height+b.deltaY)}}),f.hasStatusbar(a)){var v='<a href="https://www.tinymce.com/?utm_campaign=editor_referral&utm_medium=poweredby&utm_source=tinymce" rel="noopener" target="_blank">tinymce</a>',w=c.translate(["Powered by {0}",v]),x=f.isBrandingEnabled(a)?{type:"label",classes:"branding",html:" "+w}:null;s.add({type:"panel",name:"statusbar",classes:"statusbar",layout:"flow",border:"1 0 0 0",ariaRoot:!0,items:[{type:"elementpath",editor:a},t,x]})}return e.fireBeforeRenderUI(a),a.on("SwitchMode",o(s)),s.renderBefore(r.targetNode).reflow(),f.isReadOnly(a)&&a.setMode("readonly"),r.width&&n.setStyle(s.getEl(),"width",r.width),a.on("remove",function(){s.remove(),s=null}),g.addKeys(a,s),h.addContextualToolbars(a),{iframeContainer:s.find("#iframe")[0].getEl(),editorContainer:s.getEl()}};return{render:r}}),g("2o",["6"],function(a){return a("tinymce.dom.DomQuery")}),g("2n",["12","2j","14","c"],function(a,b,c,d){"use strict";var e=0,f={id:function(){return"mceu_"+e++},create:function(c,e,f){var g=a.createElement(c);return b.DOM.setAttribs(g,e),"string"==typeof f?g.innerHTML=f:d.each(f,function(a){a.nodeType&&g.appendChild(a)}),g},createFragment:function(a){return b.DOM.createFragment(a)},getWindowSize:function(){return b.DOM.getViewPort()},getSize:function(a){var b,c;if(a.getBoundingClientRect){var d=a.getBoundingClientRect();b=Math.max(d.width||d.right-d.left,a.offsetWidth),c=Math.max(d.height||d.bottom-d.bottom,a.offsetHeight)}else b=a.offsetWidth,c=a.offsetHeight;return{width:b,height:c}},getPos:function(a,c){return b.DOM.getPos(a,c||f.getContainer())},getContainer:function(){return c.container?c.container:a.body},getViewPort:function(a){return b.DOM.getViewPort(a)},get:function(b){return a.getElementById(b)},addClass:function(a,c){return b.DOM.addClass(a,c)},removeClass:function(a,c){return b.DOM.removeClass(a,c)},hasClass:function(a,c){return b.DOM.hasClass(a,c)},toggleClass:function(a,c,d){return b.DOM.toggleClass(a,c,d)},css:function(a,c,d){return b.DOM.setStyle(a,c,d)},getRuntimeStyle:function(a,c){return b.DOM.getStyle(a,c,!0)},on:function(a,c,d,e){return b.DOM.bind(a,c,d,e)},off:function(a,c,d){return b.DOM.unbind(a,c,d)},fire:function(a,c,d){return b.DOM.fire(a,c,d)},innerHtml:function(a,c){b.DOM.setHTML(a,c)}};return f}),g("1s",["12","1","2n"],function(a,b,c){"use strict";function d(b,d,e){var f,g,h,i,j,k,l,m,n,o;return n=c.getViewPort(),g=c.getPos(d),h=g.x,i=g.y,b.state.get("fixed")&&"static"==c.getRuntimeStyle(a.body,"position")&&(h-=n.x,i-=n.y),f=b.getEl(),o=c.getSize(f),j=o.width,k=o.height,o=c.getSize(d),l=o.width,m=o.height,e=(e||"").split(""),"b"===e[0]&&(i+=m),"r"===e[1]&&(h+=l),"c"===e[0]&&(i+=Math.round(m/2)),"c"===e[1]&&(h+=Math.round(l/2)),"b"===e[3]&&(i-=k),"r"===e[4]&&(h-=j),"c"===e[3]&&(i-=Math.round(k/2)),"c"===e[4]&&(h-=Math.round(j/2)),{x:h,y:i,w:j,h:k}}return{testMoveRel:function(a,b){for(var e=c.getViewPort(),f=0;f<b.length;f++){var g=d(this,a,b[f]);if(this.state.get("fixed")){if(g.x>0&&g.x+g.w<e.w&&g.y>0&&g.y+g.h<e.h)return b[f]}else if(g.x>e.x&&g.x+g.w<e.w+e.x&&g.y>e.y&&g.y+g.h<e.h+e.y)return b[f]}return b[0]},moveRel:function(a,b){"string"!=typeof b&&(b=this.testMoveRel(a,b));var c=d(this,a,b);return this.moveTo(c.x,c.y)},moveBy:function(a,b){var c=this,d=c.layoutRect();return c.moveTo(d.x+a,d.y+b),c},moveTo:function(a,d){function e(a,b,c){return a<0?0:a+c>b?(a=b-c,a<0?0:a):a}var f=this;if(f.settings.constrainToViewport){var g=c.getViewPort(b),h=f.layoutRect();a=e(a,g.w+g.x,h.w),d=e(d,g.h+g.y,h.h)}return f.state.get("rendered")?f.layoutRect({x:a,y:d}).repaint():(f.settings.x=a,f.settings.y=d),f.fire("move",{x:a,y:d}),f}}}),g("2p",["6"],function(a){return a("tinymce.util.Class")}),g("2q",["6"],function(a){return a("tinymce.util.EventDispatcher")}),g("2r",["12"],function(a){"use strict";return{parseBox:function(a){var b,c=10;if(a)return"number"==typeof a?(a=a||0,{top:a,left:a,bottom:a,right:a}):(a=a.split(" "),b=a.length,1===b?a[1]=a[2]=a[3]=a[0]:2===b?(a[2]=a[0],a[3]=a[1]):3===b&&(a[3]=a[1]),{top:parseInt(a[0],c)||0,right:parseInt(a[1],c)||0,bottom:parseInt(a[2],c)||0,left:parseInt(a[3],c)||0})},measureBox:function(b,c){function d(c){var d=a.defaultView;return d?(c=c.replace(/[A-Z]/g,function(a){return"-"+a}),d.getComputedStyle(b,null).getPropertyValue(c)):b.currentStyle[c]}function e(a){var b=parseFloat(d(a),10);return isNaN(b)?0:b}return{top:e(c+"TopWidth"),right:e(c+"RightWidth"),bottom:e(c+"BottomWidth"),left:e(c+"LeftWidth")}}}}),g("2s",["c"],function(a){"use strict";function b(){}function c(a){this.cls=[],this.cls._map={},this.onchange=a||b,this.prefix=""}return a.extend(c.prototype,{add:function(a){return a&&!this.contains(a)&&(this.cls._map[a]=!0,this.cls.push(a),this._change()),this},remove:function(a){if(this.contains(a)){for(var b=0;b<this.cls.length&&this.cls[b]!==a;b++);this.cls.splice(b,1),delete this.cls._map[a],this._change()}return this},toggle:function(a,b){var c=this.contains(a);return c!==b&&(c?this.remove(a):this.add(a),this._change()),this},contains:function(a){return!!this.cls._map[a]},_change:function(){delete this.clsValue,this.onchange.call(this)}}),c.prototype.toString=function(){var a;if(this.clsValue)return this.clsValue;a="";for(var b=0;b<this.cls.length;b++)b>0&&(a+=" "),a+=this.prefix+this.cls[b];return a},c}),g("24",["2p"],function(a){"use strict";function b(a){for(var b,c=[],d=a.length;d--;)b=a[d],b.__checked||(c.push(b),b.__checked=1);for(d=c.length;d--;)delete c[d].__checked;return c}var c,d=/^([\w\\*]+)?(?:#([\w\-\\]+))?(?:\.([\w\\\.]+))?(?:\[\@?([\w\\]+)([\^\$\*!~]?=)([\w\\]+)\])?(?:\:(.+))?/i,e=/((?:\((?:\([^()]+\)|[^()]+)+\)|\[(?:\[[^\[\]]*\]|['"][^'"]*['"]|[^\[\]'"]+)+\]|\\.|[^ >+~,(\[\\]+)+|[>+~])(\s*,\s*)?((?:.|\r|\n)*)/g,f=/^\s*|\s*$/g,g=a.extend({init:function(a){function b(a){if(a)return a=a.toLowerCase(),function(b){return"*"===a||b.type===a}}function c(a){if(a)return function(b){return b._name===a}}function g(a){if(a)return a=a.split("."),function(b){for(var c=a.length;c--;)if(!b.classes.contains(a[c]))return!1;return!0}}function h(a,b,c){if(a)return function(d){var e=d[a]?d[a]():"";return b?"="===b?e===c:"*="===b?e.indexOf(c)>=0:"~="===b?(" "+e+" ").indexOf(" "+c+" ")>=0:"!="===b?e!=c:"^="===b?0===e.indexOf(c):"$="===b&&e.substr(e.length-c.length)===c:!!c}}function i(a){var b;if(a)return a=/(?:not\((.+)\))|(.+)/i.exec(a),a[1]?(b=k(a[1],[]),function(a){return!l(a,b)}):(a=a[2],function(b,c,d){return"first"===a?0===c:"last"===a?c===d-1:"even"===a?c%2===0:"odd"===a?c%2===1:!!b[a]&&b[a]()})}function j(a,e,j){function k(a){a&&e.push(a)}var l;return l=d.exec(a.replace(f,"")),k(b(l[1])),k(c(l[2])),k(g(l[3])),k(h(l[4],l[5],l[6])),k(i(l[7])),e.pseudo=!!l[7],e.direct=j,e}function k(a,b){var c,d,f,g=[];do if(e.exec(""),d=e.exec(a),d&&(a=d[3],g.push(d[1]),d[2])){c=d[3];break}while(d);for(c&&k(c,b),a=[],f=0;f<g.length;f++)">"!=g[f]&&a.push(j(g[f],[],">"===g[f-1]));return b.push(a),b}var l=this.match;this._selectors=k(a,[])},match:function(a,b){var c,d,e,f,g,h,i,j,k,l,m,n,o;for(b=b||this._selectors,c=0,d=b.length;c<d;c++){for(g=b[c],f=g.length,o=a,n=0,e=f-1;e>=0;e--)for(j=g[e];o;){if(j.pseudo)for(m=o.parent().items(),k=l=m.length;k--&&m[k]!==o;);for(h=0,i=j.length;h<i;h++)if(!j[h](o,k,l)){h=i+1;break}if(h===i){n++;break}if(e===f-1)break;o=o.parent()}if(n===f)return!0}return!1},find:function(a){function d(a,b,c){var e,f,g,i,j,k=b[c];for(e=0,f=a.length;e<f;e++){for(j=a[e],g=0,i=k.length;g<i;g++)if(!k[g](j,e,f)){g=i+1;break}if(g===i)c==b.length-1?h.push(j):j.items&&d(j.items(),b,c+1);else if(k.direct)return;j.items&&d(j.items(),b,c)}}var e,f,h=[],i=this._selectors;if(a.items){for(e=0,f=i.length;e<f;e++)d(a.items(),i[e],0);f>1&&(h=b(h))}return c||(c=g.Collection),new c(h)}});return g}),g("i",["c","24","2p"],function(a,b,c){"use strict";var d,e,f=Array.prototype.push,g=Array.prototype.slice;return e={length:0,init:function(a){a&&this.add(a)},add:function(b){var c=this;return a.isArray(b)?f.apply(c,b):b instanceof d?c.add(b.toArray()):f.call(c,b),c},set:function(a){var b,c=this,d=c.length;for(c.length=0,c.add(a),b=c.length;b<d;b++)delete c[b];return c},filter:function(a){var c,e,f,g,h=this,i=[];for("string"==typeof a?(a=new b(a),g=function(b){return a.match(b)}):g=a,c=0,e=h.length;c<e;c++)f=h[c],g(f)&&i.push(f);return new d(i)},slice:function(){return new d(g.apply(this,arguments))},eq:function(a){return a===-1?this.slice(a):this.slice(a,+a+1)},each:function(b){return a.each(this,b),this},toArray:function(){return a.toArray(this)},indexOf:function(a){for(var b=this,c=b.length;c--&&b[c]!==a;);return c},reverse:function(){return new d(a.toArray(this).reverse())},hasClass:function(a){return!!this[0]&&this[0].classes.contains(a)},prop:function(a,b){var c,d,e=this;return b!==c?(e.each(function(c){c[a]&&c[a](b)}),e):(d=e[0],d&&d[a]?d[a]():void 0)},exec:function(b){var c=this,d=a.toArray(arguments).slice(1);return c.each(function(a){a[b]&&a[b].apply(a,d)}),c},remove:function(){for(var a=this.length;a--;)this[a].remove();return this},addClass:function(a){return this.each(function(b){b.classes.add(a)})},removeClass:function(a){return this.each(function(b){b.classes.remove(a)})}},a.each("fire on off show hide append prepend before after reflow".split(" "),function(b){e[b]=function(){var c=a.toArray(arguments);return this.each(function(a){b in a&&a[b].apply(a,c)}),this}}),a.each("text name disabled active selected checked visible parent value data".split(" "),function(a){e[a]=function(b){return this.prop(a,b)}}),d=c.extend(e),b.Collection=d,d}),g("3e",[],function(){function a(a){this.create=a.create}return a.create=function(b,c){return new a({create:function(a,d){function e(b){a.set(d,b.value)}function f(a){b.set(c,a.value)}var g;return a.on("change:"+d,f),b.on("change:"+c,e),g=a._bindings,g||(g=a._bindings=[],a.on("destroy",function(){for(var a=g.length;a--;)g[a]()})),g.push(function(){b.off("change:"+c,e)}),b.get(c)}})},a}),g("3f",["6"],function(a){return a("tinymce.util.Observable")}),g("2t",["3e","2p","3f","c"],function(a,b,c,d){function e(a){return a.nodeType>0}function f(a,b){var c,g;if(a===b)return!0;if(null===a||null===b)return a===b;if("object"!=typeof a||"object"!=typeof b)return a===b;if(d.isArray(b)){if(a.length!==b.length)return!1;for(c=a.length;c--;)if(!f(a[c],b[c]))return!1}if(e(a)||e(b))return a===b;g={};for(c in b){if(!f(a[c],b[c]))return!1;g[c]=!0}for(c in a)if(!g[c]&&!f(a[c],b[c]))return!1;return!0}return b.extend({Mixins:[c],init:function(b){var c,d;b=b||{};for(c in b)d=b[c],d instanceof a&&(b[c]=d.create(this,c));this.data=b},set:function(b,c){var d,e,g=this.data[b];if(c instanceof a&&(c=c.create(this,b)),"object"==typeof b){for(d in b)this.set(d,b[d]);return this}return f(g,c)||(this.data[b]=c,e={target:this,name:b,value:c,oldValue:g},this.fire("change:"+b,e),this.fire("change",e)),this},get:function(a){return this.data[a]},has:function(a){return a in this.data},bind:function(b){return a.create(this,b)},destroy:function(){this.fire("destroy")}})}),g("1z",["12","2u"],function(a,b){var c,d={};return{add:function(e){var f=e.parent();if(f){if(!f._layout||f._layout.isNative())return;d[f._id]||(d[f._id]=f),c||(c=!0,b.requestAnimationFrame(function(){var a,b;c=!1;for(a in d)b=d[a],b.state.get("rendered")&&b.reflow();d={}},a.body))}},remove:function(a){d[a._id]&&delete d[a._id]}}}),g("o",["12","2o","2p","2q","c","2r","2s","i","2t","2n","1z"],function(a,b,c,d,e,f,g,h,i,j,k){"use strict";function l(a){return a._eventDispatcher||(a._eventDispatcher=new d({scope:a,toggleEvent:function(b,c){c&&d.isNative(b)&&(a._nativeEvents||(a._nativeEvents={}),a._nativeEvents[b]=!0,a.state.get("rendered")&&m(a))}})),a._eventDispatcher}function m(a){function c(b){var c=a.getParentCtrl(b.target);c&&c.fire(b.type,b)}function d(){var a=j._lastHoverCtrl;a&&(a.fire("mouseleave",{target:a.getEl()}),a.parents().each(function(a){a.fire("mouseleave",{target:a.getEl()})}),j._lastHoverCtrl=null)}function e(b){var c,d,e,f=a.getParentCtrl(b.target),g=j._lastHoverCtrl,h=0;if(f!==g){if(j._lastHoverCtrl=f,d=f.parents().toArray().reverse(),d.push(f),g){for(e=g.parents().toArray().reverse(),e.push(g),h=0;h<e.length&&d[h]===e[h];h++);for(c=e.length-1;c>=h;c--)g=e[c],g.fire("mouseleave",{target:g.getEl()})}for(c=h;c<d.length;c++)f=d[c],f.fire("mouseenter",{target:f.getEl()})}}function f(b){b.preventDefault(),"mousewheel"==b.type?(b.deltaY=-.025*b.wheelDelta,b.wheelDeltaX&&(b.deltaX=-.025*b.wheelDeltaX)):(b.deltaX=0,b.deltaY=b.detail),b=a.fire("wheel",b)}var g,h,i,j,k,l;if(k=a._nativeEvents){for(i=a.parents().toArray(),i.unshift(a),g=0,h=i.length;!j&&g<h;g++)j=i[g]._eventsRoot;for(j||(j=i[i.length-1]||a),a._eventsRoot=j,h=g,g=0;g<h;g++)i[g]._eventsRoot=j;var m=j._delegates;m||(m=j._delegates={});for(l in k){if(!k)return!1;"wheel"!==l||p?("mouseenter"===l||"mouseleave"===l?j._hasMouseEnter||(b(j.getEl()).on("mouseleave",d).on("mouseover",e),j._hasMouseEnter=1):m[l]||(b(j.getEl()).on(l,c),m[l]=!0),k[l]=!1):o?b(a.getEl()).on("mousewheel",f):b(a.getEl()).on("DOMMouseScroll",f)}}}var n,o="onmousewheel"in a,p=!1,q="mce-",r=0,s={Statics:{classPrefix:q},isRtl:function(){return n.rtl},classPrefix:q,init:function(a){function c(a){var b;for(a=a.split(" "),b=0;b<a.length;b++)j.classes.add(a[b])}var d,h,j=this;j.settings=a=e.extend({},j.Defaults,a),j._id=a.id||"mceu_"+r++,j._aria={role:a.role},j._elmCache={},j.$=b,j.state=new i({visible:!0,active:!1,disabled:!1,value:""}),j.data=new i(a.data),j.classes=new g(function(){j.state.get("rendered")&&(j.getEl().className=this.toString())}),j.classes.prefix=j.classPrefix,d=a.classes,d&&(j.Defaults&&(h=j.Defaults.classes,h&&d!=h&&c(h)),c(d)),e.each("title text name visible disabled active value".split(" "),function(b){b in a&&j[b](a[b])}),j.on("click",function(){if(j.disabled())return!1}),j.settings=a,j.borderBox=f.parseBox(a.border),j.paddingBox=f.parseBox(a.padding),j.marginBox=f.parseBox(a.margin),a.hidden&&j.hide()},Properties:"parent,name",getContainerElm:function(){return j.getContainer()},getParentCtrl:function(a){for(var b,c=this.getRoot().controlIdLookup;a&&c&&!(b=c[a.id]);)a=a.parentNode;return b},initLayoutRect:function(){var a,b,c,d,e,g,h,i,k,l,m=this,n=m.settings,o=m.getEl();a=m.borderBox=m.borderBox||f.measureBox(o,"border"),m.paddingBox=m.paddingBox||f.measureBox(o,"padding"),
-m.marginBox=m.marginBox||f.measureBox(o,"margin"),l=j.getSize(o),i=n.minWidth,k=n.minHeight,e=i||l.width,g=k||l.height,c=n.width,d=n.height,h=n.autoResize,h="undefined"!=typeof h?h:!c&&!d,c=c||e,d=d||g;var p=a.left+a.right,q=a.top+a.bottom,r=n.maxWidth||65535,s=n.maxHeight||65535;return m._layoutRect=b={x:n.x||0,y:n.y||0,w:c,h:d,deltaW:p,deltaH:q,contentW:c-p,contentH:d-q,innerW:c-p,innerH:d-q,startMinWidth:i||0,startMinHeight:k||0,minW:Math.min(e,r),minH:Math.min(g,s),maxW:r,maxH:s,autoResize:h,scrollW:0},m._lastLayoutRect={},b},layoutRect:function(a){var b,c,d,e,f,g,h=this,i=h._layoutRect;return i||(i=h.initLayoutRect()),a?(d=i.deltaW,e=i.deltaH,a.x!==f&&(i.x=a.x),a.y!==f&&(i.y=a.y),a.minW!==f&&(i.minW=a.minW),a.minH!==f&&(i.minH=a.minH),c=a.w,c!==f&&(c=c<i.minW?i.minW:c,c=c>i.maxW?i.maxW:c,i.w=c,i.innerW=c-d),c=a.h,c!==f&&(c=c<i.minH?i.minH:c,c=c>i.maxH?i.maxH:c,i.h=c,i.innerH=c-e),c=a.innerW,c!==f&&(c=c<i.minW-d?i.minW-d:c,c=c>i.maxW-d?i.maxW-d:c,i.innerW=c,i.w=c+d),c=a.innerH,c!==f&&(c=c<i.minH-e?i.minH-e:c,c=c>i.maxH-e?i.maxH-e:c,i.innerH=c,i.h=c+e),a.contentW!==f&&(i.contentW=a.contentW),a.contentH!==f&&(i.contentH=a.contentH),b=h._lastLayoutRect,b.x===i.x&&b.y===i.y&&b.w===i.w&&b.h===i.h||(g=n.repaintControls,g&&g.map&&!g.map[h._id]&&(g.push(h),g.map[h._id]=!0),b.x=i.x,b.y=i.y,b.w=i.w,b.h=i.h),h):i},repaint:function(){var b,c,d,e,f,g,h,i,j,k,l=this;j=a.createRange?function(a){return a}:Math.round,b=l.getEl().style,e=l._layoutRect,i=l._lastRepaintRect||{},f=l.borderBox,g=f.left+f.right,h=f.top+f.bottom,e.x!==i.x&&(b.left=j(e.x)+"px",i.x=e.x),e.y!==i.y&&(b.top=j(e.y)+"px",i.y=e.y),e.w!==i.w&&(k=j(e.w-g),b.width=(k>=0?k:0)+"px",i.w=e.w),e.h!==i.h&&(k=j(e.h-h),b.height=(k>=0?k:0)+"px",i.h=e.h),l._hasBody&&e.innerW!==i.innerW&&(k=j(e.innerW),d=l.getEl("body"),d&&(c=d.style,c.width=(k>=0?k:0)+"px"),i.innerW=e.innerW),l._hasBody&&e.innerH!==i.innerH&&(k=j(e.innerH),d=d||l.getEl("body"),d&&(c=c||d.style,c.height=(k>=0?k:0)+"px"),i.innerH=e.innerH),l._lastRepaintRect=i,l.fire("repaint",{},!1)},updateLayoutRect:function(){var a=this;a.parent()._lastRect=null,j.css(a.getEl(),{width:"",height:""}),a._layoutRect=a._lastRepaintRect=a._lastLayoutRect=null,a.initLayoutRect()},on:function(a,b){function c(a){var b,c;return"string"!=typeof a?a:function(e){return b||d.parentsAndSelf().each(function(d){var e=d.settings.callbacks;if(e&&(b=e[a]))return c=d,!1}),b?b.call(c,e):(e.action=a,void this.fire("execute",e))}}var d=this;return l(d).on(a,c(b)),d},off:function(a,b){return l(this).off(a,b),this},fire:function(a,b,c){var d=this;if(b=b||{},b.control||(b.control=d),b=l(d).fire(a,b),c!==!1&&d.parent)for(var e=d.parent();e&&!b.isPropagationStopped();)e.fire(a,b,!1),e=e.parent();return b},hasEventListeners:function(a){return l(this).has(a)},parents:function(a){var b,c=this,d=new h;for(b=c.parent();b;b=b.parent())d.add(b);return a&&(d=d.filter(a)),d},parentsAndSelf:function(a){return new h(this).add(this.parents(a))},next:function(){var a=this.parent().items();return a[a.indexOf(this)+1]},prev:function(){var a=this.parent().items();return a[a.indexOf(this)-1]},innerHtml:function(a){return this.$el.html(a),this},getEl:function(a){var c=a?this._id+"-"+a:this._id;return this._elmCache[c]||(this._elmCache[c]=b("#"+c)[0]),this._elmCache[c]},show:function(){return this.visible(!0)},hide:function(){return this.visible(!1)},focus:function(){try{this.getEl().focus()}catch(a){}return this},blur:function(){return this.getEl().blur(),this},aria:function(a,b){var c=this,d=c.getEl(c.ariaTarget);return"undefined"==typeof b?c._aria[a]:(c._aria[a]=b,c.state.get("rendered")&&d.setAttribute("role"==a?a:"aria-"+a,b),c)},encode:function(a,b){return b!==!1&&(a=this.translate(a)),(a||"").replace(/[&<>"]/g,function(a){return"&#"+a.charCodeAt(0)+";"})},translate:function(a){return n.translate?n.translate(a):a},before:function(a){var b=this,c=b.parent();return c&&c.insert(a,c.items().indexOf(b),!0),b},after:function(a){var b=this,c=b.parent();return c&&c.insert(a,c.items().indexOf(b)),b},remove:function(){var a,c,d=this,e=d.getEl(),f=d.parent();if(d.items){var g=d.items().toArray();for(c=g.length;c--;)g[c].remove()}f&&f.items&&(a=[],f.items().each(function(b){b!==d&&a.push(b)}),f.items().set(a),f._lastRect=null),d._eventsRoot&&d._eventsRoot==d&&b(e).off();var h=d.getRoot().controlIdLookup;return h&&delete h[d._id],e&&e.parentNode&&e.parentNode.removeChild(e),d.state.set("rendered",!1),d.state.destroy(),d.fire("remove"),d},renderBefore:function(a){return b(a).before(this.renderHtml()),this.postRender(),this},renderTo:function(a){return b(a||this.getContainerElm()).append(this.renderHtml()),this.postRender(),this},preRender:function(){},render:function(){},renderHtml:function(){return'<div id="'+this._id+'" class="'+this.classes+'"></div>'},postRender:function(){var a,c,d,e,f,g=this,h=g.settings;g.$el=b(g.getEl()),g.state.set("rendered",!0);for(e in h)0===e.indexOf("on")&&g.on(e.substr(2),h[e]);if(g._eventsRoot){for(d=g.parent();!f&&d;d=d.parent())f=d._eventsRoot;if(f)for(e in f._nativeEvents)g._nativeEvents[e]=!0}m(g),h.style&&(a=g.getEl(),a&&(a.setAttribute("style",h.style),a.style.cssText=h.style)),g.settings.border&&(c=g.borderBox,g.$el.css({"border-top-width":c.top,"border-right-width":c.right,"border-bottom-width":c.bottom,"border-left-width":c.left}));var i=g.getRoot();i.controlIdLookup||(i.controlIdLookup={}),i.controlIdLookup[g._id]=g;for(var j in g._aria)g.aria(j,g._aria[j]);g.state.get("visible")===!1&&(g.getEl().style.display="none"),g.bindStates(),g.state.on("change:visible",function(a){var b,c=a.value;g.state.get("rendered")&&(g.getEl().style.display=c===!1?"none":"",g.getEl().getBoundingClientRect()),b=g.parent(),b&&(b._lastRect=null),g.fire(c?"show":"hide"),k.add(g)}),g.fire("postrender",{},!1)},bindStates:function(){},scrollIntoView:function(a){function b(a,b){var c,d,e=a;for(c=d=0;e&&e!=b&&e.nodeType;)c+=e.offsetLeft||0,d+=e.offsetTop||0,e=e.offsetParent;return{x:c,y:d}}var c,d,e,f,g,h,i=this.getEl(),j=i.parentNode,k=b(i,j);return c=k.x,d=k.y,e=i.offsetWidth,f=i.offsetHeight,g=j.clientWidth,h=j.clientHeight,"end"==a?(c-=g-e,d-=h-f):"center"==a&&(c-=g/2-e/2,d-=h/2-f/2),j.scrollLeft=c,j.scrollTop=d,this},getRoot:function(){for(var a,b=this,c=[];b;){if(b.rootControl){a=b.rootControl;break}c.push(b),a=b,b=b.parent()}a||(a=this);for(var d=c.length;d--;)c[d].rootControl=a;return a},reflow:function(){k.remove(this);var a=this.parent();return a&&a._layout&&!a._layout.isNative()&&a.reflow(),this}};return e.each("text title visible disabled active value".split(" "),function(a){s[a]=function(b){return 0===arguments.length?this.state.get(a):("undefined"!=typeof b&&this.state.set(a,b),this)}}),n=c.extend(s)}),g("1j",["12"],function(a){"use strict";var b=function(a){return!!a.getAttribute("data-mce-tabstop")};return function(c){function d(a){return a&&1===a.nodeType}function e(a){return a=a||v,d(a)?a.getAttribute("role"):null}function f(a){for(var b,c=a||v;c=c.parentNode;)if(b=e(c))return b}function g(a){var b=v;if(d(b))return b.getAttribute("aria-"+a)}function h(a){var b=a.tagName.toUpperCase();return"INPUT"==b||"TEXTAREA"==b||"SELECT"==b}function i(a){return!(!h(a)||a.hidden)||(!!b(a)||!!/^(button|menuitem|checkbox|tab|menuitemcheckbox|option|gridcell|slider)$/.test(e(a)))}function j(a){function b(a){if(1==a.nodeType&&"none"!=a.style.display&&!a.disabled){i(a)&&c.push(a);for(var d=0;d<a.childNodes.length;d++)b(a.childNodes[d])}}var c=[];return b(a||x.getEl()),c}function k(a){var b,c;a=a||w,c=a.parents().toArray(),c.unshift(a);for(var d=0;d<c.length&&(b=c[d],!b.settings.ariaRoot);d++);return b}function l(a){var b=k(a),c=j(b.getEl());b.settings.ariaRemember&&"lastAriaIndex"in b?m(b.lastAriaIndex,c):m(0,c)}function m(a,b){return a<0?a=b.length-1:a>=b.length&&(a=0),b[a]&&b[a].focus(),a}function n(a,b){var c=-1,d=k();b=b||j(d.getEl());for(var e=0;e<b.length;e++)b[e]===v&&(c=e);c+=a,d.lastAriaIndex=m(c,b)}function o(){var a=f();"tablist"==a?n(-1,j(v.parentNode)):w.parent().submenu?t():n(-1)}function p(){var a=e(),b=f();"tablist"==b?n(1,j(v.parentNode)):"menuitem"==a&&"menu"==b&&g("haspopup")?u():n(1)}function q(){n(-1)}function r(){var a=e(),b=f();"menuitem"==a&&"menubar"==b?u():"button"==a&&g("haspopup")?u({key:"down"}):n(1)}function s(a){var b=f();if("tablist"==b){var c=j(w.getEl("body"))[0];c&&c.focus()}else n(a.shiftKey?-1:1)}function t(){w.fire("cancel")}function u(a){a=a||{},w.fire("click",{target:v,aria:a})}var v,w,x=c.root;try{v=a.activeElement}catch(b){v=a.body}return w=x.getParentCtrl(v),x.on("keydown",function(a){function c(a,c){h(v)||b(v)||"slider"!==e(v)&&c(a)!==!1&&a.preventDefault()}if(!a.isDefaultPrevented())switch(a.keyCode){case 37:c(a,o);break;case 39:c(a,p);break;case 38:c(a,q);break;case 40:c(a,r);break;case 27:t();break;case 14:case 13:case 32:c(a,u);break;case 9:s(a)!==!1&&a.preventDefault()}}),x.on("focusin",function(a){v=a.target,w=a.control}),{focusFirst:l}}}),g("n",["o","i","24","b","1j","c","2o","2s","1z"],function(a,b,c,d,e,f,g,h,i){"use strict";var j={};return a.extend({init:function(a){var c=this;c._super(a),a=c.settings,a.fixed&&c.state.set("fixed",!0),c._items=new b,c.isRtl()&&c.classes.add("rtl"),c.bodyClasses=new h(function(){c.state.get("rendered")&&(c.getEl("body").className=this.toString())}),c.bodyClasses.prefix=c.classPrefix,c.classes.add("container"),c.bodyClasses.add("container-body"),a.containerCls&&c.classes.add(a.containerCls),c._layout=d.create((a.layout||"")+"layout"),c.settings.items?c.add(c.settings.items):c.add(c.render()),c._hasBody=!0},items:function(){return this._items},find:function(a){return a=j[a]=j[a]||new c(a),a.find(this)},add:function(a){var b=this;return b.items().add(b.create(a)).parent(b),b},focus:function(a){var b,c,d,e=this;return a&&(c=e.keyboardNav||e.parents().eq(-1)[0].keyboardNav)?void c.focusFirst(e):(d=e.find("*"),e.statusbar&&d.add(e.statusbar.items()),d.each(function(a){return a.settings.autofocus?(b=null,!1):void(a.canFocus&&(b=b||a))}),b&&b.focus(),e)},replace:function(a,b){for(var c,d=this.items(),e=d.length;e--;)if(d[e]===a){d[e]=b;break}e>=0&&(c=b.getEl(),c&&c.parentNode.removeChild(c),c=a.getEl(),c&&c.parentNode.removeChild(c)),b.parent(this)},create:function(b){var c,e=this,g=[];return f.isArray(b)||(b=[b]),f.each(b,function(b){b&&(b instanceof a||("string"==typeof b&&(b={type:b}),c=f.extend({},e.settings.defaults,b),b.type=c.type=c.type||b.type||e.settings.defaultType||(c.defaults?c.defaults.type:null),b=d.create(c)),g.push(b))}),g},renderNew:function(){var a=this;return a.items().each(function(b,c){var d;b.parent(a),b.state.get("rendered")||(d=a.getEl("body"),d.hasChildNodes()&&c<=d.childNodes.length-1?g(d.childNodes[c]).before(b.renderHtml()):g(d).append(b.renderHtml()),b.postRender(),i.add(b))}),a._layout.applyClasses(a.items().filter(":visible")),a._lastRect=null,a},append:function(a){return this.add(a).renderNew()},prepend:function(a){var b=this;return b.items().set(b.create(a).concat(b.items().toArray())),b.renderNew()},insert:function(a,b,c){var d,e,f,g=this;return a=g.create(a),d=g.items(),!c&&b<d.length-1&&(b+=1),b>=0&&b<d.length&&(e=d.slice(0,b).toArray(),f=d.slice(b).toArray(),d.set(e.concat(a,f))),g.renderNew()},fromJSON:function(a){var b=this;for(var c in a)b.find("#"+c).value(a[c]);return b},toJSON:function(){var a=this,b={};return a.find("*").each(function(a){var c=a.name(),d=a.value();c&&"undefined"!=typeof d&&(b[c]=d)}),b},renderHtml:function(){var a=this,b=a._layout,c=this.settings.role;return a.preRender(),b.preRender(a),'<div id="'+a._id+'" class="'+a.classes+'"'+(c?' role="'+this.settings.role+'"':"")+'><div id="'+a._id+'-body" class="'+a.bodyClasses+'">'+(a.settings.html||"")+b.renderHtml(a)+"</div></div>"},postRender:function(){var a,b=this;return b.items().exec("postRender"),b._super(),b._layout.postRender(b),b.state.set("rendered",!0),b.settings.style&&b.$el.css(b.settings.style),b.settings.border&&(a=b.borderBox,b.$el.css({"border-top-width":a.top,"border-right-width":a.right,"border-bottom-width":a.bottom,"border-left-width":a.left})),b.parent()||(b.keyboardNav=new e({root:b})),b},initLayoutRect:function(){var a=this,b=a._super();return a._layout.recalc(a),b},recalc:function(){var a=this,b=a._layoutRect,c=a._lastRect;if(!c||c.w!=b.w||c.h!=b.h)return a._layout.recalc(a),b=a.layoutRect(),a._lastRect={x:b.x,y:b.y,w:b.w,h:b.h},!0},reflow:function(){var b;if(i.remove(this),this.visible()){for(a.repaintControls=[],a.repaintControls.map={},this.recalc(),b=a.repaintControls.length;b--;)a.repaintControls[b].repaint();"flow"!==this.settings.layout&&"stack"!==this.settings.layout&&this.repaint(),a.repaintControls=[]}return this}})}),g("p",["12","1","2o"],function(a,b,c){"use strict";function d(a){var b,c,d,e,f,g,h,i,j=Math.max;return b=a.documentElement,c=a.body,d=j(b.scrollWidth,c.scrollWidth),e=j(b.clientWidth,c.clientWidth),f=j(b.offsetWidth,c.offsetWidth),g=j(b.scrollHeight,c.scrollHeight),h=j(b.clientHeight,c.clientHeight),i=j(b.offsetHeight,c.offsetHeight),{width:d<f?e:d,height:g<i?h:g}}function e(a){var b,c;if(a.changedTouches)for(b="screenX screenY pageX pageY clientX clientY".split(" "),c=0;c<b.length;c++)a[b[c]]=a.changedTouches[0][b[c]]}return function(f,g){function h(){return p.getElementById(g.handle||f)}var i,j,k,l,m,n,o,p=g.document||a;g=g||{},k=function(a){var f,k,q=d(p);e(a),a.preventDefault(),j=a.button,f=h(),n=a.screenX,o=a.screenY,k=b.getComputedStyle?b.getComputedStyle(f,null).getPropertyValue("cursor"):f.runtimeStyle.cursor,i=c("<div></div>").css({position:"absolute",top:0,left:0,width:q.width,height:q.height,zIndex:2147483647,opacity:1e-4,cursor:k}).appendTo(p.body),c(p).on("mousemove touchmove",m).on("mouseup touchend",l),g.start(a)},m=function(a){return e(a),a.button!==j?l(a):(a.deltaX=a.screenX-n,a.deltaY=a.screenY-o,a.preventDefault(),void g.drag(a))},l=function(a){e(a),c(p).off("mousemove touchmove",m).off("mouseup touchend",l),i.remove(),g.stop&&g.stop(a)},this.destroy=function(){c(h()).off()},c(h()).on("mousedown touchstart",k)}}),g("22",["2o","p"],function(a,b){"use strict";return{init:function(){var a=this;a.on("repaint",a.renderScroll)},renderScroll:function(){function c(){function b(b,g,h,i,j,k){var l,m,n,o,p,q,r,s,t;if(m=e.getEl("scroll"+b)){if(s=g.toLowerCase(),t=h.toLowerCase(),a(e.getEl("absend")).css(s,e.layoutRect()[i]-1),!j)return void a(m).css("display","none");a(m).css("display","block"),l=e.getEl("body"),n=e.getEl("scroll"+b+"t"),o=l["client"+h]-2*f,o-=c&&d?m["client"+k]:0,p=l["scroll"+h],q=o/p,r={},r[s]=l["offset"+g]+f,r[t]=o,a(m).css(r),r={},r[s]=l["scroll"+g]*q,r[t]=o*q,a(n).css(r)}}var c,d,g;g=e.getEl("body"),c=g.scrollWidth>g.clientWidth,d=g.scrollHeight>g.clientHeight,b("h","Left","Width","contentW",c,"Height"),b("v","Top","Height","contentH",d,"Width")}function d(){function c(c,d,g,h,i){var j,k=e._id+"-scroll"+c,l=e.classPrefix;a(e.getEl()).append('<div id="'+k+'" class="'+l+"scrollbar "+l+"scrollbar-"+c+'"><div id="'+k+'t" class="'+l+'scrollbar-thumb"></div></div>'),e.draghelper=new b(k+"t",{start:function(){j=e.getEl("body")["scroll"+d],a("#"+k).addClass(l+"active")},drag:function(a){var b,k,l,m,n=e.layoutRect();k=n.contentW>n.innerW,l=n.contentH>n.innerH,m=e.getEl("body")["client"+g]-2*f,m-=k&&l?e.getEl("scroll"+c)["client"+i]:0,b=m/e.getEl("body")["scroll"+g],e.getEl("body")["scroll"+d]=j+a["delta"+h]/b},stop:function(){a("#"+k).removeClass(l+"active")}})}e.classes.add("scroll"),c("v","Top","Height","Y","Width"),c("h","Left","Width","X","Height")}var e=this,f=2;e.settings.autoScroll&&(e._hasScroll||(e._hasScroll=!0,d(),e.on("wheel",function(a){var b=e.getEl("body");b.scrollLeft+=10*(a.deltaX||0),b.scrollTop+=10*a.deltaY,c()}),a(e.getEl("body")).on("scroll",c)),c())}}}),g("1u",["n","22"],function(a,b){"use strict";return a.extend({Defaults:{layout:"fit",containerCls:"panel"},Mixins:[b],renderHtml:function(){var a=this,b=a._layout,c=a.settings.html;return a.preRender(),b.preRender(a),"undefined"==typeof c?c='<div id="'+a._id+'-body" class="'+a.bodyClasses+'">'+b.renderHtml(a)+"</div>":("function"==typeof c&&(c=c.call(a)),a._hasBody=!1),'<div id="'+a._id+'" class="'+a.classes+'" hidefocus="1" tabindex="-1" role="group">'+(a._preBodyHtml||"")+c+"</div>"}})}),g("20",["2n"],function(a){"use strict";return{resizeToContent:function(){this._layoutRect.autoResize=!0,this._lastRect=null,this.reflow()},resizeTo:function(b,c){if(b<=1||c<=1){var d=a.getWindowSize();b=b<=1?b*d.w:b,c=c<=1?c*d.h:c}return this._layoutRect.autoResize=!1,this.layoutRect({minW:b,minH:c,w:b,h:c}).reflow()},resizeBy:function(a,b){var c=this,d=c.layoutRect();return c.resizeTo(d.w+a,d.h+b)}}}),g("w",["12","1","2o","2u","2n","1s","1u","20"],function(a,b,c,d,e,f,g,h){"use strict";function i(a,b){for(;a;){if(a==b)return!0;a=a.parent()}}function j(a){for(var b=u.length;b--;){var c=u[b],d=c.getParentCtrl(a.target);if(c.settings.autohide){if(d&&(i(d,c)||c.parent()===d))continue;a=c.fire("autohide",{target:a.target}),a.isDefaultPrevented()||c.hide()}}}function k(){q||(q=function(a){2!=a.button&&j(a)},c(a).on("click touchstart",q))}function l(){r||(r=function(){var a;for(a=u.length;a--;)n(u[a])},c(b).on("scroll",r))}function m(){if(!s){var d=a.documentElement,e=d.clientWidth,f=d.clientHeight;s=function(){a.all&&e==d.clientWidth&&f==d.clientHeight||(e=d.clientWidth,f=d.clientHeight,w.hideAll())},c(b).on("resize",s)}}function n(a){function b(b,c){for(var d,e=0;e<u.length;e++)if(u[e]!=a)for(d=u[e].parent();d&&(d=d.parent());)d==a&&u[e].fixed(b).moveBy(0,c).repaint()}var c=e.getViewPort().y;a.settings.autofix&&(a.state.get("fixed")?a._autoFixY>c&&(a.fixed(!1).layoutRect({y:a._autoFixY}).repaint(),b(!1,a._autoFixY-c)):(a._autoFixY=a.layoutRect().y,a._autoFixY<c&&(a.fixed(!0).layoutRect({y:0}).repaint(),b(!0,c-a._autoFixY))))}function o(a,b){var d,e,f=w.zIndex||65535;if(a)v.push(b);else for(d=v.length;d--;)v[d]===b&&v.splice(d,1);if(v.length)for(d=0;d<v.length;d++)v[d].modal&&(f++,e=v[d]),v[d].getEl().style.zIndex=f,v[d].zIndex=f,f++;var g=c("#"+b.classPrefix+"modal-block",b.getContainerElm())[0];e?c(g).css("z-index",e.zIndex-1):g&&(g.parentNode.removeChild(g),t=!1),w.currentZIndex=f}function p(a){var b;for(b=u.length;b--;)u[b]===a&&u.splice(b,1);for(b=v.length;b--;)v[b]===a&&v.splice(b,1)}var q,r,s,t,u=[],v=[],w=g.extend({Mixins:[f,h],init:function(a){var b=this;b._super(a),b._eventsRoot=b,b.classes.add("floatpanel"),a.autohide&&(k(),m(),u.push(b)),a.autofix&&(l(),b.on("move",function(){n(this)})),b.on("postrender show",function(a){if(a.control==b){var e,f=b.classPrefix;b.modal&&!t&&(e=c("#"+f+"modal-block",b.getContainerElm()),e[0]||(e=c('<div id="'+f+'modal-block" class="'+f+"reset "+f+'fade"></div>').appendTo(b.getContainerElm())),d.setTimeout(function(){e.addClass(f+"in"),c(b.getEl()).addClass(f+"in")}),t=!0),o(!0,b)}}),b.on("show",function(){b.parents().each(function(a){if(a.state.get("fixed"))return b.fixed(!0),!1})}),a.popover&&(b._preBodyHtml='<div class="'+b.classPrefix+'arrow"></div>',b.classes.add("popover").add("bottom").add(b.isRtl()?"end":"start")),b.aria("label",a.ariaLabel),b.aria("labelledby",b._id),b.aria("describedby",b.describedBy||b._id+"-none")},fixed:function(a){var b=this;if(b.state.get("fixed")!=a){if(b.state.get("rendered")){var c=e.getViewPort();a?b.layoutRect().y-=c.y:b.layoutRect().y+=c.y}b.classes.toggle("fixed",a),b.state.set("fixed",a)}return b},show:function(){var a,b=this,c=b._super();for(a=u.length;a--&&u[a]!==b;);return a===-1&&u.push(b),c},hide:function(){return p(this),o(!1,this),this._super()},hideAll:function(){w.hideAll()},close:function(){var a=this;return a.fire("close").isDefaultPrevented()||(a.remove(),o(!1,a)),a},remove:function(){p(this),this._super()},postRender:function(){var a=this;return a.settings.bodyRole&&this.getEl("body").setAttribute("role",a.settings.bodyRole),a._super()}});return w.hideAll=function(){for(var a=u.length;a--;){var b=u[a];b&&b.settings.autohide&&(b.hide(),u.splice(a,1))}},w}),g("2h",["12","2j","b","2k","2f","38","39","3a","3c","3d","w"],function(a,b,c,d,e,f,g,h,i,j,k){var l=function(l,m,n){var o,p,q=b.DOM,r=e.getFixedToolbarContainer(l);r&&(p=q.select(r)[0]);var s=function(){if(o&&o.moveRel&&o.visible()&&!o._fixed){var a=l.selection.getScrollContainer(),b=l.getBody(),c=0,d=0;if(a){var e=q.getPos(b),f=q.getPos(a);c=Math.max(0,f.x-e.x),d=Math.max(0,f.y-e.y)}o.fixed(!1).moveRel(b,l.rtl?["tr-br","br-tr"]:["tl-bl","bl-tl","tr-br"]).moveBy(c,d)}},t=function(){o&&(o.show(),s(),q.addClass(l.getBody(),"mce-edit-focus"))},u=function(){o&&(o.hide(),k.hideAll(),q.removeClass(l.getBody(),"mce-edit-focus"))},v=function(){return o?void(o.visible()||t()):(o=m.panel=c.create({type:p?"panel":"floatpanel",role:"application",classes:"tinymce tinymce-inline",layout:"flex",direction:"column",align:"stretch",autohide:!1,autofix:!0,fixed:!!p,border:1,items:[e.hasMenubar(l)===!1?null:{type:"menubar",border:"0 0 1 0",items:h.createMenuButtons(l)},j.createToolbars(l,e.getToolbarSize(l))]}),d.fireBeforeRenderUI(l),o.renderTo(p||a.body).reflow(),f.addKeys(l,o),t(),g.addContextualToolbars(l),l.on("nodeChange",s),l.on("activate",t),l.on("deactivate",u),void l.nodeChanged())};return l.settings.content_editable=!0,l.on("focus",function(){e.isSkinDisabled(l)===!1&&n.skinUiCss?q.styleSheetLoader.load(n.skinUiCss,v,v):v()}),l.on("blur hide",u),l.on("remove",function(){o&&(o.remove(),o=null)}),e.isSkinDisabled(l)===!1&&n.skinUiCss?q.styleSheetLoader.load(n.skinUiCss,i.fireSkinLoaded(l)):i.fireSkinLoaded(l)(),{}};return{render:l}}),g("2b",["2o","o","2u"],function(a,b,c){"use strict";return function(d,e){var f,g,h=this,i=b.classPrefix;h.show=function(b,j){function k(){f&&(a(d).append('<div class="'+i+"throbber"+(e?" "+i+"throbber-inline":"")+'"></div>'),j&&j())}return h.hide(),f=!0,b?g=c.setTimeout(k,b):k(),h},h.hide=function(){var a=d.lastChild;return c.clearTimeout(g),a&&a.className.indexOf("throbber")!=-1&&a.parentNode.removeChild(a),f=!1,h}}}),g("2i",["2b"],function(a){var b=function(b,c){var d;b.on("ProgressState",function(b){d=d||new a(c.panel.getEl("body")),b.state?d.show(b.time):d.hide()})};return{setup:b}}),g("7",["2f","2g","2h","2i"],function(a,b,c,d){var e=function(e,f,g){var h=a.getSkinUrl(e);return h&&(g.skinUiCss=h+"/skin.min.css",e.contentCSS.push(h+"/content"+(e.inline?".inline":"")+".min.css")),d.setup(e,f),a.isInline(e)?c.render(e,f,g):b.render(e,f,g)};return{renderUI:e}}),h("2m",setTimeout),g("2d",["o","1s"],function(a,b){return a.extend({Mixins:[b],Defaults:{classes:"widget tooltip tooltip-n"},renderHtml:function(){var a=this,b=a.classPrefix;return'<div id="'+a._id+'" class="'+a.classes+'" role="presentation"><div class="'+b+'tooltip-arrow"></div><div class="'+b+'tooltip-inner">'+a.encode(a.state.get("text"))+"</div></div>"},bindStates:function(){var a=this;return a.state.on("change:text",function(b){a.getEl().lastChild.innerHTML=a.encode(b.value)}),a._super()},repaint:function(){var a,b,c=this;a=c.getEl().style,b=c._layoutRect,a.left=b.x+"px",a.top=b.y+"px",a.zIndex=131070}})}),g("15",["o","2d"],function(a,b){"use strict";var c,d=a.extend({init:function(a){var b=this;b._super(a),a=b.settings,b.canFocus=!0,a.tooltip&&d.tooltips!==!1&&(b.on("mouseenter",function(c){var d=b.tooltip().moveTo(-65535);if(c.control==b){var e=d.text(a.tooltip).show().testMoveRel(b.getEl(),["bc-tc","bc-tl","bc-tr"]);d.classes.toggle("tooltip-n","bc-tc"==e),d.classes.toggle("tooltip-nw","bc-tl"==e),d.classes.toggle("tooltip-ne","bc-tr"==e),d.moveRel(b.getEl(),e)}else d.hide()}),b.on("mouseleave mousedown click",function(){b.tooltip().hide()})),b.aria("label",a.ariaLabel||a.tooltip)},tooltip:function(){return c||(c=new b({type:"tooltip"}),c.renderTo()),c},postRender:function(){var a=this,b=a.settings;a._super(),a.parent()||!b.width&&!b.height||(a.initLayoutRect(),a.repaint()),b.autofocus&&a.focus()},bindStates:function(){function a(a){c.aria("disabled",a),c.classes.toggle("disabled",a)}function b(a){c.aria("pressed",a),c.classes.toggle("active",a)}var c=this;return c.state.on("change:disabled",function(b){a(b.value)}),c.state.on("change:active",function(a){b(a.value)}),c.state.get("disabled")&&a(!0),c.state.get("active")&&b(!0),c._super()},remove:function(){this._super(),c&&(c.remove(),c=null)}});return d}),g("1x",["15"],function(a){"use strict";return a.extend({Defaults:{value:0},init:function(a){var b=this;b._super(a),b.classes.add("progress"),b.settings.filter||(b.settings.filter=function(a){return Math.round(a)})},renderHtml:function(){var a=this,b=a._id,c=this.classPrefix;return'<div id="'+b+'" class="'+a.classes+'"><div class="'+c+'bar-container"><div class="'+c+'bar"></div></div><div class="'+c+'text">0%</div></div>'},postRender:function(){var a=this;return a._super(),a.value(a.settings.value),a},bindStates:function(){function a(a){a=b.settings.filter(a),b.getEl().lastChild.innerHTML=a+"%",b.getEl().firstChild.firstChild.style.width=a+"%"}var b=this;return b.state.on("change:value",function(b){a(b.value)}),a(b.state.get("value")),b._super()}})}),g("1t",["o","1s","1x","2u"],function(a,b,c,d){var e=function(a,b){a.getEl().lastChild.textContent=b+(a.progressBar?" "+a.progressBar.value()+"%":"")};return a.extend({Mixins:[b],Defaults:{classes:"widget notification"},init:function(a){var b=this;b._super(a),b.maxWidth=a.maxWidth,a.text&&b.text(a.text),a.icon&&(b.icon=a.icon),a.color&&(b.color=a.color),a.type&&b.classes.add("notification-"+a.type),a.timeout&&(a.timeout<0||a.timeout>0)&&!a.closeButton?b.closeButton=!1:(b.classes.add("has-close"),b.closeButton=!0),a.progressBar&&(b.progressBar=new c),b.on("click",function(a){a.target.className.indexOf(b.classPrefix+"close")!=-1&&b.close()})},renderHtml:function(){var a=this,b=a.classPrefix,c="",d="",e="",f="";return a.icon&&(c='<i class="'+b+"ico "+b+"i-"+a.icon+'"></i>'),f=' style="max-width: '+a.maxWidth+"px;"+(a.color?"background-color: "+a.color+';"':'"'),a.closeButton&&(d='<button type="button" class="'+b+'close" aria-hidden="true">\xd7</button>'),a.progressBar&&(e=a.progressBar.renderHtml()),'<div id="'+a._id+'" class="'+a.classes+'"'+f+' role="presentation">'+c+'<div class="'+b+'notification-inner">'+a.state.get("text")+"</div>"+e+d+'<div style="clip: rect(1px, 1px, 1px, 1px);height: 1px;overflow: hidden;position: absolute;width: 1px;" aria-live="assertive" aria-relevant="additions" aria-atomic="true"></div></div>'},postRender:function(){var a=this;return d.setTimeout(function(){a.$el.addClass(a.classPrefix+"in"),e(a,a.state.get("text"))},100),a._super()},bindStates:function(){var a=this;return a.state.on("change:text",function(b){a.getEl().firstChild.innerHTML=b.value,e(a,b.value)}),a.progressBar&&(a.progressBar.bindStates(),a.progressBar.state.on("change:value",function(b){e(a,a.state.get("text"))})),a._super()},close:function(){var a=this;return a.fire("close").isDefaultPrevented()||a.remove(),a},repaint:function(){var a,b,c=this;a=c.getEl().style,b=c._layoutRect,a.left=b.x+"px",a.top=b.y+"px",a.zIndex=65534}})}),g("9",["2l","2m","c","2n","1t"],function(a,b,c,d,e){return function(f){var g=function(a){return a.inline?a.getElement():a.getContentAreaContainer()},h=function(){var a=g(f);return d.getSize(a).width},i=function(b){a.each(b,function(a){a.moveTo(0,0)})},j=function(b){if(b.length>0){var c=b.slice(0,1)[0],d=g(f);c.moveRel(d,"tc-tc"),a.each(b,function(a,c){c>0&&a.moveRel(b[c-1].getEl(),"bc-tc")})}},k=function(a){i(a),j(a)},l=function(a,d){var f=c.extend(a,{maxWidth:h()}),g=new e(f);return g.args=f,f.timeout>0&&(g.timer=b(function(){g.close(),d()},f.timeout)),g.on("close",function(){d()}),g.renderTo(),g},m=function(a){a.close()},n=function(a){return a.args};return{open:l,close:m,reposition:k,getArgs:n}}}),g("2e",["12","2m","1","2o","14","2u","2r","2n","p","w","1u"],function(a,b,c,d,e,f,g,h,i,j,k){"use strict";function l(b){var c,f="width=device-width,initial-scale=1.0,user-scalable=0,minimum-scale=1.0,maximum-scale=1.0",g=d("meta[name=viewport]")[0];e.overrideViewPort!==!1&&(g||(g=a.createElement("meta"),g.setAttribute("name","viewport"),a.getElementsByTagName("head")[0].appendChild(g)),c=g.getAttribute("content"),c&&"undefined"!=typeof q&&(q=c),g.setAttribute("content",b?f:q))}function m(b,c){n()&&c===!1&&d([a.documentElement,a.body]).removeClass(b+"fullscreen")}function n(){for(var a=0;a<p.length;a++)if(p[a]._fullscreen)return!0;return!1}function o(){function a(){var a,b,c=h.getWindowSize();for(a=0;a<p.length;a++)b=p[a].layoutRect(),p[a].moveTo(p[a].settings.x||Math.max(0,c.w/2-b.w/2),p[a].settings.y||Math.max(0,c.h/2-b.h/2))}if(!e.desktop){var b={w:c.innerWidth,h:c.innerHeight};f.setInterval(function(){var a=c.innerWidth,e=c.innerHeight;b.w==a&&b.h==e||(b={w:a,h:e},d(c).trigger("resize"))},100)}d(c).on("resize",a)}var p=[],q="",r=j.extend({modal:!0,Defaults:{border:1,layout:"flex",containerCls:"panel",role:"dialog",callbacks:{submit:function(){this.fire("submit",{data:this.toJSON()})},close:function(){this.close()}}},init:function(a){var b=this;b._super(a),b.isRtl()&&b.classes.add("rtl"),b.classes.add("window"),b.bodyClasses.add("window-body"),b.state.set("fixed",!0),a.buttons&&(b.statusbar=new k({layout:"flex",border:"1 0 0 0",spacing:3,padding:10,align:"center",pack:b.isRtl()?"start":"end",defaults:{type:"button"},items:a.buttons}),b.statusbar.classes.add("foot"),b.statusbar.parent(b)),b.on("click",function(a){var c=b.classPrefix+"close";(h.hasClass(a.target,c)||h.hasClass(a.target.parentNode,c))&&b.close()}),b.on("cancel",function(){b.close()}),b.aria("describedby",b.describedBy||b._id+"-none"),b.aria("label",a.title),b._fullscreen=!1},recalc:function(){var a,b,c,d,e=this,f=e.statusbar;e._fullscreen&&(e.layoutRect(h.getWindowSize()),e.layoutRect().contentH=e.layoutRect().innerH),e._super(),a=e.layoutRect(),e.settings.title&&!e._fullscreen&&(b=a.headerW,b>a.w&&(c=a.x-Math.max(0,b/2),e.layoutRect({w:b,x:c}),d=!0)),f&&(f.layoutRect({w:e.layoutRect().innerW}).recalc(),b=f.layoutRect().minW+a.deltaW,b>a.w&&(c=a.x-Math.max(0,b-a.w),e.layoutRect({w:b,x:c}),d=!0)),d&&e.recalc()},initLayoutRect:function(){var a,b=this,c=b._super(),d=0;if(b.settings.title&&!b._fullscreen){a=b.getEl("head");var e=h.getSize(a);c.headerW=e.width,c.headerH=e.height,d+=c.headerH}b.statusbar&&(d+=b.statusbar.layoutRect().h),c.deltaH+=d,c.minH+=d,c.h+=d;var f=h.getWindowSize();return c.x=b.settings.x||Math.max(0,f.w/2-c.w/2),c.y=b.settings.y||Math.max(0,f.h/2-c.h/2),c},renderHtml:function(){var a=this,b=a._layout,c=a._id,d=a.classPrefix,e=a.settings,f="",g="",h=e.html;return a.preRender(),b.preRender(a),e.title&&(f='<div id="'+c+'-head" class="'+d+'window-head"><div id="'+c+'-title" class="'+d+'title">'+a.encode(e.title)+'</div><div id="'+c+'-dragh" class="'+d+'dragh"></div><button type="button" class="'+d+'close" aria-hidden="true"><i class="mce-ico mce-i-remove"></i></button></div>'),e.url&&(h='<iframe src="'+e.url+'" tabindex="-1"></iframe>'),"undefined"==typeof h&&(h=b.renderHtml(a)),a.statusbar&&(g=a.statusbar.renderHtml()),'<div id="'+c+'" class="'+a.classes+'" hidefocus="1"><div class="'+a.classPrefix+'reset" role="application">'+f+'<div id="'+c+'-body" class="'+a.bodyClasses+'">'+h+"</div>"+g+"</div></div>"},fullscreen:function(b){var e,i,j=this,k=a.documentElement,l=j.classPrefix;if(b!=j._fullscreen)if(d(c).on("resize",function(){var a;if(j._fullscreen)if(e)j._timer||(j._timer=f.setTimeout(function(){var a=h.getWindowSize();j.moveTo(0,0).resizeTo(a.w,a.h),j._timer=0},50));else{a=(new Date).getTime();var b=h.getWindowSize();j.moveTo(0,0).resizeTo(b.w,b.h),(new Date).getTime()-a>50&&(e=!0)}}),i=j.layoutRect(),j._fullscreen=b,b){j._initial={x:i.x,y:i.y,w:i.w,h:i.h},j.borderBox=g.parseBox("0"),j.getEl("head").style.display="none",i.deltaH-=i.headerH+2,d([k,a.body]).addClass(l+"fullscreen"),j.classes.add("fullscreen");var m=h.getWindowSize();j.moveTo(0,0).resizeTo(m.w,m.h)}else j.borderBox=g.parseBox(j.settings.border),j.getEl("head").style.display="",i.deltaH+=i.headerH,d([k,a.body]).removeClass(l+"fullscreen"),j.classes.remove("fullscreen"),j.moveTo(j._initial.x,j._initial.y).resizeTo(j._initial.w,j._initial.h);return j.reflow()},postRender:function(){var a,c=this;
-b(function(){c.classes.add("in"),c.fire("open")},0),c._super(),c.statusbar&&c.statusbar.postRender(),c.focus(),this.dragHelper=new i(c._id+"-dragh",{start:function(){a={x:c.layoutRect().x,y:c.layoutRect().y}},drag:function(b){c.moveTo(a.x+b.deltaX,a.y+b.deltaY)}}),c.on("submit",function(a){a.isDefaultPrevented()||c.close()}),p.push(c),l(!0)},submit:function(){return this.fire("submit",{data:this.toJSON()})},remove:function(){var a,b=this;for(b.dragHelper.destroy(),b._super(),b.statusbar&&this.statusbar.remove(),m(b.classPrefix,!1),a=p.length;a--;)p[a]===b&&p.splice(a,1);l(p.length>0)},getContentWindow:function(){var a=this.getEl().getElementsByTagName("iframe")[0];return a?a.contentWindow:null}});return o(),r}),g("1r",["12","2e"],function(a,b){"use strict";var c=b.extend({init:function(a){a={border:1,padding:20,layout:"flex",pack:"center",align:"center",containerCls:"panel",autoScroll:!0,buttons:{type:"button",text:"Ok",action:"ok"},items:{type:"label",multiline:!0,maxWidth:500,maxHeight:200}},this._super(a)},Statics:{OK:1,OK_CANCEL:2,YES_NO:3,YES_NO_CANCEL:4,msgBox:function(d){function e(a,b,c){return{type:"button",text:a,subtype:c?"primary":"",onClick:function(a){a.control.parents()[1].close(),g(b)}}}var f,g=d.callback||function(){};switch(d.buttons){case c.OK_CANCEL:f=[e("Ok",!0,!0),e("Cancel",!1)];break;case c.YES_NO:case c.YES_NO_CANCEL:f=[e("Yes",1,!0),e("No",0)],d.buttons==c.YES_NO_CANCEL&&f.push(e("Cancel",-1));break;default:f=[e("Ok",!0,!0)]}return new b({padding:20,x:d.x,y:d.y,minWidth:300,minHeight:100,layout:"flex",pack:"center",align:"center",buttons:f,title:d.title,role:"alertdialog",items:{type:"label",multiline:!0,maxWidth:500,maxHeight:200,text:d.text},onPostRender:function(){this.aria("describedby",this.items()[0]._id)},onClose:d.onClose,onCancel:function(){g(!1)}}).renderTo(a.body).reflow()},alert:function(a,b){return"string"==typeof a&&(a={text:a}),a.callback=b,c.msgBox(a)},confirm:function(a,b){return"string"==typeof a&&(a={text:a}),a.callback=b,a.buttons=c.OK_CANCEL,c.msgBox(a)}}});return c}),g("a",["2e","1r"],function(a,b){return function(c){var d=function(b,c,d){var e;return b.title=b.title||" ",b.url=b.url||b.file,b.url&&(b.width=parseInt(b.width||320,10),b.height=parseInt(b.height||240,10)),b.body&&(b.items={defaults:b.defaults,type:b.bodyType||"form",items:b.body,data:b.data,callbacks:b.commands}),b.url||b.buttons||(b.buttons=[{text:"Ok",subtype:"primary",onclick:function(){e.find("form")[0].submit()}},{text:"Cancel",onclick:function(){e.close()}}]),e=new a(b),e.on("close",function(){d(e)}),b.data&&e.on("postRender",function(){this.find("*").each(function(a){var c=a.name();c in b.data&&a.value(b.data[c])})}),e.features=b||{},e.params=c||{},e=e.renderTo().reflow()},e=function(a,c,d){var e;return e=b.alert(a,function(){c()}),e.on("close",function(){d(e)}),e},f=function(a,c,d){var e;return e=b.confirm(a,function(a){c(a)}),e.on("close",function(){d(e)}),e},g=function(a){a.close()},h=function(a){return a.params},i=function(a,b){a.params=b};return{open:d,alert:e,confirm:f,close:g,getParams:h,setParams:i}}}),g("3",["7","8","9","a"],function(a,b,c,d){var e=function(e){var f=function(b){return a.renderUI(e,this,b)},g=function(a,c){return b.resizeTo(e,a,c)},h=function(a,c){return b.resizeBy(e,a,c)},i=function(){return c(e)},j=function(){return d(e)};return{renderUI:f,resizeTo:g,resizeBy:h,getNotificationManagerImpl:i,getWindowManagerImpl:j}};return{get:e}}),g("1l",["2p","c"],function(a,b){"use strict";return a.extend({Defaults:{firstControlClass:"first",lastControlClass:"last"},init:function(a){this.settings=b.extend({},this.Defaults,a)},preRender:function(a){a.bodyClasses.add(this.settings.containerClass)},applyClasses:function(a){var b,c,d,e,f=this,g=f.settings;b=g.firstControlClass,c=g.lastControlClass,a.each(function(a){a.classes.remove(b).remove(c).add(g.controlClass),a.visible()&&(d||(d=a),e=a)}),d&&d.classes.add(b),e&&e.classes.add(c)},renderHtml:function(a){var b=this,c="";return b.applyClasses(a.items()),a.items().each(function(a){c+=a.renderHtml()}),c},recalc:function(){},postRender:function(){},isNative:function(){return!1}})}),g("d",["1l"],function(a){"use strict";return a.extend({Defaults:{containerClass:"abs-layout",controlClass:"abs-layout-item"},recalc:function(a){a.items().filter(":visible").each(function(a){var b=a.settings;a.layoutRect({x:b.x,y:b.y,w:b.w,h:b.h}),a.recalc&&a.recalc()})},renderHtml:function(a){return'<div id="'+a._id+'-absend" class="'+a.classPrefix+'abs-end"></div>'+this._super(a)}})}),g("f",["12","1","15"],function(a,b,c){"use strict";return c.extend({Defaults:{classes:"widget btn",role:"button"},init:function(a){var b,c=this;c._super(a),a=c.settings,b=c.settings.size,c.on("click mousedown",function(a){a.preventDefault()}),c.on("touchstart",function(a){c.fire("click",a),a.preventDefault()}),a.subtype&&c.classes.add(a.subtype),b&&c.classes.add("btn-"+b),a.icon&&c.icon(a.icon)},icon:function(a){return arguments.length?(this.state.set("icon",a),this):this.state.get("icon")},repaint:function(){var a,b=this.getEl().firstChild;b&&(a=b.style,a.width=a.height="100%"),this._super()},renderHtml:function(){var a,c=this,d=c._id,e=c.classPrefix,f=c.state.get("icon"),g=c.state.get("text"),h="";return a=c.settings.image,a?(f="none","string"!=typeof a&&(a=b.getSelection?a[0]:a[1]),a=" style=\"background-image: url('"+a+"')\""):a="",g&&(c.classes.add("btn-has-text"),h='<span class="'+e+'txt">'+c.encode(g)+"</span>"),f=f?e+"ico "+e+"i-"+f:"",'<div id="'+d+'" class="'+c.classes+'" tabindex="-1"><button id="'+d+'-button" role="presentation" type="button" tabindex="-1">'+(f?'<i class="'+f+'"'+a+"></i>":"")+h+"</button></div>"},bindStates:function(){function b(a){var b=d("span."+e,c.getEl());a?(b[0]||(d("button:first",c.getEl()).append('<span class="'+e+'"></span>'),b=d("span."+e,c.getEl())),b.html(c.encode(a))):b.remove(),c.classes.toggle("btn-has-text",!!a)}var c=this,d=c.$,e=c.classPrefix+"txt";return c.state.on("change:text",function(a){b(a.value)}),c.state.on("change:icon",function(d){var e=d.value,f=c.classPrefix;c.settings.icon=e,e=e?f+"ico "+f+"i-"+c.settings.icon:"";var g=c.getEl().firstChild,h=g.getElementsByTagName("i")[0];e?(h&&h==g.firstChild||(h=a.createElement("i"),g.insertBefore(h,g.firstChild)),h.className=e):h&&g.removeChild(h),b(c.state.get("text"))}),c._super()}})}),h("2v",RegExp),g("e",["f","c","2n","2o","2v"],function(a,b,c,d,e){return a.extend({init:function(a){var c=this;a=b.extend({text:"Browse...",multiple:!1,accept:null},a),c._super(a),c.classes.add("browsebutton"),a.multiple&&c.classes.add("multiple")},postRender:function(){var a=this,b=c.create("input",{type:"file",id:a._id+"-browse",accept:a.settings.accept});a._super(),d(b).on("change",function(b){var c=b.target.files;a.value=function(){return c.length?a.settings.multiple?c:c[0]:null},b.preventDefault(),c.length&&a.fire("change",b)}),d(b).on("click",function(a){a.stopPropagation()}),d(a.getEl("button")).on("click",function(a){a.stopPropagation(),b.click()}),a.getEl().appendChild(b)},remove:function(){d(this.getEl("button")).off(),d(this.getEl("input")).off(),this._super()}})}),g("g",["n"],function(a){"use strict";return a.extend({Defaults:{defaultType:"button",role:"group"},renderHtml:function(){var a=this,b=a._layout;return a.classes.add("btn-group"),a.preRender(),b.preRender(a),'<div id="'+a._id+'" class="'+a.classes+'"><div id="'+a._id+'-body">'+(a.settings.html||"")+b.renderHtml(a)+"</div></div>"}})}),g("h",["12","15"],function(a,b){"use strict";return b.extend({Defaults:{classes:"checkbox",role:"checkbox",checked:!1},init:function(a){var b=this;b._super(a),b.on("click mousedown",function(a){a.preventDefault()}),b.on("click",function(a){a.preventDefault(),b.disabled()||b.checked(!b.checked())}),b.checked(b.settings.checked)},checked:function(a){return arguments.length?(this.state.set("checked",a),this):this.state.get("checked")},value:function(a){return arguments.length?this.checked(a):this.checked()},renderHtml:function(){var a=this,b=a._id,c=a.classPrefix;return'<div id="'+b+'" class="'+a.classes+'" unselectable="on" aria-labelledby="'+b+'-al" tabindex="-1"><i class="'+c+"ico "+c+'i-checkbox"></i><span id="'+b+'-al" class="'+c+'label">'+a.encode(a.state.get("text"))+"</span></div>"},bindStates:function(){function b(a){c.classes.toggle("checked",a),c.aria("checked",a)}var c=this;return c.state.on("change:text",function(a){c.getEl("al").firstChild.data=c.translate(a.value)}),c.state.on("change:checked change:value",function(a){c.fire("change"),b(a.value)}),c.state.on("change:icon",function(b){var d=b.value,e=c.classPrefix;if("undefined"==typeof d)return c.settings.icon;c.settings.icon=d,d=d?e+"ico "+e+"i-"+c.settings.icon:"";var f=c.getEl().firstChild,g=f.getElementsByTagName("i")[0];d?(g&&g==f.firstChild||(g=a.createElement("i"),f.insertBefore(g,f.firstChild)),g.className=d):g&&f.removeChild(g)}),c.state.get("checked")&&b(!0),c._super()}})}),g("2w",["6"],function(a){return a("tinymce.util.VK")}),g("m",["12","2o","b","c","2w","2n","15"],function(a,b,c,d,e,f,g){"use strict";return g.extend({init:function(a){var c=this;c._super(a),a=c.settings,c.classes.add("combobox"),c.subinput=!0,c.ariaTarget="inp",a.menu=a.menu||a.values,a.menu&&(a.icon="caret"),c.on("click",function(d){var e=d.target,f=c.getEl();if(b.contains(f,e)||e==f)for(;e&&e!=f;)e.id&&e.id.indexOf("-open")!=-1&&(c.fire("action"),a.menu&&(c.showMenu(),d.aria&&c.menu.items()[0].focus())),e=e.parentNode}),c.on("keydown",function(a){var b;13==a.keyCode&&"INPUT"===a.target.nodeName&&(a.preventDefault(),c.parents().reverse().each(function(a){if(a.toJSON)return b=a,!1}),c.fire("submit",{data:b.toJSON()}))}),c.on("keyup",function(a){if("INPUT"==a.target.nodeName){var b=c.state.get("value"),d=a.target.value;d!==b&&(c.state.set("value",d),c.fire("autocomplete",a))}}),c.on("mouseover",function(a){var b=c.tooltip().moveTo(-65535);if(c.statusLevel()&&a.target.className.indexOf(c.classPrefix+"status")!==-1){var d=c.statusMessage()||"Ok",e=b.text(d).show().testMoveRel(a.target,["bc-tc","bc-tl","bc-tr"]);b.classes.toggle("tooltip-n","bc-tc"==e),b.classes.toggle("tooltip-nw","bc-tl"==e),b.classes.toggle("tooltip-ne","bc-tr"==e),b.moveRel(a.target,e)}})},statusLevel:function(a){return arguments.length>0&&this.state.set("statusLevel",a),this.state.get("statusLevel")},statusMessage:function(a){return arguments.length>0&&this.state.set("statusMessage",a),this.state.get("statusMessage")},showMenu:function(){var a,b=this,d=b.settings;b.menu||(a=d.menu||[],a.length?a={type:"menu",items:a}:a.type=a.type||"menu",b.menu=c.create(a).parent(b).renderTo(b.getContainerElm()),b.fire("createmenu"),b.menu.reflow(),b.menu.on("cancel",function(a){a.control===b.menu&&b.focus()}),b.menu.on("show hide",function(a){a.control.items().each(function(a){a.active(a.value()==b.value())})}).fire("show"),b.menu.on("select",function(a){b.value(a.control.value())}),b.on("focusin",function(a){"INPUT"==a.target.tagName.toUpperCase()&&b.menu.hide()}),b.aria("expanded",!0)),b.menu.show(),b.menu.layoutRect({w:b.layoutRect().w}),b.menu.moveRel(b.getEl(),b.isRtl()?["br-tr","tr-br"]:["bl-tl","tl-bl"])},focus:function(){this.getEl("inp").focus()},repaint:function(){var c,d,e=this,g=e.getEl(),h=e.getEl("open"),i=e.layoutRect(),j=0,k=g.firstChild;e.statusLevel()&&"none"!==e.statusLevel()&&(j=parseInt(f.getRuntimeStyle(k,"padding-right"),10)-parseInt(f.getRuntimeStyle(k,"padding-left"),10)),c=h?i.w-f.getSize(h).width-10:i.w-10;var l=a;return l.all&&(!l.documentMode||l.documentMode<=8)&&(d=e.layoutRect().h-2+"px"),b(k).css({width:c-j,lineHeight:d}),e._super(),e},postRender:function(){var a=this;return b(this.getEl("inp")).on("change",function(b){a.state.set("value",b.target.value),a.fire("change",b)}),a._super()},renderHtml:function(){var a,b,c=this,d=c._id,e=c.settings,f=c.classPrefix,g=c.state.get("value")||"",h="",i="",j="";return"spellcheck"in e&&(i+=' spellcheck="'+e.spellcheck+'"'),e.maxLength&&(i+=' maxlength="'+e.maxLength+'"'),e.size&&(i+=' size="'+e.size+'"'),e.subtype&&(i+=' type="'+e.subtype+'"'),j='<i id="'+d+'-status" class="mce-status mce-ico" style="display: none"></i>',c.disabled()&&(i+=' disabled="disabled"'),a=e.icon,a&&"caret"!=a&&(a=f+"ico "+f+"i-"+e.icon),b=c.state.get("text"),(a||b)&&(h='<div id="'+d+'-open" class="'+f+"btn "+f+'open" tabIndex="-1" role="button"><button id="'+d+'-action" type="button" hidefocus="1" tabindex="-1">'+("caret"!=a?'<i class="'+a+'"></i>':'<i class="'+f+'caret"></i>')+(b?(a?" ":"")+b:"")+"</button></div>",c.classes.add("has-open")),'<div id="'+d+'" class="'+c.classes+'"><input id="'+d+'-inp" class="'+f+'textbox" value="'+c.encode(g,!1)+'" hidefocus="1"'+i+' placeholder="'+c.encode(e.placeholder)+'" />'+j+h+"</div>"},value:function(a){return arguments.length?(this.state.set("value",a),this):(this.state.get("rendered")&&this.state.set("value",this.getEl("inp").value),this.state.get("value"))},showAutoComplete:function(a,b){var e=this;if(0===a.length)return void e.hideMenu();var f=function(a,b){return function(){e.fire("selectitem",{title:b,value:a})}};e.menu?e.menu.items().remove():e.menu=c.create({type:"menu",classes:"combobox-menu",layout:"flow"}).parent(e).renderTo(),d.each(a,function(a){e.menu.add({text:a.title,url:a.previewUrl,match:b,classes:"menu-item-ellipsis",onclick:f(a.value,a.title)})}),e.menu.renderNew(),e.hideMenu(),e.menu.on("cancel",function(a){a.control.parent()===e.menu&&(a.stopPropagation(),e.focus(),e.hideMenu())}),e.menu.on("select",function(){e.focus()});var g=e.layoutRect().w;e.menu.layoutRect({w:g,minW:0,maxW:g}),e.menu.reflow(),e.menu.show(),e.menu.moveRel(e.getEl(),e.isRtl()?["br-tr","tr-br"]:["bl-tl","tl-bl"])},hideMenu:function(){this.menu&&this.menu.hide()},bindStates:function(){var a=this;a.state.on("change:value",function(b){a.getEl("inp").value!=b.value&&(a.getEl("inp").value=b.value)}),a.state.on("change:disabled",function(b){a.getEl("inp").disabled=b.value}),a.state.on("change:statusLevel",function(b){var c=a.getEl("status"),d=a.classPrefix,e=b.value;f.css(c,"display","none"===e?"none":""),f.toggleClass(c,d+"i-checkmark","ok"===e),f.toggleClass(c,d+"i-warning","warn"===e),f.toggleClass(c,d+"i-error","error"===e),a.classes.toggle("has-status","none"!==e),a.repaint()}),f.on(a.getEl("status"),"mouseleave",function(){a.tooltip().hide()}),a.on("cancel",function(b){a.menu&&a.menu.visible()&&(b.stopPropagation(),a.hideMenu())});var b=function(a,b){b&&b.items().length>0&&b.items().eq(a)[0].focus()};return a.on("keydown",function(c){var d=c.keyCode;"INPUT"===c.target.nodeName&&(d===e.DOWN?(c.preventDefault(),a.fire("autocomplete"),b(0,a.menu)):d===e.UP&&(c.preventDefault(),b(-1,a.menu)))}),a._super()},remove:function(){b(this.getEl("inp")).off(),this.menu&&this.menu.remove(),this._super()}})}),g("j",["m"],function(a){"use strict";return a.extend({init:function(a){var b=this;a.spellcheck=!1,a.onaction&&(a.icon="none"),b._super(a),b.classes.add("colorbox"),b.on("change keyup postrender",function(){b.repaintColor(b.value())})},repaintColor:function(a){var b=this.getEl("open"),c=b?b.getElementsByTagName("i")[0]:null;if(c)try{c.style.background=a}catch(a){}},bindStates:function(){var a=this;return a.state.on("change:value",function(b){a.state.get("rendered")&&a.repaintColor(b.value)}),a._super()}})}),g("1v",["f","w"],function(a,b){"use strict";return a.extend({showPanel:function(){var a=this,c=a.settings;if(a.classes.add("opened"),a.panel)a.panel.show();else{var d=c.panel;d.type&&(d={layout:"grid",items:d}),d.role=d.role||"dialog",d.popover=!0,d.autohide=!0,d.ariaRoot=!0,a.panel=new b(d).on("hide",function(){a.classes.remove("opened")}).on("cancel",function(b){b.stopPropagation(),a.focus(),a.hidePanel()}).parent(a).renderTo(a.getContainerElm()),a.panel.fire("show"),a.panel.reflow()}var e=a.panel.testMoveRel(a.getEl(),c.popoverAlign||(a.isRtl()?["bc-tc","bc-tl","bc-tr"]:["bc-tc","bc-tr","bc-tl"]));a.panel.classes.toggle("start","bc-tl"===e),a.panel.classes.toggle("end","bc-tr"===e),a.panel.moveRel(a.getEl(),e)},hidePanel:function(){var a=this;a.panel&&a.panel.hide()},postRender:function(){var a=this;return a.aria("haspopup",!0),a.on("click",function(b){b.control===a&&(a.panel&&a.panel.visible()?a.hidePanel():(a.showPanel(),a.panel.focus(!!b.aria)))}),a._super()},remove:function(){return this.panel&&(this.panel.remove(),this.panel=null),this._super()}})}),g("k",["1v","2j"],function(a,b){"use strict";var c=b.DOM;return a.extend({init:function(a){this._super(a),this.classes.add("splitbtn"),this.classes.add("colorbutton")},color:function(a){return a?(this._color=a,this.getEl("preview").style.backgroundColor=a,this):this._color},resetColor:function(){return this._color=null,this.getEl("preview").style.backgroundColor=null,this},renderHtml:function(){var a=this,b=a._id,c=a.classPrefix,d=a.state.get("text"),e=a.settings.icon?c+"ico "+c+"i-"+a.settings.icon:"",f=a.settings.image?" style=\"background-image: url('"+a.settings.image+"')\"":"",g="";return d&&(a.classes.add("btn-has-text"),g='<span class="'+c+'txt">'+a.encode(d)+"</span>"),'<div id="'+b+'" class="'+a.classes+'" role="button" tabindex="-1" aria-haspopup="true"><button role="presentation" hidefocus="1" type="button" tabindex="-1">'+(e?'<i class="'+e+'"'+f+"></i>":"")+'<span id="'+b+'-preview" class="'+c+'preview"></span>'+g+'</button><button type="button" class="'+c+'open" hidefocus="1" tabindex="-1"> <i class="'+c+'caret"></i></button></div>'},postRender:function(){var a=this,b=a.settings.onclick;return a.on("click",function(d){d.aria&&"down"===d.aria.key||d.control!=a||c.getParent(d.target,"."+a.classPrefix+"open")||(d.stopImmediatePropagation(),b.call(a,d))}),delete a.settings.onclick,a._super()}})}),g("2x",["6"],function(a){return a("tinymce.util.Color")}),g("l",["15","p","2n","2x"],function(a,b,c,d){"use strict";return a.extend({Defaults:{classes:"widget colorpicker"},init:function(a){this._super(a)},postRender:function(){function a(a,b){var d,e,f=c.getPos(a);return d=b.pageX-f.x,e=b.pageY-f.y,d=Math.max(0,Math.min(d/a.clientWidth,1)),e=Math.max(0,Math.min(e/a.clientHeight,1)),{x:d,y:e}}function e(a,b){var e=(360-a.h)/360;c.css(j,{top:100*e+"%"}),b||c.css(l,{left:a.s+"%",top:100-a.v+"%"}),k.style.background=new d({s:100,v:100,h:a.h}).toHex(),m.color().parse({s:a.s,v:a.v,h:a.h})}function f(b){var c;c=a(k,b),h.s=100*c.x,h.v=100*(1-c.y),e(h),m.fire("change")}function g(b){var c;c=a(i,b),h=n.toHsv(),h.h=360*(1-c.y),e(h,!0),m.fire("change")}var h,i,j,k,l,m=this,n=m.color();i=m.getEl("h"),j=m.getEl("hp"),k=m.getEl("sv"),l=m.getEl("svp"),m._repaint=function(){h=n.toHsv(),e(h)},m._super(),m._svdraghelper=new b(m._id+"-sv",{start:f,drag:f}),m._hdraghelper=new b(m._id+"-h",{start:g,drag:g}),m._repaint()},rgb:function(){return this.color().toRgb()},value:function(a){var b=this;return arguments.length?(b.color().parse(a),void(b._rendered&&b._repaint())):b.color().toHex()},color:function(){return this._color||(this._color=new d),this._color},renderHtml:function(){function a(){var a,b,c,d,g="";for(c="filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=",d=f.split(","),a=0,b=d.length-1;a<b;a++)g+='<div class="'+e+'colorpicker-h-chunk" style="height:'+100/b+"%;"+c+d[a]+",endColorstr="+d[a+1]+");-ms-"+c+d[a]+",endColorstr="+d[a+1]+')"></div>';return g}var b,c=this,d=c._id,e=c.classPrefix,f="#ff0000,#ff0080,#ff00ff,#8000ff,#0000ff,#0080ff,#00ffff,#00ff80,#00ff00,#80ff00,#ffff00,#ff8000,#ff0000",g="background: -ms-linear-gradient(top,"+f+");background: linear-gradient(to bottom,"+f+");";return b='<div id="'+d+'-h" class="'+e+'colorpicker-h" style="'+g+'">'+a()+'<div id="'+d+'-hp" class="'+e+'colorpicker-h-marker"></div></div>','<div id="'+d+'" class="'+c.classes+'"><div id="'+d+'-sv" class="'+e+'colorpicker-sv"><div class="'+e+'colorpicker-overlay1"><div class="'+e+'colorpicker-overlay2"><div id="'+d+'-svp" class="'+e+'colorpicker-selector1"><div class="'+e+'colorpicker-selector2"></div></div></div></div></div>'+b+"</div>"}})}),g("q",["15","c","2n","2v"],function(a,b,c,d){return a.extend({init:function(a){var c=this;a=b.extend({height:100,text:"Drop an image here",multiple:!1,accept:null},a),c._super(a),c.classes.add("dropzone"),a.multiple&&c.classes.add("multiple")},renderHtml:function(){var a,b,d=this,e=d.settings;return a={id:d._id,hidefocus:"1"},b=c.create("div",a,"<span>"+this.translate(e.text)+"</span>"),e.height&&c.css(b,"height",e.height+"px"),e.width&&c.css(b,"width",e.width+"px"),b.className=d.classes,b.outerHTML},postRender:function(){var a=this,c=function(b){b.preventDefault(),a.classes.toggle("dragenter"),a.getEl().className=a.classes},e=function(c){var e=a.settings.accept;if("string"!=typeof e)return c;var f=new d("("+e.split(/\s*,\s*/).join("|")+")$","i");return b.grep(c,function(a){return f.test(a.name)})};a._super(),a.$el.on("dragover",function(a){a.preventDefault()}),a.$el.on("dragenter",c),a.$el.on("dragleave",c),a.$el.on("drop",function(b){if(b.preventDefault(),!a.state.get("disabled")){var c=e(b.dataTransfer.files);a.value=function(){return c.length?a.settings.multiple?c:c[0]:null},c.length&&a.fire("change",b)}})},remove:function(){this.$el.off(),this._super()}})}),g("1w",["15"],function(a){"use strict";return a.extend({init:function(a){var b=this;a.delimiter||(a.delimiter="\xbb"),b._super(a),b.classes.add("path"),b.canFocus=!0,b.on("click",function(a){var c,d=a.target;(c=d.getAttribute("data-index"))&&b.fire("select",{value:b.row()[c],index:c})}),b.row(b.settings.row)},focus:function(){var a=this;return a.getEl().firstChild.focus(),a},row:function(a){return arguments.length?(this.state.set("row",a),this):this.state.get("row")},renderHtml:function(){var a=this;return'<div id="'+a._id+'" class="'+a.classes+'">'+a._getDataPathHtml(a.state.get("row"))+"</div>"},bindStates:function(){var a=this;return a.state.on("change:row",function(b){a.innerHtml(a._getDataPathHtml(b.value))}),a._super()},_getDataPathHtml:function(a){var b,c,d=this,e=a||[],f="",g=d.classPrefix;for(b=0,c=e.length;b<c;b++)f+=(b>0?'<div class="'+g+'divider" aria-hidden="true"> '+d.settings.delimiter+" </div>":"")+'<div role="button" class="'+g+"path-item"+(b==c-1?" "+g+"last":"")+'" data-index="'+b+'" tabindex="-1" id="'+d._id+"-"+b+'" aria-level="'+(b+1)+'">'+e[b].name+"</div>";return f||(f='<div class="'+g+'path-item">\xa0</div>'),f}})}),g("r",["1w"],function(a){return a.extend({postRender:function(){function a(a){if(1===a.nodeType){if("BR"==a.nodeName||a.getAttribute("data-mce-bogus"))return!0;if("bookmark"===a.getAttribute("data-mce-type"))return!0}return!1}var b=this,c=b.settings.editor;return c.settings.elementpath!==!1&&(b.on("select",function(a){c.focus(),c.selection.select(this.row()[a.index].element),c.nodeChanged()}),c.on("nodeChange",function(d){for(var e=[],f=d.parents,g=f.length;g--;)if(1==f[g].nodeType&&!a(f[g])){var h=c.fire("ResolveName",{name:f[g].nodeName.toLowerCase(),target:f[g]});if(h.isDefaultPrevented()||e.push({name:h.name,element:f[g]}),h.isPropagationStopped())break}b.row(e)})),b._super()}})}),g("1f",["n"],function(a){"use strict";return a.extend({Defaults:{layout:"flex",align:"center",defaults:{flex:1}},renderHtml:function(){var a=this,b=a._layout,c=a.classPrefix;return a.classes.add("formitem"),b.preRender(a),'<div id="'+a._id+'" class="'+a.classes+'" hidefocus="1" tabindex="-1">'+(a.settings.title?'<div id="'+a._id+'-title" class="'+c+'title">'+a.settings.title+"</div>":"")+'<div id="'+a._id+'-body" class="'+a.bodyClasses+'">'+(a.settings.html||"")+b.renderHtml(a)+"</div></div>"}})}),g("y",["n","1f","c"],function(a,b,c){"use strict";return a.extend({Defaults:{containerCls:"form",layout:"flex",direction:"column",align:"stretch",flex:1,padding:15,labelGap:30,spacing:10,callbacks:{submit:function(){this.submit()}}},preRender:function(){var a=this,d=a.items();a.settings.formItemDefaults||(a.settings.formItemDefaults={layout:"flex",autoResize:"overflow",defaults:{flex:1}}),d.each(function(d){var e,f=d.settings.label;f&&(e=new b(c.extend({items:{type:"label",id:d._id+"-l",text:f,flex:0,forId:d._id,disabled:d.disabled()}},a.settings.formItemDefaults)),e.type="formitem",d.aria("labelledby",d._id+"-l"),"undefined"==typeof d.settings.flex&&(d.settings.flex=1),a.replace(d,e),e.add(d))})},submit:function(){return this.fire("submit",{data:this.toJSON()})},postRender:function(){var a=this;a._super(),a.fromJSON(a.settings.data)},bindStates:function(){function a(){var a,c,d,e=0,f=[];if(b.settings.labelGapCalc!==!1)for(d="children"==b.settings.labelGapCalc?b.find("formitem"):b.items(),d.filter("formitem").each(function(a){var b=a.items()[0],c=b.getEl().clientWidth;e=c>e?c:e,f.push(b)}),c=b.settings.labelGap||0,a=f.length;a--;)f[a].settings.minWidth=e+c}var b=this;b._super(),b.on("show",a),a()}})}),g("s",["y"],function(a){"use strict";return a.extend({Defaults:{containerCls:"fieldset",layout:"flex",direction:"column",align:"stretch",flex:1,padding:"25 15 5 15",labelGap:30,spacing:10,border:1},renderHtml:function(){var a=this,b=a._layout,c=a.classPrefix;return a.preRender(),b.preRender(a),'<fieldset id="'+a._id+'" class="'+a.classes+'" hidefocus="1" tabindex="-1">'+(a.settings.title?'<legend id="'+a._id+'-title" class="'+c+'fieldset-title">'+a.settings.title+"</legend>":"")+'<div id="'+a._id+'-body" class="'+a.bodyClasses+'">'+(a.settings.html||"")+b.renderHtml(a)+"</div></fieldset>"}})}),h("3r",Date),h("3s",Math),g("3i",["3r","3s","3h"],function(a,b,c){var d=0,e=function(e){var f=new a,g=f.getTime(),h=b.floor(1e9*b.random());return d++,e+"_"+h+d+c(g)};return{generate:e}}),g("31",[],function(){return"undefined"==typeof console&&(console={log:function(){}}),console}),g("10",["z","2z","31","12"],function(a,b,c,d){var e=function(a,b){var e=b||d,f=e.createElement("div");if(f.innerHTML=a,!f.hasChildNodes()||f.childNodes.length>1)throw c.error("HTML does not have a single root node",a),"HTML must have a single root node";return h(f.childNodes[0])},f=function(a,b){var c=b||d,e=c.createElement(a);return h(e)},g=function(a,b){var c=b||d,e=c.createTextNode(a);return h(e)},h=function(c){if(null===c||void 0===c)throw new b("Node cannot be null or undefined");return{dom:a.constant(c)}};return{fromHtml:e,fromTag:f,fromText:g,fromDom:h}}),g("3u",[],function(){var a=function(a){var b,c=!1;return function(){return c||(c=!0,b=a.apply(null,arguments)),b}};return{cached:a}}),g("3n",[],function(){return{ATTRIBUTE:2,CDATA_SECTION:4,COMMENT:8,DOCUMENT:9,DOCUMENT_TYPE:10,DOCUMENT_FRAGMENT:11,ELEMENT:1,TEXT:3,PROCESSING_INSTRUCTION:7,ENTITY_REFERENCE:5,ENTITY:6,NOTATION:12}}),g("3o",["3n"],function(a){var b=function(a){var b=a.dom().nodeName;return b.toLowerCase()},c=function(a){return a.dom().nodeType},d=function(a){return a.dom().nodeValue},e=function(a){return function(b){return c(b)===a}},f=function(d){return c(d)===a.COMMENT||"#comment"===b(d)},g=e(a.ELEMENT),h=e(a.TEXT),i=e(a.DOCUMENT);return{name:b,type:c,value:d,isElement:g,isText:h,isDocument:i,isComment:f}}),g("3l",["3u","10","3o","12"],function(a,b,c,d){var e=function(a){var b=c.isText(a)?a.dom().parentNode:a.dom();return void 0!==b&&null!==b&&b.ownerDocument.body.contains(b)},f=a.cached(function(){return g(b.fromDom(d))}),g=function(a){var c=a.dom().body;if(null===c||void 0===c)throw"Body is not available yet";return b.fromDom(c)};return{body:f,getBody:g,inBody:e}}),g("3k",["2y","3h"],function(a,b){var c=function(c){if(null===c)return"null";var d=typeof c;return"object"===d&&a.prototype.isPrototypeOf(c)?"array":"object"===d&&b.prototype.isPrototypeOf(c)?"string":d},d=function(a){return function(b){return c(b)===a}};return{isString:d("string"),isObject:d("object"),isArray:d("array"),isNull:d("null"),isBoolean:d("boolean"),isUndefined:d("undefined"),isFunction:d("function"),isNumber:d("number")}}),g("49",["2l","z","2y","2z"],function(a,b,c,d){return function(){var e=arguments;return function(){for(var f=new c(arguments.length),g=0;g<f.length;g++)f[g]=arguments[g];if(e.length!==f.length)throw new d('Wrong number of arguments to struct. Expected "['+e.length+']", got '+f.length+" arguments");var h={};return a.each(e,function(a,c){h[a]=b.constant(f[c])}),h}}}),g("4e",["3g","3q"],function(a,b){var c=function(){var a=b.keys,c=function(a){var b=[];for(var c in a)a.hasOwnProperty(c)&&b.push(c);return b};return void 0===a?c:a}(),d=function(a,b){for(var d=c(a),e=0,f=d.length;e<f;e++){var g=d[e],h=a[g];b(h,g,a)}},e=function(a,b){return f(a,function(a,c,d){return{k:c,v:b(a,c,d)}})},f=function(a,b){var c={};return d(a,function(d,e){var f=b(d,e,a);c[f.k]=f.v}),c},g=function(a,b){var c={},e={};return d(a,function(a,d){var f=b(a,d)?c:e;f[d]=a}),{t:c,f:e}},h=function(a,b){var c=[];return d(a,function(a,d){c.push(b(a,d))}),c},i=function(b,d){for(var e=c(b),f=0,g=e.length;f<g;f++){var h=e[f],i=b[h];if(d(i,h,b))return a.some(i)}return a.none()},j=function(a){return h(a,function(a){return a})},k=function(a){return j(a).length};return{bifilter:g,each:d,map:e,mapToArray:h,tupleMap:f,find:i,keys:c,values:j,size:k}}),g("4f",["2l","3k","2z"],function(a,b,c){var d=function(a){return a.slice(0).sort()},e=function(a,b){throw new c("All required keys ("+d(a).join(", ")+") were not specified. Specified keys were: "+d(b).join(", ")+".")},f=function(a){throw new c("Unsupported keys for object: "+d(a).join(", "))},g=function(d,e){if(!b.isArray(e))throw new c("The "+d+" fields must be an array. Was: "+e+".");a.each(e,function(a){if(!b.isString(a))throw new c("The value "+a+" in the "+d+" fields was not a string.")})},h=function(a,b){throw new c("All values need to be of type: "+b+". Keys ("+d(a).join(", ")+") were not.")},i=function(b){var e=d(b),f=a.find(e,function(a,b){return b<e.length-1&&a===e[b+1]});f.each(function(a){throw new c("The field: "+a+" occurs more than once in the combined fields: ["+e.join(", ")+"].")})};return{sort:d,reqMessage:e,unsuppMessage:f,validateStrArr:g,invalidTypeMessage:h,checkDupes:i}}),g("4a",["2l","z","4e","3g","4f","2z","3q"],function(a,b,c,d,e,f,g){return function(h,i){var j=h.concat(i);if(0===j.length)throw new f("You must specify at least one required or optional field.");return e.validateStrArr("required",h),e.validateStrArr("optional",i),e.checkDupes(j),function(f){var k=c.keys(f),l=a.forall(h,function(b){return a.contains(k,b)});l||e.reqMessage(h,k);var m=a.filter(k,function(b){return!a.contains(j,b)});m.length>0&&e.unsuppMessage(m);var n={};return a.each(h,function(a){n[a]=b.constant(f[a])}),a.each(i,function(a){n[a]=b.constant(g.prototype.hasOwnProperty.call(f,a)?d.some(f[a]):d.none())}),n}}}),g("41",["49","4a"],function(a,b){return{immutable:a,immutableBag:b}}),g("42",[],function(){var a=function(a,b){var c=[],d=function(a){return c.push(a),b(a)},e=b(a);do e=e.bind(d);while(e.isSome());return c};return{toArray:a}}),g("4b",[],function(){return"undefined"!=typeof window?window:Function("return this;")()}),g("43",["4b"],function(a){var b=function(b,c){for(var d=void 0!==c?c:a,e=0;e<b.length&&void 0!==d&&null!==d;++e)d=d[b[e]];return d},c=function(a,c){var d=a.split(".");return b(d,c)},d=function(a,b){return void 0!==a[b]&&null!==a[b]||(a[b]={}),a[b]},e=function(b,c){for(var e=void 0!==c?c:a,f=0;f<b.length;++f)e=d(e,b[f]);return e},f=function(a,b){var c=a.split(".");return e(c,b)};return{path:b,resolve:c,forge:e,namespace:f}}),g("3y",["43"],function(a){var b=function(b,c){return a.resolve(b,c)},c=function(a,c){var d=b(a,c);if(void 0===d)throw a+" not available on this browser";return d};return{getOrDie:c}}),g("3v",["3y"],function(a){var b=function(){var b=a.getOrDie("Node");return b},c=function(a,b,c){return 0!==(a.compareDocumentPosition(b)&c)},d=function(a,d){return c(a,d,b().DOCUMENT_POSITION_PRECEDING)},e=function(a,d){return c(a,d,b().DOCUMENT_POSITION_CONTAINED_BY)};return{documentPositionPreceding:d,documentPositionContainedBy:e}}),h("4g",Number),g("4c",["2l","4g","3h"],function(a,b,c){var d=function(a,b){for(var c=0;c<a.length;c++){var d=a[c];if(d.test(b))return d}},e=function(a,c){var e=d(a,c);if(!e)return{major:0,minor:0};var f=function(a){return b(c.replace(e,"$"+a))};return h(f(1),f(2))},f=function(a,b){
-var d=c(b).toLowerCase();return 0===a.length?g():e(a,d)},g=function(){return h(0,0)},h=function(a,b){return{major:a,minor:b}};return{nu:h,detect:f,unknown:g}}),g("44",["z","4c"],function(a,b){var c="Edge",d="Chrome",e="IE",f="Opera",g="Firefox",h="Safari",i=function(a,b){return function(){return b===a}},j=function(){return k({current:void 0,version:b.unknown()})},k=function(a){var b=a.current,j=a.version;return{current:b,version:j,isEdge:i(c,b),isChrome:i(d,b),isIE:i(e,b),isOpera:i(f,b),isFirefox:i(g,b),isSafari:i(h,b)}};return{unknown:j,nu:k,edge:a.constant(c),chrome:a.constant(d),ie:a.constant(e),opera:a.constant(f),firefox:a.constant(g),safari:a.constant(h)}}),g("45",["z","4c"],function(a,b){var c="Windows",d="iOS",e="Android",f="Linux",g="OSX",h="Solaris",i="FreeBSD",j=function(a,b){return function(){return b===a}},k=function(){return l({current:void 0,version:b.unknown()})},l=function(a){var b=a.current,k=a.version;return{current:b,version:k,isWindows:j(c,b),isiOS:j(d,b),isAndroid:j(e,b),isOSX:j(g,b),isLinux:j(f,b),isSolaris:j(h,b),isFreeBSD:j(i,b)}};return{unknown:k,nu:l,windows:a.constant(c),ios:a.constant(d),android:a.constant(e),linux:a.constant(f),osx:a.constant(g),solaris:a.constant(h),freebsd:a.constant(i)}}),g("46",["z"],function(a){return function(b,c,d){var e=b.isiOS()&&/ipad/i.test(d)===!0,f=b.isiOS()&&!e,g=b.isAndroid()&&3===b.version.major,h=b.isAndroid()&&4===b.version.major,i=e||g||h&&/mobile/i.test(d)===!0,j=b.isiOS()||b.isAndroid(),k=j&&!i,l=c.isSafari()&&b.isiOS()&&/safari/i.test(d)===!1;return{isiPad:a.constant(e),isiPhone:a.constant(f),isTablet:a.constant(i),isPhone:a.constant(k),isTouch:a.constant(j),isAndroid:b.isAndroid,isiOS:b.isiOS,isWebView:a.constant(l)}}}),g("47",["2l","4c","3h"],function(a,b,c){var d=function(b,d){var e=c(d).toLowerCase();return a.find(b,function(a){return a.search(e)})},e=function(a,c){return d(a,c).map(function(a){var d=b.detect(a.versionRegexes,c);return{current:a.name,version:d}})},f=function(a,c){return d(a,c).map(function(a){var d=b.detect(a.versionRegexes,c);return{current:a.name,version:d}})};return{detectBrowser:e,detectOs:f}}),g("4h",[],function(){var a=function(a,b){return b+a},b=function(a,b){return a+b},c=function(a,b){return a.substring(b)},d=function(a,b){return a.substring(0,a.length-b)};return{addToStart:a,addToEnd:b,removeFromStart:c,removeFromEnd:d}}),g("4i",["3g","2z"],function(a,b){var c=function(a,b){return a.substr(0,b)},d=function(a,b){return a.substr(a.length-b,a.length)},e=function(b){return""===b?a.none():a.some(b.substr(0,1))},f=function(b){return""===b?a.none():a.some(b.substring(1))};return{first:c,last:d,head:e,tail:f}}),g("4d",["4h","4i","2z"],function(a,b,c){var d=function(a,b,c){if(""===b)return!0;if(a.length<b.length)return!1;var d=a.substr(c,c+b.length);return d===b},e=function(a,b){var c=function(a){var b=typeof a;return"string"===b||"number"===b};return a.replace(/\${([^{}]*)}/g,function(a,d){var e=b[d];return c(e)?e:a})},f=function(b,c){return l(b,c)?a.removeFromStart(b,c.length):b},g=function(b,c){return m(b,c)?a.removeFromEnd(b,c.length):b},h=function(b,c){return l(b,c)?b:a.addToStart(b,c)},i=function(b,c){return m(b,c)?b:a.addToEnd(b,c)},j=function(a,b){return a.indexOf(b)!==-1},k=function(a){return b.head(a).bind(function(c){return b.tail(a).map(function(a){return c.toUpperCase()+a})}).getOr(a)},l=function(a,b){return d(a,b,0)},m=function(a,b){return d(a,b,a.length-b.length)},n=function(a){return a.replace(/^\s+|\s+$/g,"")},o=function(a){return a.replace(/^\s+/g,"")},p=function(a){return a.replace(/\s+$/g,"")};return{supplant:e,startsWith:l,removeLeading:f,removeTrailing:g,ensureLeading:h,ensureTrailing:i,endsWith:m,contains:j,trim:n,lTrim:o,rTrim:p,capitalize:k}}),g("48",["z","4d"],function(a,b){var c=/.*?version\/\ ?([0-9]+)\.([0-9]+).*/,d=function(a){return function(c){return b.contains(c,a)}},e=[{name:"Edge",versionRegexes:[/.*?edge\/ ?([0-9]+)\.([0-9]+)$/],search:function(a){var c=b.contains(a,"edge/")&&b.contains(a,"chrome")&&b.contains(a,"safari")&&b.contains(a,"applewebkit");return c}},{name:"Chrome",versionRegexes:[/.*?chrome\/([0-9]+)\.([0-9]+).*/,c],search:function(a){return b.contains(a,"chrome")&&!b.contains(a,"chromeframe")}},{name:"IE",versionRegexes:[/.*?msie\ ?([0-9]+)\.([0-9]+).*/,/.*?rv:([0-9]+)\.([0-9]+).*/],search:function(a){return b.contains(a,"msie")||b.contains(a,"trident")}},{name:"Opera",versionRegexes:[c,/.*?opera\/([0-9]+)\.([0-9]+).*/],search:d("opera")},{name:"Firefox",versionRegexes:[/.*?firefox\/\ ?([0-9]+)\.([0-9]+).*/],search:d("firefox")},{name:"Safari",versionRegexes:[c,/.*?cpu os ([0-9]+)_([0-9]+).*/],search:function(a){return(b.contains(a,"safari")||b.contains(a,"mobile/"))&&b.contains(a,"applewebkit")}}],f=[{name:"Windows",search:d("win"),versionRegexes:[/.*?windows\ nt\ ?([0-9]+)\.([0-9]+).*/]},{name:"iOS",search:function(a){return b.contains(a,"iphone")||b.contains(a,"ipad")},versionRegexes:[/.*?version\/\ ?([0-9]+)\.([0-9]+).*/,/.*cpu os ([0-9]+)_([0-9]+).*/,/.*cpu iphone os ([0-9]+)_([0-9]+).*/]},{name:"Android",search:d("android"),versionRegexes:[/.*?android\ ?([0-9]+)\.([0-9]+).*/]},{name:"OSX",search:d("os x"),versionRegexes:[/.*?os\ x\ ?([0-9]+)_([0-9]+).*/]},{name:"Linux",search:d("linux"),versionRegexes:[]},{name:"Solaris",search:d("sunos"),versionRegexes:[]},{name:"FreeBSD",search:d("freebsd"),versionRegexes:[]}];return{browsers:a.constant(e),oses:a.constant(f)}}),g("3z",["44","45","46","47","48"],function(a,b,c,d,e){var f=function(f){var g=e.browsers(),h=e.oses(),i=d.detectBrowser(g,f).fold(a.unknown,a.nu),j=d.detectOs(h,f).fold(b.unknown,b.nu),k=c(j,i,f);return{browser:i,os:j,deviceType:k}};return{detect:f}}),h("40",navigator),g("3w",["3u","3z","40"],function(a,b,c){var d=a.cached(function(){var a=c.userAgent;return b.detect(a)});return{detect:d}}),g("33",["2l","3g","10","3n","2z","12"],function(a,b,c,d,e,f){var g=0,h=1,i=2,j=3,k=function(){var a=f.createElement("span");return void 0!==a.matches?g:void 0!==a.msMatchesSelector?h:void 0!==a.webkitMatchesSelector?i:void 0!==a.mozMatchesSelector?j:-1}(),l=d.ELEMENT,m=d.DOCUMENT,n=function(a,b){var c=a.dom();if(c.nodeType!==l)return!1;if(k===g)return c.matches(b);if(k===h)return c.msMatchesSelector(b);if(k===i)return c.webkitMatchesSelector(b);if(k===j)return c.mozMatchesSelector(b);throw new e("Browser lacks native selectors")},o=function(a){return a.nodeType!==l&&a.nodeType!==m||0===a.childElementCount},p=function(b,d){var e=void 0===d?f:d.dom();return o(e)?[]:a.map(e.querySelectorAll(b),c.fromDom)},q=function(a,d){var e=void 0===d?f:d.dom();return o(e)?b.none():b.from(e.querySelector(a)).map(c.fromDom)};return{all:p,is:n,one:q}}),g("3m",["2l","z","3v","3w","33"],function(a,b,c,d,e){var f=function(a,b){return a.dom()===b.dom()},g=function(a,b){return a.dom().isEqualNode(b.dom())},h=function(c,d){return a.exists(d,b.curry(f,c))},i=function(a,b){var c=a.dom(),d=b.dom();return c!==d&&c.contains(d)},j=function(a,b){return c.documentPositionContainedBy(a.dom(),b.dom())},k=d.detect().browser,l=k.isIE()?j:i;return{eq:f,isEqualNode:g,member:h,contains:l,is:e.is}}),g("3x",["3k","2l","z","3g","41","42","3m","10"],function(a,b,c,d,e,f,g,h){var i=function(a){return h.fromDom(a.dom().ownerDocument)},j=function(a){var b=i(a);return h.fromDom(b.dom().documentElement)},k=function(a){var b=a.dom(),c=b.ownerDocument.defaultView;return h.fromDom(c)},l=function(a){var b=a.dom();return d.from(b.parentNode).map(h.fromDom)},m=function(a){return l(a).bind(function(c){var d=u(c);return b.findIndex(d,function(b){return g.eq(a,b)})})},n=function(b,d){for(var e=a.isFunction(d)?d:c.constant(!1),f=b.dom(),g=[];null!==f.parentNode&&void 0!==f.parentNode;){var i=f.parentNode,j=h.fromDom(i);if(g.push(j),e(j)===!0)break;f=i}return g},o=function(a){var c=function(c){return b.filter(c,function(b){return!g.eq(a,b)})};return l(a).map(u).map(c).getOr([])},p=function(a){var b=a.dom();return d.from(b.offsetParent).map(h.fromDom)},q=function(a){var b=a.dom();return d.from(b.previousSibling).map(h.fromDom)},r=function(a){var b=a.dom();return d.from(b.nextSibling).map(h.fromDom)},s=function(a){return b.reverse(f.toArray(a,q))},t=function(a){return f.toArray(a,r)},u=function(a){var c=a.dom();return b.map(c.childNodes,h.fromDom)},v=function(a,b){var c=a.dom().childNodes;return d.from(c[b]).map(h.fromDom)},w=function(a){return v(a,0)},x=function(a){return v(a,a.dom().childNodes.length-1)},y=function(a,b){return a.dom().childNodes.length},z=e.immutable("element","offset"),A=function(a,b){var c=u(a);return c.length>0&&b<c.length?z(c[b],0):z(a,b)};return{owner:i,defaultView:k,documentElement:j,parent:l,findIndex:m,parents:n,siblings:o,prevSibling:q,offsetParent:p,prevSiblings:s,nextSibling:r,nextSiblings:t,children:u,child:v,firstChild:w,lastChild:x,childNodesCount:y,leaf:A}}),g("3t",["2l","3l","3x"],function(a,b,c){var d=function(a){return h(b.body(),a)},e=function(b,d,e){return a.filter(c.parents(b,e),d)},f=function(b,d){return a.filter(c.siblings(b),d)},g=function(b,d){return a.filter(c.children(b),d)},h=function(b,d){var e=[];return a.each(c.children(b),function(a){d(a)&&(e=e.concat([a])),e=e.concat(h(a,d))}),e};return{all:d,ancestors:e,siblings:f,children:g,descendants:h}}),g("3j",["3t","33"],function(a,b){var c=function(a){return b.all(a)},d=function(c,d,e){return a.ancestors(c,function(a){return b.is(a,d)},e)},e=function(c,d){return a.siblings(c,function(a){return b.is(a,d)})},f=function(c,d){return a.children(c,function(a){return b.is(a,d)})},g=function(a,c){return b.all(c,a)};return{all:c,ancestors:d,siblings:e,children:f,descendants:g}}),g("30",["2l","z","3i","10","3j","2j","c"],function(a,b,c,d,e,f,g){var h=g.trim,i=function(a){return function(b){if(b&&1===b.nodeType){if(b.contentEditable===a)return!0;if(b.getAttribute("data-mce-contenteditable")===a)return!0}return!1}},j=i("true"),k=i("false"),l=function(a,b,c,d,e){return{type:a,title:b,url:c,level:d,attach:e}},m=function(a){for(;a=a.parentNode;){var b=a.contentEditable;if(b&&"inherit"!==b)return j(a)}return!1},n=function(b,c){return a.map(e.descendants(d.fromDom(c),b),function(a){return a.dom()})},o=function(a){return a.innerText||a.textContent},p=function(a){return a.id?a.id:c.generate("h")},q=function(a){return a&&"A"===a.nodeName&&(a.id||a.name)},r=function(a){return q(a)&&t(a)},s=function(a){return a&&/^(H[1-6])$/.test(a.nodeName)},t=function(a){return m(a)&&!k(a)},u=function(a){return s(a)&&t(a)},v=function(a){return s(a)?parseInt(a.nodeName.substr(1),10):0},w=function(a){var b=p(a),c=function(){a.id=b};return l("header",o(a),"#"+b,v(a),c)},x=function(a){var c=a.id||a.name,d=o(a);return l("anchor",d?d:"#"+c,"#"+c,0,b.noop)},y=function(b){return a.map(a.filter(b,u),w)},z=function(b){return a.map(a.filter(b,r),x)},A=function(a){var b=n("h1,h2,h3,h4,h5,h6,a:not([href])",a);return b},B=function(a){return h(a.title).length>0},C=function(b){var c=A(b);return a.filter(y(c).concat(z(c)),B)};return{find:C}}),g("t",["2l","z","1","30","13","m","c"],function(a,b,c,d,e,f,g){"use strict";var h=function(){return c.tinymce?c.tinymce.activeEditor:e.activeEditor},i={},j=5,k=function(){i={}},l=function(a){return{title:a.title,value:{title:{raw:a.title},url:a.url,attach:a.attach}}},m=function(a){return g.map(a,l)},n=function(a,c){return{title:a,value:{title:a,url:c,attach:b.noop}}},o=function(b,c){var d=a.exists(c,function(a){return a.url===b});return!d},p=function(a,b,c){var d=b in a?a[b]:c;return d===!1?null:d},q=function(c,d,e,f){var h={title:"-"},j=function(c){var f=c.hasOwnProperty(e)?c[e]:[],h=a.filter(f,function(a){return o(a,d)});return g.map(h,function(a){return{title:a,value:{title:a,url:a,attach:b.noop}}})},k=function(b){var c=a.filter(d,function(a){return a.type===b});return m(c)},l=function(){var a=k("anchor"),b=p(f,"anchor_top","#top"),c=p(f,"anchor_bottom","#bottom");return null!==b&&a.unshift(n("<top>",b)),null!==c&&a.push(n("<bottom>",c)),a},q=function(b){return a.foldl(b,function(a,b){var c=0===a.length||0===b.length;return c?a.concat(b):a.concat(h,b)},[])};return f.typeahead_urls===!1?[]:"file"===e?q([s(c,j(i)),s(c,k("header")),s(c,l())]):s(c,j(i))},r=function(b,c){var d=i[c];/^https?/.test(b)&&(d?a.indexOf(d,b)===-1&&(i[c]=d.slice(0,j).concat(b)):i[c]=[b])},s=function(a,b){var c=a.toLowerCase(),d=g.grep(b,function(a){return a.title.toLowerCase().indexOf(c)!==-1});return 1===d.length&&d[0].title===a?[]:d},t=function(a){var b=a.title;return b.raw?b.raw:b},u=function(a,b,c,e){var f=function(f){var g=d.find(c),h=q(f,g,e,b);a.showAutoComplete(h,f)};a.on("autocomplete",function(){f(a.value())}),a.on("selectitem",function(b){var c=b.value;a.value(c.url);var d=t(c);"image"===e?a.fire("change",{meta:{alt:d,attach:c.attach}}):a.fire("change",{meta:{text:d,attach:c.attach}}),a.focus()}),a.on("click",function(b){0===a.value().length&&"INPUT"===b.target.nodeName&&f("")}),a.on("PostRender",function(){a.getRoot().on("submit",function(b){b.isDefaultPrevented()||r(a.value(),e)})})},v=function(a){var b=a.status,c=a.message;return"valid"===b?{status:"ok",message:c}:"unknown"===b?{status:"warn",message:c}:"invalid"===b?{status:"warn",message:c}:{status:"none",message:""}},w=function(a,b,c){var d=b.filepicker_validator_handler;if(d){var e=function(b){return 0===b.length?void a.statusLevel("none"):void d({url:b,type:c},function(b){var c=v(b);a.statusMessage(c.message),a.statusLevel(c.status)})};a.state.on("change:value",function(a){e(a.value)})}};return f.extend({Statics:{clearHistory:k},init:function(a){var b,d,e,f=this,i=h(),j=i.settings,k=a.filetype;a.spellcheck=!1,e=j.file_picker_types||j.file_browser_callback_types,e&&(e=g.makeMap(e,/[, ]/)),e&&!e[k]||(d=j.file_picker_callback,!d||e&&!e[k]?(d=j.file_browser_callback,!d||e&&!e[k]||(b=function(){d(f.getEl("inp").id,f.value(),k,c)})):b=function(){var a=f.fire("beforecall").meta;a=g.extend({filetype:k},a),d.call(i,function(a,b){f.value(a).fire("change",{meta:b})},f.value(),a)}),b&&(a.icon="browse",a.onaction=b),f._super(a),u(f,j,i.getBody(),k),w(f,j,k)}})}),g("u",["d"],function(a){"use strict";return a.extend({recalc:function(a){var b=a.layoutRect(),c=a.paddingBox;a.items().filter(":visible").each(function(a){a.layoutRect({x:c.left,y:c.top,w:b.innerW-c.right-c.left,h:b.innerH-c.top-c.bottom}),a.recalc&&a.recalc()})}})}),g("v",["d"],function(a){"use strict";return a.extend({recalc:function(a){var b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z,A,B,C,D,E,F,G,H,I,J,K,L,M,N=[],O=Math.max,P=Math.min;for(d=a.items().filter(":visible"),e=a.layoutRect(),f=a.paddingBox,g=a.settings,m=a.isRtl()?g.direction||"row-reversed":g.direction,h=g.align,i=a.isRtl()?g.pack||"end":g.pack,j=g.spacing||0,"row-reversed"!=m&&"column-reverse"!=m||(d=d.set(d.toArray().reverse()),m=m.split("-")[0]),"column"==m?(z="y",x="h",y="minH",A="maxH",C="innerH",B="top",D="deltaH",E="contentH",J="left",H="w",F="x",G="innerW",I="minW",K="right",L="deltaW",M="contentW"):(z="x",x="w",y="minW",A="maxW",C="innerW",B="left",D="deltaW",E="contentW",J="top",H="h",F="y",G="innerH",I="minH",K="bottom",L="deltaH",M="contentH"),l=e[C]-f[B]-f[B],w=k=0,b=0,c=d.length;b<c;b++)n=d[b],o=n.layoutRect(),p=n.settings,q=p.flex,l-=b<c-1?j:0,q>0&&(k+=q,o[A]&&N.push(n),o.flex=q),l-=o[y],r=f[J]+o[I]+f[K],r>w&&(w=r);if(u={},l<0?u[y]=e[y]-l+e[D]:u[y]=e[C]-l+e[D],u[I]=w+e[L],u[E]=e[C]-l,u[M]=w,u.minW=P(u.minW,e.maxW),u.minH=P(u.minH,e.maxH),u.minW=O(u.minW,e.startMinWidth),u.minH=O(u.minH,e.startMinHeight),!e.autoResize||u.minW==e.minW&&u.minH==e.minH){for(t=l/k,b=0,c=N.length;b<c;b++)n=N[b],o=n.layoutRect(),s=o[A],r=o[y]+o.flex*t,r>s?(l-=o[A]-o[y],k-=o.flex,o.flex=0,o.maxFlexSize=s):o.maxFlexSize=0;for(t=l/k,v=f[B],u={},0===k&&("end"==i?v=l+f[B]:"center"==i?(v=Math.round(e[C]/2-(e[C]-l)/2)+f[B],v<0&&(v=f[B])):"justify"==i&&(v=f[B],j=Math.floor(l/(d.length-1)))),u[F]=f[J],b=0,c=d.length;b<c;b++)n=d[b],o=n.layoutRect(),r=o.maxFlexSize||o[y],"center"===h?u[F]=Math.round(e[G]/2-o[H]/2):"stretch"===h?(u[H]=O(o[I]||0,e[G]-f[J]-f[K]),u[F]=f[J]):"end"===h&&(u[F]=e[G]-o[H]-f.top),o.flex>0&&(r+=o.flex*t),u[x]=r,u[z]=v,n.layoutRect(u),n.recalc&&n.recalc(),v+=r+j}else if(u.w=u.minW,u.h=u.minH,a.layoutRect(u),this.recalc(a),null===a._lastRect){var Q=a.parent();Q&&(Q._lastRect=null,Q.recalc())}}})}),g("x",["1l"],function(a){return a.extend({Defaults:{containerClass:"flow-layout",controlClass:"flow-layout-item",endClass:"break"},recalc:function(a){a.items().filter(":visible").each(function(a){a.recalc&&a.recalc()})},isNative:function(){return!0}})}),g("34",["3k","3g"],function(a,b){return function(c,d,e,f,g){return c(e,f)?b.some(e):a.isFunction(g)&&g(e)?b.none():d(e,f,g)}}),g("32",["3k","2l","z","3g","3l","3m","10","34"],function(a,b,c,d,e,f,g,h){var i=function(a){return n(e.body(),a)},j=function(b,e,f){for(var h=b.dom(),i=a.isFunction(f)?f:c.constant(!1);h.parentNode;){h=h.parentNode;var j=g.fromDom(h);if(e(j))return d.some(j);if(i(j))break}return d.none()},k=function(a,b,c){var d=function(a){return b(a)};return h(d,j,a,b,c)},l=function(a,b){var c=a.dom();return c.parentNode?m(g.fromDom(c.parentNode),function(c){return!f.eq(a,c)&&b(c)}):d.none()},m=function(a,d){var e=b.find(a.dom().childNodes,c.compose(d,g.fromDom));return e.map(g.fromDom)},n=function(a,b){var c=function(a){for(var e=0;e<a.childNodes.length;e++){if(b(g.fromDom(a.childNodes[e])))return d.some(g.fromDom(a.childNodes[e]));var f=c(a.childNodes[e]);if(f.isSome())return f}return d.none()};return c(a.dom())};return{first:i,ancestor:j,closest:k,sibling:l,child:m,descendant:n}}),g("11",["32","33","34"],function(a,b,c){var d=function(a){return b.one(a)},e=function(c,d,e){return a.ancestor(c,function(a){return b.is(a,d)},e)},f=function(c,d){return a.sibling(c,function(a){return b.is(a,d)})},g=function(c,d){return a.child(c,function(a){return b.is(a,d)})},h=function(a,c){return b.one(c,a)},i=function(a,d,f){return c(b.is,e,a,d,f)};return{first:d,ancestor:e,sibling:f,child:g,descendant:h,closest:i}}),g("35",[],function(){var a=function(a,b){return function(){a.execCommand("mceToggleFormat",!1,b)}},b=function(a,b){return function(){var c=this;a.formatter?a.formatter.formatChanged(b,function(a){c.active(a)}):a.on("init",function(){a.formatter.formatChanged(b,function(a){c.active(a)})})}};return{toggleFormat:a,postRenderFormat:b}}),g("16",["c","35"],function(a,b){var c=function(c){c.addMenuItem("align",{text:"Align",menu:[{text:"Left",icon:"alignleft",onclick:b.toggleFormat(c,"alignleft")},{text:"Center",icon:"aligncenter",onclick:b.toggleFormat(c,"aligncenter")},{text:"Right",icon:"alignright",onclick:b.toggleFormat(c,"alignright")},{text:"Justify",icon:"alignjustify",onclick:b.toggleFormat(c,"alignjustify")}]}),a.each({alignleft:["Align left","JustifyLeft"],aligncenter:["Align center","JustifyCenter"],alignright:["Align right","JustifyRight"],alignjustify:["Justify","JustifyFull"],alignnone:["No alignment","JustifyNone"]},function(a,d){c.addButton(d,{tooltip:a[0],cmd:a[1],onPostRender:b.postRenderFormat(c,d)})})};return{register:c}}),g("36",["z","3g","10","3o","2j"],function(a,b,c,d,e){var f=function(a,c,d){for(;d!==c;){if(d.style[a]){var e=d.style[a];return""!==e?b.some(e):b.none()}d=d.parentNode}return b.none()},g=function(a,b){var c=Math.pow(10,b);return Math.round(a*c)/c},h=function(a,b){return/[0-9.]+px$/.test(a)?g(72*parseInt(a,10)/96,b||0)+"pt":a},i=function(a){return a.replace(/[\'\"]/g,"").replace(/,\s+/g,",")},j=function(a,c){return b.from(e.DOM.getStyle(c,a,!0))},k=function(a){return function(e,g){return b.from(g).map(c.fromDom).filter(d.isElement).bind(function(b){return f(a,e,b.dom()).or(j(a,b.dom()))}).getOr("")}};return{getFontSize:k("fontSize"),getFontFamily:a.compose(i,k("fontFamily")),toPt:h}}),g("17",["c","36"],function(a,b){var c=function(a){return a?a.split(",")[0]:""},d=function(b,d){var e;return a.each(b,function(a){a.value.toLowerCase()===d.toLowerCase()&&(e=a.value)}),a.each(b,function(a){e||c(a.value).toLowerCase()!==c(d).toLowerCase()||(e=a.value)}),e},e=function(a,e){return function(){var f=this;a.on("init nodeChange",function(g){var h=b.getFontFamily(a.getBody(),g.element),i=d(e,h);f.value(i?i:null),!i&&h&&f.text(c(h))})}},f=function(a){a=a.replace(/;$/,"").split(";");for(var b=a.length;b--;)a[b]=a[b].split("=");return a},g=function(b){var c="Andale Mono=andale mono,monospace;Arial=arial,helvetica,sans-serif;Arial Black=arial black,sans-serif;Book Antiqua=book antiqua,palatino,serif;Comic Sans MS=comic sans ms,sans-serif;Courier New=courier new,courier,monospace;Georgia=georgia,palatino,serif;Helvetica=helvetica,arial,sans-serif;Impact=impact,sans-serif;Symbol=symbol;Tahoma=tahoma,arial,helvetica,sans-serif;Terminal=terminal,monaco,monospace;Times New Roman=times new roman,times,serif;Trebuchet MS=trebuchet ms,geneva,sans-serif;Verdana=verdana,geneva,sans-serif;Webdings=webdings;Wingdings=wingdings,zapf dingbats",d=f(b.settings.font_formats||c);return a.map(d,function(a){return{text:{raw:a[0]},value:a[1],textStyle:a[1].indexOf("dings")===-1?"font-family:"+a[1]:""}})},h=function(a){a.addButton("fontselect",function(){var b=g(a);return{type:"listbox",text:"Font Family",tooltip:"Font Family",values:b,fixedWidth:!0,onPostRender:e(a,b),onselect:function(b){b.control.settings.value&&a.execCommand("FontName",!1,b.control.settings.value)}}})},i=function(a){h(a)};return{register:i}}),g("18",["c","36"],function(a,b){var c=function(b,c,d){var e;return a.each(b,function(a){a.value===d?e=d:a.value===c&&(e=c)}),e},d=function(a,d){return function(){var e=this;a.on("init nodeChange",function(f){var g,h,i,j;if(g=b.getFontSize(a.getBody(),f.element))for(i=3;!j&&i>=0;i--)h=b.toPt(g,i),j=c(d,h,g);e.value(j?j:null),j||e.text(h)})}},e=function(b){var c="8pt 10pt 12pt 14pt 18pt 24pt 36pt",d=b.settings.fontsize_formats||c;return a.map(d.split(" "),function(a){var b=a,c=a,d=a.split("=");return d.length>1&&(b=d[0],c=d[1]),{text:b,value:c}})},f=function(a){a.addButton("fontsizeselect",function(){var b=e(a);return{type:"listbox",text:"Font Sizes",tooltip:"Font Sizes",values:b,fixedWidth:!0,onPostRender:d(a,b),onclick:function(b){b.control.settings.value&&a.execCommand("FontSize",!1,b.control.settings.value)}}})},g=function(a){f(a)};return{register:g}}),g("19",["c","35"],function(a,b){var c="Paragraph=p;Heading 1=h1;Heading 2=h2;Heading 3=h3;Heading 4=h4;Heading 5=h5;Heading 6=h6;Preformatted=pre",d=function(a){a=a.replace(/;$/,"").split(";");for(var b=a.length;b--;)a[b]=a[b].split("=");return a},e=function(b,c,d){return function(){var e=this;b.on("nodeChange",function(f){var g=b.formatter,h=null;a.each(f.parents,function(b){if(a.each(c,function(a){if(d?g.matchNode(b,d,{value:a.value})&&(h=a.value):g.matchNode(b,a.value)&&(h=a.value),h)return!1}),h)return!1}),e.value(h)})}},f=function(c,d){return function(){var f=[];return a.each(d,function(a){f.push({text:a[0],value:a[1],textStyle:function(){return c.formatter.getCssText(a[1])}})}),{type:"listbox",text:d[0][0],values:f,fixedWidth:!0,onselect:function(a){if(a.control){var d=a.control.value();b.toggleFormat(c,d)()}},onPostRender:e(c,f)}}},g=function(c,d){return a.map(d,function(a){return{text:a[0],onclick:b.toggleFormat(c,a[1]),textStyle:function(){return c.formatter.getCssText(a[1])}}})},h=function(a){var b=d(a.settings.block_formats||c);a.addMenuItem("blockformats",{text:"Blocks",menu:g(a,b)}),a.addButton("formatselect",f(a,b))};return{register:h}}),g("1a",["c","35"],function(a,b){var c=function(b,d){var e=d.length;return a.each(d,function(a){a.menu&&(a.hidden=0===c(b,a.menu));var d=a.format;d&&(a.hidden=!b.formatter.canApply(d)),a.hidden&&e--}),e},d=function(a,b){var e=b.items().length;return b.items().each(function(b){b.menu&&b.visible(d(a,b.menu)>0),!b.menu&&b.settings.menu&&b.visible(c(a,b.settings.menu)>0);var f=b.settings.format;f&&b.visible(a.formatter.canApply(f)),b.visible()||e--}),e},e=function(c){var d=0,e=[],f=[{title:"Headings",items:[{title:"Heading 1",format:"h1"},{title:"Heading 2",format:"h2"},{title:"Heading 3",format:"h3"},{title:"Heading 4",format:"h4"},{title:"Heading 5",format:"h5"},{title:"Heading 6",format:"h6"}]},{title:"Inline",items:[{title:"Bold",icon:"bold",format:"bold"},{title:"Italic",icon:"italic",format:"italic"},{title:"Underline",icon:"underline",format:"underline"},{title:"Strikethrough",icon:"strikethrough",format:"strikethrough"},{title:"Superscript",icon:"superscript",format:"superscript"},{title:"Subscript",icon:"subscript",format:"subscript"},{title:"Code",icon:"code",format:"code"}]},{title:"Blocks",items:[{title:"Paragraph",format:"p"},{title:"Blockquote",format:"blockquote"},{title:"Div",format:"div"},{title:"Pre",format:"pre"}]},{title:"Alignment",items:[{title:"Left",icon:"alignleft",format:"alignleft"},{title:"Center",icon:"aligncenter",format:"aligncenter"},{title:"Right",icon:"alignright",format:"alignright"},{title:"Justify",icon:"alignjustify",format:"alignjustify"}]}],g=function(b){var c=[];if(b)return a.each(b,function(a){var b={text:a.title,icon:a.icon};if(a.items)b.menu=g(a.items);else{var f=a.format||"custom"+d++;a.format||(a.name=f,e.push(a)),b.format=f,b.cmd=a.cmd}c.push(b)}),c},h=function(){var a;return a=g(c.settings.style_formats_merge?c.settings.style_formats?f.concat(c.settings.style_formats):f:c.settings.style_formats||f)};return c.on("init",function(){a.each(e,function(a){c.formatter.register(a.name,a)})}),{type:"menu",items:h(),onPostRender:function(a){c.fire("renderFormatsMenu",{control:a.control})},itemDefaults:{preview:!0,textStyle:function(){if(this.settings.format)return c.formatter.getCssText(this.settings.format)},onPostRender:function(){var a=this;a.parent().on("show",function(){var b,d;b=a.settings.format,b&&(a.disabled(!c.formatter.canApply(b)),a.active(c.formatter.match(b))),d=a.settings.cmd,d&&a.active(c.queryCommandState(d))})},onclick:function(){this.settings.format&&b.toggleFormat(c,this.settings.format)(),this.settings.cmd&&c.execCommand(this.settings.cmd)}}}},f=function(a,b){a.addMenuItem("formats",{text:"Formats",menu:b})},g=function(a,b){a.addButton("styleselect",{type:"menubutton",text:"Formats",menu:b,onShowMenu:function(){a.settings.style_formats_autohide&&d(a,this.menu)}})},h=function(a){var b=e(a);f(a,b),g(a,b)};return{register:h}}),g("1b",["2l","c"],function(a,b){var c=function(d,e){var f,g;if("string"==typeof e)g=e.split(" ");else if(b.isArray(e))return a.flatten(b.map(e,function(a){return c(d,a)}));return f=b.grep(g,function(a){return"|"===a||a in d.menuItems}),b.map(f,function(a){return"|"===a?{text:"-"}:d.menuItems[a]})},d=function(a){return a&&"-"===a.text},e=function(b){var c=a.filter(b,function(a,b,c){return!d(a)||!d(c[b-1])});return a.filter(c,function(a,b,c){return!d(a)||b>0&&b<c.length-1})},f=function(a,c){var d=[{text:"-"}],e=b.grep(a.menuItems,function(a){return a.context===c});return b.each(e,function(a){"before"===a.separator&&d.push({text:"|"}),a.prependToContext?d.unshift(a):d.push(a),"after"===a.separator&&d.push({text:"|"})}),d},g=function(a){var b=a.settings.insert_button_items;return e(b?c(a,b):f(a,"insert"))},h=function(a){a.addButton("insert",{type:"menubutton",icon:"insert",menu:[],oncreatemenu:function(){this.menu.add(g(a)),this.menu.renderNew()}})},i=function(a){h(a)};return{register:i}}),g("1c",["c","35"],function(a,b){var c=function(c){a.each({bold:"Bold",italic:"Italic",underline:"Underline",strikethrough:"Strikethrough",subscript:"Subscript",superscript:"Superscript"},function(a,d){c.addButton(d,{tooltip:a,onPostRender:b.postRenderFormat(c,d),onclick:b.toggleFormat(c,d)})})},d=function(b){a.each({outdent:["Decrease indent","Outdent"],indent:["Increase indent","Indent"],cut:["Cut","Cut"],copy:["Copy","Copy"],paste:["Paste","Paste"],help:["Help","mceHelp"],selectall:["Select all","SelectAll"],visualaid:["Visual aids","mceToggleVisualAid"],newdocument:["New document","mceNewDocument"],removeformat:["Clear formatting","RemoveFormat"],remove:["Remove","Delete"]},function(a,c){b.addButton(c,{tooltip:a[0],cmd:a[1]})})},e=function(c){a.each({blockquote:["Blockquote","mceBlockQuote"],subscript:["Subscript","Subscript"],superscript:["Superscript","Superscript"]},function(a,d){c.addButton(d,{tooltip:a[0],cmd:a[1],onPostRender:b.postRenderFormat(c,d)})})},f=function(a){c(a),d(a),e(a)},g=function(c){a.each({bold:["Bold","Bold","Meta+B"],italic:["Italic","Italic","Meta+I"],underline:["Underline","Underline","Meta+U"],strikethrough:["Strikethrough","Strikethrough"],subscript:["Subscript","Subscript"],superscript:["Superscript","Superscript"],removeformat:["Clear formatting","RemoveFormat"],newdocument:["New document","mceNewDocument"],cut:["Cut","Cut","Meta+X"],copy:["Copy","Copy","Meta+C"],paste:["Paste","Paste","Meta+V"],selectall:["Select all","SelectAll","Meta+A"]},function(a,b){c.addMenuItem(b,{text:a[0],icon:b,shortcut:a[2],cmd:a[1]})}),c.addMenuItem("codeformat",{text:"Code",icon:"code",onclick:b.toggleFormat(c,"code")})},h=function(a){f(a),g(a)};return{register:h}}),g("1d",[],function(){var a=function(a,b){return function(){var c=this,d=function(){var c="redo"===b?"hasRedo":"hasUndo";return!!a.undoManager&&a.undoManager[c]()};c.disabled(!d()),a.on("Undo Redo AddUndo TypingUndo ClearUndos SwitchMode",function(){c.disabled(a.readonly||!d())})}},b=function(b){b.addMenuItem("undo",{text:"Undo",icon:"undo",shortcut:"Meta+Z",onPostRender:a(b,"undo"),cmd:"undo"}),b.addMenuItem("redo",{text:"Redo",icon:"redo",shortcut:"Meta+Y",onPostRender:a(b,"redo"),cmd:"redo"})},c=function(b){b.addButton("undo",{tooltip:"Undo",onPostRender:a(b,"undo"),cmd:"undo"}),b.addButton("redo",{tooltip:"Redo",onPostRender:a(b,"redo"),cmd:"redo"})},d=function(a){b(a),c(a)};return{register:d}}),g("1e",[],function(){var a=function(a){return function(){var b=this;a.on("VisualAid",function(a){b.active(a.hasVisual)}),b.active(a.hasVisual)}},b=function(b){b.addMenuItem("visualaid",{text:"Visual aids",selectable:!0,onPostRender:a(b),cmd:"mceToggleVisualAid"})},c=function(a){b(a)};return{register:c}}),g("5",["z","10","11","12","13","14","o","w","15","16","17","18","19","1a","1b","1c","1d","1e"],function(a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r){var s=function(){i.tooltips=!f.iOS,g.translate=function(a){return e.translate(a)}},t=function(e){e.settings.ui_container&&(f.container=c.descendant(b.fromDom(d.body),e.settings.ui_container).fold(a.constant(null),function(a){return a.dom()}))},u=function(a){a.rtl&&(g.rtl=!0)},v=function(a){a.on("mousedown",function(){h.hideAll()})},w=function(a){u(a),v(a),t(a),s(a),m.register(a),j.register(a),p.register(a),q.register(a),l.register(a),k.register(a),n.register(a),r.register(a),o.register(a)};return{setup:w}}),g("1g",["d"],function(a){"use strict";return a.extend({recalc:function(a){var b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z,A,B,C,D,E=[],F=[];b=a.settings,e=a.items().filter(":visible"),f=a.layoutRect(),d=b.columns||Math.ceil(Math.sqrt(e.length)),c=Math.ceil(e.length/d),s=b.spacingH||b.spacing||0,t=b.spacingV||b.spacing||0,u=b.alignH||b.align,v=b.alignV||b.align,q=a.paddingBox,C="reverseRows"in b?b.reverseRows:a.isRtl(),u&&"string"==typeof u&&(u=[u]),v&&"string"==typeof v&&(v=[v]);for(l=0;l<d;l++)E.push(0);for(m=0;m<c;m++)F.push(0);for(m=0;m<c;m++)for(l=0;l<d&&(k=e[m*d+l],k);l++)j=k.layoutRect(),y=j.minW,z=j.minH,E[l]=y>E[l]?y:E[l],F[m]=z>F[m]?z:F[m];for(A=f.innerW-q.left-q.right,w=0,l=0;l<d;l++)w+=E[l]+(l>0?s:0),A-=(l>0?s:0)+E[l];for(B=f.innerH-q.top-q.bottom,x=0,m=0;m<c;m++)x+=F[m]+(m>0?t:0),B-=(m>0?t:0)+F[m];if(w+=q.left+q.right,x+=q.top+q.bottom,i={},i.minW=w+(f.w-f.innerW),i.minH=x+(f.h-f.innerH),i.contentW=i.minW-f.deltaW,i.contentH=i.minH-f.deltaH,i.minW=Math.min(i.minW,f.maxW),i.minH=Math.min(i.minH,f.maxH),i.minW=Math.max(i.minW,f.startMinWidth),i.minH=Math.max(i.minH,f.startMinHeight),!f.autoResize||i.minW==f.minW&&i.minH==f.minH){f.autoResize&&(i=a.layoutRect(i),i.contentW=i.minW-f.deltaW,i.contentH=i.minH-f.deltaH);var G;G="start"==b.packV?0:B>0?Math.floor(B/c):0;var H=0,I=b.flexWidths;if(I)for(l=0;l<I.length;l++)H+=I[l];else H=d;var J=A/H;for(l=0;l<d;l++)E[l]+=I?I[l]*J:J;for(o=q.top,m=0;m<c;m++){for(n=q.left,h=F[m]+G,l=0;l<d&&(D=C?m*d+d-1-l:m*d+l,k=e[D],k);l++)p=k.settings,j=k.layoutRect(),
-g=Math.max(E[l],j.startMinWidth),j.x=n,j.y=o,r=p.alignH||(u?u[l]||u[0]:null),"center"==r?j.x=n+g/2-j.w/2:"right"==r?j.x=n+g-j.w:"stretch"==r&&(j.w=g),r=p.alignV||(v?v[l]||v[0]:null),"center"==r?j.y=o+h/2-j.h/2:"bottom"==r?j.y=o+h-j.h:"stretch"==r&&(j.h=h),k.layoutRect(j),n+=g+s,k.recalc&&k.recalc();o+=h+t}}else if(i.w=i.minW,i.h=i.minH,a.layoutRect(i),this.recalc(a),null===a._lastRect){var K=a.parent();K&&(K._lastRect=null,K.recalc())}}})}),g("1h",["15","2u"],function(a,b){"use strict";return a.extend({renderHtml:function(){var a=this;return a.classes.add("iframe"),a.canFocus=!1,'<iframe id="'+a._id+'" class="'+a.classes+'" tabindex="-1" src="'+(a.settings.url||"javascript:''")+'" frameborder="0"></iframe>'},src:function(a){this.getEl().src=a},html:function(a,c){var d=this,e=this.getEl().contentWindow.document.body;return e?(e.innerHTML=a,c&&c()):b.setTimeout(function(){d.html(a)}),this}})}),g("1i",["15"],function(a){"use strict";return a.extend({init:function(a){var b=this;b._super(a),b.classes.add("widget").add("infobox"),b.canFocus=!1},severity:function(a){this.classes.remove("error"),this.classes.remove("warning"),this.classes.remove("success"),this.classes.add(a)},help:function(a){this.state.set("help",a)},renderHtml:function(){var a=this,b=a.classPrefix;return'<div id="'+a._id+'" class="'+a.classes+'"><div id="'+a._id+'-body">'+a.encode(a.state.get("text"))+'<button role="button" tabindex="-1"><i class="'+b+"ico "+b+'i-help"></i></button></div></div>'},bindStates:function(){var a=this;return a.state.on("change:text",function(b){a.getEl("body").firstChild.data=a.encode(b.value),a.state.get("rendered")&&a.updateLayoutRect()}),a.state.on("change:help",function(b){a.classes.toggle("has-help",b.value),a.state.get("rendered")&&a.updateLayoutRect()}),a._super()}})}),g("1k",["15","2n"],function(a,b){"use strict";return a.extend({init:function(a){var b=this;b._super(a),b.classes.add("widget").add("label"),b.canFocus=!1,a.multiline&&b.classes.add("autoscroll"),a.strong&&b.classes.add("strong")},initLayoutRect:function(){var a=this,c=a._super();if(a.settings.multiline){var d=b.getSize(a.getEl());d.width>c.maxW&&(c.minW=c.maxW,a.classes.add("multiline")),a.getEl().style.width=c.minW+"px",c.startMinH=c.h=c.minH=Math.min(c.maxH,b.getSize(a.getEl()).height)}return c},repaint:function(){var a=this;return a.settings.multiline||(a.getEl().style.lineHeight=a.layoutRect().h+"px"),a._super()},severity:function(a){this.classes.remove("error"),this.classes.remove("warning"),this.classes.remove("success"),this.classes.add(a)},renderHtml:function(){var a,b,c=this,d=c.settings.forId,e=c.settings.html?c.settings.html:c.encode(c.state.get("text"));return!d&&(b=c.settings.forName)&&(a=c.getRoot().find("#"+b)[0],a&&(d=a._id)),d?'<label id="'+c._id+'" class="'+c.classes+'"'+(d?' for="'+d+'"':"")+">"+e+"</label>":'<span id="'+c._id+'" class="'+c.classes+'">'+e+"</span>"},bindStates:function(){var a=this;return a.state.on("change:text",function(b){a.innerHtml(a.encode(b.value)),a.state.get("rendered")&&a.updateLayoutRect()}),a._super()}})}),g("2c",["n"],function(a){"use strict";return a.extend({Defaults:{role:"toolbar",layout:"flow"},init:function(a){var b=this;b._super(a),b.classes.add("toolbar")},postRender:function(){var a=this;return a.items().each(function(a){a.classes.add("toolbar-item")}),a._super()}})}),g("1o",["2c"],function(a){"use strict";return a.extend({Defaults:{role:"menubar",containerCls:"menubar",ariaRoot:!0,defaults:{type:"menubutton"}}})}),g("1p",["1","b","f","1o"],function(a,b,c,d){"use strict";function e(a,b){for(;a;){if(b===a)return!0;a=a.parentNode}return!1}var f=c.extend({init:function(a){var b=this;b._renderOpen=!0,b._super(a),a=b.settings,b.classes.add("menubtn"),a.fixedWidth&&b.classes.add("fixed-width"),b.aria("haspopup",!0),b.state.set("menu",a.menu||b.render())},showMenu:function(a){var c,d=this;return d.menu&&d.menu.visible()&&a!==!1?d.hideMenu():(d.menu||(c=d.state.get("menu")||[],d.classes.add("opened"),c.length?c={type:"menu",animate:!0,items:c}:(c.type=c.type||"menu",c.animate=!0),c.renderTo?d.menu=c.parent(d).show().renderTo():d.menu=b.create(c).parent(d).renderTo(),d.fire("createmenu"),d.menu.reflow(),d.menu.on("cancel",function(a){a.control.parent()===d.menu&&(a.stopPropagation(),d.focus(),d.hideMenu())}),d.menu.on("select",function(){d.focus()}),d.menu.on("show hide",function(a){a.control===d.menu&&(d.activeMenu("show"==a.type),d.classes.toggle("opened","show"==a.type)),d.aria("expanded","show"==a.type)}).fire("show")),d.menu.show(),d.menu.layoutRect({w:d.layoutRect().w}),d.menu.moveRel(d.getEl(),d.isRtl()?["br-tr","tr-br"]:["bl-tl","tl-bl"]),void d.fire("showmenu"))},hideMenu:function(){var a=this;a.menu&&(a.menu.items().each(function(a){a.hideMenu&&a.hideMenu()}),a.menu.hide())},activeMenu:function(a){this.classes.toggle("active",a)},renderHtml:function(){var b,c=this,e=c._id,f=c.classPrefix,g=c.settings.icon,h=c.state.get("text"),i="";return b=c.settings.image,b?(g="none","string"!=typeof b&&(b=a.getSelection?b[0]:b[1]),b=" style=\"background-image: url('"+b+"')\""):b="",h&&(c.classes.add("btn-has-text"),i='<span class="'+f+'txt">'+c.encode(h)+"</span>"),g=c.settings.icon?f+"ico "+f+"i-"+g:"",c.aria("role",c.parent()instanceof d?"menuitem":"button"),'<div id="'+e+'" class="'+c.classes+'" tabindex="-1" aria-labelledby="'+e+'"><button id="'+e+'-open" role="presentation" type="button" tabindex="-1">'+(g?'<i class="'+g+'"'+b+"></i>":"")+i+' <i class="'+f+'caret"></i></button></div>'},postRender:function(){var a=this;return a.on("click",function(b){b.control===a&&e(b.target,a.getEl())&&(a.focus(),a.showMenu(!b.aria),b.aria&&a.menu.items().filter(":visible")[0].focus())}),a.on("mouseenter",function(b){var c,d=b.control,e=a.parent();d&&e&&d instanceof f&&d.parent()==e&&(e.items().filter("MenuButton").each(function(a){a.hideMenu&&a!=d&&(a.menu&&a.menu.visible()&&(c=!0),a.hideMenu())}),c&&(d.focus(),d.showMenu()))}),a._super()},bindStates:function(){var a=this;return a.state.on("change:menu",function(){a.menu&&a.menu.remove(),a.menu=null}),a._super()},remove:function(){this._super(),this.menu&&this.menu.remove()}});return f}),g("1q",["15","b","14","2u"],function(a,b,c,d){"use strict";var e=function(a,b){var c=a._textStyle;if(c){var d=a.getEl("text");d.setAttribute("style",c),b&&(d.style.color="",d.style.backgroundColor="")}};return a.extend({Defaults:{border:0,role:"menuitem"},init:function(a){var b,c=this;c._super(a),a=c.settings,c.classes.add("menu-item"),a.menu&&c.classes.add("menu-item-expand"),a.preview&&c.classes.add("menu-item-preview"),b=c.state.get("text"),"-"!==b&&"|"!==b||(c.classes.add("menu-item-sep"),c.aria("role","separator"),c.state.set("text","-")),a.selectable&&(c.aria("role","menuitemcheckbox"),c.classes.add("menu-item-checkbox"),a.icon="selected"),a.preview||a.selectable||c.classes.add("menu-item-normal"),c.on("mousedown",function(a){a.preventDefault()}),a.menu&&!a.ariaHideMenu&&c.aria("haspopup",!0)},hasMenus:function(){return!!this.settings.menu},showMenu:function(){var a,c=this,d=c.settings,e=c.parent();if(e.items().each(function(a){a!==c&&a.hideMenu()}),d.menu){a=c.menu,a?a.show():(a=d.menu,a.length?a={type:"menu",animate:!0,items:a}:(a.type=a.type||"menu",a.animate=!0),e.settings.itemDefaults&&(a.itemDefaults=e.settings.itemDefaults),a=c.menu=b.create(a).parent(c).renderTo(),a.reflow(),a.on("cancel",function(b){b.stopPropagation(),c.focus(),a.hide()}),a.on("show hide",function(a){a.control.items&&a.control.items().each(function(a){a.active(a.settings.selected)})}).fire("show"),a.on("hide",function(b){b.control===a&&c.classes.remove("selected")}),a.submenu=!0),a._parentMenu=e,a.classes.add("menu-sub");var f=a.testMoveRel(c.getEl(),c.isRtl()?["tl-tr","bl-br","tr-tl","br-bl"]:["tr-tl","br-bl","tl-tr","bl-br"]);a.moveRel(c.getEl(),f),a.rel=f,f="menu-sub-"+f,a.classes.remove(a._lastRel).add(f),a._lastRel=f,c.classes.add("selected"),c.aria("expanded",!0)}},hideMenu:function(){var a=this;return a.menu&&(a.menu.items().each(function(a){a.hideMenu&&a.hideMenu()}),a.menu.hide(),a.aria("expanded",!1)),a},renderHtml:function(){function a(a){var b,d,e={};for(e=c.mac?{alt:"&#x2325;",ctrl:"&#x2318;",shift:"&#x21E7;",meta:"&#x2318;"}:{meta:"Ctrl"},a=a.split("+"),b=0;b<a.length;b++)d=e[a[b].toLowerCase()],d&&(a[b]=d);return a.join("+")}function b(a){return a.replace(/[.*+?^${}()|[\]\\]/g,"\\$&")}function d(a){var c=h.match||"";return c?a.replace(new RegExp(b(c),"gi"),function(a){return"!mce~match["+a+"]mce~match!"}):a}function e(a){return a.replace(new RegExp(b("!mce~match["),"g"),"<b>").replace(new RegExp(b("]mce~match!"),"g"),"</b>")}var f=this,g=f._id,h=f.settings,i=f.classPrefix,j=f.state.get("text"),k=f.settings.icon,l="",m=h.shortcut,n=f.encode(h.url),o="";return k&&f.parent().classes.add("menu-has-icons"),h.image&&(l=" style=\"background-image: url('"+h.image+"')\""),m&&(m=a(m)),k=i+"ico "+i+"i-"+(f.settings.icon||"none"),o="-"!==j?'<i class="'+k+'"'+l+"></i>\xa0":"",j=e(f.encode(d(j))),n=e(f.encode(d(n))),'<div id="'+g+'" class="'+f.classes+'" tabindex="-1">'+o+("-"!==j?'<span id="'+g+'-text" class="'+i+'text">'+j+"</span>":"")+(m?'<div id="'+g+'-shortcut" class="'+i+'menu-shortcut">'+m+"</div>":"")+(h.menu?'<div class="'+i+'caret"></div>':"")+(n?'<div class="'+i+'menu-item-link">'+n+"</div>":"")+"</div>"},postRender:function(){var a=this,b=a.settings,c=b.textStyle;if("function"==typeof c&&(c=c.call(this)),c){var e=a.getEl("text");e&&(e.setAttribute("style",c),a._textStyle=c)}return a.on("mouseenter click",function(c){c.control===a&&(b.menu||"click"!==c.type?(a.showMenu(),c.aria&&a.menu.focus(!0)):(a.fire("select"),d.requestAnimationFrame(function(){a.parent().hideAll()})))}),a._super(),a},hover:function(){var a=this;return a.parent().items().each(function(a){a.classes.remove("selected")}),a.classes.toggle("selected",!0),a},active:function(a){return e(this,a),"undefined"!=typeof a&&this.aria("checked",a),this._super(a)},remove:function(){this._super(),this.menu&&this.menu.remove()}})}),g("1n",["14","2u","c","w","1q","2b"],function(a,b,c,d,e,f){"use strict";return d.extend({Defaults:{defaultType:"menuitem",border:1,layout:"stack",role:"application",bodyRole:"menu",ariaRoot:!0},init:function(b){var d=this;if(b.autohide=!0,b.constrainToViewport=!0,"function"==typeof b.items&&(b.itemsFactory=b.items,b.items=[]),b.itemDefaults)for(var e=b.items,f=e.length;f--;)e[f]=c.extend({},b.itemDefaults,e[f]);d._super(b),d.classes.add("menu"),b.animate&&11!==a.ie&&d.classes.add("animate")},repaint:function(){return this.classes.toggle("menu-align",!0),this._super(),this.getEl().style.height="",this.getEl("body").style.height="",this},cancel:function(){var a=this;a.hideAll(),a.fire("select")},load:function(){function a(){d.throbber&&(d.throbber.hide(),d.throbber=null)}var b,c,d=this;c=d.settings.itemsFactory,c&&(d.throbber||(d.throbber=new f(d.getEl("body"),!0),0===d.items().length?(d.throbber.show(),d.fire("loading")):d.throbber.show(100,function(){d.items().remove(),d.fire("loading")}),d.on("hide close",a)),d.requestTime=b=(new Date).getTime(),d.settings.itemsFactory(function(c){return 0===c.length?void d.hide():void(d.requestTime===b&&(d.getEl().style.width="",d.getEl("body").style.width="",a(),d.items().remove(),d.getEl("body").innerHTML="",d.add(c),d.renderNew(),d.fire("loaded")))}))},hideAll:function(){var a=this;return this.find("menuitem").exec("hideMenu"),a._super()},preRender:function(){var a=this;return a.items().each(function(b){var c=b.settings;if(c.icon||c.image||c.selectable)return a._hasIcons=!0,!1}),a.settings.itemsFactory&&a.on("postrender",function(){a.settings.itemsFactory&&a.load()}),a.on("show hide",function(c){c.control===a&&("show"===c.type?b.setTimeout(function(){a.classes.add("in")},0):a.classes.remove("in"))}),a._super()}})}),g("1m",["1p","1n"],function(a,b){"use strict";return a.extend({init:function(a){function b(c){for(var f=0;f<c.length;f++){if(d=c[f].selected||a.value===c[f].value)return e=e||c[f].text,g.state.set("value",c[f].value),!0;if(c[f].menu&&b(c[f].menu))return!0}}var c,d,e,f,g=this;g._super(a),a=g.settings,g._values=c=a.values,c&&("undefined"!=typeof a.value&&b(c),!d&&c.length>0&&(e=c[0].text,g.state.set("value",c[0].value)),g.state.set("menu",c)),g.state.set("text",a.text||e),g.classes.add("listbox"),g.on("select",function(b){var c=b.control;f&&(b.lastControl=f),a.multiple?c.active(!c.active()):g.value(b.control.value()),f=c})},bindStates:function(){function a(a,c){a instanceof b&&a.items().each(function(a){a.hasMenus()||a.active(a.value()===c)})}function c(a,b){var d;if(a)for(var e=0;e<a.length;e++){if(a[e].value===b)return a[e];if(a[e].menu&&(d=c(a[e].menu,b)))return d}}var d=this;return d.on("show",function(b){a(b.control,d.value())}),d.state.on("change:value",function(a){var b=c(d.state.get("menu"),a.value);b?d.text(b.text):d.text(d.settings.text)}),d._super()}})}),g("1y",["h"],function(a){"use strict";return a.extend({Defaults:{classes:"radio",role:"radio"}})}),g("21",["15","p"],function(a,b){"use strict";return a.extend({renderHtml:function(){var a=this,b=a.classPrefix;return a.classes.add("resizehandle"),"both"==a.settings.direction&&a.classes.add("resizehandle-both"),a.canFocus=!1,'<div id="'+a._id+'" class="'+a.classes+'"><i class="'+b+"ico "+b+'i-resize"></i></div>'},postRender:function(){var a=this;a._super(),a.resizeDragHelper=new b(this._id,{start:function(){a.fire("ResizeStart")},drag:function(b){"both"!=a.settings.direction&&(b.deltaX=0),a.fire("Resize",b)},stop:function(){a.fire("ResizeEnd")}})},remove:function(){return this.resizeDragHelper&&this.resizeDragHelper.destroy(),this._super()}})}),g("23",["15"],function(a){"use strict";function b(a){var b="";if(a)for(var c=0;c<a.length;c++)b+='<option value="'+a[c]+'">'+a[c]+"</option>";return b}return a.extend({Defaults:{classes:"selectbox",role:"selectbox",options:[]},init:function(a){var b=this;b._super(a),b.settings.size&&(b.size=b.settings.size),b.settings.options&&(b._options=b.settings.options),b.on("keydown",function(a){var c;13==a.keyCode&&(a.preventDefault(),b.parents().reverse().each(function(a){if(a.toJSON)return c=a,!1}),b.fire("submit",{data:c.toJSON()}))})},options:function(a){return arguments.length?(this.state.set("options",a),this):this.state.get("options")},renderHtml:function(){var a,c=this,d="";return a=b(c._options),c.size&&(d=' size = "'+c.size+'"'),'<select id="'+c._id+'" class="'+c.classes+'"'+d+">"+a+"</select>"},bindStates:function(){var a=this;return a.state.on("change:options",function(c){a.getEl().innerHTML=b(c.value)}),a._super()}})}),g("25",["15","p","2n"],function(a,b,c){"use strict";function d(a,b,c){return a<b&&(a=b),a>c&&(a=c),a}function e(a,b,c){a.setAttribute("aria-"+b,c)}function f(a,b){var d,f,g,h,i,j;"v"==a.settings.orientation?(h="top",g="height",f="h"):(h="left",g="width",f="w"),j=a.getEl("handle"),d=(a.layoutRect()[f]||100)-c.getSize(j)[g],i=d*((b-a._minValue)/(a._maxValue-a._minValue))+"px",j.style[h]=i,j.style.height=a.layoutRect().h+"px",e(j,"valuenow",b),e(j,"valuetext",""+a.settings.previewFilter(b)),e(j,"valuemin",a._minValue),e(j,"valuemax",a._maxValue)}return a.extend({init:function(a){var b=this;a.previewFilter||(a.previewFilter=function(a){return Math.round(100*a)/100}),b._super(a),b.classes.add("slider"),"v"==a.orientation&&b.classes.add("vertical"),b._minValue=a.minValue||0,b._maxValue=a.maxValue||100,b._initValue=b.state.get("value")},renderHtml:function(){var a=this,b=a._id,c=a.classPrefix;return'<div id="'+b+'" class="'+a.classes+'"><div id="'+b+'-handle" class="'+c+'slider-handle" role="slider" tabindex="-1"></div></div>'},reset:function(){this.value(this._initValue).repaint()},postRender:function(){function a(a,b,c){return(c+a)/(b-a)}function e(a,b,c){return c*(b-a)-a}function f(b,c){function f(f){var g;g=n.value(),g=e(b,c,a(b,c,g)+.05*f),g=d(g,b,c),n.value(g),n.fire("dragstart",{value:g}),n.fire("drag",{value:g}),n.fire("dragend",{value:g})}n.on("keydown",function(a){switch(a.keyCode){case 37:case 38:f(-1);break;case 39:case 40:f(1)}})}function g(a,e,f){var g,h,i,o,p;n._dragHelper=new b(n._id,{handle:n._id+"-handle",start:function(a){g=a[j],h=parseInt(n.getEl("handle").style[k],10),i=(n.layoutRect()[m]||100)-c.getSize(f)[l],n.fire("dragstart",{value:p})},drag:function(b){var c=b[j]-g;o=d(h+c,0,i),f.style[k]=o+"px",p=a+o/i*(e-a),n.value(p),n.tooltip().text(""+n.settings.previewFilter(p)).show().moveRel(f,"bc tc"),n.fire("drag",{value:p})},stop:function(){n.tooltip().hide(),n.fire("dragend",{value:p})}})}var h,i,j,k,l,m,n=this;h=n._minValue,i=n._maxValue,"v"==n.settings.orientation?(j="screenY",k="top",l="height",m="h"):(j="screenX",k="left",l="width",m="w"),n._super(),f(h,i,n.getEl("handle")),g(h,i,n.getEl("handle"))},repaint:function(){this._super(),f(this,this.value())},bindStates:function(){var a=this;return a.state.on("change:value",function(b){f(a,b.value)}),a._super()}})}),g("26",["15"],function(a){"use strict";return a.extend({renderHtml:function(){var a=this;return a.classes.add("spacer"),a.canFocus=!1,'<div id="'+a._id+'" class="'+a.classes+'"></div>'}})}),g("27",["1","2o","2n","1p"],function(a,b,c,d){return d.extend({Defaults:{classes:"widget btn splitbtn",role:"button"},repaint:function(){var a,d,e=this,f=e.getEl(),g=e.layoutRect();return e._super(),a=f.firstChild,d=f.lastChild,b(a).css({width:g.w-c.getSize(d).width,height:g.h-2}),b(d).css({height:g.h-2}),e},activeMenu:function(a){var c=this;b(c.getEl().lastChild).toggleClass(c.classPrefix+"active",a)},renderHtml:function(){var b,c=this,d=c._id,e=c.classPrefix,f=c.state.get("icon"),g=c.state.get("text"),h="";return b=c.settings.image,b?(f="none","string"!=typeof b&&(b=a.getSelection?b[0]:b[1]),b=" style=\"background-image: url('"+b+"')\""):b="",f=c.settings.icon?e+"ico "+e+"i-"+f:"",g&&(c.classes.add("btn-has-text"),h='<span class="'+e+'txt">'+c.encode(g)+"</span>"),'<div id="'+d+'" class="'+c.classes+'" role="button" tabindex="-1"><button type="button" hidefocus="1" tabindex="-1">'+(f?'<i class="'+f+'"'+b+"></i>":"")+h+'</button><button type="button" class="'+e+'open" hidefocus="1" tabindex="-1">'+(c._menuBtnText?(f?"\xa0":"")+c._menuBtnText:"")+' <i class="'+e+'caret"></i></button></div>'},postRender:function(){var a=this,b=a.settings.onclick;return a.on("click",function(a){var c=a.target;if(a.control==this)for(;c;){if(a.aria&&"down"!=a.aria.key||"BUTTON"==c.nodeName&&c.className.indexOf("open")==-1)return a.stopImmediatePropagation(),void(b&&b.call(this,a));c=c.parentNode}}),delete a.settings.onclick,a._super()}})}),g("28",["x"],function(a){"use strict";return a.extend({Defaults:{containerClass:"stack-layout",controlClass:"stack-layout-item",endClass:"break"},isNative:function(){return!0}})}),g("29",["1u","2o","2n"],function(a,b,c){"use strict";return a.extend({Defaults:{layout:"absolute",defaults:{type:"panel"}},activateTab:function(a){var c;this.activeTabId&&(c=this.getEl(this.activeTabId),b(c).removeClass(this.classPrefix+"active"),c.setAttribute("aria-selected","false")),this.activeTabId="t"+a,c=this.getEl("t"+a),c.setAttribute("aria-selected","true"),b(c).addClass(this.classPrefix+"active"),this.items()[a].show().fire("showtab"),this.reflow(),this.items().each(function(b,c){a!=c&&b.hide()})},renderHtml:function(){var a=this,b=a._layout,c="",d=a.classPrefix;return a.preRender(),b.preRender(a),a.items().each(function(b,e){var f=a._id+"-t"+e;b.aria("role","tabpanel"),b.aria("labelledby",f),c+='<div id="'+f+'" class="'+d+'tab" unselectable="on" role="tab" aria-controls="'+b._id+'" aria-selected="false" tabIndex="-1">'+a.encode(b.settings.title)+"</div>"}),'<div id="'+a._id+'" class="'+a.classes+'" hidefocus="1" tabindex="-1"><div id="'+a._id+'-head" class="'+d+'tabs" role="tablist">'+c+'</div><div id="'+a._id+'-body" class="'+a.bodyClasses+'">'+b.renderHtml(a)+"</div></div>"},postRender:function(){var a=this;a._super(),a.settings.activeTab=a.settings.activeTab||0,a.activateTab(a.settings.activeTab),this.on("click",function(b){var c=b.target.parentNode;if(c&&c.id==a._id+"-head")for(var d=c.childNodes.length;d--;)c.childNodes[d]==b.target&&a.activateTab(d)})},initLayoutRect:function(){var a,b,d,e=this;b=c.getSize(e.getEl("head")).width,b=b<0?0:b,d=0,e.items().each(function(a){b=Math.max(b,a.layoutRect().minW),d=Math.max(d,a.layoutRect().minH)}),e.items().each(function(a){a.settings.x=0,a.settings.y=0,a.settings.w=b,a.settings.h=d,a.layoutRect({x:0,y:0,w:b,h:d})});var f=c.getSize(e.getEl("head")).height;return e.settings.minWidth=b,e.settings.minHeight=d+f,a=e._super(),a.deltaH+=f,a.innerH=a.h-a.deltaH,a}})}),g("2a",["12","c","2n","15"],function(a,b,c,d){return d.extend({init:function(a){var b=this;b._super(a),b.classes.add("textbox"),a.multiline?b.classes.add("multiline"):(b.on("keydown",function(a){var c;13==a.keyCode&&(a.preventDefault(),b.parents().reverse().each(function(a){if(a.toJSON)return c=a,!1}),b.fire("submit",{data:c.toJSON()}))}),b.on("keyup",function(a){b.state.set("value",a.target.value)}))},repaint:function(){var b,c,d,e,f,g=this,h=0;b=g.getEl().style,c=g._layoutRect,f=g._lastRepaintRect||{};var i=a;return!g.settings.multiline&&i.all&&(!i.documentMode||i.documentMode<=8)&&(b.lineHeight=c.h-h+"px"),d=g.borderBox,e=d.left+d.right+8,h=d.top+d.bottom+(g.settings.multiline?8:0),c.x!==f.x&&(b.left=c.x+"px",f.x=c.x),c.y!==f.y&&(b.top=c.y+"px",f.y=c.y),c.w!==f.w&&(b.width=c.w-e+"px",f.w=c.w),c.h!==f.h&&(b.height=c.h-h+"px",f.h=c.h),g._lastRepaintRect=f,g.fire("repaint",{},!1),g},renderHtml:function(){var a,d,e=this,f=e.settings;return a={id:e._id,hidefocus:"1"},b.each(["rows","spellcheck","maxLength","size","readonly","min","max","step","list","pattern","placeholder","required","multiple"],function(b){a[b]=f[b]}),e.disabled()&&(a.disabled="disabled"),f.subtype&&(a.type=f.subtype),d=c.create(f.multiline?"textarea":"input",a),d.value=e.state.get("value"),d.className=e.classes,d.outerHTML},value:function(a){return arguments.length?(this.state.set("value",a),this):(this.state.get("rendered")&&this.state.set("value",this.getEl().value),this.state.get("value"))},postRender:function(){var a=this;a.getEl().value=a.state.get("value"),a._super(),a.$el.on("change",function(b){a.state.set("value",b.target.value),a.fire("change",b)})},bindStates:function(){var a=this;return a.state.on("change:value",function(b){a.getEl().value!=b.value&&(a.getEl().value=b.value)}),a.state.on("change:disabled",function(b){a.getEl().disabled=b.value}),a._super()},remove:function(){this.$el.off(),this._super()}})}),g("4",["b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","5","1f","1g","1h","1i","1j","1k","1l","1m","1n","1o","1p","1q","1r","1s","1t","1u","1v","1w","1x","1y","1z","20","21","22","23","24","25","26","27","28","29","2a","2b","2c","2d","15","2e"],function(a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z,A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z,$,_,aa,ba,ca,da,ea,fa,ga,ha){var ia=function(){return{Selector:Y,Collection:h,ReflowQueue:T,Control:n,Factory:a,KeyboardNavigation:D,Container:m,DragHelper:o,Scrollable:W,Panel:O,Movable:M,Resizable:U,FloatPanel:v,Window:ha,MessageBox:L,Tooltip:fa,Widget:ga,Progress:R,Notification:N,Layout:F,AbsoluteLayout:c,Button:e,ButtonGroup:f,Checkbox:g,ComboBox:l,ColorBox:i,PanelButton:P,ColorButton:j,ColorPicker:k,Path:Q,ElementPath:q,FormItem:z,Form:x,FieldSet:r,FilePicker:s,FitLayout:t,FlexLayout:u,FlowLayout:w,FormatControls:y,GridLayout:A,Iframe:B,InfoBox:C,Label:E,Toolbar:ea,MenuBar:I,MenuButton:J,MenuItem:K,Throbber:da,Menu:H,ListBox:G,Radio:S,ResizeHandle:V,SelectBox:X,Slider:Z,Spacer:$,SplitButton:_,StackLayout:aa,TabPanel:ba,TextBox:ca,DropZone:p,BrowseButton:d}},ja=function(a){a.ui?b.each(ia(),function(b,c){a.ui[c]=b}):a.ui=ia()},ka=function(){b.each(ia(),function(b,c){a.add(c,b)})},la={appendTo:ja,registerToFactory:ka};return la}),g("0",["1","2","3","4","5"],function(a,b,c,d,e){return d.registerToFactory(),d.appendTo(a.tinymce?a.tinymce:{}),b.add("modern",function(a){return e.setup(a),c.get(a)}),function(){}}),d("0")()}();
+(function () {
+
+var defs = {}; // id -> {dependencies, definition, instance (possibly undefined)}
+
+// Used when there is no 'main' module.
+// The name is probably (hopefully) unique so minification removes for releases.
+var register_3795 = function (id) {
+  var module = dem(id);
+  var fragments = id.split('.');
+  var target = Function('return this;')();
+  for (var i = 0; i < fragments.length - 1; ++i) {
+    if (target[fragments[i]] === undefined)
+      target[fragments[i]] = {};
+    target = target[fragments[i]];
+  }
+  target[fragments[fragments.length - 1]] = module;
+};
+
+var instantiate = function (id) {
+  var actual = defs[id];
+  var dependencies = actual.deps;
+  var definition = actual.defn;
+  var len = dependencies.length;
+  var instances = new Array(len);
+  for (var i = 0; i < len; ++i)
+    instances[i] = dem(dependencies[i]);
+  var defResult = definition.apply(null, instances);
+  if (defResult === undefined)
+     throw 'module [' + id + '] returned undefined';
+  actual.instance = defResult;
+};
+
+var def = function (id, dependencies, definition) {
+  if (typeof id !== 'string')
+    throw 'module id must be a string';
+  else if (dependencies === undefined)
+    throw 'no dependencies for ' + id;
+  else if (definition === undefined)
+    throw 'no definition function for ' + id;
+  defs[id] = {
+    deps: dependencies,
+    defn: definition,
+    instance: undefined
+  };
+};
+
+var dem = function (id) {
+  var actual = defs[id];
+  if (actual === undefined)
+    throw 'module [' + id + '] was undefined';
+  else if (actual.instance === undefined)
+    instantiate(id);
+  return actual.instance;
+};
+
+var req = function (ids, callback) {
+  var len = ids.length;
+  var instances = new Array(len);
+  for (var i = 0; i < len; ++i)
+    instances[i] = dem(ids[i]);
+  callback.apply(null, instances);
+};
+
+var ephox = {};
+
+ephox.bolt = {
+  module: {
+    api: {
+      define: def,
+      require: req,
+      demand: dem
+    }
+  }
+};
+
+var define = def;
+var require = req;
+var demand = dem;
+// this helps with minification when using a lot of global references
+var defineGlobal = function (id, ref) {
+  define(id, [], function () { return ref; });
+};
+/*jsc
+["tinymce.themes.modern.Theme","global!window","tinymce.core.ThemeManager","tinymce.themes.modern.api.ThemeApi","tinymce.ui.Api","tinymce.ui.FormatControls","global!tinymce.util.Tools.resolve","tinymce.themes.modern.ui.Render","tinymce.themes.modern.ui.Resize","tinymce.ui.NotificationManagerImpl","tinymce.ui.WindowManagerImpl","tinymce.core.ui.Factory","tinymce.core.util.Tools","tinymce.ui.AbsoluteLayout","tinymce.ui.BrowseButton","tinymce.ui.Button","tinymce.ui.ButtonGroup","tinymce.ui.Checkbox","tinymce.ui.Collection","tinymce.ui.ColorBox","tinymce.ui.ColorButton","tinymce.ui.ColorPicker","tinymce.ui.ComboBox","tinymce.ui.Container","tinymce.ui.Control","tinymce.ui.DragHelper","tinymce.ui.DropZone","tinymce.ui.ElementPath","tinymce.ui.FieldSet","tinymce.ui.FilePicker","tinymce.ui.FitLayout","tinymce.ui.FlexLayout","tinymce.ui.FloatPanel","tinymce.ui.FlowLayout","tinymce.ui.Form","ephox.katamari.api.Fun","ephox.sugar.api.node.Element","ephox.sugar.api.search.SelectorFind","global!document","tinymce.core.EditorManager","tinymce.core.Env","tinymce.ui.Widget","tinymce.ui.editorui.Align","tinymce.ui.editorui.FontSelect","tinymce.ui.editorui.FontSizeSelect","tinymce.ui.editorui.FormatSelect","tinymce.ui.editorui.Formats","tinymce.ui.editorui.InsertButton","tinymce.ui.editorui.SimpleControls","tinymce.ui.editorui.UndoRedo","tinymce.ui.editorui.VisualAid","tinymce.ui.FormItem","tinymce.ui.GridLayout","tinymce.ui.Iframe","tinymce.ui.InfoBox","tinymce.ui.KeyboardNavigation","tinymce.ui.Label","tinymce.ui.Layout","tinymce.ui.ListBox","tinymce.ui.Menu","tinymce.ui.MenuBar","tinymce.ui.MenuButton","tinymce.ui.MenuItem","tinymce.ui.MessageBox","tinymce.ui.Movable","tinymce.ui.Notification","tinymce.ui.Panel","tinymce.ui.PanelButton","tinymce.ui.Path","tinymce.ui.Progress","tinymce.ui.Radio","tinymce.ui.ReflowQueue","tinymce.ui.Resizable","tinymce.ui.ResizeHandle","tinymce.ui.Scrollable","tinymce.ui.SelectBox","tinymce.ui.Selector","tinymce.ui.Slider","tinymce.ui.Spacer","tinymce.ui.SplitButton","tinymce.ui.StackLayout","tinymce.ui.TabPanel","tinymce.ui.TextBox","tinymce.ui.Throbber","tinymce.ui.Toolbar","tinymce.ui.Tooltip","tinymce.ui.Window","tinymce.themes.modern.api.Settings","tinymce.themes.modern.modes.Iframe","tinymce.themes.modern.modes.Inline","tinymce.themes.modern.ui.ProgressState","tinymce.core.dom.DOMUtils","tinymce.themes.modern.api.Events","ephox.katamari.api.Arr","global!setTimeout","tinymce.ui.DomUtils","tinymce.core.dom.DomQuery","tinymce.core.util.Class","tinymce.core.util.EventDispatcher","tinymce.ui.BoxUtils","tinymce.ui.ClassList","tinymce.ui.data.ObservableObject","tinymce.core.util.Delay","global!RegExp","tinymce.core.util.VK","tinymce.core.util.Color","global!Array","global!Error","tinymce.ui.content.LinkTargets","global!console","ephox.sugar.api.search.PredicateFind","ephox.sugar.api.search.Selectors","ephox.sugar.impl.ClosestOrAncestor","tinymce.ui.editorui.FormatUtils","tinymce.ui.fmt.FontInfo","tinymce.core.util.I18n","tinymce.themes.modern.ui.A11y","tinymce.themes.modern.ui.ContextToolbars","tinymce.themes.modern.ui.Menubar","tinymce.themes.modern.ui.Sidebar","tinymce.themes.modern.ui.SkinLoaded","tinymce.themes.modern.ui.Toolbar","tinymce.ui.data.Binding","tinymce.core.util.Observable","ephox.katamari.api.Option","global!String","ephox.katamari.api.Id","ephox.sugar.api.search.SelectorFilter","ephox.katamari.api.Type","ephox.sugar.api.node.Body","ephox.sugar.api.dom.Compare","ephox.sugar.api.node.NodeTypes","ephox.sugar.api.node.Node","tinymce.core.geom.Rect","global!Object","global!Date","global!Math","ephox.sugar.api.search.PredicateFilter","ephox.katamari.api.Thunk","ephox.sand.api.Node","ephox.sand.api.PlatformDetection","ephox.sugar.api.search.Traverse","ephox.sand.util.Global","ephox.sand.core.PlatformDetection","global!navigator","ephox.katamari.api.Struct","ephox.sugar.alien.Recurse","ephox.katamari.api.Resolve","ephox.sand.core.Browser","ephox.sand.core.OperatingSystem","ephox.sand.detect.DeviceType","ephox.sand.detect.UaString","ephox.sand.info.PlatformInfo","ephox.katamari.data.Immutable","ephox.katamari.data.MixedBag","ephox.katamari.api.Global","ephox.sand.detect.Version","ephox.katamari.api.Strings","ephox.katamari.api.Obj","ephox.katamari.util.BagUtils","global!Number","ephox.katamari.str.StrAppend","ephox.katamari.str.StringParts"]
+jsc*/
+defineGlobal("global!window", window);
+defineGlobal("global!tinymce.util.Tools.resolve", tinymce.util.Tools.resolve);
+/**
+ * ResolveGlobal.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2017 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+define(
+  'tinymce.core.ThemeManager',
+  [
+    'global!tinymce.util.Tools.resolve'
+  ],
+  function (resolve) {
+    return resolve('tinymce.ThemeManager');
+  }
+);
+
+/**
+ * ResolveGlobal.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2017 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+define(
+  'tinymce.core.EditorManager',
+  [
+    'global!tinymce.util.Tools.resolve'
+  ],
+  function (resolve) {
+    return resolve('tinymce.EditorManager');
+  }
+);
+
+/**
+ * ResolveGlobal.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2017 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+define(
+  'tinymce.core.util.Tools',
+  [
+    'global!tinymce.util.Tools.resolve'
+  ],
+  function (resolve) {
+    return resolve('tinymce.util.Tools');
+  }
+);
+
+/**
+ * Settings.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2016 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+define(
+  'tinymce.themes.modern.api.Settings',
+  [
+    'tinymce.core.EditorManager',
+    'tinymce.core.util.Tools'
+  ],
+  function (EditorManager, Tools) {
+    var isBrandingEnabled = function (editor) {
+      return editor.getParam('branding', true);
+    };
+
+    var hasMenubar = function (editor) {
+      return getMenubar(editor) !== false;
+    };
+
+    var getMenubar = function (editor) {
+      return editor.getParam('menubar');
+    };
+
+    var hasStatusbar = function (editor) {
+      return editor.getParam('statusbar', true);
+    };
+
+    var getToolbarSize = function (editor) {
+      return editor.getParam('toolbar_items_size');
+    };
+
+    var getResize = function (editor) {
+      var resize = editor.getParam('resize', 'vertical');
+      if (resize === false) {
+        return 'none';
+      } else if (resize === 'both') {
+        return 'both';
+      } else {
+        return 'vertical';
+      }
+    };
+
+    var isReadOnly = function (editor) {
+      return editor.getParam('readonly', false);
+    };
+
+    var getFixedToolbarContainer = function (editor) {
+      return editor.getParam('fixed_toolbar_container');
+    };
+
+    var getInlineToolbarPositionHandler = function (editor) {
+      return editor.getParam('inline_toolbar_position_handler');
+    };
+
+    var getMenu = function (editor) {
+      return editor.getParam('menu');
+    };
+
+    var getRemovedMenuItems = function (editor) {
+      return editor.getParam('removed_menuitems', '');
+    };
+
+    var getMinWidth = function (editor) {
+      return editor.getParam('min_width', 100);
+    };
+
+    var getMinHeight = function (editor) {
+      return editor.getParam('min_height', 100);
+    };
+
+    var getMaxWidth = function (editor) {
+      return editor.getParam('max_width', 0xFFFF);
+    };
+
+    var getMaxHeight = function (editor) {
+      return editor.getParam('max_height', 0xFFFF);
+    };
+
+    var getSkinUrl = function (editor) {
+      var settings = editor.settings;
+      var skin = settings.skin;
+      var skinUrl = settings.skin_url;
+
+      if (skin !== false) {
+        var skinName = skin ? skin : 'lightgray';
+
+        if (skinUrl) {
+          skinUrl = editor.documentBaseURI.toAbsolute(skinUrl);
+        } else {
+          skinUrl = EditorManager.baseURL + '/skins/' + skinName;
+        }
+      }
+
+      return skinUrl;
+    };
+
+    var isSkinDisabled = function (editor) {
+      return editor.settings.skin === false;
+    };
+
+    var isInline = function (editor) {
+      return editor.getParam('inline', false);
+    };
+
+    var getIndexedToolbars = function (settings, defaultToolbar) {
+      var toolbars = [];
+
+      // Generate toolbar<n>
+      for (var i = 1; i < 10; i++) {
+        var toolbar = settings['toolbar' + i];
+        if (!toolbar) {
+          break;
+        }
+
+        toolbars.push(toolbar);
+      }
+
+      var mainToolbar = settings.toolbar ? [ settings.toolbar ] : [ defaultToolbar ];
+      return toolbars.length > 0 ? toolbars : mainToolbar;
+    };
+
+    var getToolbars = function (editor) {
+      var toolbar = editor.getParam('toolbar');
+      var defaultToolbar = 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image';
+
+      if (toolbar === false) {
+        return [];
+      } else if (Tools.isArray(toolbar)) {
+        return Tools.grep(toolbar, function (toolbar) {
+          return toolbar.length > 0;
+        });
+      } else {
+        return getIndexedToolbars(editor.settings, defaultToolbar);
+      }
+    };
+
+    return {
+      isBrandingEnabled: isBrandingEnabled,
+      hasMenubar: hasMenubar,
+      getMenubar: getMenubar,
+      hasStatusbar: hasStatusbar,
+      getToolbarSize: getToolbarSize,
+      getResize: getResize,
+      isReadOnly: isReadOnly,
+      getFixedToolbarContainer: getFixedToolbarContainer,
+      getInlineToolbarPositionHandler: getInlineToolbarPositionHandler,
+      getMenu: getMenu,
+      getRemovedMenuItems: getRemovedMenuItems,
+      getMinWidth: getMinWidth,
+      getMinHeight: getMinHeight,
+      getMaxWidth: getMaxWidth,
+      getMaxHeight: getMaxHeight,
+      getSkinUrl: getSkinUrl,
+      isSkinDisabled: isSkinDisabled,
+      isInline: isInline,
+      getToolbars: getToolbars
+    };
+  }
+);
+
+/**
+ * ResolveGlobal.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2017 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+define(
+  'tinymce.core.dom.DOMUtils',
+  [
+    'global!tinymce.util.Tools.resolve'
+  ],
+  function (resolve) {
+    return resolve('tinymce.dom.DOMUtils');
+  }
+);
+
+/**
+ * ResolveGlobal.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2017 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+define(
+  'tinymce.core.ui.Factory',
+  [
+    'global!tinymce.util.Tools.resolve'
+  ],
+  function (resolve) {
+    return resolve('tinymce.ui.Factory');
+  }
+);
+
+/**
+ * ResolveGlobal.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2017 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+define(
+  'tinymce.core.util.I18n',
+  [
+    'global!tinymce.util.Tools.resolve'
+  ],
+  function (resolve) {
+    return resolve('tinymce.util.I18n');
+  }
+);
+
+/**
+ * Events.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2016 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+define(
+  'tinymce.themes.modern.api.Events',
+  [
+  ],
+  function () {
+    var fireSkinLoaded = function (editor) {
+      return editor.fire('SkinLoaded');
+    };
+
+    var fireResizeEditor = function (editor) {
+      return editor.fire('ResizeEditor');
+    };
+
+    var fireBeforeRenderUI = function (editor) {
+      return editor.fire('BeforeRenderUI');
+    };
+
+    return {
+      fireSkinLoaded: fireSkinLoaded,
+      fireResizeEditor: fireResizeEditor,
+      fireBeforeRenderUI: fireBeforeRenderUI
+    };
+  }
+);
+
+/**
+ * A11y.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2016 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+define(
+  'tinymce.themes.modern.ui.A11y',
+  [
+  ],
+  function () {
+    var focus = function (panel, type) {
+      return function () {
+        var item = panel.find(type)[0];
+
+        if (item) {
+          item.focus(true);
+        }
+      };
+    };
+
+    var addKeys = function (editor, panel) {
+      editor.shortcuts.add('Alt+F9', '', focus(panel, 'menubar'));
+      editor.shortcuts.add('Alt+F10,F10', '', focus(panel, 'toolbar'));
+      editor.shortcuts.add('Alt+F11', '', focus(panel, 'elementpath'));
+      panel.on('cancel', function () {
+        editor.focus();
+      });
+    };
+
+    return {
+      addKeys: addKeys
+    };
+  }
+);
+
+defineGlobal("global!document", document);
+/**
+ * ResolveGlobal.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2017 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+define(
+  'tinymce.core.geom.Rect',
+  [
+    'global!tinymce.util.Tools.resolve'
+  ],
+  function (resolve) {
+    return resolve('tinymce.geom.Rect');
+  }
+);
+
+/**
+ * ResolveGlobal.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2017 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+define(
+  'tinymce.core.util.Delay',
+  [
+    'global!tinymce.util.Tools.resolve'
+  ],
+  function (resolve) {
+    return resolve('tinymce.util.Delay');
+  }
+);
+
+/**
+ * Toolbar.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2016 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+define(
+  'tinymce.themes.modern.ui.Toolbar',
+  [
+    'tinymce.core.ui.Factory',
+    'tinymce.core.util.Tools',
+    'tinymce.themes.modern.api.Settings'
+  ],
+  function (Factory, Tools, Settings) {
+    var createToolbar = function (editor, items, size) {
+      var toolbarItems = [], buttonGroup;
+
+      if (!items) {
+        return;
+      }
+
+      Tools.each(items.split(/[ ,]/), function (item) {
+        var itemName;
+
+        var bindSelectorChanged = function () {
+          var selection = editor.selection;
+
+          if (item.settings.stateSelector) {
+            selection.selectorChanged(item.settings.stateSelector, function (state) {
+              item.active(state);
+            }, true);
+          }
+
+          if (item.settings.disabledStateSelector) {
+            selection.selectorChanged(item.settings.disabledStateSelector, function (state) {
+              item.disabled(state);
+            });
+          }
+        };
+
+        if (item === "|") {
+          buttonGroup = null;
+        } else {
+          if (!buttonGroup) {
+            buttonGroup = { type: 'buttongroup', items: [] };
+            toolbarItems.push(buttonGroup);
+          }
+
+          if (editor.buttons[item]) {
+            // TODO: Move control creation to some UI class
+            itemName = item;
+            item = editor.buttons[itemName];
+
+            if (typeof item === "function") {
+              item = item();
+            }
+
+            item.type = item.type || 'button';
+            item.size = size;
+
+            item = Factory.create(item);
+            buttonGroup.items.push(item);
+
+            if (editor.initialized) {
+              bindSelectorChanged();
+            } else {
+              editor.on('init', bindSelectorChanged);
+            }
+          }
+        }
+      });
+
+      return {
+        type: 'toolbar',
+        layout: 'flow',
+        items: toolbarItems
+      };
+    };
+
+    /**
+     * Creates the toolbars from config and returns a toolbar array.
+     *
+     * @param {String} size Optional toolbar item size.
+     * @return {Array} Array with toolbars.
+     */
+    var createToolbars = function (editor, size) {
+      var toolbars = [];
+
+      var addToolbar = function (items) {
+        if (items) {
+          toolbars.push(createToolbar(editor, items, size));
+        }
+      };
+
+      Tools.each(Settings.getToolbars(editor), function (toolbar) {
+        addToolbar(toolbar);
+      });
+
+      if (toolbars.length) {
+        return {
+          type: 'panel',
+          layout: 'stack',
+          classes: "toolbar-grp",
+          ariaRoot: true,
+          ariaRemember: true,
+          items: toolbars
+        };
+      }
+    };
+
+    return {
+      createToolbar: createToolbar,
+      createToolbars: createToolbars
+    };
+  }
+);
+
+/**
+ * ContextToolbars.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2016 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+define(
+  'tinymce.themes.modern.ui.ContextToolbars',
+  [
+    'global!document',
+    'tinymce.core.dom.DOMUtils',
+    'tinymce.core.geom.Rect',
+    'tinymce.core.ui.Factory',
+    'tinymce.core.util.Delay',
+    'tinymce.core.util.Tools',
+    'tinymce.themes.modern.api.Settings',
+    'tinymce.themes.modern.ui.Toolbar'
+  ],
+  function (document, DOMUtils, Rect, Factory, Delay, Tools, Settings, Toolbar) {
+    var DOM = DOMUtils.DOM;
+
+    var toClientRect = function (geomRect) {
+      return {
+        left: geomRect.x,
+        top: geomRect.y,
+        width: geomRect.w,
+        height: geomRect.h,
+        right: geomRect.x + geomRect.w,
+        bottom: geomRect.y + geomRect.h
+      };
+    };
+
+    var hideAllFloatingPanels = function (editor) {
+      Tools.each(editor.contextToolbars, function (toolbar) {
+        if (toolbar.panel) {
+          toolbar.panel.hide();
+        }
+      });
+    };
+
+    var movePanelTo = function (panel, pos) {
+      panel.moveTo(pos.left, pos.top);
+    };
+
+    var togglePositionClass = function (panel, relPos, predicate) {
+      relPos = relPos ? relPos.substr(0, 2) : '';
+
+      Tools.each({
+        t: 'down',
+        b: 'up'
+      }, function (cls, pos) {
+        panel.classes.toggle('arrow-' + cls, predicate(pos, relPos.substr(0, 1)));
+      });
+
+      Tools.each({
+        l: 'left',
+        r: 'right'
+      }, function (cls, pos) {
+        panel.classes.toggle('arrow-' + cls, predicate(pos, relPos.substr(1, 1)));
+      });
+    };
+
+    var userConstrain = function (handler, x, y, elementRect, contentAreaRect, panelRect) {
+      panelRect = toClientRect({ x: x, y: y, w: panelRect.w, h: panelRect.h });
+
+      if (handler) {
+        panelRect = handler({
+          elementRect: toClientRect(elementRect),
+          contentAreaRect: toClientRect(contentAreaRect),
+          panelRect: panelRect
+        });
+      }
+
+      return panelRect;
+    };
+
+    var addContextualToolbars = function (editor) {
+      var scrollContainer;
+
+      var getContextToolbars = function () {
+        return editor.contextToolbars || [];
+      };
+
+      var getElementRect = function (elm) {
+        var pos, targetRect, root;
+
+        pos = DOM.getPos(editor.getContentAreaContainer());
+        targetRect = editor.dom.getRect(elm);
+        root = editor.dom.getRoot();
+
+        // Adjust targetPos for scrolling in the editor
+        if (root.nodeName === 'BODY') {
+          targetRect.x -= root.ownerDocument.documentElement.scrollLeft || root.scrollLeft;
+          targetRect.y -= root.ownerDocument.documentElement.scrollTop || root.scrollTop;
+        }
+
+        targetRect.x += pos.x;
+        targetRect.y += pos.y;
+
+        return targetRect;
+      };
+
+      var reposition = function (match, shouldShow) {
+        var relPos, panelRect, elementRect, contentAreaRect, panel, relRect, testPositions, smallElementWidthThreshold;
+        var handler = Settings.getInlineToolbarPositionHandler(editor);
+
+        if (editor.removed) {
+          return;
+        }
+
+        if (!match || !match.toolbar.panel) {
+          hideAllFloatingPanels(editor);
+          return;
+        }
+
+        testPositions = [
+          'bc-tc', 'tc-bc',
+          'tl-bl', 'bl-tl',
+          'tr-br', 'br-tr'
+        ];
+
+        panel = match.toolbar.panel;
+
+        // Only show the panel on some events not for example nodeChange since that fires when context menu is opened
+        if (shouldShow) {
+          panel.show();
+        }
+
+        elementRect = getElementRect(match.element);
+        panelRect = DOM.getRect(panel.getEl());
+        contentAreaRect = DOM.getRect(editor.getContentAreaContainer() || editor.getBody());
+        smallElementWidthThreshold = 25;
+
+        if (DOM.getStyle(match.element, 'display', true) !== 'inline') {
+          // We need to use these instead of the rect values since the style
+          // size properites might not be the same as the real size for a table if it has a caption
+          var clientRect = match.element.getBoundingClientRect();
+          elementRect.w = clientRect.width;
+          elementRect.h = clientRect.height;
+        }
+
+        if (!editor.inline) {
+          contentAreaRect.w = editor.getDoc().documentElement.offsetWidth;
+        }
+
+        // Inflate the elementRect so it doesn't get placed above resize handles
+        if (editor.selection.controlSelection.isResizable(match.element) && elementRect.w < smallElementWidthThreshold) {
+          elementRect = Rect.inflate(elementRect, 0, 8);
+        }
+
+        relPos = Rect.findBestRelativePosition(panelRect, elementRect, contentAreaRect, testPositions);
+        elementRect = Rect.clamp(elementRect, contentAreaRect);
+
+        if (relPos) {
+          relRect = Rect.relativePosition(panelRect, elementRect, relPos);
+          movePanelTo(panel, userConstrain(handler, relRect.x, relRect.y, elementRect, contentAreaRect, panelRect));
+        } else {
+          // Allow overflow below the editor to avoid placing toolbars ontop of tables
+          contentAreaRect.h += panelRect.h;
+
+          elementRect = Rect.intersect(contentAreaRect, elementRect);
+          if (elementRect) {
+            relPos = Rect.findBestRelativePosition(panelRect, elementRect, contentAreaRect, [
+              'bc-tc', 'bl-tl', 'br-tr'
+            ]);
+
+            if (relPos) {
+              relRect = Rect.relativePosition(panelRect, elementRect, relPos);
+              movePanelTo(panel, userConstrain(handler, relRect.x, relRect.y, elementRect, contentAreaRect, panelRect));
+            } else {
+              movePanelTo(panel, userConstrain(handler, elementRect.x, elementRect.y, elementRect, contentAreaRect, panelRect));
+            }
+          } else {
+            panel.hide();
+          }
+        }
+
+        togglePositionClass(panel, relPos, function (pos1, pos2) {
+          return pos1 === pos2;
+        });
+
+        //drawRect(contentAreaRect, 'blue');
+        //drawRect(elementRect, 'red');
+        //drawRect(panelRect, 'green');
+      };
+
+      var repositionHandler = function (show) {
+        return function () {
+          var execute = function () {
+            if (editor.selection) {
+              reposition(findFrontMostMatch(editor.selection.getNode()), show);
+            }
+          };
+
+          Delay.requestAnimationFrame(execute);
+        };
+      };
+
+      var bindScrollEvent = function () {
+        if (!scrollContainer) {
+          scrollContainer = editor.selection.getScrollContainer() || editor.getWin();
+          DOM.bind(scrollContainer, 'scroll', repositionHandler(true));
+
+          editor.on('remove', function () {
+            DOM.unbind(scrollContainer, 'scroll');
+          });
+        }
+      };
+
+      var showContextToolbar = function (match) {
+        var panel;
+
+        if (match.toolbar.panel) {
+          match.toolbar.panel.show();
+          reposition(match);
+          return;
+        }
+
+        bindScrollEvent();
+
+        panel = Factory.create({
+          type: 'floatpanel',
+          role: 'dialog',
+          classes: 'tinymce tinymce-inline arrow',
+          ariaLabel: 'Inline toolbar',
+          layout: 'flex',
+          direction: 'column',
+          align: 'stretch',
+          autohide: false,
+          autofix: true,
+          fixed: true,
+          border: 1,
+          items: Toolbar.createToolbar(editor, match.toolbar.items),
+          oncancel: function () {
+            editor.focus();
+          }
+        });
+
+        match.toolbar.panel = panel;
+        panel.renderTo(document.body).reflow();
+        reposition(match);
+      };
+
+      var hideAllContextToolbars = function () {
+        Tools.each(getContextToolbars(), function (toolbar) {
+          if (toolbar.panel) {
+            toolbar.panel.hide();
+          }
+        });
+      };
+
+      var findFrontMostMatch = function (targetElm) {
+        var i, y, parentsAndSelf, toolbars = getContextToolbars();
+
+        parentsAndSelf = editor.$(targetElm).parents().add(targetElm);
+        for (i = parentsAndSelf.length - 1; i >= 0; i--) {
+          for (y = toolbars.length - 1; y >= 0; y--) {
+            if (toolbars[y].predicate(parentsAndSelf[i])) {
+              return {
+                toolbar: toolbars[y],
+                element: parentsAndSelf[i]
+              };
+            }
+          }
+        }
+
+        return null;
+      };
+
+      editor.on('click keyup setContent ObjectResized', function (e) {
+        // Only act on partial inserts
+        if (e.type === 'setcontent' && !e.selection) {
+          return;
+        }
+
+        // Needs to be delayed to avoid Chrome img focus out bug
+        Delay.setEditorTimeout(editor, function () {
+          var match;
+
+          match = findFrontMostMatch(editor.selection.getNode());
+          if (match) {
+            hideAllContextToolbars();
+            showContextToolbar(match);
+          } else {
+            hideAllContextToolbars();
+          }
+        });
+      });
+
+      editor.on('blur hide contextmenu', hideAllContextToolbars);
+
+      editor.on('ObjectResizeStart', function () {
+        var match = findFrontMostMatch(editor.selection.getNode());
+
+        if (match && match.toolbar.panel) {
+          match.toolbar.panel.hide();
+        }
+      });
+
+      editor.on('ResizeEditor ResizeWindow', repositionHandler(true));
+      editor.on('nodeChange', repositionHandler(false));
+
+      editor.on('remove', function () {
+        Tools.each(getContextToolbars(), function (toolbar) {
+          if (toolbar.panel) {
+            toolbar.panel.remove();
+          }
+        });
+
+        editor.contextToolbars = {};
+      });
+
+      editor.shortcuts.add('ctrl+shift+e > ctrl+shift+p', '', function () {
+        var match = findFrontMostMatch(editor.selection.getNode());
+        if (match && match.toolbar.panel) {
+          match.toolbar.panel.items()[0].focus();
+        }
+      });
+    };
+
+    return {
+      addContextualToolbars: addContextualToolbars
+    };
+  }
+);
+
+defineGlobal("global!Array", Array);
+defineGlobal("global!Error", Error);
+define(
+  'ephox.katamari.api.Fun',
+
+  [
+    'global!Array',
+    'global!Error'
+  ],
+
+  function (Array, Error) {
+
+    var noop = function () { };
+
+    var compose = function (fa, fb) {
+      return function () {
+        return fa(fb.apply(null, arguments));
+      };
+    };
+
+    var constant = function (value) {
+      return function () {
+        return value;
+      };
+    };
+
+    var identity = function (x) {
+      return x;
+    };
+
+    var tripleEquals = function(a, b) {
+      return a === b;
+    };
+
+    // Don't use array slice(arguments), makes the whole function unoptimisable on Chrome
+    var curry = function (f) {
+      // equivalent to arguments.slice(1)
+      // starting at 1 because 0 is the f, makes things tricky.
+      // Pay attention to what variable is where, and the -1 magic.
+      // thankfully, we have tests for this.
+      var args = new Array(arguments.length - 1);
+      for (var i = 1; i < arguments.length; i++) args[i-1] = arguments[i];
+
+      return function () {
+        var newArgs = new Array(arguments.length);
+        for (var j = 0; j < newArgs.length; j++) newArgs[j] = arguments[j];
+
+        var all = args.concat(newArgs);
+        return f.apply(null, all);
+      };
+    };
+
+    var not = function (f) {
+      return function () {
+        return !f.apply(null, arguments);
+      };
+    };
+
+    var die = function (msg) {
+      return function () {
+        throw new Error(msg);
+      };
+    };
+
+    var apply = function (f) {
+      return f();
+    };
+
+    var call = function(f) {
+      f();
+    };
+
+    var never = constant(false);
+    var always = constant(true);
+    
+
+    return {
+      noop: noop,
+      compose: compose,
+      constant: constant,
+      identity: identity,
+      tripleEquals: tripleEquals,
+      curry: curry,
+      not: not,
+      die: die,
+      apply: apply,
+      call: call,
+      never: never,
+      always: always
+    };
+  }
+);
+
+defineGlobal("global!Object", Object);
+define(
+  'ephox.katamari.api.Option',
+
+  [
+    'ephox.katamari.api.Fun',
+    'global!Object'
+  ],
+
+  function (Fun, Object) {
+
+    var never = Fun.never;
+    var always = Fun.always;
+
+    /**
+      Option objects support the following methods:
+
+      fold :: this Option a -> ((() -> b, a -> b)) -> Option b
+
+      is :: this Option a -> a -> Boolean
+
+      isSome :: this Option a -> () -> Boolean
+
+      isNone :: this Option a -> () -> Boolean
+
+      getOr :: this Option a -> a -> a
+
+      getOrThunk :: this Option a -> (() -> a) -> a
+
+      getOrDie :: this Option a -> String -> a
+
+      or :: this Option a -> Option a -> Option a
+        - if some: return self
+        - if none: return opt
+
+      orThunk :: this Option a -> (() -> Option a) -> Option a
+        - Same as "or", but uses a thunk instead of a value
+
+      map :: this Option a -> (a -> b) -> Option b
+        - "fmap" operation on the Option Functor.
+        - same as 'each'
+
+      ap :: this Option a -> Option (a -> b) -> Option b
+        - "apply" operation on the Option Apply/Applicative.
+        - Equivalent to <*> in Haskell/PureScript.
+
+      each :: this Option a -> (a -> b) -> Option b
+        - same as 'map'
+
+      bind :: this Option a -> (a -> Option b) -> Option b
+        - "bind"/"flatMap" operation on the Option Bind/Monad.
+        - Equivalent to >>= in Haskell/PureScript; flatMap in Scala.
+
+      flatten :: {this Option (Option a))} -> () -> Option a
+        - "flatten"/"join" operation on the Option Monad.
+
+      exists :: this Option a -> (a -> Boolean) -> Boolean
+
+      forall :: this Option a -> (a -> Boolean) -> Boolean
+
+      filter :: this Option a -> (a -> Boolean) -> Option a
+
+      equals :: this Option a -> Option a -> Boolean
+
+      equals_ :: this Option a -> (Option a, a -> Boolean) -> Boolean
+
+      toArray :: this Option a -> () -> [a]
+
+    */
+
+    var none = function () { return NONE; };
+
+    var NONE = (function () {
+      var eq = function (o) {
+        return o.isNone();
+      };
+
+      // inlined from peanut, maybe a micro-optimisation?
+      var call = function (thunk) { return thunk(); };
+      var id = function (n) { return n; };
+      var noop = function () { };
+
+      var me = {
+        fold: function (n, s) { return n(); },
+        is: never,
+        isSome: never,
+        isNone: always,
+        getOr: id,
+        getOrThunk: call,
+        getOrDie: function (msg) {
+          throw new Error(msg || 'error: getOrDie called on none.');
+        },
+        or: id,
+        orThunk: call,
+        map: none,
+        ap: none,
+        each: noop,
+        bind: none,
+        flatten: none,
+        exists: never,
+        forall: always,
+        filter: none,
+        equals: eq,
+        equals_: eq,
+        toArray: function () { return []; },
+        toString: Fun.constant("none()")
+      };
+      if (Object.freeze) Object.freeze(me);
+      return me;
+    })();
+
+
+    /** some :: a -> Option a */
+    var some = function (a) {
+
+      // inlined from peanut, maybe a micro-optimisation?
+      var constant_a = function () { return a; };
+
+      var self = function () {
+        // can't Fun.constant this one
+        return me;
+      };
+
+      var map = function (f) {
+        return some(f(a));
+      };
+
+      var bind = function (f) {
+        return f(a);
+      };
+
+      var me = {
+        fold: function (n, s) { return s(a); },
+        is: function (v) { return a === v; },
+        isSome: always,
+        isNone: never,
+        getOr: constant_a,
+        getOrThunk: constant_a,
+        getOrDie: constant_a,
+        or: self,
+        orThunk: self,
+        map: map,
+        ap: function (optfab) {
+          return optfab.fold(none, function(fab) {
+            return some(fab(a));
+          });
+        },
+        each: function (f) {
+          f(a);
+        },
+        bind: bind,
+        flatten: constant_a,
+        exists: bind,
+        forall: bind,
+        filter: function (f) {
+          return f(a) ? me : NONE;
+        },
+        equals: function (o) {
+          return o.is(a);
+        },
+        equals_: function (o, elementEq) {
+          return o.fold(
+            never,
+            function (b) { return elementEq(a, b); }
+          );
+        },
+        toArray: function () {
+          return [a];
+        },
+        toString: function () {
+          return 'some(' + a + ')';
+        }
+      };
+      return me;
+    };
+
+    /** from :: undefined|null|a -> Option a */
+    var from = function (value) {
+      return value === null || value === undefined ? NONE : some(value);
+    };
+
+    return {
+      some: some,
+      none: none,
+      from: from
+    };
+  }
+);
+
+defineGlobal("global!String", String);
+define(
+  'ephox.katamari.api.Arr',
+
+  [
+    'ephox.katamari.api.Option',
+    'global!Array',
+    'global!Error',
+    'global!String'
+  ],
+
+  function (Option, Array, Error, String) {
+    // Use the native Array.indexOf if it is available (IE9+) otherwise fall back to manual iteration
+    // https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Array/indexOf
+    var rawIndexOf = (function () {
+      var pIndexOf = Array.prototype.indexOf;
+
+      var fastIndex = function (xs, x) { return  pIndexOf.call(xs, x); };
+
+      var slowIndex = function(xs, x) { return slowIndexOf(xs, x); };
+
+      return pIndexOf === undefined ? slowIndex : fastIndex;
+    })();
+
+    var indexOf = function (xs, x) {
+      // The rawIndexOf method does not wrap up in an option. This is for performance reasons.
+      var r = rawIndexOf(xs, x);
+      return r === -1 ? Option.none() : Option.some(r);
+    };
+
+    var contains = function (xs, x) {
+      return rawIndexOf(xs, x) > -1;
+    };
+
+    // Using findIndex is likely less optimal in Chrome (dynamic return type instead of bool)
+    // but if we need that micro-optimisation we can inline it later.
+    var exists = function (xs, pred) {
+      return findIndex(xs, pred).isSome();
+    };
+
+    var range = function (num, f) {
+      var r = [];
+      for (var i = 0; i < num; i++) {
+        r.push(f(i));
+      }
+      return r;
+    };
+
+    // It's a total micro optimisation, but these do make some difference.
+    // Particularly for browsers other than Chrome.
+    // - length caching
+    // http://jsperf.com/browser-diet-jquery-each-vs-for-loop/69
+    // - not using push
+    // http://jsperf.com/array-direct-assignment-vs-push/2
+
+    var chunk = function (array, size) {
+      var r = [];
+      for (var i = 0; i < array.length; i += size) {
+        var s = array.slice(i, i + size);
+        r.push(s);
+      }
+      return r;
+    };
+
+    var map = function(xs, f) {
+      // pre-allocating array size when it's guaranteed to be known
+      // http://jsperf.com/push-allocated-vs-dynamic/22
+      var len = xs.length;
+      var r = new Array(len);
+      for (var i = 0; i < len; i++) {
+        var x = xs[i];
+        r[i] = f(x, i, xs);
+      }
+      return r;
+    };
+
+    // Unwound implementing other functions in terms of each.
+    // The code size is roughly the same, and it should allow for better optimisation.
+    var each = function(xs, f) {
+      for (var i = 0, len = xs.length; i < len; i++) {
+        var x = xs[i];
+        f(x, i, xs);
+      }
+    };
+
+    var eachr = function (xs, f) {
+      for (var i = xs.length - 1; i >= 0; i--) {
+        var x = xs[i];
+        f(x, i, xs);
+      }
+    };
+
+    var partition = function(xs, pred) {
+      var pass = [];
+      var fail = [];
+      for (var i = 0, len = xs.length; i < len; i++) {
+        var x = xs[i];
+        var arr = pred(x, i, xs) ? pass : fail;
+        arr.push(x);
+      }
+      return { pass: pass, fail: fail };
+    };
+
+    var filter = function(xs, pred) {
+      var r = [];
+      for (var i = 0, len = xs.length; i < len; i++) {
+        var x = xs[i];
+        if (pred(x, i, xs)) {
+          r.push(x);
+        }
+      }
+      return r;
+    };
+
+    /*
+     * Groups an array into contiguous arrays of like elements. Whether an element is like or not depends on f.
+     *
+     * f is a function that derives a value from an element - e.g. true or false, or a string.
+     * Elements are like if this function generates the same value for them (according to ===).
+     *
+     *
+     * Order of the elements is preserved. Arr.flatten() on the result will return the original list, as with Haskell groupBy function.
+     *  For a good explanation, see the group function (which is a special case of groupBy)
+     *  http://hackage.haskell.org/package/base-4.7.0.0/docs/Data-List.html#v:group
+     */
+    var groupBy = function (xs, f) {
+      if (xs.length === 0) {
+        return [];
+      } else {
+        var wasType = f(xs[0]); // initial case for matching
+        var r = [];
+        var group = [];
+
+        for (var i = 0, len = xs.length; i < len; i++) {
+          var x = xs[i];
+          var type = f(x);
+          if (type !== wasType) {
+            r.push(group);
+            group = [];
+          }
+          wasType = type;
+          group.push(x);
+        }
+        if (group.length !== 0) {
+          r.push(group);
+        }
+        return r;
+      }
+    };
+
+    var foldr = function (xs, f, acc) {
+      eachr(xs, function (x) {
+        acc = f(acc, x);
+      });
+      return acc;
+    };
+
+    var foldl = function (xs, f, acc) {
+      each(xs, function (x) {
+        acc = f(acc, x);
+      });
+      return acc;
+    };
+
+    var find = function (xs, pred) {
+      for (var i = 0, len = xs.length; i < len; i++) {
+        var x = xs[i];
+        if (pred(x, i, xs)) {
+          return Option.some(x);
+        }
+      }
+      return Option.none();
+    };
+
+    var findIndex = function (xs, pred) {
+      for (var i = 0, len = xs.length; i < len; i++) {
+        var x = xs[i];
+        if (pred(x, i, xs)) {
+          return Option.some(i);
+        }
+      }
+
+      return Option.none();
+    };
+
+    var slowIndexOf = function (xs, x) {
+      for (var i = 0, len = xs.length; i < len; ++i) {
+        if (xs[i] === x) {
+          return i;
+        }
+      }
+
+      return -1;
+    };
+
+    var push = Array.prototype.push;
+    var flatten = function (xs) {
+      // Note, this is possible because push supports multiple arguments:
+      // http://jsperf.com/concat-push/6
+      // Note that in the past, concat() would silently work (very slowly) for array-like objects.
+      // With this change it will throw an error.
+      var r = [];
+      for (var i = 0, len = xs.length; i < len; ++i) {
+        // Ensure that each value is an array itself
+        if (! Array.prototype.isPrototypeOf(xs[i])) throw new Error('Arr.flatten item ' + i + ' was not an array, input: ' + xs);
+        push.apply(r, xs[i]);
+      }
+      return r;
+    };
+
+    var bind = function (xs, f) {
+      var output = map(xs, f);
+      return flatten(output);
+    };
+
+    var forall = function (xs, pred) {
+      for (var i = 0, len = xs.length; i < len; ++i) {
+        var x = xs[i];
+        if (pred(x, i, xs) !== true) {
+          return false;
+        }
+      }
+      return true;
+    };
+
+    var equal = function (a1, a2) {
+      return a1.length === a2.length && forall(a1, function (x, i) {
+        return x === a2[i];
+      });
+    };
+
+    var slice = Array.prototype.slice;
+    var reverse = function (xs) {
+      var r = slice.call(xs, 0);
+      r.reverse();
+      return r;
+    };
+
+    var difference = function (a1, a2) {
+      return filter(a1, function (x) {
+        return !contains(a2, x);
+      });
+    };
+
+    var mapToObject = function(xs, f) {
+      var r = {};
+      for (var i = 0, len = xs.length; i < len; i++) {
+        var x = xs[i];
+        r[String(x)] = f(x, i);
+      }
+      return r;
+    };
+
+    var pure = function(x) {
+      return [x];
+    };
+
+    var sort = function (xs, comparator) {
+      var copy = slice.call(xs, 0);
+      copy.sort(comparator);
+      return copy;
+    };
+
+    var head = function (xs) {
+      return xs.length === 0 ? Option.none() : Option.some(xs[0]);
+    };
+
+    var last = function (xs) {
+      return xs.length === 0 ? Option.none() : Option.some(xs[xs.length - 1]);
+    };
+
+    return {
+      map: map,
+      each: each,
+      eachr: eachr,
+      partition: partition,
+      filter: filter,
+      groupBy: groupBy,
+      indexOf: indexOf,
+      foldr: foldr,
+      foldl: foldl,
+      find: find,
+      findIndex: findIndex,
+      flatten: flatten,
+      bind: bind,
+      forall: forall,
+      exists: exists,
+      contains: contains,
+      equal: equal,
+      reverse: reverse,
+      chunk: chunk,
+      difference: difference,
+      mapToObject: mapToObject,
+      pure: pure,
+      sort: sort,
+      range: range,
+      head: head,
+      last: last
+    };
+  }
+);
+/**
+ * Menubar.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2016 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+define(
+  'tinymce.themes.modern.ui.Menubar',
+  [
+    'ephox.katamari.api.Arr',
+    'tinymce.core.util.Tools',
+    'tinymce.themes.modern.api.Settings'
+  ],
+  function (Arr, Tools, Settings) {
+    var defaultMenus = {
+      file: { title: 'File', items: 'newdocument restoredraft | preview | print' },
+      edit: { title: 'Edit', items: 'undo redo | cut copy paste pastetext | selectall' },
+      view: { title: 'View', items: 'code | visualaid visualchars visualblocks | spellchecker | preview fullscreen' },
+      insert: { title: 'Insert', items: 'image link media template codesample inserttable | charmap hr | pagebreak nonbreaking anchor toc | insertdatetime' },
+      format: { title: 'Format', items: 'bold italic underline strikethrough superscript subscript codeformat | blockformats align | removeformat' },
+      tools: { title: 'Tools', items: 'spellchecker spellcheckerlanguage | a11ycheck' },
+      table: { title: 'Table' },
+      help: { title: 'Help' }
+    };
+
+    var delimiterMenuNamePair = function () {
+      return { name: '|', item: { text: '|' } };
+    };
+
+    var createMenuNameItemPair = function (name, item) {
+      var menuItem = item ? { name: name, item: item } : null;
+      return name === '|' ? delimiterMenuNamePair() : menuItem;
+    };
+
+    var hasItemName = function (namedMenuItems, name) {
+      return Arr.findIndex(namedMenuItems, function (namedMenuItem) {
+        return namedMenuItem.name === name;
+      }).isSome();
+    };
+
+    var isSeparator = function (namedMenuItem) {
+      return namedMenuItem && namedMenuItem.item.text === '|';
+    };
+
+    var cleanupMenu = function (namedMenuItems, removedMenuItems) {
+      var menuItemsPass1 = Arr.filter(namedMenuItems, function (namedMenuItem) {
+        return removedMenuItems.hasOwnProperty(namedMenuItem.name) === false;
+      });
+
+      var menuItemsPass2 = Arr.filter(menuItemsPass1, function (namedMenuItem, i, namedMenuItems) {
+        return !isSeparator(namedMenuItem) || !isSeparator(namedMenuItems[i - 1]);
+      });
+
+      return Arr.filter(menuItemsPass2, function (namedMenuItem, i, namedMenuItems) {
+        return !isSeparator(namedMenuItem) || i > 0 && i < namedMenuItems.length - 1;
+      });
+    };
+
+    var createMenu = function (editorMenuItems, menus, removedMenuItems, context) {
+      var menuButton, menu, namedMenuItems, isUserDefined;
+
+      // User defined menu
+      if (menus) {
+        menu = menus[context];
+        isUserDefined = true;
+      } else {
+        menu = defaultMenus[context];
+      }
+
+      if (menu) {
+        menuButton = { text: menu.title };
+        namedMenuItems = [];
+
+        // Default/user defined items
+        Tools.each((menu.items || '').split(/[ ,]/), function (name) {
+          var namedMenuItem = createMenuNameItemPair(name, editorMenuItems[name]);
+
+          if (namedMenuItem) {
+            namedMenuItems.push(namedMenuItem);
+          }
+        });
+
+        // Added though context
+        if (!isUserDefined) {
+          Tools.each(editorMenuItems, function (item, name) {
+            if (item.context === context && !hasItemName(namedMenuItems, name)) {
+              if (item.separator === 'before') {
+                namedMenuItems.push(delimiterMenuNamePair());
+              }
+
+              if (item.prependToContext) {
+                namedMenuItems.unshift(createMenuNameItemPair(name, item));
+              } else {
+                namedMenuItems.push(createMenuNameItemPair(name, item));
+              }
+
+              if (item.separator === 'after') {
+                namedMenuItems.push(delimiterMenuNamePair());
+              }
+            }
+          });
+        }
+
+        menuButton.menu = Arr.map(cleanupMenu(namedMenuItems, removedMenuItems), function (menuItem) {
+          return menuItem.item;
+        });
+
+        if (!menuButton.menu.length) {
+          return null;
+        }
+      }
+
+      return menuButton;
+    };
+
+    var getDefaultMenubar = function (editor) {
+      var name, defaultMenuBar = [];
+      var menu = Settings.getMenu(editor);
+
+      if (menu) {
+        for (name in menu) {
+          defaultMenuBar.push(name);
+        }
+      } else {
+        for (name in defaultMenus) {
+          defaultMenuBar.push(name);
+        }
+      }
+
+      return defaultMenuBar;
+    };
+
+    var createMenuButtons = function (editor) {
+      var menuButtons = [];
+      var defaultMenuBar = getDefaultMenubar(editor);
+      var removedMenuItems = Tools.makeMap(Settings.getRemovedMenuItems(editor).split(/[ ,]/));
+
+      var menubar = Settings.getMenubar(editor);
+      var enabledMenuNames = typeof menubar === "string" ? menubar.split(/[ ,]/) : defaultMenuBar;
+      for (var i = 0; i < enabledMenuNames.length; i++) {
+        var menuItems = enabledMenuNames[i];
+        var menu = createMenu(editor.menuItems, Settings.getMenu(editor), removedMenuItems, menuItems);
+        if (menu) {
+          menuButtons.push(menu);
+        }
+      }
+
+      return menuButtons;
+    };
+
+    return {
+      createMenuButtons: createMenuButtons
+    };
+  }
+);
+
+/**
+ * Resize.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2016 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+define(
+  'tinymce.themes.modern.ui.Resize',
+  [
+    'tinymce.core.dom.DOMUtils',
+    'tinymce.themes.modern.api.Events',
+    'tinymce.themes.modern.api.Settings'
+  ],
+  function (DOMUtils, Events, Settings) {
+    var DOM = DOMUtils.DOM;
+    var getSize = function (elm) {
+      return {
+        width: elm.clientWidth,
+        height: elm.clientHeight
+      };
+    };
+
+    var resizeTo = function (editor, width, height) {
+      var containerElm, iframeElm, containerSize, iframeSize;
+
+      containerElm = editor.getContainer();
+      iframeElm = editor.getContentAreaContainer().firstChild;
+      containerSize = getSize(containerElm);
+      iframeSize = getSize(iframeElm);
+
+      if (width !== null) {
+        width = Math.max(Settings.getMinWidth(editor), width);
+        width = Math.min(Settings.getMaxWidth(editor), width);
+
+        DOM.setStyle(containerElm, 'width', width + (containerSize.width - iframeSize.width));
+        DOM.setStyle(iframeElm, 'width', width);
+      }
+
+      height = Math.max(Settings.getMinHeight(editor), height);
+      height = Math.min(Settings.getMaxHeight(editor), height);
+      DOM.setStyle(iframeElm, 'height', height);
+
+      Events.fireResizeEditor(editor);
+    };
+
+    var resizeBy = function (editor, dw, dh) {
+      var elm = editor.getContentAreaContainer();
+      resizeTo(editor, elm.clientWidth + dw, elm.clientHeight + dh);
+    };
+
+    return {
+      resizeTo: resizeTo,
+      resizeBy: resizeBy
+    };
+  }
+);
+
+/**
+ * ResolveGlobal.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2017 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+define(
+  'tinymce.core.Env',
+  [
+    'global!tinymce.util.Tools.resolve'
+  ],
+  function (resolve) {
+    return resolve('tinymce.Env');
+  }
+);
+
+/**
+ * Sidebar.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2016 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+define(
+  'tinymce.themes.modern.ui.Sidebar',
+  [
+    'tinymce.core.Env',
+    'tinymce.core.ui.Factory',
+    'tinymce.core.util.Tools',
+    'tinymce.themes.modern.api.Events'
+  ],
+  function (Env, Factory, Tools, Events) {
+    var api = function (elm) {
+      return {
+        element: function () {
+          return elm;
+        }
+      };
+    };
+
+    var trigger = function (sidebar, panel, callbackName) {
+      var callback = sidebar.settings[callbackName];
+      if (callback) {
+        callback(api(panel.getEl('body')));
+      }
+    };
+
+    var hidePanels = function (name, container, sidebars) {
+      Tools.each(sidebars, function (sidebar) {
+        var panel = container.items().filter('#' + sidebar.name)[0];
+
+        if (panel && panel.visible() && sidebar.name !== name) {
+          trigger(sidebar, panel, 'onhide');
+          panel.visible(false);
+        }
+      });
+    };
+
+    var deactivateButtons = function (toolbar) {
+      toolbar.items().each(function (ctrl) {
+        ctrl.active(false);
+      });
+    };
+
+    var findSidebar = function (sidebars, name) {
+      return Tools.grep(sidebars, function (sidebar) {
+        return sidebar.name === name;
+      })[0];
+    };
+
+    var showPanel = function (editor, name, sidebars) {
+      return function (e) {
+        var btnCtrl = e.control;
+        var container = btnCtrl.parents().filter('panel')[0];
+        var panel = container.find('#' + name)[0];
+        var sidebar = findSidebar(sidebars, name);
+
+        hidePanels(name, container, sidebars);
+        deactivateButtons(btnCtrl.parent());
+
+        if (panel && panel.visible()) {
+          trigger(sidebar, panel, 'onhide');
+          panel.hide();
+          btnCtrl.active(false);
+        } else {
+          if (panel) {
+            panel.show();
+            trigger(sidebar, panel, 'onshow');
+          } else {
+            panel = Factory.create({
+              type: 'container',
+              name: name,
+              layout: 'stack',
+              classes: 'sidebar-panel',
+              html: ''
+            });
+
+            container.prepend(panel);
+            trigger(sidebar, panel, 'onrender');
+            trigger(sidebar, panel, 'onshow');
+          }
+
+          btnCtrl.active(true);
+        }
+
+        Events.fireResizeEditor(editor);
+      };
+    };
+
+    var isModernBrowser = function () {
+      return !Env.ie || Env.ie >= 11;
+    };
+
+    var hasSidebar = function (editor) {
+      return isModernBrowser() && editor.sidebars ? editor.sidebars.length > 0 : false;
+    };
+
+    var createSidebar = function (editor) {
+      var buttons = Tools.map(editor.sidebars, function (sidebar) {
+        var settings = sidebar.settings;
+
+        return {
+          type: 'button',
+          icon: settings.icon,
+          image: settings.image,
+          tooltip: settings.tooltip,
+          onclick: showPanel(editor, sidebar.name, editor.sidebars)
+        };
+      });
+
+      return {
+        type: 'panel',
+        name: 'sidebar',
+        layout: 'stack',
+        classes: 'sidebar',
+        items: [
+          {
+            type: 'toolbar',
+            layout: 'stack',
+            classes: 'sidebar-toolbar',
+            items: buttons
+          }
+        ]
+      };
+    };
+
+    return {
+      hasSidebar: hasSidebar,
+      createSidebar: createSidebar
+    };
+  }
+);
+/**
+ * SkinLoaded.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2016 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+define(
+  'tinymce.themes.modern.ui.SkinLoaded', [
+    'tinymce.themes.modern.api.Events'
+  ],
+  function (Events) {
+    var fireSkinLoaded = function (editor) {
+      var done = function () {
+        editor._skinLoaded = true;
+        Events.fireSkinLoaded(editor);
+      };
+
+      return function () {
+        if (editor.initialized) {
+          done();
+        } else {
+          editor.on('init', done);
+        }
+      };
+    };
+
+    return {
+      fireSkinLoaded: fireSkinLoaded
+    };
+  }
+);
+
+/**
+ * Iframe.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2016 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+define(
+  'tinymce.themes.modern.modes.Iframe',
+  [
+    'tinymce.core.dom.DOMUtils',
+    'tinymce.core.ui.Factory',
+    'tinymce.core.util.I18n',
+    'tinymce.core.util.Tools',
+    'tinymce.themes.modern.api.Events',
+    'tinymce.themes.modern.api.Settings',
+    'tinymce.themes.modern.ui.A11y',
+    'tinymce.themes.modern.ui.ContextToolbars',
+    'tinymce.themes.modern.ui.Menubar',
+    'tinymce.themes.modern.ui.Resize',
+    'tinymce.themes.modern.ui.Sidebar',
+    'tinymce.themes.modern.ui.SkinLoaded',
+    'tinymce.themes.modern.ui.Toolbar'
+  ],
+  function (DOMUtils, Factory, I18n, Tools, Events, Settings, A11y, ContextToolbars, Menubar, Resize, Sidebar, SkinLoaded, Toolbar) {
+    var DOM = DOMUtils.DOM;
+
+    var switchMode = function (panel) {
+      return function (e) {
+        panel.find('*').disabled(e.mode === 'readonly');
+      };
+    };
+
+    var editArea = function (border) {
+      return {
+        type: 'panel',
+        name: 'iframe',
+        layout: 'stack',
+        classes: 'edit-area',
+        border: border,
+        html: ''
+      };
+    };
+
+    var editAreaContainer = function (editor) {
+      return {
+        type: 'panel',
+        layout: 'stack',
+        classes: 'edit-aria-container',
+        border: '1 0 0 0',
+        items: [
+          editArea('0'),
+          Sidebar.createSidebar(editor)
+        ]
+      };
+    };
+
+    var render = function (editor, theme, args) {
+      var panel, resizeHandleCtrl, startSize;
+
+      if (Settings.isSkinDisabled(editor) === false && args.skinUiCss) {
+        DOM.styleSheetLoader.load(args.skinUiCss, SkinLoaded.fireSkinLoaded(editor));
+      } else {
+        SkinLoaded.fireSkinLoaded(editor)();
+      }
+
+      panel = theme.panel = Factory.create({
+        type: 'panel',
+        role: 'application',
+        classes: 'tinymce',
+        style: 'visibility: hidden',
+        layout: 'stack',
+        border: 1,
+        items: [
+          {
+            type: 'container',
+            classes: 'top-part',
+            items: [
+              Settings.hasMenubar(editor) === false ? null : { type: 'menubar', border: '0 0 1 0', items: Menubar.createMenuButtons(editor) },
+              Toolbar.createToolbars(editor, Settings.getToolbarSize(editor))
+            ]
+          },
+          Sidebar.hasSidebar(editor) ? editAreaContainer(editor) : editArea('1 0 0 0')
+        ]
+      });
+
+      if (Settings.getResize(editor) !== "none") {
+        resizeHandleCtrl = {
+          type: 'resizehandle',
+          direction: Settings.getResize(editor),
+
+          onResizeStart: function () {
+            var elm = editor.getContentAreaContainer().firstChild;
+
+            startSize = {
+              width: elm.clientWidth,
+              height: elm.clientHeight
+            };
+          },
+
+          onResize: function (e) {
+            if (Settings.getResize(editor) === 'both') {
+              Resize.resizeTo(editor, startSize.width + e.deltaX, startSize.height + e.deltaY);
+            } else {
+              Resize.resizeTo(editor, null, startSize.height + e.deltaY);
+            }
+          }
+        };
+      }
+
+      if (Settings.hasStatusbar(editor)) {
+        var linkHtml = '<a href="https://www.tinymce.com/?utm_campaign=editor_referral&utm_medium=poweredby&utm_source=tinymce" rel="noopener" target="_blank">tinymce</a>';
+        var html = I18n.translate(['Powered by {0}', linkHtml]);
+        var brandingLabel = Settings.isBrandingEnabled(editor) ? { type: 'label', classes: 'branding', html: ' ' + html } : null;
+
+        panel.add({
+          type: 'panel', name: 'statusbar', classes: 'statusbar', layout: 'flow', border: '1 0 0 0', ariaRoot: true, items: [
+            { type: 'elementpath', editor: editor },
+            resizeHandleCtrl,
+            brandingLabel
+          ]
+        });
+      }
+
+      Events.fireBeforeRenderUI(editor);
+      editor.on('SwitchMode', switchMode(panel));
+      panel.renderBefore(args.targetNode).reflow();
+
+      if (Settings.isReadOnly(editor)) {
+        editor.setMode('readonly');
+      }
+
+      if (args.width) {
+        DOM.setStyle(panel.getEl(), 'width', args.width);
+      }
+
+      // Remove the panel when the editor is removed
+      editor.on('remove', function () {
+        panel.remove();
+        panel = null;
+      });
+
+      // Add accesibility shortcuts
+      A11y.addKeys(editor, panel);
+      ContextToolbars.addContextualToolbars(editor);
+
+      return {
+        iframeContainer: panel.find('#iframe')[0].getEl(),
+        editorContainer: panel.getEl()
+      };
+    };
+
+    return {
+      render: render
+    };
+  }
+);
+
+/**
+ * ResolveGlobal.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2017 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+define(
+  'tinymce.core.dom.DomQuery',
+  [
+    'global!tinymce.util.Tools.resolve'
+  ],
+  function (resolve) {
+    return resolve('tinymce.dom.DomQuery');
+  }
+);
+
+/**
+ * DomUtils.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2017 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+/**
+ * Private UI DomUtils proxy.
+ *
+ * @private
+ * @class tinymce.ui.DomUtils
+ */
+define(
+  'tinymce.ui.DomUtils',
+  [
+    'global!document',
+    'tinymce.core.dom.DOMUtils',
+    'tinymce.core.Env',
+    'tinymce.core.util.Tools'
+  ],
+  function (document, DOMUtils, Env, Tools) {
+    "use strict";
+
+    var count = 0;
+
+    var funcs = {
+      id: function () {
+        return 'mceu_' + (count++);
+      },
+
+      create: function (name, attrs, children) {
+        var elm = document.createElement(name);
+
+        DOMUtils.DOM.setAttribs(elm, attrs);
+
+        if (typeof children === 'string') {
+          elm.innerHTML = children;
+        } else {
+          Tools.each(children, function (child) {
+            if (child.nodeType) {
+              elm.appendChild(child);
+            }
+          });
+        }
+
+        return elm;
+      },
+
+      createFragment: function (html) {
+        return DOMUtils.DOM.createFragment(html);
+      },
+
+      getWindowSize: function () {
+        return DOMUtils.DOM.getViewPort();
+      },
+
+      getSize: function (elm) {
+        var width, height;
+
+        if (elm.getBoundingClientRect) {
+          var rect = elm.getBoundingClientRect();
+
+          width = Math.max(rect.width || (rect.right - rect.left), elm.offsetWidth);
+          height = Math.max(rect.height || (rect.bottom - rect.bottom), elm.offsetHeight);
+        } else {
+          width = elm.offsetWidth;
+          height = elm.offsetHeight;
+        }
+
+        return { width: width, height: height };
+      },
+
+      getPos: function (elm, root) {
+        return DOMUtils.DOM.getPos(elm, root || funcs.getContainer());
+      },
+
+      getContainer: function () {
+        return Env.container ? Env.container : document.body;
+      },
+
+      getViewPort: function (win) {
+        return DOMUtils.DOM.getViewPort(win);
+      },
+
+      get: function (id) {
+        return document.getElementById(id);
+      },
+
+      addClass: function (elm, cls) {
+        return DOMUtils.DOM.addClass(elm, cls);
+      },
+
+      removeClass: function (elm, cls) {
+        return DOMUtils.DOM.removeClass(elm, cls);
+      },
+
+      hasClass: function (elm, cls) {
+        return DOMUtils.DOM.hasClass(elm, cls);
+      },
+
+      toggleClass: function (elm, cls, state) {
+        return DOMUtils.DOM.toggleClass(elm, cls, state);
+      },
+
+      css: function (elm, name, value) {
+        return DOMUtils.DOM.setStyle(elm, name, value);
+      },
+
+      getRuntimeStyle: function (elm, name) {
+        return DOMUtils.DOM.getStyle(elm, name, true);
+      },
+
+      on: function (target, name, callback, scope) {
+        return DOMUtils.DOM.bind(target, name, callback, scope);
+      },
+
+      off: function (target, name, callback) {
+        return DOMUtils.DOM.unbind(target, name, callback);
+      },
+
+      fire: function (target, name, args) {
+        return DOMUtils.DOM.fire(target, name, args);
+      },
+
+      innerHtml: function (elm, html) {
+        // Workaround for <div> in <p> bug on IE 8 #6178
+        DOMUtils.DOM.setHTML(elm, html);
+      }
+    };
+
+    return funcs;
+  }
+);
+/**
+ * Movable.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2017 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+/**
+ * Movable mixin. Makes controls movable absolute and relative to other elements.
+ *
+ * @mixin tinymce.ui.Movable
+ */
+define(
+  'tinymce.ui.Movable',
+  [
+    'global!document',
+    'global!window',
+    'tinymce.ui.DomUtils'
+  ],
+  function (document, window, DomUtils) {
+    "use strict";
+
+    function calculateRelativePosition(ctrl, targetElm, rel) {
+      var ctrlElm, pos, x, y, selfW, selfH, targetW, targetH, viewport, size;
+
+      viewport = DomUtils.getViewPort();
+
+      // Get pos of target
+      pos = DomUtils.getPos(targetElm);
+      x = pos.x;
+      y = pos.y;
+
+      if (ctrl.state.get('fixed') && DomUtils.getRuntimeStyle(document.body, 'position') == 'static') {
+        x -= viewport.x;
+        y -= viewport.y;
+      }
+
+      // Get size of self
+      ctrlElm = ctrl.getEl();
+      size = DomUtils.getSize(ctrlElm);
+      selfW = size.width;
+      selfH = size.height;
+
+      // Get size of target
+      size = DomUtils.getSize(targetElm);
+      targetW = size.width;
+      targetH = size.height;
+
+      // Parse align string
+      rel = (rel || '').split('');
+
+      // Target corners
+      if (rel[0] === 'b') {
+        y += targetH;
+      }
+
+      if (rel[1] === 'r') {
+        x += targetW;
+      }
+
+      if (rel[0] === 'c') {
+        y += Math.round(targetH / 2);
+      }
+
+      if (rel[1] === 'c') {
+        x += Math.round(targetW / 2);
+      }
+
+      // Self corners
+      if (rel[3] === 'b') {
+        y -= selfH;
+      }
+
+      if (rel[4] === 'r') {
+        x -= selfW;
+      }
+
+      if (rel[3] === 'c') {
+        y -= Math.round(selfH / 2);
+      }
+
+      if (rel[4] === 'c') {
+        x -= Math.round(selfW / 2);
+      }
+
+      return {
+        x: x,
+        y: y,
+        w: selfW,
+        h: selfH
+      };
+    }
+
+    return {
+      /**
+       * Tests various positions to get the most suitable one.
+       *
+       * @method testMoveRel
+       * @param {DOMElement} elm Element to position against.
+       * @param {Array} rels Array with relative positions.
+       * @return {String} Best suitable relative position.
+       */
+      testMoveRel: function (elm, rels) {
+        var viewPortRect = DomUtils.getViewPort();
+
+        for (var i = 0; i < rels.length; i++) {
+          var pos = calculateRelativePosition(this, elm, rels[i]);
+
+          if (this.state.get('fixed')) {
+            if (pos.x > 0 && pos.x + pos.w < viewPortRect.w && pos.y > 0 && pos.y + pos.h < viewPortRect.h) {
+              return rels[i];
+            }
+          } else {
+            if (pos.x > viewPortRect.x && pos.x + pos.w < viewPortRect.w + viewPortRect.x &&
+              pos.y > viewPortRect.y && pos.y + pos.h < viewPortRect.h + viewPortRect.y) {
+              return rels[i];
+            }
+          }
+        }
+
+        return rels[0];
+      },
+
+      /**
+       * Move relative to the specified element.
+       *
+       * @method moveRel
+       * @param {Element} elm Element to move relative to.
+       * @param {String} rel Relative mode. For example: br-tl.
+       * @return {tinymce.ui.Control} Current control instance.
+       */
+      moveRel: function (elm, rel) {
+        if (typeof rel != 'string') {
+          rel = this.testMoveRel(elm, rel);
+        }
+
+        var pos = calculateRelativePosition(this, elm, rel);
+        return this.moveTo(pos.x, pos.y);
+      },
+
+      /**
+       * Move by a relative x, y values.
+       *
+       * @method moveBy
+       * @param {Number} dx Relative x position.
+       * @param {Number} dy Relative y position.
+       * @return {tinymce.ui.Control} Current control instance.
+       */
+      moveBy: function (dx, dy) {
+        var self = this, rect = self.layoutRect();
+
+        self.moveTo(rect.x + dx, rect.y + dy);
+
+        return self;
+      },
+
+      /**
+       * Move to absolute position.
+       *
+       * @method moveTo
+       * @param {Number} x Absolute x position.
+       * @param {Number} y Absolute y position.
+       * @return {tinymce.ui.Control} Current control instance.
+       */
+      moveTo: function (x, y) {
+        var self = this;
+
+        // TODO: Move this to some global class
+        function constrain(value, max, size) {
+          if (value < 0) {
+            return 0;
+          }
+
+          if (value + size > max) {
+            value = max - size;
+            return value < 0 ? 0 : value;
+          }
+
+          return value;
+        }
+
+        if (self.settings.constrainToViewport) {
+          var viewPortRect = DomUtils.getViewPort(window);
+          var layoutRect = self.layoutRect();
+
+          x = constrain(x, viewPortRect.w + viewPortRect.x, layoutRect.w);
+          y = constrain(y, viewPortRect.h + viewPortRect.y, layoutRect.h);
+        }
+
+        if (self.state.get('rendered')) {
+          self.layoutRect({ x: x, y: y }).repaint();
+        } else {
+          self.settings.x = x;
+          self.settings.y = y;
+        }
+
+        self.fire('move', { x: x, y: y });
+
+        return self;
+      }
+    };
+  }
+);
+/**
+ * ResolveGlobal.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2017 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+define(
+  'tinymce.core.util.Class',
+  [
+    'global!tinymce.util.Tools.resolve'
+  ],
+  function (resolve) {
+    return resolve('tinymce.util.Class');
+  }
+);
+
+/**
+ * ResolveGlobal.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2017 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+define(
+  'tinymce.core.util.EventDispatcher',
+  [
+    'global!tinymce.util.Tools.resolve'
+  ],
+  function (resolve) {
+    return resolve('tinymce.util.EventDispatcher');
+  }
+);
+
+/**
+ * BoxUtils.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2017 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+/**
+ * Utility class for box parsing and measuring.
+ *
+ * @private
+ * @class tinymce.ui.BoxUtils
+ */
+define(
+  'tinymce.ui.BoxUtils',
+  [
+    'global!document'
+  ],
+  function (document) {
+    "use strict";
+
+    return {
+      /**
+       * Parses the specified box value. A box value contains 1-4 properties in clockwise order.
+       *
+       * @method parseBox
+       * @param {String/Number} value Box value "0 1 2 3" or "0" etc.
+       * @return {Object} Object with top/right/bottom/left properties.
+       * @private
+       */
+      parseBox: function (value) {
+        var len, radix = 10;
+
+        if (!value) {
+          return;
+        }
+
+        if (typeof value === "number") {
+          value = value || 0;
+
+          return {
+            top: value,
+            left: value,
+            bottom: value,
+            right: value
+          };
+        }
+
+        value = value.split(' ');
+        len = value.length;
+
+        if (len === 1) {
+          value[1] = value[2] = value[3] = value[0];
+        } else if (len === 2) {
+          value[2] = value[0];
+          value[3] = value[1];
+        } else if (len === 3) {
+          value[3] = value[1];
+        }
+
+        return {
+          top: parseInt(value[0], radix) || 0,
+          right: parseInt(value[1], radix) || 0,
+          bottom: parseInt(value[2], radix) || 0,
+          left: parseInt(value[3], radix) || 0
+        };
+      },
+
+      measureBox: function (elm, prefix) {
+        function getStyle(name) {
+          var defaultView = document.defaultView;
+
+          if (defaultView) {
+            // Remove camelcase
+            name = name.replace(/[A-Z]/g, function (a) {
+              return '-' + a;
+            });
+
+            return defaultView.getComputedStyle(elm, null).getPropertyValue(name);
+          }
+
+          return elm.currentStyle[name];
+        }
+
+        function getSide(name) {
+          var val = parseFloat(getStyle(name), 10);
+
+          return isNaN(val) ? 0 : val;
+        }
+
+        return {
+          top: getSide(prefix + "TopWidth"),
+          right: getSide(prefix + "RightWidth"),
+          bottom: getSide(prefix + "BottomWidth"),
+          left: getSide(prefix + "LeftWidth")
+        };
+      }
+    };
+  }
+);
+
+/**
+ * ClassList.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2017 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+/**
+ * Handles adding and removal of classes.
+ *
+ * @private
+ * @class tinymce.ui.ClassList
+ */
+define(
+  'tinymce.ui.ClassList',
+  [
+    "tinymce.core.util.Tools"
+  ],
+  function (Tools) {
+    "use strict";
+
+    function noop() {
+    }
+
+    /**
+     * Constructs a new class list the specified onchange
+     * callback will be executed when the class list gets modifed.
+     *
+     * @constructor ClassList
+     * @param {function} onchange Onchange callback to be executed.
+     */
+    function ClassList(onchange) {
+      this.cls = [];
+      this.cls._map = {};
+      this.onchange = onchange || noop;
+      this.prefix = '';
+    }
+
+    Tools.extend(ClassList.prototype, {
+      /**
+       * Adds a new class to the class list.
+       *
+       * @method add
+       * @param {String} cls Class to be added.
+       * @return {tinymce.ui.ClassList} Current class list instance.
+       */
+      add: function (cls) {
+        if (cls && !this.contains(cls)) {
+          this.cls._map[cls] = true;
+          this.cls.push(cls);
+          this._change();
+        }
+
+        return this;
+      },
+
+      /**
+       * Removes the specified class from the class list.
+       *
+       * @method remove
+       * @param {String} cls Class to be removed.
+       * @return {tinymce.ui.ClassList} Current class list instance.
+       */
+      remove: function (cls) {
+        if (this.contains(cls)) {
+          for (var i = 0; i < this.cls.length; i++) {
+            if (this.cls[i] === cls) {
+              break;
+            }
+          }
+
+          this.cls.splice(i, 1);
+          delete this.cls._map[cls];
+          this._change();
+        }
+
+        return this;
+      },
+
+      /**
+       * Toggles a class in the class list.
+       *
+       * @method toggle
+       * @param {String} cls Class to be added/removed.
+       * @param {Boolean} state Optional state if it should be added/removed.
+       * @return {tinymce.ui.ClassList} Current class list instance.
+       */
+      toggle: function (cls, state) {
+        var curState = this.contains(cls);
+
+        if (curState !== state) {
+          if (curState) {
+            this.remove(cls);
+          } else {
+            this.add(cls);
+          }
+
+          this._change();
+        }
+
+        return this;
+      },
+
+      /**
+       * Returns true if the class list has the specified class.
+       *
+       * @method contains
+       * @param {String} cls Class to look for.
+       * @return {Boolean} true/false if the class exists or not.
+       */
+      contains: function (cls) {
+        return !!this.cls._map[cls];
+      },
+
+      /**
+       * Returns a space separated list of classes.
+       *
+       * @method toString
+       * @return {String} Space separated list of classes.
+       */
+
+      _change: function () {
+        delete this.clsValue;
+        this.onchange.call(this);
+      }
+    });
+
+    // IE 8 compatibility
+    ClassList.prototype.toString = function () {
+      var value;
+
+      if (this.clsValue) {
+        return this.clsValue;
+      }
+
+      value = '';
+      for (var i = 0; i < this.cls.length; i++) {
+        if (i > 0) {
+          value += ' ';
+        }
+
+        value += this.prefix + this.cls[i];
+      }
+
+      return value;
+    };
+
+    return ClassList;
+  }
+);
+/**
+ * Selector.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2017 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+/*eslint no-nested-ternary:0 */
+
+/**
+ * Selector engine, enables you to select controls by using CSS like expressions.
+ * We currently only support basic CSS expressions to reduce the size of the core
+ * and the ones we support should be enough for most cases.
+ *
+ * @example
+ * Supported expressions:
+ *  element
+ *  element#name
+ *  element.class
+ *  element[attr]
+ *  element[attr*=value]
+ *  element[attr~=value]
+ *  element[attr!=value]
+ *  element[attr^=value]
+ *  element[attr$=value]
+ *  element:<state>
+ *  element:not(<expression>)
+ *  element:first
+ *  element:last
+ *  element:odd
+ *  element:even
+ *  element element
+ *  element > element
+ *
+ * @class tinymce.ui.Selector
+ */
+define(
+  'tinymce.ui.Selector',
+  [
+    "tinymce.core.util.Class"
+  ],
+  function (Class) {
+    "use strict";
+
+    /**
+     * Produces an array with a unique set of objects. It will not compare the values
+     * but the references of the objects.
+     *
+     * @private
+     * @method unqiue
+     * @param {Array} array Array to make into an array with unique items.
+     * @return {Array} Array with unique items.
+     */
+    function unique(array) {
+      var uniqueItems = [], i = array.length, item;
+
+      while (i--) {
+        item = array[i];
+
+        if (!item.__checked) {
+          uniqueItems.push(item);
+          item.__checked = 1;
+        }
+      }
+
+      i = uniqueItems.length;
+      while (i--) {
+        delete uniqueItems[i].__checked;
+      }
+
+      return uniqueItems;
+    }
+
+    var expression = /^([\w\\*]+)?(?:#([\w\-\\]+))?(?:\.([\w\\\.]+))?(?:\[\@?([\w\\]+)([\^\$\*!~]?=)([\w\\]+)\])?(?:\:(.+))?/i;
+
+    /*jshint maxlen:255 */
+    /*eslint max-len:0 */
+    var chunker = /((?:\((?:\([^()]+\)|[^()]+)+\)|\[(?:\[[^\[\]]*\]|['"][^'"]*['"]|[^\[\]'"]+)+\]|\\.|[^ >+~,(\[\\]+)+|[>+~])(\s*,\s*)?((?:.|\r|\n)*)/g,
+      whiteSpace = /^\s*|\s*$/g,
+      Collection;
+
+    var Selector = Class.extend({
+      /**
+       * Constructs a new Selector instance.
+       *
+       * @constructor
+       * @method init
+       * @param {String} selector CSS like selector expression.
+       */
+      init: function (selector) {
+        var match = this.match;
+
+        function compileNameFilter(name) {
+          if (name) {
+            name = name.toLowerCase();
+
+            return function (item) {
+              return name === '*' || item.type === name;
+            };
+          }
+        }
+
+        function compileIdFilter(id) {
+          if (id) {
+            return function (item) {
+              return item._name === id;
+            };
+          }
+        }
+
+        function compileClassesFilter(classes) {
+          if (classes) {
+            classes = classes.split('.');
+
+            return function (item) {
+              var i = classes.length;
+
+              while (i--) {
+                if (!item.classes.contains(classes[i])) {
+                  return false;
+                }
+              }
+
+              return true;
+            };
+          }
+        }
+
+        function compileAttrFilter(name, cmp, check) {
+          if (name) {
+            return function (item) {
+              var value = item[name] ? item[name]() : '';
+
+              return !cmp ? !!check :
+                cmp === "=" ? value === check :
+                  cmp === "*=" ? value.indexOf(check) >= 0 :
+                    cmp === "~=" ? (" " + value + " ").indexOf(" " + check + " ") >= 0 :
+                      cmp === "!=" ? value != check :
+                        cmp === "^=" ? value.indexOf(check) === 0 :
+                          cmp === "$=" ? value.substr(value.length - check.length) === check :
+                            false;
+            };
+          }
+        }
+
+        function compilePsuedoFilter(name) {
+          var notSelectors;
+
+          if (name) {
+            name = /(?:not\((.+)\))|(.+)/i.exec(name);
+
+            if (!name[1]) {
+              name = name[2];
+
+              return function (item, index, length) {
+                return name === 'first' ? index === 0 :
+                  name === 'last' ? index === length - 1 :
+                    name === 'even' ? index % 2 === 0 :
+                      name === 'odd' ? index % 2 === 1 :
+                        item[name] ? item[name]() :
+                          false;
+              };
+            }
+
+            // Compile not expression
+            notSelectors = parseChunks(name[1], []);
+
+            return function (item) {
+              return !match(item, notSelectors);
+            };
+          }
+        }
+
+        function compile(selector, filters, direct) {
+          var parts;
+
+          function add(filter) {
+            if (filter) {
+              filters.push(filter);
+            }
+          }
+
+          // Parse expression into parts
+          parts = expression.exec(selector.replace(whiteSpace, ''));
+
+          add(compileNameFilter(parts[1]));
+          add(compileIdFilter(parts[2]));
+          add(compileClassesFilter(parts[3]));
+          add(compileAttrFilter(parts[4], parts[5], parts[6]));
+          add(compilePsuedoFilter(parts[7]));
+
+          // Mark the filter with pseudo for performance
+          filters.pseudo = !!parts[7];
+          filters.direct = direct;
+
+          return filters;
+        }
+
+        // Parser logic based on Sizzle by John Resig
+        function parseChunks(selector, selectors) {
+          var parts = [], extra, matches, i;
+
+          do {
+            chunker.exec("");
+            matches = chunker.exec(selector);
+
+            if (matches) {
+              selector = matches[3];
+              parts.push(matches[1]);
+
+              if (matches[2]) {
+                extra = matches[3];
+                break;
+              }
+            }
+          } while (matches);
+
+          if (extra) {
+            parseChunks(extra, selectors);
+          }
+
+          selector = [];
+          for (i = 0; i < parts.length; i++) {
+            if (parts[i] != '>') {
+              selector.push(compile(parts[i], [], parts[i - 1] === '>'));
+            }
+          }
+
+          selectors.push(selector);
+
+          return selectors;
+        }
+
+        this._selectors = parseChunks(selector, []);
+      },
+
+      /**
+       * Returns true/false if the selector matches the specified control.
+       *
+       * @method match
+       * @param {tinymce.ui.Control} control Control to match against the selector.
+       * @param {Array} selectors Optional array of selectors, mostly used internally.
+       * @return {Boolean} true/false state if the control matches or not.
+       */
+      match: function (control, selectors) {
+        var i, l, si, sl, selector, fi, fl, filters, index, length, siblings, count, item;
+
+        selectors = selectors || this._selectors;
+        for (i = 0, l = selectors.length; i < l; i++) {
+          selector = selectors[i];
+          sl = selector.length;
+          item = control;
+          count = 0;
+
+          for (si = sl - 1; si >= 0; si--) {
+            filters = selector[si];
+
+            while (item) {
+              // Find the index and length since a pseudo filter like :first needs it
+              if (filters.pseudo) {
+                siblings = item.parent().items();
+                index = length = siblings.length;
+                while (index--) {
+                  if (siblings[index] === item) {
+                    break;
+                  }
+                }
+              }
+
+              for (fi = 0, fl = filters.length; fi < fl; fi++) {
+                if (!filters[fi](item, index, length)) {
+                  fi = fl + 1;
+                  break;
+                }
+              }
+
+              if (fi === fl) {
+                count++;
+                break;
+              } else {
+                // If it didn't match the right most expression then
+                // break since it's no point looking at the parents
+                if (si === sl - 1) {
+                  break;
+                }
+              }
+
+              item = item.parent();
+            }
+          }
+
+          // If we found all selectors then return true otherwise continue looking
+          if (count === sl) {
+            return true;
+          }
+        }
+
+        return false;
+      },
+
+      /**
+       * Returns a tinymce.ui.Collection with matches of the specified selector inside the specified container.
+       *
+       * @method find
+       * @param {tinymce.ui.Control} container Container to look for items in.
+       * @return {tinymce.ui.Collection} Collection with matched elements.
+       */
+      find: function (container) {
+        var matches = [], i, l, selectors = this._selectors;
+
+        function collect(items, selector, index) {
+          var i, l, fi, fl, item, filters = selector[index];
+
+          for (i = 0, l = items.length; i < l; i++) {
+            item = items[i];
+
+            // Run each filter against the item
+            for (fi = 0, fl = filters.length; fi < fl; fi++) {
+              if (!filters[fi](item, i, l)) {
+                fi = fl + 1;
+                break;
+              }
+            }
+
+            // All filters matched the item
+            if (fi === fl) {
+              // Matched item is on the last expression like: panel toolbar [button]
+              if (index == selector.length - 1) {
+                matches.push(item);
+              } else {
+                // Collect next expression type
+                if (item.items) {
+                  collect(item.items(), selector, index + 1);
+                }
+              }
+            } else if (filters.direct) {
+              return;
+            }
+
+            // Collect child items
+            if (item.items) {
+              collect(item.items(), selector, index);
+            }
+          }
+        }
+
+        if (container.items) {
+          for (i = 0, l = selectors.length; i < l; i++) {
+            collect(container.items(), selectors[i], 0);
+          }
+
+          // Unique the matches if needed
+          if (l > 1) {
+            matches = unique(matches);
+          }
+        }
+
+        // Fix for circular reference
+        if (!Collection) {
+          // TODO: Fix me!
+          Collection = Selector.Collection;
+        }
+
+        return new Collection(matches);
+      }
+    });
+
+    return Selector;
+  }
+);
+
+/**
+ * Collection.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2017 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+/**
+ * Control collection, this class contains control instances and it enables you to
+ * perform actions on all the contained items. This is very similar to how jQuery works.
+ *
+ * @example
+ * someCollection.show().disabled(true);
+ *
+ * @class tinymce.ui.Collection
+ */
+define(
+  'tinymce.ui.Collection',
+  [
+    "tinymce.core.util.Tools",
+    "tinymce.ui.Selector",
+    "tinymce.core.util.Class"
+  ],
+  function (Tools, Selector, Class) {
+    "use strict";
+
+    var Collection, proto, push = Array.prototype.push, slice = Array.prototype.slice;
+
+    proto = {
+      /**
+       * Current number of contained control instances.
+       *
+       * @field length
+       * @type Number
+       */
+      length: 0,
+
+      /**
+       * Constructor for the collection.
+       *
+       * @constructor
+       * @method init
+       * @param {Array} items Optional array with items to add.
+       */
+      init: function (items) {
+        if (items) {
+          this.add(items);
+        }
+      },
+
+      /**
+       * Adds new items to the control collection.
+       *
+       * @method add
+       * @param {Array} items Array if items to add to collection.
+       * @return {tinymce.ui.Collection} Current collection instance.
+       */
+      add: function (items) {
+        var self = this;
+
+        // Force single item into array
+        if (!Tools.isArray(items)) {
+          if (items instanceof Collection) {
+            self.add(items.toArray());
+          } else {
+            push.call(self, items);
+          }
+        } else {
+          push.apply(self, items);
+        }
+
+        return self;
+      },
+
+      /**
+       * Sets the contents of the collection. This will remove any existing items
+       * and replace them with the ones specified in the input array.
+       *
+       * @method set
+       * @param {Array} items Array with items to set into the Collection.
+       * @return {tinymce.ui.Collection} Collection instance.
+       */
+      set: function (items) {
+        var self = this, len = self.length, i;
+
+        self.length = 0;
+        self.add(items);
+
+        // Remove old entries
+        for (i = self.length; i < len; i++) {
+          delete self[i];
+        }
+
+        return self;
+      },
+
+      /**
+       * Filters the collection item based on the specified selector expression or selector function.
+       *
+       * @method filter
+       * @param {String} selector Selector expression to filter items by.
+       * @return {tinymce.ui.Collection} Collection containing the filtered items.
+       */
+      filter: function (selector) {
+        var self = this, i, l, matches = [], item, match;
+
+        // Compile string into selector expression
+        if (typeof selector === "string") {
+          selector = new Selector(selector);
+
+          match = function (item) {
+            return selector.match(item);
+          };
+        } else {
+          // Use selector as matching function
+          match = selector;
+        }
+
+        for (i = 0, l = self.length; i < l; i++) {
+          item = self[i];
+
+          if (match(item)) {
+            matches.push(item);
+          }
+        }
+
+        return new Collection(matches);
+      },
+
+      /**
+       * Slices the items within the collection.
+       *
+       * @method slice
+       * @param {Number} index Index to slice at.
+       * @param {Number} len Optional length to slice.
+       * @return {tinymce.ui.Collection} Current collection.
+       */
+      slice: function () {
+        return new Collection(slice.apply(this, arguments));
+      },
+
+      /**
+       * Makes the current collection equal to the specified index.
+       *
+       * @method eq
+       * @param {Number} index Index of the item to set the collection to.
+       * @return {tinymce.ui.Collection} Current collection.
+       */
+      eq: function (index) {
+        return index === -1 ? this.slice(index) : this.slice(index, +index + 1);
+      },
+
+      /**
+       * Executes the specified callback on each item in collection.
+       *
+       * @method each
+       * @param {function} callback Callback to execute for each item in collection.
+       * @return {tinymce.ui.Collection} Current collection instance.
+       */
+      each: function (callback) {
+        Tools.each(this, callback);
+
+        return this;
+      },
+
+      /**
+       * Returns an JavaScript array object of the contents inside the collection.
+       *
+       * @method toArray
+       * @return {Array} Array with all items from collection.
+       */
+      toArray: function () {
+        return Tools.toArray(this);
+      },
+
+      /**
+       * Finds the index of the specified control or return -1 if it isn't in the collection.
+       *
+       * @method indexOf
+       * @param {Control} ctrl Control instance to look for.
+       * @return {Number} Index of the specified control or -1.
+       */
+      indexOf: function (ctrl) {
+        var self = this, i = self.length;
+
+        while (i--) {
+          if (self[i] === ctrl) {
+            break;
+          }
+        }
+
+        return i;
+      },
+
+      /**
+       * Returns a new collection of the contents in reverse order.
+       *
+       * @method reverse
+       * @return {tinymce.ui.Collection} Collection instance with reversed items.
+       */
+      reverse: function () {
+        return new Collection(Tools.toArray(this).reverse());
+      },
+
+      /**
+       * Returns true/false if the class exists or not.
+       *
+       * @method hasClass
+       * @param {String} cls Class to check for.
+       * @return {Boolean} true/false state if the class exists or not.
+       */
+      hasClass: function (cls) {
+        return this[0] ? this[0].classes.contains(cls) : false;
+      },
+
+      /**
+       * Sets/gets the specific property on the items in the collection. The same as executing control.<property>(<value>);
+       *
+       * @method prop
+       * @param {String} name Property name to get/set.
+       * @param {Object} value Optional object value to set.
+       * @return {tinymce.ui.Collection} Current collection instance or value of the first item on a get operation.
+       */
+      prop: function (name, value) {
+        var self = this, undef, item;
+
+        if (value !== undef) {
+          self.each(function (item) {
+            if (item[name]) {
+              item[name](value);
+            }
+          });
+
+          return self;
+        }
+
+        item = self[0];
+
+        if (item && item[name]) {
+          return item[name]();
+        }
+      },
+
+      /**
+       * Executes the specific function name with optional arguments an all items in collection if it exists.
+       *
+       * @example collection.exec("myMethod", arg1, arg2, arg3);
+       * @method exec
+       * @param {String} name Name of the function to execute.
+       * @param {Object} ... Multiple arguments to pass to each function.
+       * @return {tinymce.ui.Collection} Current collection.
+       */
+      exec: function (name) {
+        var self = this, args = Tools.toArray(arguments).slice(1);
+
+        self.each(function (item) {
+          if (item[name]) {
+            item[name].apply(item, args);
+          }
+        });
+
+        return self;
+      },
+
+      /**
+       * Remove all items from collection and DOM.
+       *
+       * @method remove
+       * @return {tinymce.ui.Collection} Current collection.
+       */
+      remove: function () {
+        var i = this.length;
+
+        while (i--) {
+          this[i].remove();
+        }
+
+        return this;
+      },
+
+      /**
+       * Adds a class to all items in the collection.
+       *
+       * @method addClass
+       * @param {String} cls Class to add to each item.
+       * @return {tinymce.ui.Collection} Current collection instance.
+       */
+      addClass: function (cls) {
+        return this.each(function (item) {
+          item.classes.add(cls);
+        });
+      },
+
+      /**
+       * Removes the specified class from all items in collection.
+       *
+       * @method removeClass
+       * @param {String} cls Class to remove from each item.
+       * @return {tinymce.ui.Collection} Current collection instance.
+       */
+      removeClass: function (cls) {
+        return this.each(function (item) {
+          item.classes.remove(cls);
+        });
+      }
+
+      /**
+       * Fires the specified event by name and arguments on the control. This will execute all
+       * bound event handlers.
+       *
+       * @method fire
+       * @param {String} name Name of the event to fire.
+       * @param {Object} args Optional arguments to pass to the event.
+       * @return {tinymce.ui.Collection} Current collection instance.
+       */
+      // fire: function(event, args) {}, -- Generated by code below
+
+      /**
+       * Binds a callback to the specified event. This event can both be
+       * native browser events like "click" or custom ones like PostRender.
+       *
+       * The callback function gets one parameter: either the browser's native event object or a custom JS object.
+       *
+       * @method on
+       * @param {String} name Name of the event to bind. For example "click".
+       * @param {String/function} callback Callback function to execute once the event occurs.
+       * @return {tinymce.ui.Collection} Current collection instance.
+       */
+      // on: function(name, callback) {}, -- Generated by code below
+
+      /**
+       * Unbinds the specified event and optionally a specific callback. If you omit the name
+       * parameter all event handlers will be removed. If you omit the callback all event handles
+       * by the specified name will be removed.
+       *
+       * @method off
+       * @param {String} name Optional name for the event to unbind.
+       * @param {function} callback Optional callback function to unbind.
+       * @return {tinymce.ui.Collection} Current collection instance.
+       */
+      // off: function(name, callback) {}, -- Generated by code below
+
+      /**
+       * Shows the items in the current collection.
+       *
+       * @method show
+       * @return {tinymce.ui.Collection} Current collection instance.
+       */
+      // show: function() {}, -- Generated by code below
+
+      /**
+       * Hides the items in the current collection.
+       *
+       * @method hide
+       * @return {tinymce.ui.Collection} Current collection instance.
+       */
+      // hide: function() {}, -- Generated by code below
+
+      /**
+       * Sets/gets the text contents of the items in the current collection.
+       *
+       * @method text
+       * @return {tinymce.ui.Collection} Current collection instance or text value of the first item on a get operation.
+       */
+      // text: function(value) {}, -- Generated by code below
+
+      /**
+       * Sets/gets the name contents of the items in the current collection.
+       *
+       * @method name
+       * @return {tinymce.ui.Collection} Current collection instance or name value of the first item on a get operation.
+       */
+      // name: function(value) {}, -- Generated by code below
+
+      /**
+       * Sets/gets the disabled state on the items in the current collection.
+       *
+       * @method disabled
+       * @return {tinymce.ui.Collection} Current collection instance or disabled state of the first item on a get operation.
+       */
+      // disabled: function(state) {}, -- Generated by code below
+
+      /**
+       * Sets/gets the active state on the items in the current collection.
+       *
+       * @method active
+       * @return {tinymce.ui.Collection} Current collection instance or active state of the first item on a get operation.
+       */
+      // active: function(state) {}, -- Generated by code below
+
+      /**
+       * Sets/gets the selected state on the items in the current collection.
+       *
+       * @method selected
+       * @return {tinymce.ui.Collection} Current collection instance or selected state of the first item on a get operation.
+       */
+      // selected: function(state) {}, -- Generated by code below
+
+      /**
+       * Sets/gets the selected state on the items in the current collection.
+       *
+       * @method visible
+       * @return {tinymce.ui.Collection} Current collection instance or visible state of the first item on a get operation.
+       */
+      // visible: function(state) {}, -- Generated by code below
+    };
+
+    // Extend tinymce.ui.Collection prototype with some generated control specific methods
+    Tools.each('fire on off show hide append prepend before after reflow'.split(' '), function (name) {
+      proto[name] = function () {
+        var args = Tools.toArray(arguments);
+
+        this.each(function (ctrl) {
+          if (name in ctrl) {
+            ctrl[name].apply(ctrl, args);
+          }
+        });
+
+        return this;
+      };
+    });
+
+    // Extend tinymce.ui.Collection prototype with some property methods
+    Tools.each('text name disabled active selected checked visible parent value data'.split(' '), function (name) {
+      proto[name] = function (value) {
+        return this.prop(name, value);
+      };
+    });
+
+    // Create class based on the new prototype
+    Collection = Class.extend(proto);
+
+    // Stick Collection into Selector to prevent circual references
+    Selector.Collection = Collection;
+
+    return Collection;
+  }
+);
+
+/**
+ * Binding.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2017 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+/**
+ * This class gets dynamically extended to provide a binding between two models. This makes it possible to
+ * sync the state of two properties in two models by a layer of abstraction.
+ *
+ * @private
+ * @class tinymce.data.Binding
+ */
+define(
+  'tinymce.ui.data.Binding',
+  [
+  ],
+  function () {
+    /**
+     * Constructs a new bidning.
+     *
+     * @constructor
+     * @method Binding
+     * @param {Object} settings Settings to the binding.
+     */
+    function Binding(settings) {
+      this.create = settings.create;
+    }
+
+    /**
+     * Creates a binding for a property on a model.
+     *
+     * @method create
+     * @param {tinymce.data.ObservableObject} model Model to create binding to.
+     * @param {String} name Name of property to bind.
+     * @return {tinymce.data.Binding} Binding instance.
+     */
+    Binding.create = function (model, name) {
+      return new Binding({
+        create: function (otherModel, otherName) {
+          var bindings;
+
+          function fromSelfToOther(e) {
+            otherModel.set(otherName, e.value);
+          }
+
+          function fromOtherToSelf(e) {
+            model.set(name, e.value);
+          }
+
+          otherModel.on('change:' + otherName, fromOtherToSelf);
+          model.on('change:' + name, fromSelfToOther);
+
+          // Keep track of the bindings
+          bindings = otherModel._bindings;
+
+          if (!bindings) {
+            bindings = otherModel._bindings = [];
+
+            otherModel.on('destroy', function () {
+              var i = bindings.length;
+
+              while (i--) {
+                bindings[i]();
+              }
+            });
+          }
+
+          bindings.push(function () {
+            model.off('change:' + name, fromSelfToOther);
+          });
+
+          return model.get(name);
+        }
+      });
+    };
+
+    return Binding;
+  }
+);
+/**
+ * ResolveGlobal.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2017 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+define(
+  'tinymce.core.util.Observable',
+  [
+    'global!tinymce.util.Tools.resolve'
+  ],
+  function (resolve) {
+    return resolve('tinymce.util.Observable');
+  }
+);
+
+/**
+ * ObservableObject.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2017 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+/**
+ * This class is a object that is observable when properties changes a change event gets emitted.
+ *
+ * @private
+ * @class tinymce.data.ObservableObject
+ */
+define(
+  'tinymce.ui.data.ObservableObject',
+  [
+    'tinymce.ui.data.Binding',
+    'tinymce.core.util.Class',
+    'tinymce.core.util.Observable',
+    'tinymce.core.util.Tools'
+  ], function (Binding, Class, Observable, Tools) {
+    function isNode(node) {
+      return node.nodeType > 0;
+    }
+
+    // Todo: Maybe this should be shallow compare since it might be huge object references
+    function isEqual(a, b) {
+      var k, checked;
+
+      // Strict equals
+      if (a === b) {
+        return true;
+      }
+
+      // Compare null
+      if (a === null || b === null) {
+        return a === b;
+      }
+
+      // Compare number, boolean, string, undefined
+      if (typeof a !== "object" || typeof b !== "object") {
+        return a === b;
+      }
+
+      // Compare arrays
+      if (Tools.isArray(b)) {
+        if (a.length !== b.length) {
+          return false;
+        }
+
+        k = a.length;
+        while (k--) {
+          if (!isEqual(a[k], b[k])) {
+            return false;
+          }
+        }
+      }
+
+      // Shallow compare nodes
+      if (isNode(a) || isNode(b)) {
+        return a === b;
+      }
+
+      // Compare objects
+      checked = {};
+      for (k in b) {
+        if (!isEqual(a[k], b[k])) {
+          return false;
+        }
+
+        checked[k] = true;
+      }
+
+      for (k in a) {
+        if (!checked[k] && !isEqual(a[k], b[k])) {
+          return false;
+        }
+      }
+
+      return true;
+    }
+
+    return Class.extend({
+      Mixins: [Observable],
+
+      /**
+       * Constructs a new observable object instance.
+       *
+       * @constructor
+       * @param {Object} data Initial data for the object.
+       */
+      init: function (data) {
+        var name, value;
+
+        data = data || {};
+
+        for (name in data) {
+          value = data[name];
+
+          if (value instanceof Binding) {
+            data[name] = value.create(this, name);
+          }
+        }
+
+        this.data = data;
+      },
+
+      /**
+       * Sets a property on the value this will call
+       * observers if the value is a change from the current value.
+       *
+       * @method set
+       * @param {String/object} name Name of the property to set or a object of items to set.
+       * @param {Object} value Value to set for the property.
+       * @return {tinymce.data.ObservableObject} Observable object instance.
+       */
+      set: function (name, value) {
+        var key, args, oldValue = this.data[name];
+
+        if (value instanceof Binding) {
+          value = value.create(this, name);
+        }
+
+        if (typeof name === "object") {
+          for (key in name) {
+            this.set(key, name[key]);
+          }
+
+          return this;
+        }
+
+        if (!isEqual(oldValue, value)) {
+          this.data[name] = value;
+
+          args = {
+            target: this,
+            name: name,
+            value: value,
+            oldValue: oldValue
+          };
+
+          this.fire('change:' + name, args);
+          this.fire('change', args);
+        }
+
+        return this;
+      },
+
+      /**
+       * Gets a property by name.
+       *
+       * @method get
+       * @param {String} name Name of the property to get.
+       * @return {Object} Object value of propery.
+       */
+      get: function (name) {
+        return this.data[name];
+      },
+
+      /**
+       * Returns true/false if the specified property exists.
+       *
+       * @method has
+       * @param {String} name Name of the property to check for.
+       * @return {Boolean} true/false if the item exists.
+       */
+      has: function (name) {
+        return name in this.data;
+      },
+
+      /**
+       * Returns a dynamic property binding for the specified property name. This makes
+       * it possible to sync the state of two properties in two ObservableObject instances.
+       *
+       * @method bind
+       * @param {String} name Name of the property to sync with the property it's inserted to.
+       * @return {tinymce.data.Binding} Data binding instance.
+       */
+      bind: function (name) {
+        return Binding.create(this, name);
+      },
+
+      /**
+       * Destroys the observable object and fires the "destroy"
+       * event and clean up any internal resources.
+       *
+       * @method destroy
+       */
+      destroy: function () {
+        this.fire('destroy');
+      }
+    });
+  }
+);
+/**
+ * ReflowQueue.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2017 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+/**
+ * This class will automatically reflow controls on the next animation frame within a few milliseconds on older browsers.
+ * If the user manually reflows then the automatic reflow will be cancelled. This class is used internally when various control states
+ * changes that triggers a reflow.
+ *
+ * @class tinymce.ui.ReflowQueue
+ * @static
+ */
+define(
+  'tinymce.ui.ReflowQueue',
+  [
+    'global!document',
+    'tinymce.core.util.Delay'
+  ],
+  function (document, Delay) {
+    var dirtyCtrls = {}, animationFrameRequested;
+
+    return {
+      /**
+       * Adds a control to the next automatic reflow call. This is the control that had a state
+       * change for example if the control was hidden/shown.
+       *
+       * @method add
+       * @param {tinymce.ui.Control} ctrl Control to add to queue.
+       */
+      add: function (ctrl) {
+        var parent = ctrl.parent();
+
+        if (parent) {
+          if (!parent._layout || parent._layout.isNative()) {
+            return;
+          }
+
+          if (!dirtyCtrls[parent._id]) {
+            dirtyCtrls[parent._id] = parent;
+          }
+
+          if (!animationFrameRequested) {
+            animationFrameRequested = true;
+
+            Delay.requestAnimationFrame(function () {
+              var id, ctrl;
+
+              animationFrameRequested = false;
+
+              for (id in dirtyCtrls) {
+                ctrl = dirtyCtrls[id];
+
+                if (ctrl.state.get('rendered')) {
+                  ctrl.reflow();
+                }
+              }
+
+              dirtyCtrls = {};
+            }, document.body);
+          }
+        }
+      },
+
+      /**
+       * Removes the specified control from the automatic reflow. This will happen when for example the user
+       * manually triggers a reflow.
+       *
+       * @method remove
+       * @param {tinymce.ui.Control} ctrl Control to remove from queue.
+       */
+      remove: function (ctrl) {
+        if (dirtyCtrls[ctrl._id]) {
+          delete dirtyCtrls[ctrl._id];
+        }
+      }
+    };
+  }
+);
+
+/**
+ * Control.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2017 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+/*eslint consistent-this:0 */
+
+/**
+ * This is the base class for all controls and containers. All UI control instances inherit
+ * from this one as it has the base logic needed by all of them.
+ *
+ * @class tinymce.ui.Control
+ */
+define(
+  'tinymce.ui.Control',
+  [
+    'global!document',
+    'tinymce.core.dom.DomQuery',
+    'tinymce.core.util.Class',
+    'tinymce.core.util.EventDispatcher',
+    'tinymce.core.util.Tools',
+    'tinymce.ui.BoxUtils',
+    'tinymce.ui.ClassList',
+    'tinymce.ui.Collection',
+    'tinymce.ui.data.ObservableObject',
+    'tinymce.ui.DomUtils',
+    'tinymce.ui.ReflowQueue'
+  ],
+  function (document, DomQuery, Class, EventDispatcher, Tools, BoxUtils, ClassList, Collection, ObservableObject, DomUtils, ReflowQueue) {
+    "use strict";
+
+    var hasMouseWheelEventSupport = "onmousewheel" in document;
+    var hasWheelEventSupport = false;
+    var classPrefix = "mce-";
+    var Control, idCounter = 0;
+
+    var proto = {
+      Statics: {
+        classPrefix: classPrefix
+      },
+
+      isRtl: function () {
+        return Control.rtl;
+      },
+
+      /**
+       * Class/id prefix to use for all controls.
+       *
+       * @final
+       * @field {String} classPrefix
+       */
+      classPrefix: classPrefix,
+
+      /**
+       * Constructs a new control instance with the specified settings.
+       *
+       * @constructor
+       * @param {Object} settings Name/value object with settings.
+       * @setting {String} style Style CSS properties to add.
+       * @setting {String} border Border box values example: 1 1 1 1
+       * @setting {String} padding Padding box values example: 1 1 1 1
+       * @setting {String} margin Margin box values example: 1 1 1 1
+       * @setting {Number} minWidth Minimal width for the control.
+       * @setting {Number} minHeight Minimal height for the control.
+       * @setting {String} classes Space separated list of classes to add.
+       * @setting {String} role WAI-ARIA role to use for control.
+       * @setting {Boolean} hidden Is the control hidden by default.
+       * @setting {Boolean} disabled Is the control disabled by default.
+       * @setting {String} name Name of the control instance.
+       */
+      init: function (settings) {
+        var self = this, classes, defaultClasses;
+
+        function applyClasses(classes) {
+          var i;
+
+          classes = classes.split(' ');
+          for (i = 0; i < classes.length; i++) {
+            self.classes.add(classes[i]);
+          }
+        }
+
+        self.settings = settings = Tools.extend({}, self.Defaults, settings);
+
+        // Initial states
+        self._id = settings.id || ('mceu_' + (idCounter++));
+        self._aria = { role: settings.role };
+        self._elmCache = {};
+        self.$ = DomQuery;
+
+        self.state = new ObservableObject({
+          visible: true,
+          active: false,
+          disabled: false,
+          value: ''
+        });
+
+        self.data = new ObservableObject(settings.data);
+
+        self.classes = new ClassList(function () {
+          if (self.state.get('rendered')) {
+            self.getEl().className = this.toString();
+          }
+        });
+        self.classes.prefix = self.classPrefix;
+
+        // Setup classes
+        classes = settings.classes;
+        if (classes) {
+          if (self.Defaults) {
+            defaultClasses = self.Defaults.classes;
+
+            if (defaultClasses && classes != defaultClasses) {
+              applyClasses(defaultClasses);
+            }
+          }
+
+          applyClasses(classes);
+        }
+
+        Tools.each('title text name visible disabled active value'.split(' '), function (name) {
+          if (name in settings) {
+            self[name](settings[name]);
+          }
+        });
+
+        self.on('click', function () {
+          if (self.disabled()) {
+            return false;
+          }
+        });
+
+        /**
+         * Name/value object with settings for the current control.
+         *
+         * @field {Object} settings
+         */
+        self.settings = settings;
+
+        self.borderBox = BoxUtils.parseBox(settings.border);
+        self.paddingBox = BoxUtils.parseBox(settings.padding);
+        self.marginBox = BoxUtils.parseBox(settings.margin);
+
+        if (settings.hidden) {
+          self.hide();
+        }
+      },
+
+      // Will generate getter/setter methods for these properties
+      Properties: 'parent,name',
+
+      /**
+       * Returns the root element to render controls into.
+       *
+       * @method getContainerElm
+       * @return {Element} HTML DOM element to render into.
+       */
+      getContainerElm: function () {
+        return DomUtils.getContainer();
+      },
+
+      /**
+       * Returns a control instance for the current DOM element.
+       *
+       * @method getParentCtrl
+       * @param {Element} elm HTML dom element to get parent control from.
+       * @return {tinymce.ui.Control} Control instance or undefined.
+       */
+      getParentCtrl: function (elm) {
+        var ctrl, lookup = this.getRoot().controlIdLookup;
+
+        while (elm && lookup) {
+          ctrl = lookup[elm.id];
+          if (ctrl) {
+            break;
+          }
+
+          elm = elm.parentNode;
+        }
+
+        return ctrl;
+      },
+
+      /**
+       * Initializes the current controls layout rect.
+       * This will be executed by the layout managers to determine the
+       * default minWidth/minHeight etc.
+       *
+       * @method initLayoutRect
+       * @return {Object} Layout rect instance.
+       */
+      initLayoutRect: function () {
+        var self = this, settings = self.settings, borderBox, layoutRect;
+        var elm = self.getEl(), width, height, minWidth, minHeight, autoResize;
+        var startMinWidth, startMinHeight, initialSize;
+
+        // Measure the current element
+        borderBox = self.borderBox = self.borderBox || BoxUtils.measureBox(elm, 'border');
+        self.paddingBox = self.paddingBox || BoxUtils.measureBox(elm, 'padding');
+        self.marginBox = self.marginBox || BoxUtils.measureBox(elm, 'margin');
+        initialSize = DomUtils.getSize(elm);
+
+        // Setup minWidth/minHeight and width/height
+        startMinWidth = settings.minWidth;
+        startMinHeight = settings.minHeight;
+        minWidth = startMinWidth || initialSize.width;
+        minHeight = startMinHeight || initialSize.height;
+        width = settings.width;
+        height = settings.height;
+        autoResize = settings.autoResize;
+        autoResize = typeof autoResize != "undefined" ? autoResize : !width && !height;
+
+        width = width || minWidth;
+        height = height || minHeight;
+
+        var deltaW = borderBox.left + borderBox.right;
+        var deltaH = borderBox.top + borderBox.bottom;
+
+        var maxW = settings.maxWidth || 0xFFFF;
+        var maxH = settings.maxHeight || 0xFFFF;
+
+        // Setup initial layout rect
+        self._layoutRect = layoutRect = {
+          x: settings.x || 0,
+          y: settings.y || 0,
+          w: width,
+          h: height,
+          deltaW: deltaW,
+          deltaH: deltaH,
+          contentW: width - deltaW,
+          contentH: height - deltaH,
+          innerW: width - deltaW,
+          innerH: height - deltaH,
+          startMinWidth: startMinWidth || 0,
+          startMinHeight: startMinHeight || 0,
+          minW: Math.min(minWidth, maxW),
+          minH: Math.min(minHeight, maxH),
+          maxW: maxW,
+          maxH: maxH,
+          autoResize: autoResize,
+          scrollW: 0
+        };
+
+        self._lastLayoutRect = {};
+
+        return layoutRect;
+      },
+
+      /**
+       * Getter/setter for the current layout rect.
+       *
+       * @method layoutRect
+       * @param {Object} [newRect] Optional new layout rect.
+       * @return {tinymce.ui.Control/Object} Current control or rect object.
+       */
+      layoutRect: function (newRect) {
+        var self = this, curRect = self._layoutRect, lastLayoutRect, size, deltaWidth, deltaHeight, undef, repaintControls;
+
+        // Initialize default layout rect
+        if (!curRect) {
+          curRect = self.initLayoutRect();
+        }
+
+        // Set new rect values
+        if (newRect) {
+          // Calc deltas between inner and outer sizes
+          deltaWidth = curRect.deltaW;
+          deltaHeight = curRect.deltaH;
+
+          // Set x position
+          if (newRect.x !== undef) {
+            curRect.x = newRect.x;
+          }
+
+          // Set y position
+          if (newRect.y !== undef) {
+            curRect.y = newRect.y;
+          }
+
+          // Set minW
+          if (newRect.minW !== undef) {
+            curRect.minW = newRect.minW;
+          }
+
+          // Set minH
+          if (newRect.minH !== undef) {
+            curRect.minH = newRect.minH;
+          }
+
+          // Set new width and calculate inner width
+          size = newRect.w;
+          if (size !== undef) {
+            size = size < curRect.minW ? curRect.minW : size;
+            size = size > curRect.maxW ? curRect.maxW : size;
+            curRect.w = size;
+            curRect.innerW = size - deltaWidth;
+          }
+
+          // Set new height and calculate inner height
+          size = newRect.h;
+          if (size !== undef) {
+            size = size < curRect.minH ? curRect.minH : size;
+            size = size > curRect.maxH ? curRect.maxH : size;
+            curRect.h = size;
+            curRect.innerH = size - deltaHeight;
+          }
+
+          // Set new inner width and calculate width
+          size = newRect.innerW;
+          if (size !== undef) {
+            size = size < curRect.minW - deltaWidth ? curRect.minW - deltaWidth : size;
+            size = size > curRect.maxW - deltaWidth ? curRect.maxW - deltaWidth : size;
+            curRect.innerW = size;
+            curRect.w = size + deltaWidth;
+          }
+
+          // Set new height and calculate inner height
+          size = newRect.innerH;
+          if (size !== undef) {
+            size = size < curRect.minH - deltaHeight ? curRect.minH - deltaHeight : size;
+            size = size > curRect.maxH - deltaHeight ? curRect.maxH - deltaHeight : size;
+            curRect.innerH = size;
+            curRect.h = size + deltaHeight;
+          }
+
+          // Set new contentW
+          if (newRect.contentW !== undef) {
+            curRect.contentW = newRect.contentW;
+          }
+
+          // Set new contentH
+          if (newRect.contentH !== undef) {
+            curRect.contentH = newRect.contentH;
+          }
+
+          // Compare last layout rect with the current one to see if we need to repaint or not
+          lastLayoutRect = self._lastLayoutRect;
+          if (lastLayoutRect.x !== curRect.x || lastLayoutRect.y !== curRect.y ||
+            lastLayoutRect.w !== curRect.w || lastLayoutRect.h !== curRect.h) {
+            repaintControls = Control.repaintControls;
+
+            if (repaintControls) {
+              if (repaintControls.map && !repaintControls.map[self._id]) {
+                repaintControls.push(self);
+                repaintControls.map[self._id] = true;
+              }
+            }
+
+            lastLayoutRect.x = curRect.x;
+            lastLayoutRect.y = curRect.y;
+            lastLayoutRect.w = curRect.w;
+            lastLayoutRect.h = curRect.h;
+          }
+
+          return self;
+        }
+
+        return curRect;
+      },
+
+      /**
+       * Repaints the control after a layout operation.
+       *
+       * @method repaint
+       */
+      repaint: function () {
+        var self = this, style, bodyStyle, bodyElm, rect, borderBox;
+        var borderW, borderH, lastRepaintRect, round, value;
+
+        // Use Math.round on all values on IE < 9
+        round = !document.createRange ? Math.round : function (value) {
+          return value;
+        };
+
+        style = self.getEl().style;
+        rect = self._layoutRect;
+        lastRepaintRect = self._lastRepaintRect || {};
+
+        borderBox = self.borderBox;
+        borderW = borderBox.left + borderBox.right;
+        borderH = borderBox.top + borderBox.bottom;
+
+        if (rect.x !== lastRepaintRect.x) {
+          style.left = round(rect.x) + 'px';
+          lastRepaintRect.x = rect.x;
+        }
+
+        if (rect.y !== lastRepaintRect.y) {
+          style.top = round(rect.y) + 'px';
+          lastRepaintRect.y = rect.y;
+        }
+
+        if (rect.w !== lastRepaintRect.w) {
+          value = round(rect.w - borderW);
+          style.width = (value >= 0 ? value : 0) + 'px';
+          lastRepaintRect.w = rect.w;
+        }
+
+        if (rect.h !== lastRepaintRect.h) {
+          value = round(rect.h - borderH);
+          style.height = (value >= 0 ? value : 0) + 'px';
+          lastRepaintRect.h = rect.h;
+        }
+
+        // Update body if needed
+        if (self._hasBody && rect.innerW !== lastRepaintRect.innerW) {
+          value = round(rect.innerW);
+
+          bodyElm = self.getEl('body');
+          if (bodyElm) {
+            bodyStyle = bodyElm.style;
+            bodyStyle.width = (value >= 0 ? value : 0) + 'px';
+          }
+
+          lastRepaintRect.innerW = rect.innerW;
+        }
+
+        if (self._hasBody && rect.innerH !== lastRepaintRect.innerH) {
+          value = round(rect.innerH);
+
+          bodyElm = bodyElm || self.getEl('body');
+          if (bodyElm) {
+            bodyStyle = bodyStyle || bodyElm.style;
+            bodyStyle.height = (value >= 0 ? value : 0) + 'px';
+          }
+
+          lastRepaintRect.innerH = rect.innerH;
+        }
+
+        self._lastRepaintRect = lastRepaintRect;
+        self.fire('repaint', {}, false);
+      },
+
+      /**
+       * Updates the controls layout rect by re-measuing it.
+       */
+      updateLayoutRect: function () {
+        var self = this;
+
+        self.parent()._lastRect = null;
+
+        DomUtils.css(self.getEl(), { width: '', height: '' });
+
+        self._layoutRect = self._lastRepaintRect = self._lastLayoutRect = null;
+        self.initLayoutRect();
+      },
+
+      /**
+       * Binds a callback to the specified event. This event can both be
+       * native browser events like "click" or custom ones like PostRender.
+       *
+       * The callback function will be passed a DOM event like object that enables yout do stop propagation.
+       *
+       * @method on
+       * @param {String} name Name of the event to bind. For example "click".
+       * @param {String/function} callback Callback function to execute ones the event occurs.
+       * @return {tinymce.ui.Control} Current control object.
+       */
+      on: function (name, callback) {
+        var self = this;
+
+        function resolveCallbackName(name) {
+          var callback, scope;
+
+          if (typeof name != 'string') {
+            return name;
+          }
+
+          return function (e) {
+            if (!callback) {
+              self.parentsAndSelf().each(function (ctrl) {
+                var callbacks = ctrl.settings.callbacks;
+
+                if (callbacks && (callback = callbacks[name])) {
+                  scope = ctrl;
+                  return false;
+                }
+              });
+            }
+
+            if (!callback) {
+              e.action = name;
+              this.fire('execute', e);
+              return;
+            }
+
+            return callback.call(scope, e);
+          };
+        }
+
+        getEventDispatcher(self).on(name, resolveCallbackName(callback));
+
+        return self;
+      },
+
+      /**
+       * Unbinds the specified event and optionally a specific callback. If you omit the name
+       * parameter all event handlers will be removed. If you omit the callback all event handles
+       * by the specified name will be removed.
+       *
+       * @method off
+       * @param {String} [name] Name for the event to unbind.
+       * @param {function} [callback] Callback function to unbind.
+       * @return {tinymce.ui.Control} Current control object.
+       */
+      off: function (name, callback) {
+        getEventDispatcher(this).off(name, callback);
+        return this;
+      },
+
+      /**
+       * Fires the specified event by name and arguments on the control. This will execute all
+       * bound event handlers.
+       *
+       * @method fire
+       * @param {String} name Name of the event to fire.
+       * @param {Object} [args] Arguments to pass to the event.
+       * @param {Boolean} [bubble] Value to control bubbling. Defaults to true.
+       * @return {Object} Current arguments object.
+       */
+      fire: function (name, args, bubble) {
+        var self = this;
+
+        args = args || {};
+
+        if (!args.control) {
+          args.control = self;
+        }
+
+        args = getEventDispatcher(self).fire(name, args);
+
+        // Bubble event up to parents
+        if (bubble !== false && self.parent) {
+          var parent = self.parent();
+          while (parent && !args.isPropagationStopped()) {
+            parent.fire(name, args, false);
+            parent = parent.parent();
+          }
+        }
+
+        return args;
+      },
+
+      /**
+       * Returns true/false if the specified event has any listeners.
+       *
+       * @method hasEventListeners
+       * @param {String} name Name of the event to check for.
+       * @return {Boolean} True/false state if the event has listeners.
+       */
+      hasEventListeners: function (name) {
+        return getEventDispatcher(this).has(name);
+      },
+
+      /**
+       * Returns a control collection with all parent controls.
+       *
+       * @method parents
+       * @param {String} selector Optional selector expression to find parents.
+       * @return {tinymce.ui.Collection} Collection with all parent controls.
+       */
+      parents: function (selector) {
+        var self = this, ctrl, parents = new Collection();
+
+        // Add each parent to collection
+        for (ctrl = self.parent(); ctrl; ctrl = ctrl.parent()) {
+          parents.add(ctrl);
+        }
+
+        // Filter away everything that doesn't match the selector
+        if (selector) {
+          parents = parents.filter(selector);
+        }
+
+        return parents;
+      },
+
+      /**
+       * Returns the current control and it's parents.
+       *
+       * @method parentsAndSelf
+       * @param {String} selector Optional selector expression to find parents.
+       * @return {tinymce.ui.Collection} Collection with all parent controls.
+       */
+      parentsAndSelf: function (selector) {
+        return new Collection(this).add(this.parents(selector));
+      },
+
+      /**
+       * Returns the control next to the current control.
+       *
+       * @method next
+       * @return {tinymce.ui.Control} Next control instance.
+       */
+      next: function () {
+        var parentControls = this.parent().items();
+
+        return parentControls[parentControls.indexOf(this) + 1];
+      },
+
+      /**
+       * Returns the control previous to the current control.
+       *
+       * @method prev
+       * @return {tinymce.ui.Control} Previous control instance.
+       */
+      prev: function () {
+        var parentControls = this.parent().items();
+
+        return parentControls[parentControls.indexOf(this) - 1];
+      },
+
+      /**
+       * Sets the inner HTML of the control element.
+       *
+       * @method innerHtml
+       * @param {String} html Html string to set as inner html.
+       * @return {tinymce.ui.Control} Current control object.
+       */
+      innerHtml: function (html) {
+        this.$el.html(html);
+        return this;
+      },
+
+      /**
+       * Returns the control DOM element or sub element.
+       *
+       * @method getEl
+       * @param {String} [suffix] Suffix to get element by.
+       * @return {Element} HTML DOM element for the current control or it's children.
+       */
+      getEl: function (suffix) {
+        var id = suffix ? this._id + '-' + suffix : this._id;
+
+        if (!this._elmCache[id]) {
+          this._elmCache[id] = DomQuery('#' + id)[0];
+        }
+
+        return this._elmCache[id];
+      },
+
+      /**
+       * Sets the visible state to true.
+       *
+       * @method show
+       * @return {tinymce.ui.Control} Current control instance.
+       */
+      show: function () {
+        return this.visible(true);
+      },
+
+      /**
+       * Sets the visible state to false.
+       *
+       * @method hide
+       * @return {tinymce.ui.Control} Current control instance.
+       */
+      hide: function () {
+        return this.visible(false);
+      },
+
+      /**
+       * Focuses the current control.
+       *
+       * @method focus
+       * @return {tinymce.ui.Control} Current control instance.
+       */
+      focus: function () {
+        try {
+          this.getEl().focus();
+        } catch (ex) {
+          // Ignore IE error
+        }
+
+        return this;
+      },
+
+      /**
+       * Blurs the current control.
+       *
+       * @method blur
+       * @return {tinymce.ui.Control} Current control instance.
+       */
+      blur: function () {
+        this.getEl().blur();
+
+        return this;
+      },
+
+      /**
+       * Sets the specified aria property.
+       *
+       * @method aria
+       * @param {String} name Name of the aria property to set.
+       * @param {String} value Value of the aria property.
+       * @return {tinymce.ui.Control} Current control instance.
+       */
+      aria: function (name, value) {
+        var self = this, elm = self.getEl(self.ariaTarget);
+
+        if (typeof value === "undefined") {
+          return self._aria[name];
+        }
+
+        self._aria[name] = value;
+
+        if (self.state.get('rendered')) {
+          elm.setAttribute(name == 'role' ? name : 'aria-' + name, value);
+        }
+
+        return self;
+      },
+
+      /**
+       * Encodes the specified string with HTML entities. It will also
+       * translate the string to different languages.
+       *
+       * @method encode
+       * @param {String/Object/Array} text Text to entity encode.
+       * @param {Boolean} [translate=true] False if the contents shouldn't be translated.
+       * @return {String} Encoded and possible traslated string.
+       */
+      encode: function (text, translate) {
+        if (translate !== false) {
+          text = this.translate(text);
+        }
+
+        return (text || '').replace(/[&<>"]/g, function (match) {
+          return '&#' + match.charCodeAt(0) + ';';
+        });
+      },
+
+      /**
+       * Returns the translated string.
+       *
+       * @method translate
+       * @param {String} text Text to translate.
+       * @return {String} Translated string or the same as the input.
+       */
+      translate: function (text) {
+        return Control.translate ? Control.translate(text) : text;
+      },
+
+      /**
+       * Adds items before the current control.
+       *
+       * @method before
+       * @param {Array/tinymce.ui.Collection} items Array of items to prepend before this control.
+       * @return {tinymce.ui.Control} Current control instance.
+       */
+      before: function (items) {
+        var self = this, parent = self.parent();
+
+        if (parent) {
+          parent.insert(items, parent.items().indexOf(self), true);
+        }
+
+        return self;
+      },
+
+      /**
+       * Adds items after the current control.
+       *
+       * @method after
+       * @param {Array/tinymce.ui.Collection} items Array of items to append after this control.
+       * @return {tinymce.ui.Control} Current control instance.
+       */
+      after: function (items) {
+        var self = this, parent = self.parent();
+
+        if (parent) {
+          parent.insert(items, parent.items().indexOf(self));
+        }
+
+        return self;
+      },
+
+      /**
+       * Removes the current control from DOM and from UI collections.
+       *
+       * @method remove
+       * @return {tinymce.ui.Control} Current control instance.
+       */
+      remove: function () {
+        var self = this, elm = self.getEl(), parent = self.parent(), newItems, i;
+
+        if (self.items) {
+          var controls = self.items().toArray();
+          i = controls.length;
+          while (i--) {
+            controls[i].remove();
+          }
+        }
+
+        if (parent && parent.items) {
+          newItems = [];
+
+          parent.items().each(function (item) {
+            if (item !== self) {
+              newItems.push(item);
+            }
+          });
+
+          parent.items().set(newItems);
+          parent._lastRect = null;
+        }
+
+        if (self._eventsRoot && self._eventsRoot == self) {
+          DomQuery(elm).off();
+        }
+
+        var lookup = self.getRoot().controlIdLookup;
+        if (lookup) {
+          delete lookup[self._id];
+        }
+
+        if (elm && elm.parentNode) {
+          elm.parentNode.removeChild(elm);
+        }
+
+        self.state.set('rendered', false);
+        self.state.destroy();
+
+        self.fire('remove');
+
+        return self;
+      },
+
+      /**
+       * Renders the control before the specified element.
+       *
+       * @method renderBefore
+       * @param {Element} elm Element to render before.
+       * @return {tinymce.ui.Control} Current control instance.
+       */
+      renderBefore: function (elm) {
+        DomQuery(elm).before(this.renderHtml());
+        this.postRender();
+        return this;
+      },
+
+      /**
+       * Renders the control to the specified element.
+       *
+       * @method renderBefore
+       * @param {Element} elm Element to render to.
+       * @return {tinymce.ui.Control} Current control instance.
+       */
+      renderTo: function (elm) {
+        DomQuery(elm || this.getContainerElm()).append(this.renderHtml());
+        this.postRender();
+        return this;
+      },
+
+      preRender: function () {
+      },
+
+      render: function () {
+      },
+
+      renderHtml: function () {
+        return '<div id="' + this._id + '" class="' + this.classes + '"></div>';
+      },
+
+      /**
+       * Post render method. Called after the control has been rendered to the target.
+       *
+       * @method postRender
+       * @return {tinymce.ui.Control} Current control instance.
+       */
+      postRender: function () {
+        var self = this, settings = self.settings, elm, box, parent, name, parentEventsRoot;
+
+        self.$el = DomQuery(self.getEl());
+        self.state.set('rendered', true);
+
+        // Bind on<event> settings
+        for (name in settings) {
+          if (name.indexOf("on") === 0) {
+            self.on(name.substr(2), settings[name]);
+          }
+        }
+
+        if (self._eventsRoot) {
+          for (parent = self.parent(); !parentEventsRoot && parent; parent = parent.parent()) {
+            parentEventsRoot = parent._eventsRoot;
+          }
+
+          if (parentEventsRoot) {
+            for (name in parentEventsRoot._nativeEvents) {
+              self._nativeEvents[name] = true;
+            }
+          }
+        }
+
+        bindPendingEvents(self);
+
+        if (settings.style) {
+          elm = self.getEl();
+          if (elm) {
+            elm.setAttribute('style', settings.style);
+            elm.style.cssText = settings.style;
+          }
+        }
+
+        if (self.settings.border) {
+          box = self.borderBox;
+          self.$el.css({
+            'border-top-width': box.top,
+            'border-right-width': box.right,
+            'border-bottom-width': box.bottom,
+            'border-left-width': box.left
+          });
+        }
+
+        // Add instance to lookup
+        var root = self.getRoot();
+        if (!root.controlIdLookup) {
+          root.controlIdLookup = {};
+        }
+
+        root.controlIdLookup[self._id] = self;
+
+        for (var key in self._aria) {
+          self.aria(key, self._aria[key]);
+        }
+
+        if (self.state.get('visible') === false) {
+          self.getEl().style.display = 'none';
+        }
+
+        self.bindStates();
+
+        self.state.on('change:visible', function (e) {
+          var state = e.value, parentCtrl;
+
+          if (self.state.get('rendered')) {
+            self.getEl().style.display = state === false ? 'none' : '';
+
+            // Need to force a reflow here on IE 8
+            self.getEl().getBoundingClientRect();
+          }
+
+          // Parent container needs to reflow
+          parentCtrl = self.parent();
+          if (parentCtrl) {
+            parentCtrl._lastRect = null;
+          }
+
+          self.fire(state ? 'show' : 'hide');
+
+          ReflowQueue.add(self);
+        });
+
+        self.fire('postrender', {}, false);
+      },
+
+      bindStates: function () {
+      },
+
+      /**
+       * Scrolls the current control into view.
+       *
+       * @method scrollIntoView
+       * @param {String} align Alignment in view top|center|bottom.
+       * @return {tinymce.ui.Control} Current control instance.
+       */
+      scrollIntoView: function (align) {
+        function getOffset(elm, rootElm) {
+          var x, y, parent = elm;
+
+          x = y = 0;
+          while (parent && parent != rootElm && parent.nodeType) {
+            x += parent.offsetLeft || 0;
+            y += parent.offsetTop || 0;
+            parent = parent.offsetParent;
+          }
+
+          return { x: x, y: y };
+        }
+
+        var elm = this.getEl(), parentElm = elm.parentNode;
+        var x, y, width, height, parentWidth, parentHeight;
+        var pos = getOffset(elm, parentElm);
+
+        x = pos.x;
+        y = pos.y;
+        width = elm.offsetWidth;
+        height = elm.offsetHeight;
+        parentWidth = parentElm.clientWidth;
+        parentHeight = parentElm.clientHeight;
+
+        if (align == "end") {
+          x -= parentWidth - width;
+          y -= parentHeight - height;
+        } else if (align == "center") {
+          x -= (parentWidth / 2) - (width / 2);
+          y -= (parentHeight / 2) - (height / 2);
+        }
+
+        parentElm.scrollLeft = x;
+        parentElm.scrollTop = y;
+
+        return this;
+      },
+
+      getRoot: function () {
+        var ctrl = this, rootControl, parents = [];
+
+        while (ctrl) {
+          if (ctrl.rootControl) {
+            rootControl = ctrl.rootControl;
+            break;
+          }
+
+          parents.push(ctrl);
+          rootControl = ctrl;
+          ctrl = ctrl.parent();
+        }
+
+        if (!rootControl) {
+          rootControl = this;
+        }
+
+        var i = parents.length;
+        while (i--) {
+          parents[i].rootControl = rootControl;
+        }
+
+        return rootControl;
+      },
+
+      /**
+       * Reflows the current control and it's parents.
+       * This should be used after you for example append children to the current control so
+       * that the layout managers know that they need to reposition everything.
+       *
+       * @example
+       * container.append({type: 'button', text: 'My button'}).reflow();
+       *
+       * @method reflow
+       * @return {tinymce.ui.Control} Current control instance.
+       */
+      reflow: function () {
+        ReflowQueue.remove(this);
+
+        var parent = this.parent();
+        if (parent && parent._layout && !parent._layout.isNative()) {
+          parent.reflow();
+        }
+
+        return this;
+      }
+
+      /**
+       * Sets/gets the parent container for the control.
+       *
+       * @method parent
+       * @param {tinymce.ui.Container} parent Optional parent to set.
+       * @return {tinymce.ui.Control} Parent control or the current control on a set action.
+       */
+      // parent: function(parent) {} -- Generated
+
+      /**
+       * Sets/gets the text for the control.
+       *
+       * @method text
+       * @param {String} value Value to set to control.
+       * @return {String/tinymce.ui.Control} Current control on a set operation or current value on a get.
+       */
+      // text: function(value) {} -- Generated
+
+      /**
+       * Sets/gets the disabled state on the control.
+       *
+       * @method disabled
+       * @param {Boolean} state Value to set to control.
+       * @return {Boolean/tinymce.ui.Control} Current control on a set operation or current state on a get.
+       */
+      // disabled: function(state) {} -- Generated
+
+      /**
+       * Sets/gets the active for the control.
+       *
+       * @method active
+       * @param {Boolean} state Value to set to control.
+       * @return {Boolean/tinymce.ui.Control} Current control on a set operation or current state on a get.
+       */
+      // active: function(state) {} -- Generated
+
+      /**
+       * Sets/gets the name for the control.
+       *
+       * @method name
+       * @param {String} value Value to set to control.
+       * @return {String/tinymce.ui.Control} Current control on a set operation or current value on a get.
+       */
+      // name: function(value) {} -- Generated
+
+      /**
+       * Sets/gets the title for the control.
+       *
+       * @method title
+       * @param {String} value Value to set to control.
+       * @return {String/tinymce.ui.Control} Current control on a set operation or current value on a get.
+       */
+      // title: function(value) {} -- Generated
+
+      /**
+       * Sets/gets the visible for the control.
+       *
+       * @method visible
+       * @param {Boolean} state Value to set to control.
+       * @return {Boolean/tinymce.ui.Control} Current control on a set operation or current state on a get.
+       */
+      // visible: function(value) {} -- Generated
+    };
+
+    /**
+     * Setup state properties.
+     */
+    Tools.each('text title visible disabled active value'.split(' '), function (name) {
+      proto[name] = function (value) {
+        if (arguments.length === 0) {
+          return this.state.get(name);
+        }
+
+        if (typeof value != "undefined") {
+          this.state.set(name, value);
+        }
+
+        return this;
+      };
+    });
+
+    Control = Class.extend(proto);
+
+    function getEventDispatcher(obj) {
+      if (!obj._eventDispatcher) {
+        obj._eventDispatcher = new EventDispatcher({
+          scope: obj,
+          toggleEvent: function (name, state) {
+            if (state && EventDispatcher.isNative(name)) {
+              if (!obj._nativeEvents) {
+                obj._nativeEvents = {};
+              }
+
+              obj._nativeEvents[name] = true;
+
+              if (obj.state.get('rendered')) {
+                bindPendingEvents(obj);
+              }
+            }
+          }
+        });
+      }
+
+      return obj._eventDispatcher;
+    }
+
+    function bindPendingEvents(eventCtrl) {
+      var i, l, parents, eventRootCtrl, nativeEvents, name;
+
+      function delegate(e) {
+        var control = eventCtrl.getParentCtrl(e.target);
+
+        if (control) {
+          control.fire(e.type, e);
+        }
+      }
+
+      function mouseLeaveHandler() {
+        var ctrl = eventRootCtrl._lastHoverCtrl;
+
+        if (ctrl) {
+          ctrl.fire("mouseleave", { target: ctrl.getEl() });
+
+          ctrl.parents().each(function (ctrl) {
+            ctrl.fire("mouseleave", { target: ctrl.getEl() });
+          });
+
+          eventRootCtrl._lastHoverCtrl = null;
+        }
+      }
+
+      function mouseEnterHandler(e) {
+        var ctrl = eventCtrl.getParentCtrl(e.target), lastCtrl = eventRootCtrl._lastHoverCtrl, idx = 0, i, parents, lastParents;
+
+        // Over on a new control
+        if (ctrl !== lastCtrl) {
+          eventRootCtrl._lastHoverCtrl = ctrl;
+
+          parents = ctrl.parents().toArray().reverse();
+          parents.push(ctrl);
+
+          if (lastCtrl) {
+            lastParents = lastCtrl.parents().toArray().reverse();
+            lastParents.push(lastCtrl);
+
+            for (idx = 0; idx < lastParents.length; idx++) {
+              if (parents[idx] !== lastParents[idx]) {
+                break;
+              }
+            }
+
+            for (i = lastParents.length - 1; i >= idx; i--) {
+              lastCtrl = lastParents[i];
+              lastCtrl.fire("mouseleave", {
+                target: lastCtrl.getEl()
+              });
+            }
+          }
+
+          for (i = idx; i < parents.length; i++) {
+            ctrl = parents[i];
+            ctrl.fire("mouseenter", {
+              target: ctrl.getEl()
+            });
+          }
+        }
+      }
+
+      function fixWheelEvent(e) {
+        e.preventDefault();
+
+        if (e.type == "mousewheel") {
+          e.deltaY = -1 / 40 * e.wheelDelta;
+
+          if (e.wheelDeltaX) {
+            e.deltaX = -1 / 40 * e.wheelDeltaX;
+          }
+        } else {
+          e.deltaX = 0;
+          e.deltaY = e.detail;
+        }
+
+        e = eventCtrl.fire("wheel", e);
+      }
+
+      nativeEvents = eventCtrl._nativeEvents;
+      if (nativeEvents) {
+        // Find event root element if it exists
+        parents = eventCtrl.parents().toArray();
+        parents.unshift(eventCtrl);
+        for (i = 0, l = parents.length; !eventRootCtrl && i < l; i++) {
+          eventRootCtrl = parents[i]._eventsRoot;
+        }
+
+        // Event root wasn't found the use the root control
+        if (!eventRootCtrl) {
+          eventRootCtrl = parents[parents.length - 1] || eventCtrl;
+        }
+
+        // Set the eventsRoot property on children that didn't have it
+        eventCtrl._eventsRoot = eventRootCtrl;
+        for (l = i, i = 0; i < l; i++) {
+          parents[i]._eventsRoot = eventRootCtrl;
+        }
+
+        var eventRootDelegates = eventRootCtrl._delegates;
+        if (!eventRootDelegates) {
+          eventRootDelegates = eventRootCtrl._delegates = {};
+        }
+
+        // Bind native event delegates
+        for (name in nativeEvents) {
+          if (!nativeEvents) {
+            return false;
+          }
+
+          if (name === "wheel" && !hasWheelEventSupport) {
+            if (hasMouseWheelEventSupport) {
+              DomQuery(eventCtrl.getEl()).on("mousewheel", fixWheelEvent);
+            } else {
+              DomQuery(eventCtrl.getEl()).on("DOMMouseScroll", fixWheelEvent);
+            }
+
+            continue;
+          }
+
+          // Special treatment for mousenter/mouseleave since these doesn't bubble
+          if (name === "mouseenter" || name === "mouseleave") {
+            // Fake mousenter/mouseleave
+            if (!eventRootCtrl._hasMouseEnter) {
+              DomQuery(eventRootCtrl.getEl()).on("mouseleave", mouseLeaveHandler).on("mouseover", mouseEnterHandler);
+              eventRootCtrl._hasMouseEnter = 1;
+            }
+          } else if (!eventRootDelegates[name]) {
+            DomQuery(eventRootCtrl.getEl()).on(name, delegate);
+            eventRootDelegates[name] = true;
+          }
+
+          // Remove the event once it's bound
+          nativeEvents[name] = false;
+        }
+      }
+    }
+
+    return Control;
+  }
+);
+
+/**
+ * KeyboardNavigation.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2017 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+/**
+ * This class handles keyboard navigation of controls and elements.
+ *
+ * @class tinymce.ui.KeyboardNavigation
+ */
+define(
+  'tinymce.ui.KeyboardNavigation',
+  [
+    'global!document'
+  ],
+  function (document) {
+    "use strict";
+
+    var hasTabstopData = function (elm) {
+      return elm.getAttribute('data-mce-tabstop') ? true : false;
+    };
+
+    /**
+     * This class handles all keyboard navigation for WAI-ARIA support. Each root container
+     * gets an instance of this class.
+     *
+     * @constructor
+     */
+    return function (settings) {
+      var root = settings.root, focusedElement, focusedControl;
+
+      function isElement(node) {
+        return node && node.nodeType === 1;
+      }
+
+      try {
+        focusedElement = document.activeElement;
+      } catch (ex) {
+        // IE sometimes fails to return a proper element
+        focusedElement = document.body;
+      }
+
+      focusedControl = root.getParentCtrl(focusedElement);
+
+      /**
+       * Returns the currently focused elements wai aria role of the currently
+       * focused element or specified element.
+       *
+       * @private
+       * @param {Element} elm Optional element to get role from.
+       * @return {String} Role of specified element.
+       */
+      function getRole(elm) {
+        elm = elm || focusedElement;
+
+        if (isElement(elm)) {
+          return elm.getAttribute('role');
+        }
+
+        return null;
+      }
+
+      /**
+       * Returns the wai role of the parent element of the currently
+       * focused element or specified element.
+       *
+       * @private
+       * @param {Element} elm Optional element to get parent role from.
+       * @return {String} Role of the first parent that has a role.
+       */
+      function getParentRole(elm) {
+        var role, parent = elm || focusedElement;
+
+        while ((parent = parent.parentNode)) {
+          if ((role = getRole(parent))) {
+            return role;
+          }
+        }
+      }
+
+      /**
+       * Returns a wai aria property by name for example aria-selected.
+       *
+       * @private
+       * @param {String} name Name of the aria property to get for example "disabled".
+       * @return {String} Aria property value.
+       */
+      function getAriaProp(name) {
+        var elm = focusedElement;
+
+        if (isElement(elm)) {
+          return elm.getAttribute('aria-' + name);
+        }
+      }
+
+      /**
+       * Is the element a text input element or not.
+       *
+       * @private
+       * @param {Element} elm Element to check if it's an text input element or not.
+       * @return {Boolean} True/false if the element is a text element or not.
+       */
+      function isTextInputElement(elm) {
+        var tagName = elm.tagName.toUpperCase();
+
+        // Notice: since type can be "email" etc we don't check the type
+        // So all input elements gets treated as text input elements
+        return tagName == "INPUT" || tagName == "TEXTAREA" || tagName == "SELECT";
+      }
+
+      /**
+       * Returns true/false if the specified element can be focused or not.
+       *
+       * @private
+       * @param {Element} elm DOM element to check if it can be focused or not.
+       * @return {Boolean} True/false if the element can have focus.
+       */
+      function canFocus(elm) {
+        if (isTextInputElement(elm) && !elm.hidden) {
+          return true;
+        }
+
+        if (hasTabstopData(elm)) {
+          return true;
+        }
+
+        if (/^(button|menuitem|checkbox|tab|menuitemcheckbox|option|gridcell|slider)$/.test(getRole(elm))) {
+          return true;
+        }
+
+        return false;
+      }
+
+      /**
+       * Returns an array of focusable visible elements within the specified container element.
+       *
+       * @private
+       * @param {Element} elm DOM element to find focusable elements within.
+       * @return {Array} Array of focusable elements.
+       */
+      function getFocusElements(elm) {
+        var elements = [];
+
+        function collect(elm) {
+          if (elm.nodeType != 1 || elm.style.display == 'none' || elm.disabled) {
+            return;
+          }
+
+          if (canFocus(elm)) {
+            elements.push(elm);
+          }
+
+          for (var i = 0; i < elm.childNodes.length; i++) {
+            collect(elm.childNodes[i]);
+          }
+        }
+
+        collect(elm || root.getEl());
+
+        return elements;
+      }
+
+      /**
+       * Returns the navigation root control for the specified control. The navigation root
+       * is the control that the keyboard navigation gets scoped to for example a menubar or toolbar group.
+       * It will look for parents of the specified target control or the currently focused control if this option is omitted.
+       *
+       * @private
+       * @param {tinymce.ui.Control} targetControl Optional target control to find root of.
+       * @return {tinymce.ui.Control} Navigation root control.
+       */
+      function getNavigationRoot(targetControl) {
+        var navigationRoot, controls;
+
+        targetControl = targetControl || focusedControl;
+        controls = targetControl.parents().toArray();
+        controls.unshift(targetControl);
+
+        for (var i = 0; i < controls.length; i++) {
+          navigationRoot = controls[i];
+
+          if (navigationRoot.settings.ariaRoot) {
+            break;
+          }
+        }
+
+        return navigationRoot;
+      }
+
+      /**
+       * Focuses the first item in the specified targetControl element or the last aria index if the
+       * navigation root has the ariaRemember option enabled.
+       *
+       * @private
+       * @param {tinymce.ui.Control} targetControl Target control to focus the first item in.
+       */
+      function focusFirst(targetControl) {
+        var navigationRoot = getNavigationRoot(targetControl);
+        var focusElements = getFocusElements(navigationRoot.getEl());
+
+        if (navigationRoot.settings.ariaRemember && "lastAriaIndex" in navigationRoot) {
+          moveFocusToIndex(navigationRoot.lastAriaIndex, focusElements);
+        } else {
+          moveFocusToIndex(0, focusElements);
+        }
+      }
+
+      /**
+       * Moves the focus to the specified index within the elements list.
+       * This will scope the index to the size of the element list if it changed.
+       *
+       * @private
+       * @param {Number} idx Specified index to move to.
+       * @param {Array} elements Array with dom elements to move focus within.
+       * @return {Number} Input index or a changed index if it was out of range.
+       */
+      function moveFocusToIndex(idx, elements) {
+        if (idx < 0) {
+          idx = elements.length - 1;
+        } else if (idx >= elements.length) {
+          idx = 0;
+        }
+
+        if (elements[idx]) {
+          elements[idx].focus();
+        }
+
+        return idx;
+      }
+
+      /**
+       * Moves the focus forwards or backwards.
+       *
+       * @private
+       * @param {Number} dir Direction to move in positive means forward, negative means backwards.
+       * @param {Array} elements Optional array of elements to move within defaults to the current navigation roots elements.
+       */
+      function moveFocus(dir, elements) {
+        var idx = -1, navigationRoot = getNavigationRoot();
+
+        elements = elements || getFocusElements(navigationRoot.getEl());
+
+        for (var i = 0; i < elements.length; i++) {
+          if (elements[i] === focusedElement) {
+            idx = i;
+          }
+        }
+
+        idx += dir;
+        navigationRoot.lastAriaIndex = moveFocusToIndex(idx, elements);
+      }
+
+      /**
+       * Moves the focus to the left this is called by the left key.
+       *
+       * @private
+       */
+      function left() {
+        var parentRole = getParentRole();
+
+        if (parentRole == "tablist") {
+          moveFocus(-1, getFocusElements(focusedElement.parentNode));
+        } else if (focusedControl.parent().submenu) {
+          cancel();
+        } else {
+          moveFocus(-1);
+        }
+      }
+
+      /**
+       * Moves the focus to the right this is called by the right key.
+       *
+       * @private
+       */
+      function right() {
+        var role = getRole(), parentRole = getParentRole();
+
+        if (parentRole == "tablist") {
+          moveFocus(1, getFocusElements(focusedElement.parentNode));
+        } else if (role == "menuitem" && parentRole == "menu" && getAriaProp('haspopup')) {
+          enter();
+        } else {
+          moveFocus(1);
+        }
+      }
+
+      /**
+       * Moves the focus to the up this is called by the up key.
+       *
+       * @private
+       */
+      function up() {
+        moveFocus(-1);
+      }
+
+      /**
+       * Moves the focus to the up this is called by the down key.
+       *
+       * @private
+       */
+      function down() {
+        var role = getRole(), parentRole = getParentRole();
+
+        if (role == "menuitem" && parentRole == "menubar") {
+          enter();
+        } else if (role == "button" && getAriaProp('haspopup')) {
+          enter({ key: 'down' });
+        } else {
+          moveFocus(1);
+        }
+      }
+
+      /**
+       * Moves the focus to the next item or previous item depending on shift key.
+       *
+       * @private
+       * @param {DOMEvent} e DOM event object.
+       */
+      function tab(e) {
+        var parentRole = getParentRole();
+
+        if (parentRole == "tablist") {
+          var elm = getFocusElements(focusedControl.getEl('body'))[0];
+
+          if (elm) {
+            elm.focus();
+          }
+        } else {
+          moveFocus(e.shiftKey ? -1 : 1);
+        }
+      }
+
+      /**
+       * Calls the cancel event on the currently focused control. This is normally done using the Esc key.
+       *
+       * @private
+       */
+      function cancel() {
+        focusedControl.fire('cancel');
+      }
+
+      /**
+       * Calls the click event on the currently focused control. This is normally done using the Enter/Space keys.
+       *
+       * @private
+       * @param {Object} aria Optional aria data to pass along with the enter event.
+       */
+      function enter(aria) {
+        aria = aria || {};
+        focusedControl.fire('click', { target: focusedElement, aria: aria });
+      }
+
+      root.on('keydown', function (e) {
+        function handleNonTabOrEscEvent(e, handler) {
+          // Ignore non tab keys for text elements
+          if (isTextInputElement(focusedElement) || hasTabstopData(focusedElement)) {
+            return;
+          }
+
+          if (getRole(focusedElement) === 'slider') {
+            return;
+          }
+
+          if (handler(e) !== false) {
+            e.preventDefault();
+          }
+        }
+
+        if (e.isDefaultPrevented()) {
+          return;
+        }
+
+        switch (e.keyCode) {
+          case 37: // DOM_VK_LEFT
+            handleNonTabOrEscEvent(e, left);
+            break;
+
+          case 39: // DOM_VK_RIGHT
+            handleNonTabOrEscEvent(e, right);
+            break;
+
+          case 38: // DOM_VK_UP
+            handleNonTabOrEscEvent(e, up);
+            break;
+
+          case 40: // DOM_VK_DOWN
+            handleNonTabOrEscEvent(e, down);
+            break;
+
+          case 27: // DOM_VK_ESCAPE
+            cancel();
+            break;
+
+          case 14: // DOM_VK_ENTER
+          case 13: // DOM_VK_RETURN
+          case 32: // DOM_VK_SPACE
+            handleNonTabOrEscEvent(e, enter);
+            break;
+
+          case 9: // DOM_VK_TAB
+            if (tab(e) !== false) {
+              e.preventDefault();
+            }
+            break;
+        }
+      });
+
+      root.on('focusin', function (e) {
+        focusedElement = e.target;
+        focusedControl = e.control;
+      });
+
+      return {
+        focusFirst: focusFirst
+      };
+    };
+  }
+);
+/**
+ * Container.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2017 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+/**
+ * Container control. This is extended by all controls that can have
+ * children such as panels etc. You can also use this class directly as an
+ * generic container instance. The container doesn't have any specific role or style.
+ *
+ * @-x-less Container.less
+ * @class tinymce.ui.Container
+ * @extends tinymce.ui.Control
+ */
+define(
+  'tinymce.ui.Container',
+  [
+    "tinymce.ui.Control",
+    "tinymce.ui.Collection",
+    "tinymce.ui.Selector",
+    "tinymce.core.ui.Factory",
+    "tinymce.ui.KeyboardNavigation",
+    "tinymce.core.util.Tools",
+    "tinymce.core.dom.DomQuery",
+    "tinymce.ui.ClassList",
+    "tinymce.ui.ReflowQueue"
+  ],
+  function (Control, Collection, Selector, Factory, KeyboardNavigation, Tools, $, ClassList, ReflowQueue) {
+    "use strict";
+
+    var selectorCache = {};
+
+    return Control.extend({
+      /**
+       * Constructs a new control instance with the specified settings.
+       *
+       * @constructor
+       * @param {Object} settings Name/value object with settings.
+       * @setting {Array} items Items to add to container in JSON format or control instances.
+       * @setting {String} layout Layout manager by name to use.
+       * @setting {Object} defaults Default settings to apply to all items.
+       */
+      init: function (settings) {
+        var self = this;
+
+        self._super(settings);
+        settings = self.settings;
+
+        if (settings.fixed) {
+          self.state.set('fixed', true);
+        }
+
+        self._items = new Collection();
+
+        if (self.isRtl()) {
+          self.classes.add('rtl');
+        }
+
+        self.bodyClasses = new ClassList(function () {
+          if (self.state.get('rendered')) {
+            self.getEl('body').className = this.toString();
+          }
+        });
+        self.bodyClasses.prefix = self.classPrefix;
+
+        self.classes.add('container');
+        self.bodyClasses.add('container-body');
+
+        if (settings.containerCls) {
+          self.classes.add(settings.containerCls);
+        }
+
+        self._layout = Factory.create((settings.layout || '') + 'layout');
+
+        if (self.settings.items) {
+          self.add(self.settings.items);
+        } else {
+          self.add(self.render());
+        }
+
+        // TODO: Fix this!
+        self._hasBody = true;
+      },
+
+      /**
+       * Returns a collection of child items that the container currently have.
+       *
+       * @method items
+       * @return {tinymce.ui.Collection} Control collection direct child controls.
+       */
+      items: function () {
+        return this._items;
+      },
+
+      /**
+       * Find child controls by selector.
+       *
+       * @method find
+       * @param {String} selector Selector CSS pattern to find children by.
+       * @return {tinymce.ui.Collection} Control collection with child controls.
+       */
+      find: function (selector) {
+        selector = selectorCache[selector] = selectorCache[selector] || new Selector(selector);
+
+        return selector.find(this);
+      },
+
+      /**
+       * Adds one or many items to the current container. This will create instances of
+       * the object representations if needed.
+       *
+       * @method add
+       * @param {Array/Object/tinymce.ui.Control} items Array or item that will be added to the container.
+       * @return {tinymce.ui.Collection} Current collection control.
+       */
+      add: function (items) {
+        var self = this;
+
+        self.items().add(self.create(items)).parent(self);
+
+        return self;
+      },
+
+      /**
+       * Focuses the current container instance. This will look
+       * for the first control in the container and focus that.
+       *
+       * @method focus
+       * @param {Boolean} keyboard Optional true/false if the focus was a keyboard focus or not.
+       * @return {tinymce.ui.Collection} Current instance.
+       */
+      focus: function (keyboard) {
+        var self = this, focusCtrl, keyboardNav, items;
+
+        if (keyboard) {
+          keyboardNav = self.keyboardNav || self.parents().eq(-1)[0].keyboardNav;
+
+          if (keyboardNav) {
+            keyboardNav.focusFirst(self);
+            return;
+          }
+        }
+
+        items = self.find('*');
+
+        // TODO: Figure out a better way to auto focus alert dialog buttons
+        if (self.statusbar) {
+          items.add(self.statusbar.items());
+        }
+
+        items.each(function (ctrl) {
+          if (ctrl.settings.autofocus) {
+            focusCtrl = null;
+            return false;
+          }
+
+          if (ctrl.canFocus) {
+            focusCtrl = focusCtrl || ctrl;
+          }
+        });
+
+        if (focusCtrl) {
+          focusCtrl.focus();
+        }
+
+        return self;
+      },
+
+      /**
+       * Replaces the specified child control with a new control.
+       *
+       * @method replace
+       * @param {tinymce.ui.Control} oldItem Old item to be replaced.
+       * @param {tinymce.ui.Control} newItem New item to be inserted.
+       */
+      replace: function (oldItem, newItem) {
+        var ctrlElm, items = this.items(), i = items.length;
+
+        // Replace the item in collection
+        while (i--) {
+          if (items[i] === oldItem) {
+            items[i] = newItem;
+            break;
+          }
+        }
+
+        if (i >= 0) {
+          // Remove new item from DOM
+          ctrlElm = newItem.getEl();
+          if (ctrlElm) {
+            ctrlElm.parentNode.removeChild(ctrlElm);
+          }
+
+          // Remove old item from DOM
+          ctrlElm = oldItem.getEl();
+          if (ctrlElm) {
+            ctrlElm.parentNode.removeChild(ctrlElm);
+          }
+        }
+
+        // Adopt the item
+        newItem.parent(this);
+      },
+
+      /**
+       * Creates the specified items. If any of the items is plain JSON style objects
+       * it will convert these into real tinymce.ui.Control instances.
+       *
+       * @method create
+       * @param {Array} items Array of items to convert into control instances.
+       * @return {Array} Array with control instances.
+       */
+      create: function (items) {
+        var self = this, settings, ctrlItems = [];
+
+        // Non array structure, then force it into an array
+        if (!Tools.isArray(items)) {
+          items = [items];
+        }
+
+        // Add default type to each child control
+        Tools.each(items, function (item) {
+          if (item) {
+            // Construct item if needed
+            if (!(item instanceof Control)) {
+              // Name only then convert it to an object
+              if (typeof item == "string") {
+                item = { type: item };
+              }
+
+              // Create control instance based on input settings and default settings
+              settings = Tools.extend({}, self.settings.defaults, item);
+              item.type = settings.type = settings.type || item.type || self.settings.defaultType ||
+                (settings.defaults ? settings.defaults.type : null);
+              item = Factory.create(settings);
+            }
+
+            ctrlItems.push(item);
+          }
+        });
+
+        return ctrlItems;
+      },
+
+      /**
+       * Renders new control instances.
+       *
+       * @private
+       */
+      renderNew: function () {
+        var self = this;
+
+        // Render any new items
+        self.items().each(function (ctrl, index) {
+          var containerElm;
+
+          ctrl.parent(self);
+
+          if (!ctrl.state.get('rendered')) {
+            containerElm = self.getEl('body');
+
+            // Insert or append the item
+            if (containerElm.hasChildNodes() && index <= containerElm.childNodes.length - 1) {
+              $(containerElm.childNodes[index]).before(ctrl.renderHtml());
+            } else {
+              $(containerElm).append(ctrl.renderHtml());
+            }
+
+            ctrl.postRender();
+            ReflowQueue.add(ctrl);
+          }
+        });
+
+        self._layout.applyClasses(self.items().filter(':visible'));
+        self._lastRect = null;
+
+        return self;
+      },
+
+      /**
+       * Appends new instances to the current container.
+       *
+       * @method append
+       * @param {Array/tinymce.ui.Collection} items Array if controls to append.
+       * @return {tinymce.ui.Container} Current container instance.
+       */
+      append: function (items) {
+        return this.add(items).renderNew();
+      },
+
+      /**
+       * Prepends new instances to the current container.
+       *
+       * @method prepend
+       * @param {Array/tinymce.ui.Collection} items Array if controls to prepend.
+       * @return {tinymce.ui.Container} Current container instance.
+       */
+      prepend: function (items) {
+        var self = this;
+
+        self.items().set(self.create(items).concat(self.items().toArray()));
+
+        return self.renderNew();
+      },
+
+      /**
+       * Inserts an control at a specific index.
+       *
+       * @method insert
+       * @param {Array/tinymce.ui.Collection} items Array if controls to insert.
+       * @param {Number} index Index to insert controls at.
+       * @param {Boolean} [before=false] Inserts controls before the index.
+       */
+      insert: function (items, index, before) {
+        var self = this, curItems, beforeItems, afterItems;
+
+        items = self.create(items);
+        curItems = self.items();
+
+        if (!before && index < curItems.length - 1) {
+          index += 1;
+        }
+
+        if (index >= 0 && index < curItems.length) {
+          beforeItems = curItems.slice(0, index).toArray();
+          afterItems = curItems.slice(index).toArray();
+          curItems.set(beforeItems.concat(items, afterItems));
+        }
+
+        return self.renderNew();
+      },
+
+      /**
+       * Populates the form fields from the specified JSON data object.
+       *
+       * Control items in the form that matches the data will have it's value set.
+       *
+       * @method fromJSON
+       * @param {Object} data JSON data object to set control values by.
+       * @return {tinymce.ui.Container} Current form instance.
+       */
+      fromJSON: function (data) {
+        var self = this;
+
+        for (var name in data) {
+          self.find('#' + name).value(data[name]);
+        }
+
+        return self;
+      },
+
+      /**
+       * Serializes the form into a JSON object by getting all items
+       * that has a name and a value.
+       *
+       * @method toJSON
+       * @return {Object} JSON object with form data.
+       */
+      toJSON: function () {
+        var self = this, data = {};
+
+        self.find('*').each(function (ctrl) {
+          var name = ctrl.name(), value = ctrl.value();
+
+          if (name && typeof value != "undefined") {
+            data[name] = value;
+          }
+        });
+
+        return data;
+      },
+
+      /**
+       * Renders the control as a HTML string.
+       *
+       * @method renderHtml
+       * @return {String} HTML representing the control.
+       */
+      renderHtml: function () {
+        var self = this, layout = self._layout, role = this.settings.role;
+
+        self.preRender();
+        layout.preRender(self);
+
+        return (
+          '<div id="' + self._id + '" class="' + self.classes + '"' + (role ? ' role="' + this.settings.role + '"' : '') + '>' +
+          '<div id="' + self._id + '-body" class="' + self.bodyClasses + '">' +
+          (self.settings.html || '') + layout.renderHtml(self) +
+          '</div>' +
+          '</div>'
+        );
+      },
+
+      /**
+       * Post render method. Called after the control has been rendered to the target.
+       *
+       * @method postRender
+       * @return {tinymce.ui.Container} Current combobox instance.
+       */
+      postRender: function () {
+        var self = this, box;
+
+        self.items().exec('postRender');
+        self._super();
+
+        self._layout.postRender(self);
+        self.state.set('rendered', true);
+
+        if (self.settings.style) {
+          self.$el.css(self.settings.style);
+        }
+
+        if (self.settings.border) {
+          box = self.borderBox;
+          self.$el.css({
+            'border-top-width': box.top,
+            'border-right-width': box.right,
+            'border-bottom-width': box.bottom,
+            'border-left-width': box.left
+          });
+        }
+
+        if (!self.parent()) {
+          self.keyboardNav = new KeyboardNavigation({
+            root: self
+          });
+        }
+
+        return self;
+      },
+
+      /**
+       * Initializes the current controls layout rect.
+       * This will be executed by the layout managers to determine the
+       * default minWidth/minHeight etc.
+       *
+       * @method initLayoutRect
+       * @return {Object} Layout rect instance.
+       */
+      initLayoutRect: function () {
+        var self = this, layoutRect = self._super();
+
+        // Recalc container size by asking layout manager
+        self._layout.recalc(self);
+
+        return layoutRect;
+      },
+
+      /**
+       * Recalculates the positions of the controls in the current container.
+       * This is invoked by the reflow method and shouldn't be called directly.
+       *
+       * @method recalc
+       */
+      recalc: function () {
+        var self = this, rect = self._layoutRect, lastRect = self._lastRect;
+
+        if (!lastRect || lastRect.w != rect.w || lastRect.h != rect.h) {
+          self._layout.recalc(self);
+          rect = self.layoutRect();
+          self._lastRect = { x: rect.x, y: rect.y, w: rect.w, h: rect.h };
+          return true;
+        }
+      },
+
+      /**
+       * Reflows the current container and it's children and possible parents.
+       * This should be used after you for example append children to the current control so
+       * that the layout managers know that they need to reposition everything.
+       *
+       * @example
+       * container.append({type: 'button', text: 'My button'}).reflow();
+       *
+       * @method reflow
+       * @return {tinymce.ui.Container} Current container instance.
+       */
+      reflow: function () {
+        var i;
+
+        ReflowQueue.remove(this);
+
+        if (this.visible()) {
+          Control.repaintControls = [];
+          Control.repaintControls.map = {};
+
+          this.recalc();
+          i = Control.repaintControls.length;
+
+          while (i--) {
+            Control.repaintControls[i].repaint();
+          }
+
+          // TODO: Fix me!
+          if (this.settings.layout !== "flow" && this.settings.layout !== "stack") {
+            this.repaint();
+          }
+
+          Control.repaintControls = [];
+        }
+
+        return this;
+      }
+    });
+  }
+);
+/**
+ * DragHelper.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2017 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+/**
+ * Drag/drop helper class.
+ *
+ * @example
+ * var dragHelper = new tinymce.ui.DragHelper('mydiv', {
+ *     start: function(document, window, evt) {
+ *     },
+ *
+ *     drag: function(evt) {
+ *     },
+ *
+ *     end: function(evt) {
+ *     }
+ * });
+ *
+ * @class tinymce.ui.DragHelper
+ */
+define(
+  'tinymce.ui.DragHelper',
+  [
+    'global!document',
+    'global!window',
+    'tinymce.core.dom.DomQuery'
+  ],
+  function (document, window, DomQuery) {
+    "use strict";
+
+    function getDocumentSize(doc) {
+      var documentElement, body, scrollWidth, clientWidth;
+      var offsetWidth, scrollHeight, clientHeight, offsetHeight, max = Math.max;
+
+      documentElement = doc.documentElement;
+      body = doc.body;
+
+      scrollWidth = max(documentElement.scrollWidth, body.scrollWidth);
+      clientWidth = max(documentElement.clientWidth, body.clientWidth);
+      offsetWidth = max(documentElement.offsetWidth, body.offsetWidth);
+
+      scrollHeight = max(documentElement.scrollHeight, body.scrollHeight);
+      clientHeight = max(documentElement.clientHeight, body.clientHeight);
+      offsetHeight = max(documentElement.offsetHeight, body.offsetHeight);
+
+      return {
+        width: scrollWidth < offsetWidth ? clientWidth : scrollWidth,
+        height: scrollHeight < offsetHeight ? clientHeight : scrollHeight
+      };
+    }
+
+    function updateWithTouchData(e) {
+      var keys, i;
+
+      if (e.changedTouches) {
+        keys = "screenX screenY pageX pageY clientX clientY".split(' ');
+        for (i = 0; i < keys.length; i++) {
+          e[keys[i]] = e.changedTouches[0][keys[i]];
+        }
+      }
+    }
+
+    return function (id, settings) {
+      var $eventOverlay, doc = settings.document || document, downButton, start, stop, drag, startX, startY;
+
+      settings = settings || {};
+
+      function getHandleElm() {
+        return doc.getElementById(settings.handle || id);
+      }
+
+      start = function (e) {
+        var docSize = getDocumentSize(doc), handleElm, cursor;
+
+        updateWithTouchData(e);
+
+        e.preventDefault();
+        downButton = e.button;
+        handleElm = getHandleElm();
+        startX = e.screenX;
+        startY = e.screenY;
+
+        // Grab cursor from handle so we can place it on overlay
+        if (window.getComputedStyle) {
+          cursor = window.getComputedStyle(handleElm, null).getPropertyValue("cursor");
+        } else {
+          cursor = handleElm.runtimeStyle.cursor;
+        }
+
+        $eventOverlay = DomQuery('<div></div>').css({
+          position: "absolute",
+          top: 0, left: 0,
+          width: docSize.width,
+          height: docSize.height,
+          zIndex: 0x7FFFFFFF,
+          opacity: 0.0001,
+          cursor: cursor
+        }).appendTo(doc.body);
+
+        DomQuery(doc).on('mousemove touchmove', drag).on('mouseup touchend', stop);
+
+        settings.start(e);
+      };
+
+      drag = function (e) {
+        updateWithTouchData(e);
+
+        if (e.button !== downButton) {
+          return stop(e);
+        }
+
+        e.deltaX = e.screenX - startX;
+        e.deltaY = e.screenY - startY;
+
+        e.preventDefault();
+        settings.drag(e);
+      };
+
+      stop = function (e) {
+        updateWithTouchData(e);
+
+        DomQuery(doc).off('mousemove touchmove', drag).off('mouseup touchend', stop);
+
+        $eventOverlay.remove();
+
+        if (settings.stop) {
+          settings.stop(e);
+        }
+      };
+
+      /**
+       * Destroys the drag/drop helper instance.
+       *
+       * @method destroy
+       */
+      this.destroy = function () {
+        DomQuery(getHandleElm()).off();
+      };
+
+      DomQuery(getHandleElm()).on('mousedown touchstart', start);
+    };
+  }
+);
+/**
+ * Scrollable.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2017 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+/**
+ * This mixin makes controls scrollable using custom scrollbars.
+ *
+ * @-x-less Scrollable.less
+ * @mixin tinymce.ui.Scrollable
+ */
+define(
+  'tinymce.ui.Scrollable',
+  [
+    "tinymce.core.dom.DomQuery",
+    "tinymce.ui.DragHelper"
+  ],
+  function ($, DragHelper) {
+    "use strict";
+
+    return {
+      init: function () {
+        var self = this;
+        self.on('repaint', self.renderScroll);
+      },
+
+      renderScroll: function () {
+        var self = this, margin = 2;
+
+        function repaintScroll() {
+          var hasScrollH, hasScrollV, bodyElm;
+
+          function repaintAxis(axisName, posName, sizeName, contentSizeName, hasScroll, ax) {
+            var containerElm, scrollBarElm, scrollThumbElm;
+            var containerSize, scrollSize, ratio, rect;
+            var posNameLower, sizeNameLower;
+
+            scrollBarElm = self.getEl('scroll' + axisName);
+            if (scrollBarElm) {
+              posNameLower = posName.toLowerCase();
+              sizeNameLower = sizeName.toLowerCase();
+
+              $(self.getEl('absend')).css(posNameLower, self.layoutRect()[contentSizeName] - 1);
+
+              if (!hasScroll) {
+                $(scrollBarElm).css('display', 'none');
+                return;
+              }
+
+              $(scrollBarElm).css('display', 'block');
+              containerElm = self.getEl('body');
+              scrollThumbElm = self.getEl('scroll' + axisName + "t");
+              containerSize = containerElm["client" + sizeName] - (margin * 2);
+              containerSize -= hasScrollH && hasScrollV ? scrollBarElm["client" + ax] : 0;
+              scrollSize = containerElm["scroll" + sizeName];
+              ratio = containerSize / scrollSize;
+
+              rect = {};
+              rect[posNameLower] = containerElm["offset" + posName] + margin;
+              rect[sizeNameLower] = containerSize;
+              $(scrollBarElm).css(rect);
+
+              rect = {};
+              rect[posNameLower] = containerElm["scroll" + posName] * ratio;
+              rect[sizeNameLower] = containerSize * ratio;
+              $(scrollThumbElm).css(rect);
+            }
+          }
+
+          bodyElm = self.getEl('body');
+          hasScrollH = bodyElm.scrollWidth > bodyElm.clientWidth;
+          hasScrollV = bodyElm.scrollHeight > bodyElm.clientHeight;
+
+          repaintAxis("h", "Left", "Width", "contentW", hasScrollH, "Height");
+          repaintAxis("v", "Top", "Height", "contentH", hasScrollV, "Width");
+        }
+
+        function addScroll() {
+          function addScrollAxis(axisName, posName, sizeName, deltaPosName, ax) {
+            var scrollStart, axisId = self._id + '-scroll' + axisName, prefix = self.classPrefix;
+
+            $(self.getEl()).append(
+              '<div id="' + axisId + '" class="' + prefix + 'scrollbar ' + prefix + 'scrollbar-' + axisName + '">' +
+              '<div id="' + axisId + 't" class="' + prefix + 'scrollbar-thumb"></div>' +
+              '</div>'
+            );
+
+            self.draghelper = new DragHelper(axisId + 't', {
+              start: function () {
+                scrollStart = self.getEl('body')["scroll" + posName];
+                $('#' + axisId).addClass(prefix + 'active');
+              },
+
+              drag: function (e) {
+                var ratio, hasScrollH, hasScrollV, containerSize, layoutRect = self.layoutRect();
+
+                hasScrollH = layoutRect.contentW > layoutRect.innerW;
+                hasScrollV = layoutRect.contentH > layoutRect.innerH;
+                containerSize = self.getEl('body')["client" + sizeName] - (margin * 2);
+                containerSize -= hasScrollH && hasScrollV ? self.getEl('scroll' + axisName)["client" + ax] : 0;
+
+                ratio = containerSize / self.getEl('body')["scroll" + sizeName];
+                self.getEl('body')["scroll" + posName] = scrollStart + (e["delta" + deltaPosName] / ratio);
+              },
+
+              stop: function () {
+                $('#' + axisId).removeClass(prefix + 'active');
+              }
+            });
+          }
+
+          self.classes.add('scroll');
+
+          addScrollAxis("v", "Top", "Height", "Y", "Width");
+          addScrollAxis("h", "Left", "Width", "X", "Height");
+        }
+
+        if (self.settings.autoScroll) {
+          if (!self._hasScroll) {
+            self._hasScroll = true;
+            addScroll();
+
+            self.on('wheel', function (e) {
+              var bodyEl = self.getEl('body');
+
+              bodyEl.scrollLeft += (e.deltaX || 0) * 10;
+              bodyEl.scrollTop += e.deltaY * 10;
+
+              repaintScroll();
+            });
+
+            $(self.getEl('body')).on("scroll", repaintScroll);
+          }
+
+          repaintScroll();
+        }
+      }
+    };
+  }
+);
+/**
+ * Panel.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2017 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+/**
+ * Creates a new panel.
+ *
+ * @-x-less Panel.less
+ * @class tinymce.ui.Panel
+ * @extends tinymce.ui.Container
+ * @mixes tinymce.ui.Scrollable
+ */
+define(
+  'tinymce.ui.Panel',
+  [
+    "tinymce.ui.Container",
+    "tinymce.ui.Scrollable"
+  ],
+  function (Container, Scrollable) {
+    "use strict";
+
+    return Container.extend({
+      Defaults: {
+        layout: 'fit',
+        containerCls: 'panel'
+      },
+
+      Mixins: [Scrollable],
+
+      /**
+       * Renders the control as a HTML string.
+       *
+       * @method renderHtml
+       * @return {String} HTML representing the control.
+       */
+      renderHtml: function () {
+        var self = this, layout = self._layout, innerHtml = self.settings.html;
+
+        self.preRender();
+        layout.preRender(self);
+
+        if (typeof innerHtml == "undefined") {
+          innerHtml = (
+            '<div id="' + self._id + '-body" class="' + self.bodyClasses + '">' +
+            layout.renderHtml(self) +
+            '</div>'
+          );
+        } else {
+          if (typeof innerHtml == 'function') {
+            innerHtml = innerHtml.call(self);
+          }
+
+          self._hasBody = false;
+        }
+
+        return (
+          '<div id="' + self._id + '" class="' + self.classes + '" hidefocus="1" tabindex="-1" role="group">' +
+          (self._preBodyHtml || '') +
+          innerHtml +
+          '</div>'
+        );
+      }
+    });
+  }
+);
+
+/**
+ * Resizable.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2017 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+/**
+ * Resizable mixin. Enables controls to be resized.
+ *
+ * @mixin tinymce.ui.Resizable
+ */
+define(
+  'tinymce.ui.Resizable',
+  [
+    "tinymce.ui.DomUtils"
+  ],
+  function (DomUtils) {
+    "use strict";
+
+    return {
+      /**
+       * Resizes the control to contents.
+       *
+       * @method resizeToContent
+       */
+      resizeToContent: function () {
+        this._layoutRect.autoResize = true;
+        this._lastRect = null;
+        this.reflow();
+      },
+
+      /**
+       * Resizes the control to a specific width/height.
+       *
+       * @method resizeTo
+       * @param {Number} w Control width.
+       * @param {Number} h Control height.
+       * @return {tinymce.ui.Control} Current control instance.
+       */
+      resizeTo: function (w, h) {
+        // TODO: Fix hack
+        if (w <= 1 || h <= 1) {
+          var rect = DomUtils.getWindowSize();
+
+          w = w <= 1 ? w * rect.w : w;
+          h = h <= 1 ? h * rect.h : h;
+        }
+
+        this._layoutRect.autoResize = false;
+        return this.layoutRect({ minW: w, minH: h, w: w, h: h }).reflow();
+      },
+
+      /**
+       * Resizes the control to a specific relative width/height.
+       *
+       * @method resizeBy
+       * @param {Number} dw Relative control width.
+       * @param {Number} dh Relative control height.
+       * @return {tinymce.ui.Control} Current control instance.
+       */
+      resizeBy: function (dw, dh) {
+        var self = this, rect = self.layoutRect();
+
+        return self.resizeTo(rect.w + dw, rect.h + dh);
+      }
+    };
+  }
+);
+/**
+ * FloatPanel.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2017 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+/**
+ * This class creates a floating panel.
+ *
+ * @-x-less FloatPanel.less
+ * @class tinymce.ui.FloatPanel
+ * @extends tinymce.ui.Panel
+ * @mixes tinymce.ui.Movable
+ * @mixes tinymce.ui.Resizable
+ */
+define(
+  'tinymce.ui.FloatPanel',
+  [
+    'global!document',
+    'global!window',
+    'tinymce.core.dom.DomQuery',
+    'tinymce.core.util.Delay',
+    'tinymce.ui.DomUtils',
+    'tinymce.ui.Movable',
+    'tinymce.ui.Panel',
+    'tinymce.ui.Resizable'
+  ],
+  function (document, window, DomQuery, Delay, DomUtils, Movable, Panel, Resizable) {
+    "use strict";
+
+    var documentClickHandler, documentScrollHandler, windowResizeHandler, visiblePanels = [];
+    var zOrder = [], hasModal;
+
+    function isChildOf(ctrl, parent) {
+      while (ctrl) {
+        if (ctrl == parent) {
+          return true;
+        }
+
+        ctrl = ctrl.parent();
+      }
+    }
+
+    function skipOrHidePanels(e) {
+      // Hide any float panel when a click/focus out is out side that float panel and the
+      // float panels direct parent for example a click on a menu button
+      var i = visiblePanels.length;
+
+      while (i--) {
+        var panel = visiblePanels[i], clickCtrl = panel.getParentCtrl(e.target);
+
+        if (panel.settings.autohide) {
+          if (clickCtrl) {
+            if (isChildOf(clickCtrl, panel) || panel.parent() === clickCtrl) {
+              continue;
+            }
+          }
+
+          e = panel.fire('autohide', { target: e.target });
+          if (!e.isDefaultPrevented()) {
+            panel.hide();
+          }
+        }
+      }
+    }
+
+    function bindDocumentClickHandler() {
+
+      if (!documentClickHandler) {
+        documentClickHandler = function (e) {
+          // Gecko fires click event and in the wrong order on Mac so lets normalize
+          if (e.button == 2) {
+            return;
+          }
+
+          skipOrHidePanels(e);
+        };
+
+        DomQuery(document).on('click touchstart', documentClickHandler);
+      }
+    }
+
+    function bindDocumentScrollHandler() {
+      if (!documentScrollHandler) {
+        documentScrollHandler = function () {
+          var i;
+
+          i = visiblePanels.length;
+          while (i--) {
+            repositionPanel(visiblePanels[i]);
+          }
+        };
+
+        DomQuery(window).on('scroll', documentScrollHandler);
+      }
+    }
+
+    function bindWindowResizeHandler() {
+      if (!windowResizeHandler) {
+        var docElm = document.documentElement, clientWidth = docElm.clientWidth, clientHeight = docElm.clientHeight;
+
+        windowResizeHandler = function () {
+          // Workaround for #7065 IE 7 fires resize events event though the window wasn't resized
+          if (!document.all || clientWidth != docElm.clientWidth || clientHeight != docElm.clientHeight) {
+            clientWidth = docElm.clientWidth;
+            clientHeight = docElm.clientHeight;
+            FloatPanel.hideAll();
+          }
+        };
+
+        DomQuery(window).on('resize', windowResizeHandler);
+      }
+    }
+
+    /**
+     * Repositions the panel to the top of page if the panel is outside of the visual viewport. It will
+     * also reposition all child panels of the current panel.
+     */
+    function repositionPanel(panel) {
+      var scrollY = DomUtils.getViewPort().y;
+
+      function toggleFixedChildPanels(fixed, deltaY) {
+        var parent;
+
+        for (var i = 0; i < visiblePanels.length; i++) {
+          if (visiblePanels[i] != panel) {
+            parent = visiblePanels[i].parent();
+
+            while (parent && (parent = parent.parent())) {
+              if (parent == panel) {
+                visiblePanels[i].fixed(fixed).moveBy(0, deltaY).repaint();
+              }
+            }
+          }
+        }
+      }
+
+      if (panel.settings.autofix) {
+        if (!panel.state.get('fixed')) {
+          panel._autoFixY = panel.layoutRect().y;
+
+          if (panel._autoFixY < scrollY) {
+            panel.fixed(true).layoutRect({ y: 0 }).repaint();
+            toggleFixedChildPanels(true, scrollY - panel._autoFixY);
+          }
+        } else {
+          if (panel._autoFixY > scrollY) {
+            panel.fixed(false).layoutRect({ y: panel._autoFixY }).repaint();
+            toggleFixedChildPanels(false, panel._autoFixY - scrollY);
+          }
+        }
+      }
+    }
+
+    function addRemove(add, ctrl) {
+      var i, zIndex = FloatPanel.zIndex || 0xFFFF, topModal;
+
+      if (add) {
+        zOrder.push(ctrl);
+      } else {
+        i = zOrder.length;
+
+        while (i--) {
+          if (zOrder[i] === ctrl) {
+            zOrder.splice(i, 1);
+          }
+        }
+      }
+
+      if (zOrder.length) {
+        for (i = 0; i < zOrder.length; i++) {
+          if (zOrder[i].modal) {
+            zIndex++;
+            topModal = zOrder[i];
+          }
+
+          zOrder[i].getEl().style.zIndex = zIndex;
+          zOrder[i].zIndex = zIndex;
+          zIndex++;
+        }
+      }
+
+      var modalBlockEl = DomQuery('#' + ctrl.classPrefix + 'modal-block', ctrl.getContainerElm())[0];
+
+      if (topModal) {
+        DomQuery(modalBlockEl).css('z-index', topModal.zIndex - 1);
+      } else if (modalBlockEl) {
+        modalBlockEl.parentNode.removeChild(modalBlockEl);
+        hasModal = false;
+      }
+
+      FloatPanel.currentZIndex = zIndex;
+    }
+
+    var FloatPanel = Panel.extend({
+      Mixins: [Movable, Resizable],
+
+      /**
+       * Constructs a new control instance with the specified settings.
+       *
+       * @constructor
+       * @param {Object} settings Name/value object with settings.
+       * @setting {Boolean} autohide Automatically hide the panel.
+       */
+      init: function (settings) {
+        var self = this;
+
+        self._super(settings);
+        self._eventsRoot = self;
+
+        self.classes.add('floatpanel');
+
+        // Hide floatpanes on click out side the root button
+        if (settings.autohide) {
+          bindDocumentClickHandler();
+          bindWindowResizeHandler();
+          visiblePanels.push(self);
+        }
+
+        if (settings.autofix) {
+          bindDocumentScrollHandler();
+
+          self.on('move', function () {
+            repositionPanel(this);
+          });
+        }
+
+        self.on('postrender show', function (e) {
+          if (e.control == self) {
+            var $modalBlockEl, prefix = self.classPrefix;
+
+            if (self.modal && !hasModal) {
+              $modalBlockEl = DomQuery('#' + prefix + 'modal-block', self.getContainerElm());
+              if (!$modalBlockEl[0]) {
+                $modalBlockEl = DomQuery(
+                  '<div id="' + prefix + 'modal-block" class="' + prefix + 'reset ' + prefix + 'fade"></div>'
+                ).appendTo(self.getContainerElm());
+              }
+
+              Delay.setTimeout(function () {
+                $modalBlockEl.addClass(prefix + 'in');
+                DomQuery(self.getEl()).addClass(prefix + 'in');
+              });
+
+              hasModal = true;
+            }
+
+            addRemove(true, self);
+          }
+        });
+
+        self.on('show', function () {
+          self.parents().each(function (ctrl) {
+            if (ctrl.state.get('fixed')) {
+              self.fixed(true);
+              return false;
+            }
+          });
+        });
+
+        if (settings.popover) {
+          self._preBodyHtml = '<div class="' + self.classPrefix + 'arrow"></div>';
+          self.classes.add('popover').add('bottom').add(self.isRtl() ? 'end' : 'start');
+        }
+
+        self.aria('label', settings.ariaLabel);
+        self.aria('labelledby', self._id);
+        self.aria('describedby', self.describedBy || self._id + '-none');
+      },
+
+      fixed: function (state) {
+        var self = this;
+
+        if (self.state.get('fixed') != state) {
+          if (self.state.get('rendered')) {
+            var viewport = DomUtils.getViewPort();
+
+            if (state) {
+              self.layoutRect().y -= viewport.y;
+            } else {
+              self.layoutRect().y += viewport.y;
+            }
+          }
+
+          self.classes.toggle('fixed', state);
+          self.state.set('fixed', state);
+        }
+
+        return self;
+      },
+
+      /**
+       * Shows the current float panel.
+       *
+       * @method show
+       * @return {tinymce.ui.FloatPanel} Current floatpanel instance.
+       */
+      show: function () {
+        var self = this, i, state = self._super();
+
+        i = visiblePanels.length;
+        while (i--) {
+          if (visiblePanels[i] === self) {
+            break;
+          }
+        }
+
+        if (i === -1) {
+          visiblePanels.push(self);
+        }
+
+        return state;
+      },
+
+      /**
+       * Hides the current float panel.
+       *
+       * @method hide
+       * @return {tinymce.ui.FloatPanel} Current floatpanel instance.
+       */
+      hide: function () {
+        removeVisiblePanel(this);
+        addRemove(false, this);
+
+        return this._super();
+      },
+
+      /**
+       * Hide all visible float panels with he autohide setting enabled. This is for
+       * manually hiding floating menus or panels.
+       *
+       * @method hideAll
+       */
+      hideAll: function () {
+        FloatPanel.hideAll();
+      },
+
+      /**
+       * Closes the float panel. This will remove the float panel from page and fire the close event.
+       *
+       * @method close
+       */
+      close: function () {
+        var self = this;
+
+        if (!self.fire('close').isDefaultPrevented()) {
+          self.remove();
+          addRemove(false, self);
+        }
+
+        return self;
+      },
+
+      /**
+       * Removes the float panel from page.
+       *
+       * @method remove
+       */
+      remove: function () {
+        removeVisiblePanel(this);
+        this._super();
+      },
+
+      postRender: function () {
+        var self = this;
+
+        if (self.settings.bodyRole) {
+          this.getEl('body').setAttribute('role', self.settings.bodyRole);
+        }
+
+        return self._super();
+      }
+    });
+
+    /**
+     * Hide all visible float panels with he autohide setting enabled. This is for
+     * manually hiding floating menus or panels.
+     *
+     * @static
+     * @method hideAll
+     */
+    FloatPanel.hideAll = function () {
+      var i = visiblePanels.length;
+
+      while (i--) {
+        var panel = visiblePanels[i];
+
+        if (panel && panel.settings.autohide) {
+          panel.hide();
+          visiblePanels.splice(i, 1);
+        }
+      }
+    };
+
+    function removeVisiblePanel(panel) {
+      var i;
+
+      i = visiblePanels.length;
+      while (i--) {
+        if (visiblePanels[i] === panel) {
+          visiblePanels.splice(i, 1);
+        }
+      }
+
+      i = zOrder.length;
+      while (i--) {
+        if (zOrder[i] === panel) {
+          zOrder.splice(i, 1);
+        }
+      }
+    }
+
+    return FloatPanel;
+  }
+);
+
+/**
+ * Inline.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2016 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+define(
+  'tinymce.themes.modern.modes.Inline',
+  [
+    'global!document',
+    'tinymce.core.dom.DOMUtils',
+    'tinymce.core.ui.Factory',
+    'tinymce.themes.modern.api.Events',
+    'tinymce.themes.modern.api.Settings',
+    'tinymce.themes.modern.ui.A11y',
+    'tinymce.themes.modern.ui.ContextToolbars',
+    'tinymce.themes.modern.ui.Menubar',
+    'tinymce.themes.modern.ui.SkinLoaded',
+    'tinymce.themes.modern.ui.Toolbar',
+    'tinymce.ui.FloatPanel'
+  ],
+  function (document, DOMUtils, Factory, Events, Settings, A11y, ContextToolbars, Menubar, SkinLoaded, Toolbar, FloatPanel) {
+    var render = function (editor, theme, args) {
+      var panel, inlineToolbarContainer;
+      var DOM = DOMUtils.DOM;
+
+      var fixedToolbarContainer = Settings.getFixedToolbarContainer(editor);
+      if (fixedToolbarContainer) {
+        inlineToolbarContainer = DOM.select(fixedToolbarContainer)[0];
+      }
+
+      var reposition = function () {
+        if (panel && panel.moveRel && panel.visible() && !panel._fixed) {
+          // TODO: This is kind of ugly and doesn't handle multiple scrollable elements
+          var scrollContainer = editor.selection.getScrollContainer(), body = editor.getBody();
+          var deltaX = 0, deltaY = 0;
+
+          if (scrollContainer) {
+            var bodyPos = DOM.getPos(body), scrollContainerPos = DOM.getPos(scrollContainer);
+
+            deltaX = Math.max(0, scrollContainerPos.x - bodyPos.x);
+            deltaY = Math.max(0, scrollContainerPos.y - bodyPos.y);
+          }
+
+          panel.fixed(false).moveRel(body, editor.rtl ? ['tr-br', 'br-tr'] : ['tl-bl', 'bl-tl', 'tr-br']).moveBy(deltaX, deltaY);
+        }
+      };
+
+      var show = function () {
+        if (panel) {
+          panel.show();
+          reposition();
+          DOM.addClass(editor.getBody(), 'mce-edit-focus');
+        }
+      };
+
+      var hide = function () {
+        if (panel) {
+          // We require two events as the inline float panel based toolbar does not have autohide=true
+          panel.hide();
+
+          // All other autohidden float panels will be closed below.
+          FloatPanel.hideAll();
+
+          DOM.removeClass(editor.getBody(), 'mce-edit-focus');
+        }
+      };
+
+      var render = function () {
+        if (panel) {
+          if (!panel.visible()) {
+            show();
+          }
+
+          return;
+        }
+
+        // Render a plain panel inside the inlineToolbarContainer if it's defined
+        panel = theme.panel = Factory.create({
+          type: inlineToolbarContainer ? 'panel' : 'floatpanel',
+          role: 'application',
+          classes: 'tinymce tinymce-inline',
+          layout: 'flex',
+          direction: 'column',
+          align: 'stretch',
+          autohide: false,
+          autofix: true,
+          fixed: !!inlineToolbarContainer,
+          border: 1,
+          items: [
+            Settings.hasMenubar(editor) === false ? null : { type: 'menubar', border: '0 0 1 0', items: Menubar.createMenuButtons(editor) },
+            Toolbar.createToolbars(editor, Settings.getToolbarSize(editor))
+          ]
+        });
+
+        // Add statusbar
+        /*if (settings.statusbar !== false) {
+          panel.add({type: 'panel', classes: 'statusbar', layout: 'flow', border: '1 0 0 0', items: [
+            {type: 'elementpath'}
+          ]});
+        }*/
+
+        Events.fireBeforeRenderUI(editor);
+        panel.renderTo(inlineToolbarContainer || document.body).reflow();
+
+        A11y.addKeys(editor, panel);
+        show();
+        ContextToolbars.addContextualToolbars(editor);
+
+        editor.on('nodeChange', reposition);
+        editor.on('activate', show);
+        editor.on('deactivate', hide);
+
+        editor.nodeChanged();
+      };
+
+      editor.settings.content_editable = true;
+
+      editor.on('focus', function () {
+        // Render only when the CSS file has been loaded
+        if (Settings.isSkinDisabled(editor) === false && args.skinUiCss) {
+          DOM.styleSheetLoader.load(args.skinUiCss, render, render);
+        } else {
+          render();
+        }
+      });
+
+      editor.on('blur hide', hide);
+
+      // Remove the panel when the editor is removed
+      editor.on('remove', function () {
+        if (panel) {
+          panel.remove();
+          panel = null;
+        }
+      });
+
+      // Preload skin css
+      if (Settings.isSkinDisabled(editor) === false && args.skinUiCss) {
+        DOM.styleSheetLoader.load(args.skinUiCss, SkinLoaded.fireSkinLoaded(editor));
+      } else {
+        SkinLoaded.fireSkinLoaded(editor)();
+      }
+
+      return {};
+    };
+
+    return {
+      render: render
+    };
+  }
+);
+
+/**
+ * Throbber.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2017 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+/**
+ * This class enables you to display a Throbber for any element.
+ *
+ * @-x-less Throbber.less
+ * @class tinymce.ui.Throbber
+ */
+define(
+  'tinymce.ui.Throbber',
+  [
+    "tinymce.core.dom.DomQuery",
+    "tinymce.ui.Control",
+    "tinymce.core.util.Delay"
+  ],
+  function ($, Control, Delay) {
+    "use strict";
+
+    /**
+     * Constructs a new throbber.
+     *
+     * @constructor
+     * @param {Element} elm DOM Html element to display throbber in.
+     * @param {Boolean} inline Optional true/false state if the throbber should be appended to end of element for infinite scroll.
+     */
+    return function (elm, inline) {
+      var self = this, state, classPrefix = Control.classPrefix, timer;
+
+      /**
+       * Shows the throbber.
+       *
+       * @method show
+       * @param {Number} [time] Time to wait before showing.
+       * @param {function} [callback] Optional callback to execute when the throbber is shown.
+       * @return {tinymce.ui.Throbber} Current throbber instance.
+       */
+      self.show = function (time, callback) {
+        function render() {
+          if (state) {
+            $(elm).append(
+              '<div class="' + classPrefix + 'throbber' + (inline ? ' ' + classPrefix + 'throbber-inline' : '') + '"></div>'
+            );
+
+            if (callback) {
+              callback();
+            }
+          }
+        }
+
+        self.hide();
+
+        state = true;
+
+        if (time) {
+          timer = Delay.setTimeout(render, time);
+        } else {
+          render();
+        }
+
+        return self;
+      };
+
+      /**
+       * Hides the throbber.
+       *
+       * @method hide
+       * @return {tinymce.ui.Throbber} Current throbber instance.
+       */
+      self.hide = function () {
+        var child = elm.lastChild;
+
+        Delay.clearTimeout(timer);
+
+        if (child && child.className.indexOf('throbber') != -1) {
+          child.parentNode.removeChild(child);
+        }
+
+        state = false;
+
+        return self;
+      };
+    };
+  }
+);
+
+/**
+ * ProgressState.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2016 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+define(
+  'tinymce.themes.modern.ui.ProgressState',
+  [
+    'tinymce.ui.Throbber'
+  ],
+  function (Throbber) {
+    var setup = function (editor, theme) {
+      var throbber;
+
+      editor.on('ProgressState', function (e) {
+        throbber = throbber || new Throbber(theme.panel.getEl('body'));
+
+        if (e.state) {
+          throbber.show(e.time);
+        } else {
+          throbber.hide();
+        }
+      });
+    };
+
+    return {
+      setup: setup
+    };
+  }
+);
+
+/**
+ * Render.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2016 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+define(
+  'tinymce.themes.modern.ui.Render',
+  [
+    'tinymce.themes.modern.api.Settings',
+    'tinymce.themes.modern.modes.Iframe',
+    'tinymce.themes.modern.modes.Inline',
+    'tinymce.themes.modern.ui.ProgressState'
+  ],
+  function (Settings, Iframe, Inline, ProgressState) {
+    var renderUI = function (editor, theme, args) {
+      var skinUrl = Settings.getSkinUrl(editor);
+
+      if (skinUrl) {
+        args.skinUiCss = skinUrl + '/skin.min.css';
+        editor.contentCSS.push(skinUrl + '/content' + (editor.inline ? '.inline' : '') + '.min.css');
+      }
+
+      ProgressState.setup(editor, theme);
+
+      return Settings.isInline(editor) ? Inline.render(editor, theme, args) : Iframe.render(editor, theme, args);
+    };
+
+    return {
+      renderUI: renderUI
+    };
+  }
+);
+
+defineGlobal("global!setTimeout", setTimeout);
+/**
+ * Tooltip.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2017 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+/**
+ * Creates a tooltip instance.
+ *
+ * @-x-less ToolTip.less
+ * @class tinymce.ui.ToolTip
+ * @extends tinymce.ui.Control
+ * @mixes tinymce.ui.Movable
+ */
+define(
+  'tinymce.ui.Tooltip',
+  [
+    "tinymce.ui.Control",
+    "tinymce.ui.Movable"
+  ],
+  function (Control, Movable) {
+    return Control.extend({
+      Mixins: [Movable],
+
+      Defaults: {
+        classes: 'widget tooltip tooltip-n'
+      },
+
+      /**
+       * Renders the control as a HTML string.
+       *
+       * @method renderHtml
+       * @return {String} HTML representing the control.
+       */
+      renderHtml: function () {
+        var self = this, prefix = self.classPrefix;
+
+        return (
+          '<div id="' + self._id + '" class="' + self.classes + '" role="presentation">' +
+          '<div class="' + prefix + 'tooltip-arrow"></div>' +
+          '<div class="' + prefix + 'tooltip-inner">' + self.encode(self.state.get('text')) + '</div>' +
+          '</div>'
+        );
+      },
+
+      bindStates: function () {
+        var self = this;
+
+        self.state.on('change:text', function (e) {
+          self.getEl().lastChild.innerHTML = self.encode(e.value);
+        });
+
+        return self._super();
+      },
+
+      /**
+       * Repaints the control after a layout operation.
+       *
+       * @method repaint
+       */
+      repaint: function () {
+        var self = this, style, rect;
+
+        style = self.getEl().style;
+        rect = self._layoutRect;
+
+        style.left = rect.x + 'px';
+        style.top = rect.y + 'px';
+        style.zIndex = 0xFFFF + 0xFFFF;
+      }
+    });
+  }
+);
+/**
+ * Widget.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2017 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+/**
+ * Widget base class a widget is a control that has a tooltip and some basic states.
+ *
+ * @class tinymce.ui.Widget
+ * @extends tinymce.ui.Control
+ */
+define(
+  'tinymce.ui.Widget',
+  [
+    "tinymce.ui.Control",
+    "tinymce.ui.Tooltip"
+  ],
+  function (Control, Tooltip) {
+    "use strict";
+
+    var tooltip;
+
+    var Widget = Control.extend({
+      /**
+       * Constructs a instance with the specified settings.
+       *
+       * @constructor
+       * @param {Object} settings Name/value object with settings.
+       * @setting {String} tooltip Tooltip text to display when hovering.
+       * @setting {Boolean} autofocus True if the control should be focused when rendered.
+       * @setting {String} text Text to display inside widget.
+       */
+      init: function (settings) {
+        var self = this;
+
+        self._super(settings);
+        settings = self.settings;
+        self.canFocus = true;
+
+        if (settings.tooltip && Widget.tooltips !== false) {
+          self.on('mouseenter', function (e) {
+            var tooltip = self.tooltip().moveTo(-0xFFFF);
+
+            if (e.control == self) {
+              var rel = tooltip.text(settings.tooltip).show().testMoveRel(self.getEl(), ['bc-tc', 'bc-tl', 'bc-tr']);
+
+              tooltip.classes.toggle('tooltip-n', rel == 'bc-tc');
+              tooltip.classes.toggle('tooltip-nw', rel == 'bc-tl');
+              tooltip.classes.toggle('tooltip-ne', rel == 'bc-tr');
+
+              tooltip.moveRel(self.getEl(), rel);
+            } else {
+              tooltip.hide();
+            }
+          });
+
+          self.on('mouseleave mousedown click', function () {
+            self.tooltip().hide();
+          });
+        }
+
+        self.aria('label', settings.ariaLabel || settings.tooltip);
+      },
+
+      /**
+       * Returns the current tooltip instance.
+       *
+       * @method tooltip
+       * @return {tinymce.ui.Tooltip} Tooltip instance.
+       */
+      tooltip: function () {
+        if (!tooltip) {
+          tooltip = new Tooltip({ type: 'tooltip' });
+          tooltip.renderTo();
+        }
+
+        return tooltip;
+      },
+
+      /**
+       * Called after the control has been rendered.
+       *
+       * @method postRender
+       */
+      postRender: function () {
+        var self = this, settings = self.settings;
+
+        self._super();
+
+        if (!self.parent() && (settings.width || settings.height)) {
+          self.initLayoutRect();
+          self.repaint();
+        }
+
+        if (settings.autofocus) {
+          self.focus();
+        }
+      },
+
+      bindStates: function () {
+        var self = this;
+
+        function disable(state) {
+          self.aria('disabled', state);
+          self.classes.toggle('disabled', state);
+        }
+
+        function active(state) {
+          self.aria('pressed', state);
+          self.classes.toggle('active', state);
+        }
+
+        self.state.on('change:disabled', function (e) {
+          disable(e.value);
+        });
+
+        self.state.on('change:active', function (e) {
+          active(e.value);
+        });
+
+        if (self.state.get('disabled')) {
+          disable(true);
+        }
+
+        if (self.state.get('active')) {
+          active(true);
+        }
+
+        return self._super();
+      },
+
+      /**
+       * Removes the current control from DOM and from UI collections.
+       *
+       * @method remove
+       * @return {tinymce.ui.Control} Current control instance.
+       */
+      remove: function () {
+        this._super();
+
+        if (tooltip) {
+          tooltip.remove();
+          tooltip = null;
+        }
+      }
+    });
+
+    return Widget;
+  }
+);
+
+/**
+ * Progress.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2017 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+/**
+ * Progress control.
+ *
+ * @-x-less Progress.less
+ * @class tinymce.ui.Progress
+ * @extends tinymce.ui.Control
+ */
+define(
+  'tinymce.ui.Progress',
+  [
+    "tinymce.ui.Widget"
+  ],
+  function (Widget) {
+    "use strict";
+
+    return Widget.extend({
+      Defaults: {
+        value: 0
+      },
+
+      init: function (settings) {
+        var self = this;
+
+        self._super(settings);
+        self.classes.add('progress');
+
+        if (!self.settings.filter) {
+          self.settings.filter = function (value) {
+            return Math.round(value);
+          };
+        }
+      },
+
+      renderHtml: function () {
+        var self = this, id = self._id, prefix = this.classPrefix;
+
+        return (
+          '<div id="' + id + '" class="' + self.classes + '">' +
+          '<div class="' + prefix + 'bar-container">' +
+          '<div class="' + prefix + 'bar"></div>' +
+          '</div>' +
+          '<div class="' + prefix + 'text">0%</div>' +
+          '</div>'
+        );
+      },
+
+      postRender: function () {
+        var self = this;
+
+        self._super();
+        self.value(self.settings.value);
+
+        return self;
+      },
+
+      bindStates: function () {
+        var self = this;
+
+        function setValue(value) {
+          value = self.settings.filter(value);
+          self.getEl().lastChild.innerHTML = value + '%';
+          self.getEl().firstChild.firstChild.style.width = value + '%';
+        }
+
+        self.state.on('change:value', function (e) {
+          setValue(e.value);
+        });
+
+        setValue(self.state.get('value'));
+
+        return self._super();
+      }
+    });
+  }
+);
+/**
+ * Notification.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2017 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+/**
+ * Creates a notification instance.
+ *
+ * @-x-less Notification.less
+ * @class tinymce.ui.Notification
+ * @extends tinymce.ui.Container
+ * @mixes tinymce.ui.Movable
+ */
+define(
+  'tinymce.ui.Notification',
+  [
+    "tinymce.ui.Control",
+    "tinymce.ui.Movable",
+    "tinymce.ui.Progress",
+    "tinymce.core.util.Delay"
+  ],
+  function (Control, Movable, Progress, Delay) {
+    var updateLiveRegion = function (ctx, text) {
+      ctx.getEl().lastChild.textContent = text + (ctx.progressBar ? ' ' + ctx.progressBar.value() + '%' : '');
+    };
+
+    return Control.extend({
+      Mixins: [Movable],
+
+      Defaults: {
+        classes: 'widget notification'
+      },
+
+      init: function (settings) {
+        var self = this;
+
+        self._super(settings);
+
+        self.maxWidth = settings.maxWidth;
+
+        if (settings.text) {
+          self.text(settings.text);
+        }
+
+        if (settings.icon) {
+          self.icon = settings.icon;
+        }
+
+        if (settings.color) {
+          self.color = settings.color;
+        }
+
+        if (settings.type) {
+          self.classes.add('notification-' + settings.type);
+        }
+
+        if (settings.timeout && (settings.timeout < 0 || settings.timeout > 0) && !settings.closeButton) {
+          self.closeButton = false;
+        } else {
+          self.classes.add('has-close');
+          self.closeButton = true;
+        }
+
+        if (settings.progressBar) {
+          self.progressBar = new Progress();
+        }
+
+        self.on('click', function (e) {
+          if (e.target.className.indexOf(self.classPrefix + 'close') != -1) {
+            self.close();
+          }
+        });
+      },
+
+      /**
+       * Renders the control as a HTML string.
+       *
+       * @method renderHtml
+       * @return {String} HTML representing the control.
+       */
+      renderHtml: function () {
+        var self = this, prefix = self.classPrefix, icon = '', closeButton = '', progressBar = '', notificationStyle = '';
+
+        if (self.icon) {
+          icon = '<i class="' + prefix + 'ico' + ' ' + prefix + 'i-' + self.icon + '"></i>';
+        }
+
+        notificationStyle = ' style="max-width: ' + self.maxWidth + 'px;' + (self.color ? 'background-color: ' + self.color + ';"' : '"');
+
+        if (self.closeButton) {
+          closeButton = '<button type="button" class="' + prefix + 'close" aria-hidden="true">\u00d7</button>';
+        }
+
+        if (self.progressBar) {
+          progressBar = self.progressBar.renderHtml();
+        }
+
+        return (
+          '<div id="' + self._id + '" class="' + self.classes + '"' + notificationStyle + ' role="presentation">' +
+          icon +
+          '<div class="' + prefix + 'notification-inner">' + self.state.get('text') + '</div>' +
+          progressBar +
+          closeButton +
+          '<div style="clip: rect(1px, 1px, 1px, 1px);height: 1px;overflow: hidden;position: absolute;width: 1px;"' +
+          ' aria-live="assertive" aria-relevant="additions" aria-atomic="true"></div>' +
+          '</div>'
+        );
+      },
+
+      postRender: function () {
+        var self = this;
+
+        Delay.setTimeout(function () {
+          self.$el.addClass(self.classPrefix + 'in');
+          updateLiveRegion(self, self.state.get('text'));
+        }, 100);
+
+        return self._super();
+      },
+
+      bindStates: function () {
+        var self = this;
+
+        self.state.on('change:text', function (e) {
+          self.getEl().firstChild.innerHTML = e.value;
+          updateLiveRegion(self, e.value);
+        });
+        if (self.progressBar) {
+          self.progressBar.bindStates();
+          self.progressBar.state.on('change:value', function (e) {
+            updateLiveRegion(self, self.state.get('text'));
+          });
+        }
+        return self._super();
+      },
+
+      close: function () {
+        var self = this;
+
+        if (!self.fire('close').isDefaultPrevented()) {
+          self.remove();
+        }
+
+        return self;
+      },
+
+      /**
+       * Repaints the control after a layout operation.
+       *
+       * @method repaint
+       */
+      repaint: function () {
+        var self = this, style, rect;
+
+        style = self.getEl().style;
+        rect = self._layoutRect;
+
+        style.left = rect.x + 'px';
+        style.top = rect.y + 'px';
+
+        // Hardcoded arbitrary z-value because we want the
+        // notifications under the other windows
+        style.zIndex = 0xFFFF - 1;
+      }
+    });
+  }
+);
+/**
+ * NotificationManagerImpl.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2017 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+define(
+  'tinymce.ui.NotificationManagerImpl',
+  [
+    'ephox.katamari.api.Arr',
+    'global!setTimeout',
+    'tinymce.core.util.Tools',
+    'tinymce.ui.DomUtils',
+    'tinymce.ui.Notification'
+  ],
+  function (Arr, setTimeout, Tools, DomUtils, Notification) {
+    return function (editor) {
+      var getEditorContainer = function (editor) {
+        return editor.inline ? editor.getElement() : editor.getContentAreaContainer();
+      };
+
+      var getContainerWidth = function () {
+        var container = getEditorContainer(editor);
+        return DomUtils.getSize(container).width;
+      };
+
+      // Since the viewport will change based on the present notifications, we need to move them all to the
+      // top left of the viewport to give an accurate size measurement so we can position them later.
+      var prePositionNotifications = function (notifications) {
+        Arr.each(notifications, function (notification) {
+          notification.moveTo(0, 0);
+        });
+      };
+
+      var positionNotifications = function (notifications) {
+        if (notifications.length > 0) {
+          var firstItem = notifications.slice(0, 1)[0];
+          var container = getEditorContainer(editor);
+          firstItem.moveRel(container, 'tc-tc');
+          Arr.each(notifications, function (notification, index) {
+            if (index > 0) {
+              notification.moveRel(notifications[index - 1].getEl(), 'bc-tc');
+            }
+          });
+        }
+      };
+
+      var reposition = function (notifications) {
+        prePositionNotifications(notifications);
+        positionNotifications(notifications);
+      };
+
+      var open = function (args, closeCallback) {
+        var extendedArgs = Tools.extend(args, { maxWidth: getContainerWidth() });
+        var notif = new Notification(extendedArgs);
+        notif.args = extendedArgs;
+
+        //If we have a timeout value
+        if (extendedArgs.timeout > 0) {
+          notif.timer = setTimeout(function () {
+            notif.close();
+            closeCallback();
+          }, extendedArgs.timeout);
+        }
+
+        notif.on('close', function () {
+          closeCallback();
+        });
+
+        notif.renderTo();
+
+        return notif;
+      };
+
+      var close = function (notification) {
+        notification.close();
+      };
+
+      var getArgs = function (notification) {
+        return notification.args;
+      };
+
+      return {
+        open: open,
+        close: close,
+        reposition: reposition,
+        getArgs: getArgs
+      };
+    };
+  }
+);
+
+/**
+ * Window.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2017 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+/**
+ * Creates a new window.
+ *
+ * @-x-less Window.less
+ * @class tinymce.ui.Window
+ * @extends tinymce.ui.FloatPanel
+ */
+define(
+  'tinymce.ui.Window',
+  [
+    'global!document',
+    'global!setTimeout',
+    'global!window',
+    'tinymce.core.dom.DomQuery',
+    'tinymce.core.Env',
+    'tinymce.core.util.Delay',
+    'tinymce.ui.BoxUtils',
+    'tinymce.ui.DomUtils',
+    'tinymce.ui.DragHelper',
+    'tinymce.ui.FloatPanel',
+    'tinymce.ui.Panel'
+  ],
+  function (document, setTimeout, window, DomQuery, Env, Delay, BoxUtils, DomUtils, DragHelper, FloatPanel, Panel) {
+    "use strict";
+
+    var windows = [], oldMetaValue = '';
+
+    function toggleFullScreenState(state) {
+      var noScaleMetaValue = 'width=device-width,initial-scale=1.0,user-scalable=0,minimum-scale=1.0,maximum-scale=1.0',
+        viewport = DomQuery("meta[name=viewport]")[0],
+        contentValue;
+
+      if (Env.overrideViewPort === false) {
+        return;
+      }
+
+      if (!viewport) {
+        viewport = document.createElement('meta');
+        viewport.setAttribute('name', 'viewport');
+        document.getElementsByTagName('head')[0].appendChild(viewport);
+      }
+
+      contentValue = viewport.getAttribute('content');
+      if (contentValue && typeof oldMetaValue != 'undefined') {
+        oldMetaValue = contentValue;
+      }
+
+      viewport.setAttribute('content', state ? noScaleMetaValue : oldMetaValue);
+    }
+
+    function toggleBodyFullScreenClasses(classPrefix, state) {
+      if (checkFullscreenWindows() && state === false) {
+        DomQuery([document.documentElement, document.body]).removeClass(classPrefix + 'fullscreen');
+      }
+    }
+
+    function checkFullscreenWindows() {
+      for (var i = 0; i < windows.length; i++) {
+        if (windows[i]._fullscreen) {
+          return true;
+        }
+      }
+      return false;
+    }
+
+    function handleWindowResize() {
+      if (!Env.desktop) {
+        var lastSize = {
+          w: window.innerWidth,
+          h: window.innerHeight
+        };
+
+        Delay.setInterval(function () {
+          var w = window.innerWidth,
+            h = window.innerHeight;
+
+          if (lastSize.w != w || lastSize.h != h) {
+            lastSize = {
+              w: w,
+              h: h
+            };
+
+            DomQuery(window).trigger('resize');
+          }
+        }, 100);
+      }
+
+      function reposition() {
+        var i, rect = DomUtils.getWindowSize(), layoutRect;
+
+        for (i = 0; i < windows.length; i++) {
+          layoutRect = windows[i].layoutRect();
+
+          windows[i].moveTo(
+            windows[i].settings.x || Math.max(0, rect.w / 2 - layoutRect.w / 2),
+            windows[i].settings.y || Math.max(0, rect.h / 2 - layoutRect.h / 2)
+          );
+        }
+      }
+
+      DomQuery(window).on('resize', reposition);
+    }
+
+    var Window = FloatPanel.extend({
+      modal: true,
+
+      Defaults: {
+        border: 1,
+        layout: 'flex',
+        containerCls: 'panel',
+        role: 'dialog',
+        callbacks: {
+          submit: function () {
+            this.fire('submit', { data: this.toJSON() });
+          },
+
+          close: function () {
+            this.close();
+          }
+        }
+      },
+
+      /**
+       * Constructs a instance with the specified settings.
+       *
+       * @constructor
+       * @param {Object} settings Name/value object with settings.
+       */
+      init: function (settings) {
+        var self = this;
+
+        self._super(settings);
+
+        if (self.isRtl()) {
+          self.classes.add('rtl');
+        }
+
+        self.classes.add('window');
+        self.bodyClasses.add('window-body');
+        self.state.set('fixed', true);
+
+        // Create statusbar
+        if (settings.buttons) {
+          self.statusbar = new Panel({
+            layout: 'flex',
+            border: '1 0 0 0',
+            spacing: 3,
+            padding: 10,
+            align: 'center',
+            pack: self.isRtl() ? 'start' : 'end',
+            defaults: {
+              type: 'button'
+            },
+            items: settings.buttons
+          });
+
+          self.statusbar.classes.add('foot');
+          self.statusbar.parent(self);
+        }
+
+        self.on('click', function (e) {
+          var closeClass = self.classPrefix + 'close';
+
+          if (DomUtils.hasClass(e.target, closeClass) || DomUtils.hasClass(e.target.parentNode, closeClass)) {
+            self.close();
+          }
+        });
+
+        self.on('cancel', function () {
+          self.close();
+        });
+
+        self.aria('describedby', self.describedBy || self._id + '-none');
+        self.aria('label', settings.title);
+        self._fullscreen = false;
+      },
+
+      /**
+       * Recalculates the positions of the controls in the current container.
+       * This is invoked by the reflow method and shouldn't be called directly.
+       *
+       * @method recalc
+       */
+      recalc: function () {
+        var self = this, statusbar = self.statusbar, layoutRect, width, x, needsRecalc;
+
+        if (self._fullscreen) {
+          self.layoutRect(DomUtils.getWindowSize());
+          self.layoutRect().contentH = self.layoutRect().innerH;
+        }
+
+        self._super();
+
+        layoutRect = self.layoutRect();
+
+        // Resize window based on title width
+        if (self.settings.title && !self._fullscreen) {
+          width = layoutRect.headerW;
+          if (width > layoutRect.w) {
+            x = layoutRect.x - Math.max(0, width / 2);
+            self.layoutRect({ w: width, x: x });
+            needsRecalc = true;
+          }
+        }
+
+        // Resize window based on statusbar width
+        if (statusbar) {
+          statusbar.layoutRect({ w: self.layoutRect().innerW }).recalc();
+
+          width = statusbar.layoutRect().minW + layoutRect.deltaW;
+          if (width > layoutRect.w) {
+            x = layoutRect.x - Math.max(0, width - layoutRect.w);
+            self.layoutRect({ w: width, x: x });
+            needsRecalc = true;
+          }
+        }
+
+        // Recalc body and disable auto resize
+        if (needsRecalc) {
+          self.recalc();
+        }
+      },
+
+      /**
+       * Initializes the current controls layout rect.
+       * This will be executed by the layout managers to determine the
+       * default minWidth/minHeight etc.
+       *
+       * @method initLayoutRect
+       * @return {Object} Layout rect instance.
+       */
+      initLayoutRect: function () {
+        var self = this, layoutRect = self._super(), deltaH = 0, headEl;
+
+        // Reserve vertical space for title
+        if (self.settings.title && !self._fullscreen) {
+          headEl = self.getEl('head');
+
+          var size = DomUtils.getSize(headEl);
+
+          layoutRect.headerW = size.width;
+          layoutRect.headerH = size.height;
+
+          deltaH += layoutRect.headerH;
+        }
+
+        // Reserve vertical space for statusbar
+        if (self.statusbar) {
+          deltaH += self.statusbar.layoutRect().h;
+        }
+
+        layoutRect.deltaH += deltaH;
+        layoutRect.minH += deltaH;
+        //layoutRect.innerH -= deltaH;
+        layoutRect.h += deltaH;
+
+        var rect = DomUtils.getWindowSize();
+
+        layoutRect.x = self.settings.x || Math.max(0, rect.w / 2 - layoutRect.w / 2);
+        layoutRect.y = self.settings.y || Math.max(0, rect.h / 2 - layoutRect.h / 2);
+
+        return layoutRect;
+      },
+
+      /**
+       * Renders the control as a HTML string.
+       *
+       * @method renderHtml
+       * @return {String} HTML representing the control.
+       */
+      renderHtml: function () {
+        var self = this, layout = self._layout, id = self._id, prefix = self.classPrefix;
+        var settings = self.settings, headerHtml = '', footerHtml = '', html = settings.html;
+
+        self.preRender();
+        layout.preRender(self);
+
+        if (settings.title) {
+          headerHtml = (
+            '<div id="' + id + '-head" class="' + prefix + 'window-head">' +
+            '<div id="' + id + '-title" class="' + prefix + 'title">' + self.encode(settings.title) + '</div>' +
+            '<div id="' + id + '-dragh" class="' + prefix + 'dragh"></div>' +
+            '<button type="button" class="' + prefix + 'close" aria-hidden="true">' +
+            '<i class="mce-ico mce-i-remove"></i>' +
+            '</button>' +
+            '</div>'
+          );
+        }
+
+        if (settings.url) {
+          html = '<iframe src="' + settings.url + '" tabindex="-1"></iframe>';
+        }
+
+        if (typeof html == "undefined") {
+          html = layout.renderHtml(self);
+        }
+
+        if (self.statusbar) {
+          footerHtml = self.statusbar.renderHtml();
+        }
+
+        return (
+          '<div id="' + id + '" class="' + self.classes + '" hidefocus="1">' +
+          '<div class="' + self.classPrefix + 'reset" role="application">' +
+          headerHtml +
+          '<div id="' + id + '-body" class="' + self.bodyClasses + '">' +
+          html +
+          '</div>' +
+          footerHtml +
+          '</div>' +
+          '</div>'
+        );
+      },
+
+      /**
+       * Switches the window fullscreen mode.
+       *
+       * @method fullscreen
+       * @param {Boolean} state True/false state.
+       * @return {tinymce.ui.Window} Current window instance.
+       */
+      fullscreen: function (state) {
+        var self = this, documentElement = document.documentElement, slowRendering, prefix = self.classPrefix, layoutRect;
+
+        if (state != self._fullscreen) {
+          DomQuery(window).on('resize', function () {
+            var time;
+
+            if (self._fullscreen) {
+              // Time the layout time if it's to slow use a timeout to not hog the CPU
+              if (!slowRendering) {
+                time = new Date().getTime();
+
+                var rect = DomUtils.getWindowSize();
+                self.moveTo(0, 0).resizeTo(rect.w, rect.h);
+
+                if ((new Date().getTime()) - time > 50) {
+                  slowRendering = true;
+                }
+              } else {
+                if (!self._timer) {
+                  self._timer = Delay.setTimeout(function () {
+                    var rect = DomUtils.getWindowSize();
+                    self.moveTo(0, 0).resizeTo(rect.w, rect.h);
+
+                    self._timer = 0;
+                  }, 50);
+                }
+              }
+            }
+          });
+
+          layoutRect = self.layoutRect();
+          self._fullscreen = state;
+
+          if (!state) {
+            self.borderBox = BoxUtils.parseBox(self.settings.border);
+            self.getEl('head').style.display = '';
+            layoutRect.deltaH += layoutRect.headerH;
+            DomQuery([documentElement, document.body]).removeClass(prefix + 'fullscreen');
+            self.classes.remove('fullscreen');
+            self.moveTo(self._initial.x, self._initial.y).resizeTo(self._initial.w, self._initial.h);
+          } else {
+            self._initial = { x: layoutRect.x, y: layoutRect.y, w: layoutRect.w, h: layoutRect.h };
+
+            self.borderBox = BoxUtils.parseBox('0');
+            self.getEl('head').style.display = 'none';
+            layoutRect.deltaH -= layoutRect.headerH + 2;
+            DomQuery([documentElement, document.body]).addClass(prefix + 'fullscreen');
+            self.classes.add('fullscreen');
+
+            var rect = DomUtils.getWindowSize();
+            self.moveTo(0, 0).resizeTo(rect.w, rect.h);
+          }
+        }
+
+        return self.reflow();
+      },
+
+      /**
+       * Called after the control has been rendered.
+       *
+       * @method postRender
+       */
+      postRender: function () {
+        var self = this, startPos;
+
+        setTimeout(function () {
+          self.classes.add('in');
+          self.fire('open');
+        }, 0);
+
+        self._super();
+
+        if (self.statusbar) {
+          self.statusbar.postRender();
+        }
+
+        self.focus();
+
+        this.dragHelper = new DragHelper(self._id + '-dragh', {
+          start: function () {
+            startPos = {
+              x: self.layoutRect().x,
+              y: self.layoutRect().y
+            };
+          },
+
+          drag: function (e) {
+            self.moveTo(startPos.x + e.deltaX, startPos.y + e.deltaY);
+          }
+        });
+
+        self.on('submit', function (e) {
+          if (!e.isDefaultPrevented()) {
+            self.close();
+          }
+        });
+
+        windows.push(self);
+        toggleFullScreenState(true);
+      },
+
+      /**
+       * Fires a submit event with the serialized form.
+       *
+       * @method submit
+       * @return {Object} Event arguments object.
+       */
+      submit: function () {
+        return this.fire('submit', { data: this.toJSON() });
+      },
+
+      /**
+       * Removes the current control from DOM and from UI collections.
+       *
+       * @method remove
+       * @return {tinymce.ui.Control} Current control instance.
+       */
+      remove: function () {
+        var self = this, i;
+
+        self.dragHelper.destroy();
+        self._super();
+
+        if (self.statusbar) {
+          this.statusbar.remove();
+        }
+
+        toggleBodyFullScreenClasses(self.classPrefix, false);
+
+        i = windows.length;
+        while (i--) {
+          if (windows[i] === self) {
+            windows.splice(i, 1);
+          }
+        }
+
+        toggleFullScreenState(windows.length > 0);
+      },
+
+      /**
+       * Returns the contentWindow object of the iframe if it exists.
+       *
+       * @method getContentWindow
+       * @return {Window} window object or null.
+       */
+      getContentWindow: function () {
+        var ifr = this.getEl().getElementsByTagName('iframe')[0];
+        return ifr ? ifr.contentWindow : null;
+      }
+    });
+
+    handleWindowResize();
+
+    return Window;
+  }
+);
+/**
+ * MessageBox.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2017 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+/**
+ * This class is used to create MessageBoxes like alerts/confirms etc.
+ *
+ * @class tinymce.ui.MessageBox
+ * @extends tinymce.ui.FloatPanel
+ */
+define(
+  'tinymce.ui.MessageBox',
+  [
+    'global!document',
+    'tinymce.ui.Window'
+  ],
+  function (document, Window) {
+    "use strict";
+
+    var MessageBox = Window.extend({
+      /**
+       * Constructs a instance with the specified settings.
+       *
+       * @constructor
+       * @param {Object} settings Name/value object with settings.
+       */
+      init: function (settings) {
+        settings = {
+          border: 1,
+          padding: 20,
+          layout: 'flex',
+          pack: "center",
+          align: "center",
+          containerCls: 'panel',
+          autoScroll: true,
+          buttons: { type: "button", text: "Ok", action: "ok" },
+          items: {
+            type: "label",
+            multiline: true,
+            maxWidth: 500,
+            maxHeight: 200
+          }
+        };
+
+        this._super(settings);
+      },
+
+      Statics: {
+        /**
+         * Ok buttons constant.
+         *
+         * @static
+         * @final
+         * @field {Number} OK
+         */
+        OK: 1,
+
+        /**
+         * Ok/cancel buttons constant.
+         *
+         * @static
+         * @final
+         * @field {Number} OK_CANCEL
+         */
+        OK_CANCEL: 2,
+
+        /**
+         * yes/no buttons constant.
+         *
+         * @static
+         * @final
+         * @field {Number} YES_NO
+         */
+        YES_NO: 3,
+
+        /**
+         * yes/no/cancel buttons constant.
+         *
+         * @static
+         * @final
+         * @field {Number} YES_NO_CANCEL
+         */
+        YES_NO_CANCEL: 4,
+
+        /**
+         * Constructs a new message box and renders it to the body element.
+         *
+         * @static
+         * @method msgBox
+         * @param {Object} settings Name/value object with settings.
+         */
+        msgBox: function (settings) {
+          var buttons, callback = settings.callback || function () { };
+
+          function createButton(text, status, primary) {
+            return {
+              type: "button",
+              text: text,
+              subtype: primary ? 'primary' : '',
+              onClick: function (e) {
+                e.control.parents()[1].close();
+                callback(status);
+              }
+            };
+          }
+
+          switch (settings.buttons) {
+            case MessageBox.OK_CANCEL:
+              buttons = [
+                createButton('Ok', true, true),
+                createButton('Cancel', false)
+              ];
+              break;
+
+            case MessageBox.YES_NO:
+            case MessageBox.YES_NO_CANCEL:
+              buttons = [
+                createButton('Yes', 1, true),
+                createButton('No', 0)
+              ];
+
+              if (settings.buttons == MessageBox.YES_NO_CANCEL) {
+                buttons.push(createButton('Cancel', -1));
+              }
+              break;
+
+            default:
+              buttons = [
+                createButton('Ok', true, true)
+              ];
+              break;
+          }
+
+          return new Window({
+            padding: 20,
+            x: settings.x,
+            y: settings.y,
+            minWidth: 300,
+            minHeight: 100,
+            layout: "flex",
+            pack: "center",
+            align: "center",
+            buttons: buttons,
+            title: settings.title,
+            role: 'alertdialog',
+            items: {
+              type: "label",
+              multiline: true,
+              maxWidth: 500,
+              maxHeight: 200,
+              text: settings.text
+            },
+            onPostRender: function () {
+              this.aria('describedby', this.items()[0]._id);
+            },
+            onClose: settings.onClose,
+            onCancel: function () {
+              callback(false);
+            }
+          }).renderTo(document.body).reflow();
+        },
+
+        /**
+         * Creates a new alert dialog.
+         *
+         * @method alert
+         * @param {Object} settings Settings for the alert dialog.
+         * @param {function} [callback] Callback to execute when the user makes a choice.
+         */
+        alert: function (settings, callback) {
+          if (typeof settings == "string") {
+            settings = { text: settings };
+          }
+
+          settings.callback = callback;
+          return MessageBox.msgBox(settings);
+        },
+
+        /**
+         * Creates a new confirm dialog.
+         *
+         * @method confirm
+         * @param {Object} settings Settings for the confirm dialog.
+         * @param {function} [callback] Callback to execute when the user makes a choice.
+         */
+        confirm: function (settings, callback) {
+          if (typeof settings == "string") {
+            settings = { text: settings };
+          }
+
+          settings.callback = callback;
+          settings.buttons = MessageBox.OK_CANCEL;
+
+          return MessageBox.msgBox(settings);
+        }
+      }
+    });
+
+    return MessageBox;
+  }
+);
+
+/**
+ * WindowManagerImpl.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2017 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+define(
+  'tinymce.ui.WindowManagerImpl',
+  [
+    "tinymce.ui.Window",
+    "tinymce.ui.MessageBox"
+  ],
+  function (Window, MessageBox) {
+    return function (editor) {
+      var open = function (args, params, closeCallback) {
+        var win;
+
+        args.title = args.title || ' ';
+
+        // Handle URL
+        args.url = args.url || args.file; // Legacy
+        if (args.url) {
+          args.width = parseInt(args.width || 320, 10);
+          args.height = parseInt(args.height || 240, 10);
+        }
+
+        // Handle body
+        if (args.body) {
+          args.items = {
+            defaults: args.defaults,
+            type: args.bodyType || 'form',
+            items: args.body,
+            data: args.data,
+            callbacks: args.commands
+          };
+        }
+
+        if (!args.url && !args.buttons) {
+          args.buttons = [
+            {
+              text: 'Ok', subtype: 'primary', onclick: function () {
+                win.find('form')[0].submit();
+              }
+            },
+
+            {
+              text: 'Cancel', onclick: function () {
+                win.close();
+              }
+            }
+          ];
+        }
+
+        win = new Window(args);
+
+        win.on('close', function () {
+          closeCallback(win);
+        });
+
+        // Handle data
+        if (args.data) {
+          win.on('postRender', function () {
+            this.find('*').each(function (ctrl) {
+              var name = ctrl.name();
+
+              if (name in args.data) {
+                ctrl.value(args.data[name]);
+              }
+            });
+          });
+        }
+
+        // store args and parameters
+        win.features = args || {};
+        win.params = params || {};
+
+        win = win.renderTo().reflow();
+
+        return win;
+      };
+
+      var alert = function (message, choiceCallback, closeCallback) {
+        var win;
+
+        win = MessageBox.alert(message, function () {
+          choiceCallback();
+        });
+
+        win.on('close', function () {
+          closeCallback(win);
+        });
+
+        return win;
+      };
+
+      var confirm = function (message, choiceCallback, closeCallback) {
+        var win;
+
+        win = MessageBox.confirm(message, function (state) {
+          choiceCallback(state);
+        });
+
+        win.on('close', function () {
+          closeCallback(win);
+        });
+
+        return win;
+      };
+
+      var close = function (window) {
+        window.close();
+      };
+
+      var getParams = function (window) {
+        return window.params;
+      };
+
+      var setParams = function (window, params) {
+        window.params = params;
+      };
+
+      return {
+        open: open,
+        alert: alert,
+        confirm: confirm,
+        close: close,
+        getParams: getParams,
+        setParams: setParams
+      };
+    };
+  }
+);
+
+/**
+ * ThemeApi.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2016 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+define(
+  'tinymce.themes.modern.api.ThemeApi',
+  [
+    'tinymce.themes.modern.ui.Render',
+    'tinymce.themes.modern.ui.Resize',
+    'tinymce.ui.NotificationManagerImpl',
+    'tinymce.ui.WindowManagerImpl'
+  ],
+  function (Render, Resize, NotificationManagerImpl, WindowManagerImpl) {
+    var get = function (editor) {
+      var renderUI = function (args) {
+        return Render.renderUI(editor, this, args);
+      };
+
+      var resizeTo = function (w, h) {
+        return Resize.resizeTo(editor, w, h);
+      };
+
+      var resizeBy = function (dw, dh) {
+        return Resize.resizeBy(editor, dw, dh);
+      };
+
+      var getNotificationManagerImpl = function () {
+        return NotificationManagerImpl(editor);
+      };
+
+      var getWindowManagerImpl = function () {
+        return WindowManagerImpl(editor);
+      };
+
+      return {
+        renderUI: renderUI,
+        resizeTo: resizeTo,
+        resizeBy: resizeBy,
+        getNotificationManagerImpl: getNotificationManagerImpl,
+        getWindowManagerImpl: getWindowManagerImpl
+      };
+    };
+
+    return {
+      get: get
+    };
+  }
+);
+
+/**
+ * Layout.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2017 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+/**
+ * Base layout manager class.
+ *
+ * @class tinymce.ui.Layout
+ */
+define(
+  'tinymce.ui.Layout',
+  [
+    "tinymce.core.util.Class",
+    "tinymce.core.util.Tools"
+  ],
+  function (Class, Tools) {
+    "use strict";
+
+    return Class.extend({
+      Defaults: {
+        firstControlClass: 'first',
+        lastControlClass: 'last'
+      },
+
+      /**
+       * Constructs a layout instance with the specified settings.
+       *
+       * @constructor
+       * @param {Object} settings Name/value object with settings.
+       */
+      init: function (settings) {
+        this.settings = Tools.extend({}, this.Defaults, settings);
+      },
+
+      /**
+       * This method gets invoked before the layout renders the controls.
+       *
+       * @method preRender
+       * @param {tinymce.ui.Container} container Container instance to preRender.
+       */
+      preRender: function (container) {
+        container.bodyClasses.add(this.settings.containerClass);
+      },
+
+      /**
+       * Applies layout classes to the container.
+       *
+       * @private
+       */
+      applyClasses: function (items) {
+        var self = this, settings = self.settings, firstClass, lastClass, firstItem, lastItem;
+
+        firstClass = settings.firstControlClass;
+        lastClass = settings.lastControlClass;
+
+        items.each(function (item) {
+          item.classes.remove(firstClass).remove(lastClass).add(settings.controlClass);
+
+          if (item.visible()) {
+            if (!firstItem) {
+              firstItem = item;
+            }
+
+            lastItem = item;
+          }
+        });
+
+        if (firstItem) {
+          firstItem.classes.add(firstClass);
+        }
+
+        if (lastItem) {
+          lastItem.classes.add(lastClass);
+        }
+      },
+
+      /**
+       * Renders the specified container and any layout specific HTML.
+       *
+       * @method renderHtml
+       * @param {tinymce.ui.Container} container Container to render HTML for.
+       */
+      renderHtml: function (container) {
+        var self = this, html = '';
+
+        self.applyClasses(container.items());
+
+        container.items().each(function (item) {
+          html += item.renderHtml();
+        });
+
+        return html;
+      },
+
+      /**
+       * Recalculates the positions of the controls in the specified container.
+       *
+       * @method recalc
+       * @param {tinymce.ui.Container} container Container instance to recalc.
+       */
+      recalc: function () {
+      },
+
+      /**
+       * This method gets invoked after the layout renders the controls.
+       *
+       * @method postRender
+       * @param {tinymce.ui.Container} container Container instance to postRender.
+       */
+      postRender: function () {
+      },
+
+      isNative: function () {
+        return false;
+      }
+    });
+  }
+);
+/**
+ * AbsoluteLayout.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2017 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+/**
+ * LayoutManager for absolute positioning. This layout manager is more of
+ * a base class for other layouts but can be created and used directly.
+ *
+ * @-x-less AbsoluteLayout.less
+ * @class tinymce.ui.AbsoluteLayout
+ * @extends tinymce.ui.Layout
+ */
+define(
+  'tinymce.ui.AbsoluteLayout',
+  [
+    "tinymce.ui.Layout"
+  ],
+  function (Layout) {
+    "use strict";
+
+    return Layout.extend({
+      Defaults: {
+        containerClass: 'abs-layout',
+        controlClass: 'abs-layout-item'
+      },
+
+      /**
+       * Recalculates the positions of the controls in the specified container.
+       *
+       * @method recalc
+       * @param {tinymce.ui.Container} container Container instance to recalc.
+       */
+      recalc: function (container) {
+        container.items().filter(':visible').each(function (ctrl) {
+          var settings = ctrl.settings;
+
+          ctrl.layoutRect({
+            x: settings.x,
+            y: settings.y,
+            w: settings.w,
+            h: settings.h
+          });
+
+          if (ctrl.recalc) {
+            ctrl.recalc();
+          }
+        });
+      },
+
+      /**
+       * Renders the specified container and any layout specific HTML.
+       *
+       * @method renderHtml
+       * @param {tinymce.ui.Container} container Container to render HTML for.
+       */
+      renderHtml: function (container) {
+        return '<div id="' + container._id + '-absend" class="' + container.classPrefix + 'abs-end"></div>' + this._super(container);
+      }
+    });
+  }
+);
+/**
+ * Button.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2017 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+/**
+ * This class is used to create buttons. You can create them directly or through the Factory.
+ *
+ * @example
+ * // Create and render a button to the body element
+ * tinymce.ui.Factory.create({
+ *     type: 'button',
+ *     text: 'My button'
+ * }).renderTo(document.body);
+ *
+ * @-x-less Button.less
+ * @class tinymce.ui.Button
+ * @extends tinymce.ui.Widget
+ */
+define(
+  'tinymce.ui.Button',
+  [
+    'global!document',
+    'global!window',
+    'tinymce.ui.Widget'
+  ],
+  function (document, window, Widget) {
+    "use strict";
+
+    return Widget.extend({
+      Defaults: {
+        classes: "widget btn",
+        role: "button"
+      },
+
+      /**
+       * Constructs a new button instance with the specified settings.
+       *
+       * @constructor
+       * @param {Object} settings Name/value object with settings.
+       * @setting {String} size Size of the button small|medium|large.
+       * @setting {String} image Image to use for icon.
+       * @setting {String} icon Icon to use for button.
+       */
+      init: function (settings) {
+        var self = this, size;
+
+        self._super(settings);
+        settings = self.settings;
+
+        size = self.settings.size;
+
+        self.on('click mousedown', function (e) {
+          e.preventDefault();
+        });
+
+        self.on('touchstart', function (e) {
+          self.fire('click', e);
+          e.preventDefault();
+        });
+
+        if (settings.subtype) {
+          self.classes.add(settings.subtype);
+        }
+
+        if (size) {
+          self.classes.add('btn-' + size);
+        }
+
+        if (settings.icon) {
+          self.icon(settings.icon);
+        }
+      },
+
+      /**
+       * Sets/gets the current button icon.
+       *
+       * @method icon
+       * @param {String} [icon] New icon identifier.
+       * @return {String|tinymce.ui.MenuButton} Current icon or current MenuButton instance.
+       */
+      icon: function (icon) {
+        if (!arguments.length) {
+          return this.state.get('icon');
+        }
+
+        this.state.set('icon', icon);
+
+        return this;
+      },
+
+      /**
+       * Repaints the button for example after it's been resizes by a layout engine.
+       *
+       * @method repaint
+       */
+      repaint: function () {
+        var btnElm = this.getEl().firstChild,
+          btnStyle;
+
+        if (btnElm) {
+          btnStyle = btnElm.style;
+          btnStyle.width = btnStyle.height = "100%";
+        }
+
+        this._super();
+      },
+
+      /**
+       * Renders the control as a HTML string.
+       *
+       * @method renderHtml
+       * @return {String} HTML representing the control.
+       */
+      renderHtml: function () {
+        var self = this, id = self._id, prefix = self.classPrefix;
+        var icon = self.state.get('icon'), image, text = self.state.get('text'), textHtml = '';
+
+        image = self.settings.image;
+        if (image) {
+          icon = 'none';
+
+          // Support for [high dpi, low dpi] image sources
+          if (typeof image != "string") {
+            image = window.getSelection ? image[0] : image[1];
+          }
+
+          image = ' style="background-image: url(\'' + image + '\')"';
+        } else {
+          image = '';
+        }
+
+        if (text) {
+          self.classes.add('btn-has-text');
+          textHtml = '<span class="' + prefix + 'txt">' + self.encode(text) + '</span>';
+        }
+
+        icon = icon ? prefix + 'ico ' + prefix + 'i-' + icon : '';
+
+        return (
+          '<div id="' + id + '" class="' + self.classes + '" tabindex="-1">' +
+          '<button id="' + id + '-button" role="presentation" type="button" tabindex="-1">' +
+          (icon ? '<i class="' + icon + '"' + image + '></i>' : '') +
+          textHtml +
+          '</button>' +
+          '</div>'
+        );
+      },
+
+      bindStates: function () {
+        var self = this, $ = self.$, textCls = self.classPrefix + 'txt';
+
+        function setButtonText(text) {
+          var $span = $('span.' + textCls, self.getEl());
+
+          if (text) {
+            if (!$span[0]) {
+              $('button:first', self.getEl()).append('<span class="' + textCls + '"></span>');
+              $span = $('span.' + textCls, self.getEl());
+            }
+
+            $span.html(self.encode(text));
+          } else {
+            $span.remove();
+          }
+
+          self.classes.toggle('btn-has-text', !!text);
+        }
+
+        self.state.on('change:text', function (e) {
+          setButtonText(e.value);
+        });
+
+        self.state.on('change:icon', function (e) {
+          var icon = e.value, prefix = self.classPrefix;
+
+          self.settings.icon = icon;
+          icon = icon ? prefix + 'ico ' + prefix + 'i-' + self.settings.icon : '';
+
+          var btnElm = self.getEl().firstChild, iconElm = btnElm.getElementsByTagName('i')[0];
+
+          if (icon) {
+            if (!iconElm || iconElm != btnElm.firstChild) {
+              iconElm = document.createElement('i');
+              btnElm.insertBefore(iconElm, btnElm.firstChild);
+            }
+
+            iconElm.className = icon;
+          } else if (iconElm) {
+            btnElm.removeChild(iconElm);
+          }
+
+          setButtonText(self.state.get('text'));
+        });
+
+        return self._super();
+      }
+    });
+  }
+);
+
+defineGlobal("global!RegExp", RegExp);
+/**
+ * BrowseButton.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2017 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+/**
+ * Creates a new browse button.
+ *
+ * @-x-less BrowseButton.less
+ * @class tinymce.ui.BrowseButton
+ * @extends tinymce.ui.Widget
+ */
+define(
+  'tinymce.ui.BrowseButton',
+  [
+    'tinymce.ui.Button',
+    'tinymce.core.util.Tools',
+    'tinymce.ui.DomUtils',
+    'tinymce.core.dom.DomQuery',
+    'global!RegExp'
+  ],
+  function (Button, Tools, DomUtils, $, RegExp) {
+    return Button.extend({
+      /**
+       * Constructs a instance with the specified settings.
+       *
+       * @constructor
+       * @param {Object} settings Name/value object with settings.
+       * @setting {Boolean} multiple True if the dropzone is a multiple control.
+       * @setting {Number} maxLength Max length for the dropzone.
+       * @setting {Number} size Size of the dropzone in characters.
+       */
+      init: function (settings) {
+        var self = this;
+
+        settings = Tools.extend({
+          text: "Browse...",
+          multiple: false,
+          accept: null // by default accept any files
+        }, settings);
+
+        self._super(settings);
+
+        self.classes.add('browsebutton');
+
+        if (settings.multiple) {
+          self.classes.add('multiple');
+        }
+      },
+
+       /**
+       * Called after the control has been rendered.
+       *
+       * @method postRender
+       */
+      postRender: function () {
+        var self = this;
+
+        var input = DomUtils.create('input', {
+          type: 'file',
+          id: self._id + '-browse',
+          accept: self.settings.accept
+        });
+
+        self._super();
+
+        $(input).on('change', function (e) {
+          var files = e.target.files;
+
+          self.value = function () {
+            if (!files.length) {
+              return null;
+            } else if (self.settings.multiple) {
+              return files;
+            } else {
+              return files[0];
+            }
+          };
+
+          e.preventDefault();
+
+          if (files.length) {
+            self.fire('change', e);
+          }
+        });
+
+        // ui.Button prevents default on click, so we shouldn't let the click to propagate up to it
+        $(input).on('click', function (e) {
+          e.stopPropagation();
+        });
+
+        $(self.getEl('button')).on('click', function (e) {
+          e.stopPropagation();
+          input.click();
+        });
+
+        // in newer browsers input doesn't have to be attached to dom to trigger browser dialog
+        // however older IE11 (< 11.1358.14393.0) still requires this
+        self.getEl().appendChild(input);
+      },
+
+
+      remove: function () {
+        $(this.getEl('button')).off();
+        $(this.getEl('input')).off();
+
+        this._super();
+      }
+    });
+  }
+);
+
+/**
+ * ButtonGroup.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2017 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+/**
+ * This control enables you to put multiple buttons into a group. This is
+ * useful when you want to combine similar toolbar buttons into a group.
+ *
+ * @example
+ * // Create and render a buttongroup with two buttons to the body element
+ * tinymce.ui.Factory.create({
+ *     type: 'buttongroup',
+ *     items: [
+ *         {text: 'Button A'},
+ *         {text: 'Button B'}
+ *     ]
+ * }).renderTo(document.body);
+ *
+ * @-x-less ButtonGroup.less
+ * @class tinymce.ui.ButtonGroup
+ * @extends tinymce.ui.Container
+ */
+define(
+  'tinymce.ui.ButtonGroup',
+  [
+    "tinymce.ui.Container"
+  ],
+  function (Container) {
+    "use strict";
+
+    return Container.extend({
+      Defaults: {
+        defaultType: 'button',
+        role: 'group'
+      },
+
+      /**
+       * Renders the control as a HTML string.
+       *
+       * @method renderHtml
+       * @return {String} HTML representing the control.
+       */
+      renderHtml: function () {
+        var self = this, layout = self._layout;
+
+        self.classes.add('btn-group');
+        self.preRender();
+        layout.preRender(self);
+
+        return (
+          '<div id="' + self._id + '" class="' + self.classes + '">' +
+          '<div id="' + self._id + '-body">' +
+          (self.settings.html || '') + layout.renderHtml(self) +
+          '</div>' +
+          '</div>'
+        );
+      }
+    });
+  }
+);
+/**
+ * Checkbox.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2017 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+/**
+ * This control creates a custom checkbox.
+ *
+ * @example
+ * // Create and render a checkbox to the body element
+ * tinymce.core.ui.Factory.create({
+ *     type: 'checkbox',
+ *     checked: true,
+ *     text: 'My checkbox'
+ * }).renderTo(document.body);
+ *
+ * @-x-less Checkbox.less
+ * @class tinymce.ui.Checkbox
+ * @extends tinymce.ui.Widget
+ */
+define(
+  'tinymce.ui.Checkbox',
+  [
+    'global!document',
+    'tinymce.ui.Widget'
+  ],
+  function (document, Widget) {
+    "use strict";
+
+    return Widget.extend({
+      Defaults: {
+        classes: "checkbox",
+        role: "checkbox",
+        checked: false
+      },
+
+      /**
+       * Constructs a new Checkbox instance with the specified settings.
+       *
+       * @constructor
+       * @param {Object} settings Name/value object with settings.
+       * @setting {Boolean} checked True if the checkbox should be checked by default.
+       */
+      init: function (settings) {
+        var self = this;
+
+        self._super(settings);
+
+        self.on('click mousedown', function (e) {
+          e.preventDefault();
+        });
+
+        self.on('click', function (e) {
+          e.preventDefault();
+
+          if (!self.disabled()) {
+            self.checked(!self.checked());
+          }
+        });
+
+        self.checked(self.settings.checked);
+      },
+
+      /**
+       * Getter/setter function for the checked state.
+       *
+       * @method checked
+       * @param {Boolean} [state] State to be set.
+       * @return {Boolean|tinymce.ui.Checkbox} True/false or checkbox if it's a set operation.
+       */
+      checked: function (state) {
+        if (!arguments.length) {
+          return this.state.get('checked');
+        }
+
+        this.state.set('checked', state);
+
+        return this;
+      },
+
+      /**
+       * Getter/setter function for the value state.
+       *
+       * @method value
+       * @param {Boolean} [state] State to be set.
+       * @return {Boolean|tinymce.ui.Checkbox} True/false or checkbox if it's a set operation.
+       */
+      value: function (state) {
+        if (!arguments.length) {
+          return this.checked();
+        }
+
+        return this.checked(state);
+      },
+
+      /**
+       * Renders the control as a HTML string.
+       *
+       * @method renderHtml
+       * @return {String} HTML representing the control.
+       */
+      renderHtml: function () {
+        var self = this, id = self._id, prefix = self.classPrefix;
+
+        return (
+          '<div id="' + id + '" class="' + self.classes + '" unselectable="on" aria-labelledby="' + id + '-al" tabindex="-1">' +
+          '<i class="' + prefix + 'ico ' + prefix + 'i-checkbox"></i>' +
+          '<span id="' + id + '-al" class="' + prefix + 'label">' + self.encode(self.state.get('text')) + '</span>' +
+          '</div>'
+        );
+      },
+
+      bindStates: function () {
+        var self = this;
+
+        function checked(state) {
+          self.classes.toggle("checked", state);
+          self.aria('checked', state);
+        }
+
+        self.state.on('change:text', function (e) {
+          self.getEl('al').firstChild.data = self.translate(e.value);
+        });
+
+        self.state.on('change:checked change:value', function (e) {
+          self.fire('change');
+          checked(e.value);
+        });
+
+        self.state.on('change:icon', function (e) {
+          var icon = e.value, prefix = self.classPrefix;
+
+          if (typeof icon == 'undefined') {
+            return self.settings.icon;
+          }
+
+          self.settings.icon = icon;
+          icon = icon ? prefix + 'ico ' + prefix + 'i-' + self.settings.icon : '';
+
+          var btnElm = self.getEl().firstChild, iconElm = btnElm.getElementsByTagName('i')[0];
+
+          if (icon) {
+            if (!iconElm || iconElm != btnElm.firstChild) {
+              iconElm = document.createElement('i');
+              btnElm.insertBefore(iconElm, btnElm.firstChild);
+            }
+
+            iconElm.className = icon;
+          } else if (iconElm) {
+            btnElm.removeChild(iconElm);
+          }
+        });
+
+        if (self.state.get('checked')) {
+          checked(true);
+        }
+
+        return self._super();
+      }
+    });
+  }
+);
+/**
+ * ResolveGlobal.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2017 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+define(
+  'tinymce.core.util.VK',
+  [
+    'global!tinymce.util.Tools.resolve'
+  ],
+  function (resolve) {
+    return resolve('tinymce.util.VK');
+  }
+);
+
+/**
+ * ComboBox.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2017 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+/**
+ * This class creates a combobox control. Select box that you select a value from or
+ * type a value into.
+ *
+ * @-x-less ComboBox.less
+ * @class tinymce.ui.ComboBox
+ * @extends tinymce.ui.Widget
+ */
+define(
+  'tinymce.ui.ComboBox',
+  [
+    'global!document',
+    'tinymce.core.dom.DomQuery',
+    'tinymce.core.ui.Factory',
+    'tinymce.core.util.Tools',
+    'tinymce.core.util.VK',
+    'tinymce.ui.DomUtils',
+    'tinymce.ui.Widget'
+  ],
+  function (document, DomQuery, Factory, Tools, VK, DomUtils, Widget) {
+    "use strict";
+
+    return Widget.extend({
+      /**
+       * Constructs a new control instance with the specified settings.
+       *
+       * @constructor
+       * @param {Object} settings Name/value object with settings.
+       * @setting {String} placeholder Placeholder text to display.
+       */
+      init: function (settings) {
+        var self = this;
+
+        self._super(settings);
+        settings = self.settings;
+
+        self.classes.add('combobox');
+        self.subinput = true;
+        self.ariaTarget = 'inp'; // TODO: Figure out a better way
+
+        settings.menu = settings.menu || settings.values;
+
+        if (settings.menu) {
+          settings.icon = 'caret';
+        }
+
+        self.on('click', function (e) {
+          var elm = e.target, root = self.getEl();
+
+          if (!DomQuery.contains(root, elm) && elm != root) {
+            return;
+          }
+
+          while (elm && elm != root) {
+            if (elm.id && elm.id.indexOf('-open') != -1) {
+              self.fire('action');
+
+              if (settings.menu) {
+                self.showMenu();
+
+                if (e.aria) {
+                  self.menu.items()[0].focus();
+                }
+              }
+            }
+
+            elm = elm.parentNode;
+          }
+        });
+
+        // TODO: Rework this
+        self.on('keydown', function (e) {
+          var rootControl;
+
+          if (e.keyCode == 13 && e.target.nodeName === 'INPUT') {
+            e.preventDefault();
+
+            // Find root control that we can do toJSON on
+            self.parents().reverse().each(function (ctrl) {
+              if (ctrl.toJSON) {
+                rootControl = ctrl;
+                return false;
+              }
+            });
+
+            // Fire event on current text box with the serialized data of the whole form
+            self.fire('submit', { data: rootControl.toJSON() });
+          }
+        });
+
+        self.on('keyup', function (e) {
+          if (e.target.nodeName == "INPUT") {
+            var oldValue = self.state.get('value');
+            var newValue = e.target.value;
+
+            if (newValue !== oldValue) {
+              self.state.set('value', newValue);
+              self.fire('autocomplete', e);
+            }
+          }
+        });
+
+        self.on('mouseover', function (e) {
+          var tooltip = self.tooltip().moveTo(-0xFFFF);
+
+          if (self.statusLevel() && e.target.className.indexOf(self.classPrefix + 'status') !== -1) {
+            var statusMessage = self.statusMessage() || 'Ok';
+            var rel = tooltip.text(statusMessage).show().testMoveRel(e.target, ['bc-tc', 'bc-tl', 'bc-tr']);
+
+            tooltip.classes.toggle('tooltip-n', rel == 'bc-tc');
+            tooltip.classes.toggle('tooltip-nw', rel == 'bc-tl');
+            tooltip.classes.toggle('tooltip-ne', rel == 'bc-tr');
+
+            tooltip.moveRel(e.target, rel);
+          }
+        });
+      },
+
+      statusLevel: function (value) {
+        if (arguments.length > 0) {
+          this.state.set('statusLevel', value);
+        }
+
+        return this.state.get('statusLevel');
+      },
+
+      statusMessage: function (value) {
+        if (arguments.length > 0) {
+          this.state.set('statusMessage', value);
+        }
+
+        return this.state.get('statusMessage');
+      },
+
+      showMenu: function () {
+        var self = this, settings = self.settings, menu;
+
+        if (!self.menu) {
+          menu = settings.menu || [];
+
+          // Is menu array then auto constuct menu control
+          if (menu.length) {
+            menu = {
+              type: 'menu',
+              items: menu
+            };
+          } else {
+            menu.type = menu.type || 'menu';
+          }
+
+          self.menu = Factory.create(menu).parent(self).renderTo(self.getContainerElm());
+          self.fire('createmenu');
+          self.menu.reflow();
+          self.menu.on('cancel', function (e) {
+            if (e.control === self.menu) {
+              self.focus();
+            }
+          });
+
+          self.menu.on('show hide', function (e) {
+            e.control.items().each(function (ctrl) {
+              ctrl.active(ctrl.value() == self.value());
+            });
+          }).fire('show');
+
+          self.menu.on('select', function (e) {
+            self.value(e.control.value());
+          });
+
+          self.on('focusin', function (e) {
+            if (e.target.tagName.toUpperCase() == 'INPUT') {
+              self.menu.hide();
+            }
+          });
+
+          self.aria('expanded', true);
+        }
+
+        self.menu.show();
+        self.menu.layoutRect({ w: self.layoutRect().w });
+        self.menu.moveRel(self.getEl(), self.isRtl() ? ['br-tr', 'tr-br'] : ['bl-tl', 'tl-bl']);
+      },
+
+      /**
+       * Focuses the input area of the control.
+       *
+       * @method focus
+       */
+      focus: function () {
+        this.getEl('inp').focus();
+      },
+
+      /**
+       * Repaints the control after a layout operation.
+       *
+       * @method repaint
+       */
+      repaint: function () {
+        var self = this, elm = self.getEl(), openElm = self.getEl('open'), rect = self.layoutRect();
+        var width, lineHeight, innerPadding = 0, inputElm = elm.firstChild;
+
+        if (self.statusLevel() && self.statusLevel() !== 'none') {
+          innerPadding = (
+            parseInt(DomUtils.getRuntimeStyle(inputElm, 'padding-right'), 10) -
+            parseInt(DomUtils.getRuntimeStyle(inputElm, 'padding-left'), 10)
+          );
+        }
+
+        if (openElm) {
+          width = rect.w - DomUtils.getSize(openElm).width - 10;
+        } else {
+          width = rect.w - 10;
+        }
+
+        // Detect old IE 7+8 add lineHeight to align caret vertically in the middle
+        var doc = document;
+        if (doc.all && (!doc.documentMode || doc.documentMode <= 8)) {
+          lineHeight = (self.layoutRect().h - 2) + 'px';
+        }
+
+        DomQuery(inputElm).css({
+          width: width - innerPadding,
+          lineHeight: lineHeight
+        });
+
+        self._super();
+
+        return self;
+      },
+
+      /**
+       * Post render method. Called after the control has been rendered to the target.
+       *
+       * @method postRender
+       * @return {tinymce.ui.ComboBox} Current combobox instance.
+       */
+      postRender: function () {
+        var self = this;
+
+        DomQuery(this.getEl('inp')).on('change', function (e) {
+          self.state.set('value', e.target.value);
+          self.fire('change', e);
+        });
+
+        return self._super();
+      },
+
+      /**
+       * Renders the control as a HTML string.
+       *
+       * @method renderHtml
+       * @return {String} HTML representing the control.
+       */
+      renderHtml: function () {
+        var self = this, id = self._id, settings = self.settings, prefix = self.classPrefix;
+        var value = self.state.get('value') || '';
+        var icon, text, openBtnHtml = '', extraAttrs = '', statusHtml = '';
+
+        if ("spellcheck" in settings) {
+          extraAttrs += ' spellcheck="' + settings.spellcheck + '"';
+        }
+
+        if (settings.maxLength) {
+          extraAttrs += ' maxlength="' + settings.maxLength + '"';
+        }
+
+        if (settings.size) {
+          extraAttrs += ' size="' + settings.size + '"';
+        }
+
+        if (settings.subtype) {
+          extraAttrs += ' type="' + settings.subtype + '"';
+        }
+
+        statusHtml = '<i id="' + id + '-status" class="mce-status mce-ico" style="display: none"></i>';
+
+        if (self.disabled()) {
+          extraAttrs += ' disabled="disabled"';
+        }
+
+        icon = settings.icon;
+        if (icon && icon != 'caret') {
+          icon = prefix + 'ico ' + prefix + 'i-' + settings.icon;
+        }
+
+        text = self.state.get('text');
+
+        if (icon || text) {
+          openBtnHtml = (
+            '<div id="' + id + '-open" class="' + prefix + 'btn ' + prefix + 'open" tabIndex="-1" role="button">' +
+            '<button id="' + id + '-action" type="button" hidefocus="1" tabindex="-1">' +
+            (icon != 'caret' ? '<i class="' + icon + '"></i>' : '<i class="' + prefix + 'caret"></i>') +
+            (text ? (icon ? ' ' : '') + text : '') +
+            '</button>' +
+            '</div>'
+          );
+
+          self.classes.add('has-open');
+        }
+
+        return (
+          '<div id="' + id + '" class="' + self.classes + '">' +
+          '<input id="' + id + '-inp" class="' + prefix + 'textbox" value="' +
+          self.encode(value, false) + '" hidefocus="1"' + extraAttrs + ' placeholder="' +
+          self.encode(settings.placeholder) + '" />' +
+          statusHtml +
+          openBtnHtml +
+          '</div>'
+        );
+      },
+
+      value: function (value) {
+        if (arguments.length) {
+          this.state.set('value', value);
+          return this;
+        }
+
+        // Make sure the real state is in sync
+        if (this.state.get('rendered')) {
+          this.state.set('value', this.getEl('inp').value);
+        }
+
+        return this.state.get('value');
+      },
+
+      showAutoComplete: function (items, term) {
+        var self = this;
+
+        if (items.length === 0) {
+          self.hideMenu();
+          return;
+        }
+
+        var insert = function (value, title) {
+          return function () {
+            self.fire('selectitem', {
+              title: title,
+              value: value
+            });
+          };
+        };
+
+        if (self.menu) {
+          self.menu.items().remove();
+        } else {
+          self.menu = Factory.create({
+            type: 'menu',
+            classes: 'combobox-menu',
+            layout: 'flow'
+          }).parent(self).renderTo();
+        }
+
+        Tools.each(items, function (item) {
+          self.menu.add({
+            text: item.title,
+            url: item.previewUrl,
+            match: term,
+            classes: 'menu-item-ellipsis',
+            onclick: insert(item.value, item.title)
+          });
+        });
+
+        self.menu.renderNew();
+        self.hideMenu();
+
+        self.menu.on('cancel', function (e) {
+          if (e.control.parent() === self.menu) {
+            e.stopPropagation();
+            self.focus();
+            self.hideMenu();
+          }
+        });
+
+        self.menu.on('select', function () {
+          self.focus();
+        });
+
+        var maxW = self.layoutRect().w;
+        self.menu.layoutRect({ w: maxW, minW: 0, maxW: maxW });
+        self.menu.reflow();
+        self.menu.show();
+        self.menu.moveRel(self.getEl(), self.isRtl() ? ['br-tr', 'tr-br'] : ['bl-tl', 'tl-bl']);
+      },
+
+      hideMenu: function () {
+        if (this.menu) {
+          this.menu.hide();
+        }
+      },
+
+      bindStates: function () {
+        var self = this;
+
+        self.state.on('change:value', function (e) {
+          if (self.getEl('inp').value != e.value) {
+            self.getEl('inp').value = e.value;
+          }
+        });
+
+        self.state.on('change:disabled', function (e) {
+          self.getEl('inp').disabled = e.value;
+        });
+
+        self.state.on('change:statusLevel', function (e) {
+          var statusIconElm = self.getEl('status');
+          var prefix = self.classPrefix, value = e.value;
+
+          DomUtils.css(statusIconElm, 'display', value === 'none' ? 'none' : '');
+          DomUtils.toggleClass(statusIconElm, prefix + 'i-checkmark', value === 'ok');
+          DomUtils.toggleClass(statusIconElm, prefix + 'i-warning', value === 'warn');
+          DomUtils.toggleClass(statusIconElm, prefix + 'i-error', value === 'error');
+          self.classes.toggle('has-status', value !== 'none');
+          self.repaint();
+        });
+
+        DomUtils.on(self.getEl('status'), 'mouseleave', function () {
+          self.tooltip().hide();
+        });
+
+        self.on('cancel', function (e) {
+          if (self.menu && self.menu.visible()) {
+            e.stopPropagation();
+            self.hideMenu();
+          }
+        });
+
+        var focusIdx = function (idx, menu) {
+          if (menu && menu.items().length > 0) {
+            menu.items().eq(idx)[0].focus();
+          }
+        };
+
+        self.on('keydown', function (e) {
+          var keyCode = e.keyCode;
+
+          if (e.target.nodeName === 'INPUT') {
+            if (keyCode === VK.DOWN) {
+              e.preventDefault();
+              self.fire('autocomplete');
+              focusIdx(0, self.menu);
+            } else if (keyCode === VK.UP) {
+              e.preventDefault();
+              focusIdx(-1, self.menu);
+            }
+          }
+        });
+
+        return self._super();
+      },
+
+      remove: function () {
+        DomQuery(this.getEl('inp')).off();
+
+        if (this.menu) {
+          this.menu.remove();
+        }
+
+        this._super();
+      }
+    });
+  }
+);
+/**
+ * ColorBox.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2017 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+/**
+ * This widget lets you enter colors and browse for colors by pressing the color button. It also displays
+ * a preview of the current color.
+ *
+ * @-x-less ColorBox.less
+ * @class tinymce.ui.ColorBox
+ * @extends tinymce.ui.ComboBox
+ */
+define(
+  'tinymce.ui.ColorBox',
+  [
+    "tinymce.ui.ComboBox"
+  ],
+  function (ComboBox) {
+    "use strict";
+
+    return ComboBox.extend({
+      /**
+       * Constructs a new control instance with the specified settings.
+       *
+       * @constructor
+       * @param {Object} settings Name/value object with settings.
+       */
+      init: function (settings) {
+        var self = this;
+
+        settings.spellcheck = false;
+
+        if (settings.onaction) {
+          settings.icon = 'none';
+        }
+
+        self._super(settings);
+
+        self.classes.add('colorbox');
+        self.on('change keyup postrender', function () {
+          self.repaintColor(self.value());
+        });
+      },
+
+      repaintColor: function (value) {
+        var openElm = this.getEl('open');
+        var elm = openElm ? openElm.getElementsByTagName('i')[0] : null;
+
+        if (elm) {
+          try {
+            elm.style.background = value;
+          } catch (ex) {
+            // Ignore
+          }
+        }
+      },
+
+      bindStates: function () {
+        var self = this;
+
+        self.state.on('change:value', function (e) {
+          if (self.state.get('rendered')) {
+            self.repaintColor(e.value);
+          }
+        });
+
+        return self._super();
+      }
+    });
+  }
+);
+/**
+ * PanelButton.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2017 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+/**
+ * Creates a new panel button.
+ *
+ * @class tinymce.ui.PanelButton
+ * @extends tinymce.ui.Button
+ */
+define(
+  'tinymce.ui.PanelButton',
+  [
+    "tinymce.ui.Button",
+    "tinymce.ui.FloatPanel"
+  ],
+  function (Button, FloatPanel) {
+    "use strict";
+
+    return Button.extend({
+      /**
+       * Shows the panel for the button.
+       *
+       * @method showPanel
+       */
+      showPanel: function () {
+        var self = this, settings = self.settings;
+
+        self.classes.add('opened');
+
+        if (!self.panel) {
+          var panelSettings = settings.panel;
+
+          // Wrap panel in grid layout if type if specified
+          // This makes it possible to add forms or other containers directly in the panel option
+          if (panelSettings.type) {
+            panelSettings = {
+              layout: 'grid',
+              items: panelSettings
+            };
+          }
+
+          panelSettings.role = panelSettings.role || 'dialog';
+          panelSettings.popover = true;
+          panelSettings.autohide = true;
+          panelSettings.ariaRoot = true;
+
+          self.panel = new FloatPanel(panelSettings).on('hide', function () {
+            self.classes.remove('opened');
+          }).on('cancel', function (e) {
+            e.stopPropagation();
+            self.focus();
+            self.hidePanel();
+          }).parent(self).renderTo(self.getContainerElm());
+
+          self.panel.fire('show');
+          self.panel.reflow();
+        } else {
+          self.panel.show();
+        }
+
+        var rel = self.panel.testMoveRel(self.getEl(), settings.popoverAlign || (self.isRtl() ? ['bc-tc', 'bc-tl', 'bc-tr'] : ['bc-tc', 'bc-tr', 'bc-tl']));
+
+        self.panel.classes.toggle('start', rel === 'bc-tl');
+        self.panel.classes.toggle('end', rel === 'bc-tr');
+
+        self.panel.moveRel(self.getEl(), rel);
+      },
+
+      /**
+       * Hides the panel for the button.
+       *
+       * @method hidePanel
+       */
+      hidePanel: function () {
+        var self = this;
+
+        if (self.panel) {
+          self.panel.hide();
+        }
+      },
+
+      /**
+       * Called after the control has been rendered.
+       *
+       * @method postRender
+       */
+      postRender: function () {
+        var self = this;
+
+        self.aria('haspopup', true);
+
+        self.on('click', function (e) {
+          if (e.control === self) {
+            if (self.panel && self.panel.visible()) {
+              self.hidePanel();
+            } else {
+              self.showPanel();
+              self.panel.focus(!!e.aria);
+            }
+          }
+        });
+
+        return self._super();
+      },
+
+      remove: function () {
+        if (this.panel) {
+          this.panel.remove();
+          this.panel = null;
+        }
+
+        return this._super();
+      }
+    });
+  }
+);
+/**
+ * ColorButton.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2017 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+/**
+ * This class creates a color button control. This is a split button in which the main
+ * button has a visual representation of the currently selected color. When clicked
+ * the caret button displays a color picker, allowing the user to select a new color.
+ *
+ * @-x-less ColorButton.less
+ * @class tinymce.ui.ColorButton
+ * @extends tinymce.ui.PanelButton
+ */
+define(
+  'tinymce.ui.ColorButton',
+  [
+    "tinymce.ui.PanelButton",
+    "tinymce.core.dom.DOMUtils"
+  ],
+  function (PanelButton, DomUtils) {
+    "use strict";
+
+    var DOM = DomUtils.DOM;
+
+    return PanelButton.extend({
+      /**
+       * Constructs a new ColorButton instance with the specified settings.
+       *
+       * @constructor
+       * @param {Object} settings Name/value object with settings.
+       */
+      init: function (settings) {
+        this._super(settings);
+        this.classes.add('splitbtn');
+        this.classes.add('colorbutton');
+      },
+
+      /**
+       * Getter/setter for the current color.
+       *
+       * @method color
+       * @param {String} [color] Color to set.
+       * @return {String|tinymce.ui.ColorButton} Current color or current instance.
+       */
+      color: function (color) {
+        if (color) {
+          this._color = color;
+          this.getEl('preview').style.backgroundColor = color;
+          return this;
+        }
+
+        return this._color;
+      },
+
+      /**
+       * Resets the current color.
+       *
+       * @method resetColor
+       * @return {tinymce.ui.ColorButton} Current instance.
+       */
+      resetColor: function () {
+        this._color = null;
+        this.getEl('preview').style.backgroundColor = null;
+        return this;
+      },
+
+      /**
+       * Renders the control as a HTML string.
+       *
+       * @method renderHtml
+       * @return {String} HTML representing the control.
+       */
+      renderHtml: function () {
+        var self = this, id = self._id, prefix = self.classPrefix, text = self.state.get('text');
+        var icon = self.settings.icon ? prefix + 'ico ' + prefix + 'i-' + self.settings.icon : '';
+        var image = self.settings.image ? ' style="background-image: url(\'' + self.settings.image + '\')"' : '',
+          textHtml = '';
+
+        if (text) {
+          self.classes.add('btn-has-text');
+          textHtml = '<span class="' + prefix + 'txt">' + self.encode(text) + '</span>';
+        }
+
+        return (
+          '<div id="' + id + '" class="' + self.classes + '" role="button" tabindex="-1" aria-haspopup="true">' +
+          '<button role="presentation" hidefocus="1" type="button" tabindex="-1">' +
+          (icon ? '<i class="' + icon + '"' + image + '></i>' : '') +
+          '<span id="' + id + '-preview" class="' + prefix + 'preview"></span>' +
+          textHtml +
+          '</button>' +
+          '<button type="button" class="' + prefix + 'open" hidefocus="1" tabindex="-1">' +
+          ' <i class="' + prefix + 'caret"></i>' +
+          '</button>' +
+          '</div>'
+        );
+      },
+
+      /**
+       * Called after the control has been rendered.
+       *
+       * @method postRender
+       */
+      postRender: function () {
+        var self = this, onClickHandler = self.settings.onclick;
+
+        self.on('click', function (e) {
+          if (e.aria && e.aria.key === 'down') {
+            return;
+          }
+
+          if (e.control == self && !DOM.getParent(e.target, '.' + self.classPrefix + 'open')) {
+            e.stopImmediatePropagation();
+            onClickHandler.call(self, e);
+          }
+        });
+
+        delete self.settings.onclick;
+
+        return self._super();
+      }
+    });
+  }
+);
+
+/**
+ * ResolveGlobal.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2017 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+define(
+  'tinymce.core.util.Color',
+  [
+    'global!tinymce.util.Tools.resolve'
+  ],
+  function (resolve) {
+    return resolve('tinymce.util.Color');
+  }
+);
+
+/**
+ * ColorPicker.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2017 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+/**
+ * Color picker widget lets you select colors.
+ *
+ * @-x-less ColorPicker.less
+ * @class tinymce.ui.ColorPicker
+ * @extends tinymce.ui.Widget
+ */
+define(
+  'tinymce.ui.ColorPicker',
+  [
+    "tinymce.ui.Widget",
+    "tinymce.ui.DragHelper",
+    "tinymce.ui.DomUtils",
+    "tinymce.core.util.Color"
+  ],
+  function (Widget, DragHelper, DomUtils, Color) {
+    "use strict";
+
+    return Widget.extend({
+      Defaults: {
+        classes: "widget colorpicker"
+      },
+
+      /**
+       * Constructs a new colorpicker instance with the specified settings.
+       *
+       * @constructor
+       * @param {Object} settings Name/value object with settings.
+       * @setting {String} color Initial color value.
+       */
+      init: function (settings) {
+        this._super(settings);
+      },
+
+      postRender: function () {
+        var self = this, color = self.color(), hsv, hueRootElm, huePointElm, svRootElm, svPointElm;
+
+        hueRootElm = self.getEl('h');
+        huePointElm = self.getEl('hp');
+        svRootElm = self.getEl('sv');
+        svPointElm = self.getEl('svp');
+
+        function getPos(elm, event) {
+          var pos = DomUtils.getPos(elm), x, y;
+
+          x = event.pageX - pos.x;
+          y = event.pageY - pos.y;
+
+          x = Math.max(0, Math.min(x / elm.clientWidth, 1));
+          y = Math.max(0, Math.min(y / elm.clientHeight, 1));
+
+          return {
+            x: x,
+            y: y
+          };
+        }
+
+        function updateColor(hsv, hueUpdate) {
+          var hue = (360 - hsv.h) / 360;
+
+          DomUtils.css(huePointElm, {
+            top: (hue * 100) + '%'
+          });
+
+          if (!hueUpdate) {
+            DomUtils.css(svPointElm, {
+              left: hsv.s + '%',
+              top: (100 - hsv.v) + '%'
+            });
+          }
+
+          svRootElm.style.background = new Color({ s: 100, v: 100, h: hsv.h }).toHex();
+          self.color().parse({ s: hsv.s, v: hsv.v, h: hsv.h });
+        }
+
+        function updateSaturationAndValue(e) {
+          var pos;
+
+          pos = getPos(svRootElm, e);
+          hsv.s = pos.x * 100;
+          hsv.v = (1 - pos.y) * 100;
+
+          updateColor(hsv);
+          self.fire('change');
+        }
+
+        function updateHue(e) {
+          var pos;
+
+          pos = getPos(hueRootElm, e);
+          hsv = color.toHsv();
+          hsv.h = (1 - pos.y) * 360;
+          updateColor(hsv, true);
+          self.fire('change');
+        }
+
+        self._repaint = function () {
+          hsv = color.toHsv();
+          updateColor(hsv);
+        };
+
+        self._super();
+
+        self._svdraghelper = new DragHelper(self._id + '-sv', {
+          start: updateSaturationAndValue,
+          drag: updateSaturationAndValue
+        });
+
+        self._hdraghelper = new DragHelper(self._id + '-h', {
+          start: updateHue,
+          drag: updateHue
+        });
+
+        self._repaint();
+      },
+
+      rgb: function () {
+        return this.color().toRgb();
+      },
+
+      value: function (value) {
+        var self = this;
+
+        if (arguments.length) {
+          self.color().parse(value);
+
+          if (self._rendered) {
+            self._repaint();
+          }
+        } else {
+          return self.color().toHex();
+        }
+      },
+
+      color: function () {
+        if (!this._color) {
+          this._color = new Color();
+        }
+
+        return this._color;
+      },
+
+      /**
+       * Renders the control as a HTML string.
+       *
+       * @method renderHtml
+       * @return {String} HTML representing the control.
+       */
+      renderHtml: function () {
+        var self = this, id = self._id, prefix = self.classPrefix, hueHtml;
+        var stops = '#ff0000,#ff0080,#ff00ff,#8000ff,#0000ff,#0080ff,#00ffff,#00ff80,#00ff00,#80ff00,#ffff00,#ff8000,#ff0000';
+
+        function getOldIeFallbackHtml() {
+          var i, l, html = '', gradientPrefix, stopsList;
+
+          gradientPrefix = 'filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=';
+          stopsList = stops.split(',');
+          for (i = 0, l = stopsList.length - 1; i < l; i++) {
+            html += (
+              '<div class="' + prefix + 'colorpicker-h-chunk" style="' +
+              'height:' + (100 / l) + '%;' +
+              gradientPrefix + stopsList[i] + ',endColorstr=' + stopsList[i + 1] + ');' +
+              '-ms-' + gradientPrefix + stopsList[i] + ',endColorstr=' + stopsList[i + 1] + ')' +
+              '"></div>'
+            );
+          }
+
+          return html;
+        }
+
+        var gradientCssText = (
+          'background: -ms-linear-gradient(top,' + stops + ');' +
+          'background: linear-gradient(to bottom,' + stops + ');'
+        );
+
+        hueHtml = (
+          '<div id="' + id + '-h" class="' + prefix + 'colorpicker-h" style="' + gradientCssText + '">' +
+          getOldIeFallbackHtml() +
+          '<div id="' + id + '-hp" class="' + prefix + 'colorpicker-h-marker"></div>' +
+          '</div>'
+        );
+
+        return (
+          '<div id="' + id + '" class="' + self.classes + '">' +
+          '<div id="' + id + '-sv" class="' + prefix + 'colorpicker-sv">' +
+          '<div class="' + prefix + 'colorpicker-overlay1">' +
+          '<div class="' + prefix + 'colorpicker-overlay2">' +
+          '<div id="' + id + '-svp" class="' + prefix + 'colorpicker-selector1">' +
+          '<div class="' + prefix + 'colorpicker-selector2"></div>' +
+          '</div>' +
+          '</div>' +
+          '</div>' +
+          '</div>' +
+          hueHtml +
+          '</div>'
+        );
+      }
+    });
+  }
+);
+/**
+ * DropZone.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2017 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+/**
+ * Creates a new dropzone.
+ *
+ * @-x-less DropZone.less
+ * @class tinymce.ui.DropZone
+ * @extends tinymce.ui.Widget
+ */
+define(
+  'tinymce.ui.DropZone',
+  [
+    'tinymce.ui.Widget',
+    'tinymce.core.util.Tools',
+    'tinymce.ui.DomUtils',
+    'global!RegExp'
+  ],
+  function (Widget, Tools, DomUtils, RegExp) {
+    return Widget.extend({
+      /**
+       * Constructs a instance with the specified settings.
+       *
+       * @constructor
+       * @param {Object} settings Name/value object with settings.
+       * @setting {Boolean} multiple True if the dropzone is a multiple control.
+       * @setting {Number} maxLength Max length for the dropzone.
+       * @setting {Number} size Size of the dropzone in characters.
+       */
+      init: function (settings) {
+        var self = this;
+
+        settings = Tools.extend({
+          height: 100,
+          text: "Drop an image here",
+          multiple: false,
+          accept: null // by default accept any files
+        }, settings);
+
+        self._super(settings);
+
+        self.classes.add('dropzone');
+
+        if (settings.multiple) {
+          self.classes.add('multiple');
+        }
+      },
+
+      /**
+       * Renders the control as a HTML string.
+       *
+       * @method renderHtml
+       * @return {String} HTML representing the control.
+       */
+      renderHtml: function () {
+        var self = this, attrs, elm;
+        var cfg = self.settings;
+
+        attrs = {
+          id: self._id,
+          hidefocus: '1'
+        };
+
+        elm = DomUtils.create('div', attrs, '<span>' + this.translate(cfg.text) + '</span>');
+
+        if (cfg.height) {
+          DomUtils.css(elm, 'height', cfg.height + 'px');
+        }
+
+        if (cfg.width) {
+          DomUtils.css(elm, 'width', cfg.width + 'px');
+        }
+
+        elm.className = self.classes;
+
+        return elm.outerHTML;
+      },
+
+
+        /**
+       * Called after the control has been rendered.
+       *
+       * @method postRender
+       */
+      postRender: function () {
+        var self = this;
+
+        var toggleDragClass = function (e) {
+          e.preventDefault();
+          self.classes.toggle('dragenter');
+          self.getEl().className = self.classes;
+        };
+
+        var filter = function (files) {
+          var accept = self.settings.accept;
+          if (typeof accept !== 'string') {
+            return files;
+          }
+
+          var re = new RegExp('(' + accept.split(/\s*,\s*/).join('|') + ')$', 'i');
+          return Tools.grep(files, function (file) {
+            return re.test(file.name);
+          });
+        };
+
+        self._super();
+
+        self.$el.on('dragover', function (e) {
+          e.preventDefault();
+        });
+
+        self.$el.on('dragenter', toggleDragClass);
+        self.$el.on('dragleave', toggleDragClass);
+
+        self.$el.on('drop', function (e) {
+          e.preventDefault();
+
+          if (self.state.get('disabled')) {
+            return;
+          }
+
+          var files = filter(e.dataTransfer.files);
+
+          self.value = function () {
+            if (!files.length) {
+              return null;
+            } else if (self.settings.multiple) {
+              return files;
+            } else {
+              return files[0];
+            }
+          };
+
+          if (files.length) {
+            self.fire('change', e);
+          }
+        });
+      },
+
+      remove: function () {
+        this.$el.off();
+        this._super();
+      }
+    });
+  }
+);
+
+/**
+ * Path.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2017 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+/**
+ * Creates a new path control.
+ *
+ * @-x-less Path.less
+ * @class tinymce.ui.Path
+ * @extends tinymce.ui.Widget
+ */
+define(
+  'tinymce.ui.Path',
+  [
+    "tinymce.ui.Widget"
+  ],
+  function (Widget) {
+    "use strict";
+
+    return Widget.extend({
+      /**
+       * Constructs a instance with the specified settings.
+       *
+       * @constructor
+       * @param {Object} settings Name/value object with settings.
+       * @setting {String} delimiter Delimiter to display between row in path.
+       */
+      init: function (settings) {
+        var self = this;
+
+        if (!settings.delimiter) {
+          settings.delimiter = '\u00BB';
+        }
+
+        self._super(settings);
+        self.classes.add('path');
+        self.canFocus = true;
+
+        self.on('click', function (e) {
+          var index, target = e.target;
+
+          if ((index = target.getAttribute('data-index'))) {
+            self.fire('select', { value: self.row()[index], index: index });
+          }
+        });
+
+        self.row(self.settings.row);
+      },
+
+      /**
+       * Focuses the current control.
+       *
+       * @method focus
+       * @return {tinymce.ui.Control} Current control instance.
+       */
+      focus: function () {
+        var self = this;
+
+        self.getEl().firstChild.focus();
+
+        return self;
+      },
+
+      /**
+       * Sets/gets the data to be used for the path.
+       *
+       * @method row
+       * @param {Array} row Array with row name is rendered to path.
+       */
+      row: function (row) {
+        if (!arguments.length) {
+          return this.state.get('row');
+        }
+
+        this.state.set('row', row);
+
+        return this;
+      },
+
+      /**
+       * Renders the control as a HTML string.
+       *
+       * @method renderHtml
+       * @return {String} HTML representing the control.
+       */
+      renderHtml: function () {
+        var self = this;
+
+        return (
+          '<div id="' + self._id + '" class="' + self.classes + '">' +
+          self._getDataPathHtml(self.state.get('row')) +
+          '</div>'
+        );
+      },
+
+      bindStates: function () {
+        var self = this;
+
+        self.state.on('change:row', function (e) {
+          self.innerHtml(self._getDataPathHtml(e.value));
+        });
+
+        return self._super();
+      },
+
+      _getDataPathHtml: function (data) {
+        var self = this, parts = data || [], i, l, html = '', prefix = self.classPrefix;
+
+        for (i = 0, l = parts.length; i < l; i++) {
+          html += (
+            (i > 0 ? '<div class="' + prefix + 'divider" aria-hidden="true"> ' + self.settings.delimiter + ' </div>' : '') +
+            '<div role="button" class="' + prefix + 'path-item' + (i == l - 1 ? ' ' + prefix + 'last' : '') + '" data-index="' +
+            i + '" tabindex="-1" id="' + self._id + '-' + i + '" aria-level="' + (i + 1) + '">' + parts[i].name + '</div>'
+          );
+        }
+
+        if (!html) {
+          html = '<div class="' + prefix + 'path-item">\u00a0</div>';
+        }
+
+        return html;
+      }
+    });
+  }
+);
+
+/**
+ * ElementPath.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2017 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+/**
+ * This control creates an path for the current selections parent elements in TinyMCE.
+ *
+ * @class tinymce.ui.ElementPath
+ * @extends tinymce.ui.Path
+ */
+define(
+  'tinymce.ui.ElementPath',
+  [
+    "tinymce.ui.Path"
+  ],
+  function (Path) {
+    return Path.extend({
+      /**
+       * Post render method. Called after the control has been rendered to the target.
+       *
+       * @method postRender
+       * @return {tinymce.ui.ElementPath} Current combobox instance.
+       */
+      postRender: function () {
+        var self = this, editor = self.settings.editor;
+
+        function isHidden(elm) {
+          if (elm.nodeType === 1) {
+            if (elm.nodeName == "BR" || !!elm.getAttribute('data-mce-bogus')) {
+              return true;
+            }
+
+            if (elm.getAttribute('data-mce-type') === 'bookmark') {
+              return true;
+            }
+          }
+
+          return false;
+        }
+
+        if (editor.settings.elementpath !== false) {
+          self.on('select', function (e) {
+            editor.focus();
+            editor.selection.select(this.row()[e.index].element);
+            editor.nodeChanged();
+          });
+
+          editor.on('nodeChange', function (e) {
+            var outParents = [], parents = e.parents, i = parents.length;
+
+            while (i--) {
+              if (parents[i].nodeType == 1 && !isHidden(parents[i])) {
+                var args = editor.fire('ResolveName', {
+                  name: parents[i].nodeName.toLowerCase(),
+                  target: parents[i]
+                });
+
+                if (!args.isDefaultPrevented()) {
+                  outParents.push({ name: args.name, element: parents[i] });
+                }
+
+                if (args.isPropagationStopped()) {
+                  break;
+                }
+              }
+            }
+
+            self.row(outParents);
+          });
+        }
+
+        return self._super();
+      }
+    });
+  }
+);
+/**
+ * FormItem.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2017 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+/**
+ * This class is a container created by the form element with
+ * a label and control item.
+ *
+ * @class tinymce.ui.FormItem
+ * @extends tinymce.ui.Container
+ * @setting {String} label Label to display for the form item.
+ */
+define(
+  'tinymce.ui.FormItem',
+  [
+    "tinymce.ui.Container"
+  ],
+  function (Container) {
+    "use strict";
+
+    return Container.extend({
+      Defaults: {
+        layout: 'flex',
+        align: 'center',
+        defaults: {
+          flex: 1
+        }
+      },
+
+      /**
+       * Renders the control as a HTML string.
+       *
+       * @method renderHtml
+       * @return {String} HTML representing the control.
+       */
+      renderHtml: function () {
+        var self = this, layout = self._layout, prefix = self.classPrefix;
+
+        self.classes.add('formitem');
+        layout.preRender(self);
+
+        return (
+          '<div id="' + self._id + '" class="' + self.classes + '" hidefocus="1" tabindex="-1">' +
+          (self.settings.title ? ('<div id="' + self._id + '-title" class="' + prefix + 'title">' +
+            self.settings.title + '</div>') : '') +
+          '<div id="' + self._id + '-body" class="' + self.bodyClasses + '">' +
+          (self.settings.html || '') + layout.renderHtml(self) +
+          '</div>' +
+          '</div>'
+        );
+      }
+    });
+  }
+);
+/**
+ * Form.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2017 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+/**
+ * This class creates a form container. A form container has the ability
+ * to automatically wrap items in tinymce.ui.FormItem instances.
+ *
+ * Each FormItem instance is a container for the label and the item.
+ *
+ * @example
+ * tinymce.core.ui.Factory.create({
+ *     type: 'form',
+ *     items: [
+ *         {type: 'textbox', label: 'My text box'}
+ *     ]
+ * }).renderTo(document.body);
+ *
+ * @class tinymce.ui.Form
+ * @extends tinymce.ui.Container
+ */
+define(
+  'tinymce.ui.Form',
+  [
+    "tinymce.ui.Container",
+    "tinymce.ui.FormItem",
+    "tinymce.core.util.Tools"
+  ],
+  function (Container, FormItem, Tools) {
+    "use strict";
+
+    return Container.extend({
+      Defaults: {
+        containerCls: 'form',
+        layout: 'flex',
+        direction: 'column',
+        align: 'stretch',
+        flex: 1,
+        padding: 15,
+        labelGap: 30,
+        spacing: 10,
+        callbacks: {
+          submit: function () {
+            this.submit();
+          }
+        }
+      },
+
+      /**
+       * This method gets invoked before the control is rendered.
+       *
+       * @method preRender
+       */
+      preRender: function () {
+        var self = this, items = self.items();
+
+        if (!self.settings.formItemDefaults) {
+          self.settings.formItemDefaults = {
+            layout: 'flex',
+            autoResize: "overflow",
+            defaults: { flex: 1 }
+          };
+        }
+
+        // Wrap any labeled items in FormItems
+        items.each(function (ctrl) {
+          var formItem, label = ctrl.settings.label;
+
+          if (label) {
+            formItem = new FormItem(Tools.extend({
+              items: {
+                type: 'label',
+                id: ctrl._id + '-l',
+                text: label,
+                flex: 0,
+                forId: ctrl._id,
+                disabled: ctrl.disabled()
+              }
+            }, self.settings.formItemDefaults));
+
+            formItem.type = 'formitem';
+            ctrl.aria('labelledby', ctrl._id + '-l');
+
+            if (typeof ctrl.settings.flex == "undefined") {
+              ctrl.settings.flex = 1;
+            }
+
+            self.replace(ctrl, formItem);
+            formItem.add(ctrl);
+          }
+        });
+      },
+
+      /**
+       * Fires a submit event with the serialized form.
+       *
+       * @method submit
+       * @return {Object} Event arguments object.
+       */
+      submit: function () {
+        return this.fire('submit', { data: this.toJSON() });
+      },
+
+      /**
+       * Post render method. Called after the control has been rendered to the target.
+       *
+       * @method postRender
+       * @return {tinymce.ui.ComboBox} Current combobox instance.
+       */
+      postRender: function () {
+        var self = this;
+
+        self._super();
+        self.fromJSON(self.settings.data);
+      },
+
+      bindStates: function () {
+        var self = this;
+
+        self._super();
+
+        function recalcLabels() {
+          var maxLabelWidth = 0, labels = [], i, labelGap, items;
+
+          if (self.settings.labelGapCalc === false) {
+            return;
+          }
+
+          if (self.settings.labelGapCalc == "children") {
+            items = self.find('formitem');
+          } else {
+            items = self.items();
+          }
+
+          items.filter('formitem').each(function (item) {
+            var labelCtrl = item.items()[0], labelWidth = labelCtrl.getEl().clientWidth;
+
+            maxLabelWidth = labelWidth > maxLabelWidth ? labelWidth : maxLabelWidth;
+            labels.push(labelCtrl);
+          });
+
+          labelGap = self.settings.labelGap || 0;
+
+          i = labels.length;
+          while (i--) {
+            labels[i].settings.minWidth = maxLabelWidth + labelGap;
+          }
+        }
+
+        self.on('show', recalcLabels);
+        recalcLabels();
+      }
+    });
+  }
+);
+/**
+ * FieldSet.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2017 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+/**
+ * This class creates fieldset containers.
+ *
+ * @-x-less FieldSet.less
+ * @class tinymce.ui.FieldSet
+ * @extends tinymce.ui.Form
+ */
+define(
+  'tinymce.ui.FieldSet',
+  [
+    "tinymce.ui.Form"
+  ],
+  function (Form) {
+    "use strict";
+
+    return Form.extend({
+      Defaults: {
+        containerCls: 'fieldset',
+        layout: 'flex',
+        direction: 'column',
+        align: 'stretch',
+        flex: 1,
+        padding: "25 15 5 15",
+        labelGap: 30,
+        spacing: 10,
+        border: 1
+      },
+
+      /**
+       * Renders the control as a HTML string.
+       *
+       * @method renderHtml
+       * @return {String} HTML representing the control.
+       */
+      renderHtml: function () {
+        var self = this, layout = self._layout, prefix = self.classPrefix;
+
+        self.preRender();
+        layout.preRender(self);
+
+        return (
+          '<fieldset id="' + self._id + '" class="' + self.classes + '" hidefocus="1" tabindex="-1">' +
+          (self.settings.title ? ('<legend id="' + self._id + '-title" class="' + prefix + 'fieldset-title">' +
+            self.settings.title + '</legend>') : '') +
+          '<div id="' + self._id + '-body" class="' + self.bodyClasses + '">' +
+          (self.settings.html || '') + layout.renderHtml(self) +
+          '</div>' +
+          '</fieldset>'
+        );
+      }
+    });
+  }
+);
+defineGlobal("global!Date", Date);
+defineGlobal("global!Math", Math);
+define(
+  'ephox.katamari.api.Id',
+  [
+    'global!Date',
+    'global!Math',
+    'global!String'
+  ],
+
+  function (Date, Math, String) {
+
+    /**
+     * Generate a unique identifier.
+     *
+     * The unique portion of the identifier only contains an underscore
+     * and digits, so that it may safely be used within HTML attributes.
+     *
+     * The chance of generating a non-unique identifier has been minimized
+     * by combining the current time, a random number and a one-up counter.
+     *
+     * generate :: String -> String
+     */
+    var unique = 0;
+
+    var generate = function (prefix) {
+      var date   = new Date();
+      var time   = date.getTime();
+      var random = Math.floor(Math.random() * 1000000000);
+
+      unique++;
+
+      return prefix + '_' + random + unique + String(time);
+    };
+
+    return {
+      generate: generate
+    };
+
+  }
+);
+
+define("global!console", [], function () { if (typeof console === "undefined") console = { log: function () {} }; return console; });
+define(
+  'ephox.sugar.api.node.Element',
+
+  [
+    'ephox.katamari.api.Fun',
+    'global!Error',
+    'global!console',
+    'global!document'
+  ],
+
+  function (Fun, Error, console, document) {
+    var fromHtml = function (html, scope) {
+      var doc = scope || document;
+      var div = doc.createElement('div');
+      div.innerHTML = html;
+      if (!div.hasChildNodes() || div.childNodes.length > 1) {
+        console.error('HTML does not have a single root node', html);
+        throw 'HTML must have a single root node';
+      }
+      return fromDom(div.childNodes[0]);
+    };
+
+    var fromTag = function (tag, scope) {
+      var doc = scope || document;
+      var node = doc.createElement(tag);
+      return fromDom(node);
+    };
+
+    var fromText = function (text, scope) {
+      var doc = scope || document;
+      var node = doc.createTextNode(text);
+      return fromDom(node);
+    };
+
+    var fromDom = function (node) {
+      if (node === null || node === undefined) throw new Error('Node cannot be null or undefined');
+      return {
+        dom: Fun.constant(node)
+      };
+    };
+
+    return {
+      fromHtml: fromHtml,
+      fromTag: fromTag,
+      fromText: fromText,
+      fromDom: fromDom
+    };
+  }
+);
+
+define(
+  'ephox.katamari.api.Thunk',
+
+  [
+  ],
+
+  function () {
+
+    var cached = function (f) {
+      var called = false;
+      var r;
+      return function() {
+        if (!called) {
+          called = true;
+          r = f.apply(null, arguments);
+        }
+        return r;
+      };
+    };
+
+    return {
+      cached: cached
+    };
+  }
+);
+
+define(
+  'ephox.sugar.api.node.NodeTypes',
+
+  [
+
+  ],
+
+  function () {
+    return {
+      ATTRIBUTE:              2,
+      CDATA_SECTION:          4,
+      COMMENT:                8,
+      DOCUMENT:               9,
+      DOCUMENT_TYPE:          10,
+      DOCUMENT_FRAGMENT:      11,
+      ELEMENT:                1,
+      TEXT:                   3,
+      PROCESSING_INSTRUCTION: 7,
+      ENTITY_REFERENCE:       5,
+      ENTITY:                 6,
+      NOTATION:               12
+    };
+  }
+);
+define(
+  'ephox.sugar.api.node.Node',
+
+  [
+    'ephox.sugar.api.node.NodeTypes'
+  ],
+
+  function (NodeTypes) {
+    var name = function (element) {
+      var r = element.dom().nodeName;
+      return r.toLowerCase();
+    };
+
+    var type = function (element) {
+      return element.dom().nodeType;
+    };
+
+    var value = function (element) {
+      return element.dom().nodeValue;
+    };
+
+    var isType = function (t) {
+      return function (element) {
+        return type(element) === t;
+      };
+    };
+
+    var isComment = function (element) {
+      return type(element) === NodeTypes.COMMENT || name(element) === '#comment';
+    };
+
+    var isElement = isType(NodeTypes.ELEMENT);
+    var isText = isType(NodeTypes.TEXT);
+    var isDocument = isType(NodeTypes.DOCUMENT);
+
+    return {
+      name: name,
+      type: type,
+      value: value,
+      isElement: isElement,
+      isText: isText,
+      isDocument: isDocument,
+      isComment: isComment
+    };
+  }
+);
+
+define(
+  'ephox.sugar.api.node.Body',
+
+  [
+    'ephox.katamari.api.Thunk',
+    'ephox.sugar.api.node.Element',
+    'ephox.sugar.api.node.Node',
+    'global!document'
+  ],
+
+  function (Thunk, Element, Node, document) {
+
+    // Node.contains() is very, very, very good performance
+    // http://jsperf.com/closest-vs-contains/5
+    var inBody = function (element) {
+      // Technically this is only required on IE, where contains() returns false for text nodes.
+      // But it's cheap enough to run everywhere and Sugar doesn't have platform detection (yet).
+      var dom = Node.isText(element) ? element.dom().parentNode : element.dom();
+
+      // use ownerDocument.body to ensure this works inside iframes.
+      // Normally contains is bad because an element "contains" itself, but here we want that.
+      return dom !== undefined && dom !== null && dom.ownerDocument.body.contains(dom);
+    };
+
+    var body = Thunk.cached(function() {
+      return getBody(Element.fromDom(document));
+    });
+
+    var getBody = function (doc) {
+      var body = doc.dom().body;
+      if (body === null || body === undefined) throw 'Body is not available yet';
+      return Element.fromDom(body);
+    };
+
+    return {
+      body: body,
+      getBody: getBody,
+      inBody: inBody
+    };
+  }
+);
+
+define(
+  'ephox.katamari.api.Type',
+
+  [
+    'global!Array',
+    'global!String'
+  ],
+
+  function (Array, String) {
+    var typeOf = function(x) {
+      if (x === null) return 'null';
+      var t = typeof x;
+      if (t === 'object' && Array.prototype.isPrototypeOf(x)) return 'array';
+      if (t === 'object' && String.prototype.isPrototypeOf(x)) return 'string';
+      return t;
+    };
+
+    var isType = function (type) {
+      return function (value) {
+        return typeOf(value) === type;
+      };
+    };
+
+    return {
+      isString: isType('string'),
+      isObject: isType('object'),
+      isArray: isType('array'),
+      isNull: isType('null'),
+      isBoolean: isType('boolean'),
+      isUndefined: isType('undefined'),
+      isFunction: isType('function'),
+      isNumber: isType('number')
+    };
+  }
+);
+
+
+define(
+  'ephox.katamari.data.Immutable',
+
+  [
+    'ephox.katamari.api.Arr',
+    'ephox.katamari.api.Fun',
+    'global!Array',
+    'global!Error'
+  ],
+
+  function (Arr, Fun, Array, Error) {
+    return function () {
+      var fields = arguments;
+      return function(/* values */) {
+        //  Don't use array slice(arguments), makes the whole function unoptimisable on Chrome
+        var values = new Array(arguments.length);
+        for (var i = 0; i < values.length; i++) values[i] = arguments[i];
+
+        if (fields.length !== values.length)
+          throw new Error('Wrong number of arguments to struct. Expected "[' + fields.length + ']", got ' + values.length + ' arguments');
+
+        var struct = {};
+        Arr.each(fields, function (name, i) {
+          struct[name] = Fun.constant(values[i]);
+        });
+        return struct;
+      };
+    };
+  }
+);
+
+define(
+  'ephox.katamari.api.Obj',
+
+  [
+    'ephox.katamari.api.Option',
+    'global!Object'
+  ],
+
+  function (Option, Object) {
+    // There are many variations of Object iteration that are faster than the 'for-in' style:
+    // http://jsperf.com/object-keys-iteration/107
+    //
+    // Use the native keys if it is available (IE9+), otherwise fall back to manually filtering
+    var keys = (function () {
+      var fastKeys = Object.keys;
+
+      // This technically means that 'each' and 'find' on IE8 iterate through the object twice.
+      // This code doesn't run on IE8 much, so it's an acceptable tradeoff.
+      // If it becomes a problem we can always duplicate the feature detection inside each and find as well.
+      var slowKeys = function (o) {
+        var r = [];
+        for (var i in o) {
+          if (o.hasOwnProperty(i)) {
+            r.push(i);
+          }
+        }
+        return r;
+      };
+
+      return fastKeys === undefined ? slowKeys : fastKeys;
+    })();
+
+
+    var each = function (obj, f) {
+      var props = keys(obj);
+      for (var k = 0, len = props.length; k < len; k++) {
+        var i = props[k];
+        var x = obj[i];
+        f(x, i, obj);
+      }
+    };
+
+    /** objectMap :: (JsObj(k, v), (v, k, JsObj(k, v) -> x)) -> JsObj(k, x) */
+    var objectMap = function (obj, f) {
+      return tupleMap(obj, function (x, i, obj) {
+        return {
+          k: i,
+          v: f(x, i, obj)
+        };
+      });
+    };
+
+    /** tupleMap :: (JsObj(k, v), (v, k, JsObj(k, v) -> { k: x, v: y })) -> JsObj(x, y) */
+    var tupleMap = function (obj, f) {
+      var r = {};
+      each(obj, function (x, i) {
+        var tuple = f(x, i, obj);
+        r[tuple.k] = tuple.v;
+      });
+      return r;
+    };
+
+    /** bifilter :: (JsObj(k, v), (v, k -> Bool)) -> { t: JsObj(k, v), f: JsObj(k, v) } */
+    var bifilter = function (obj, pred) {
+      var t = {};
+      var f = {};
+      each(obj, function(x, i) {
+        var branch = pred(x, i) ? t : f;
+        branch[i] = x;
+      });
+      return {
+        t: t,
+        f: f
+      };
+    };
+
+    /** mapToArray :: (JsObj(k, v), (v, k -> a)) -> [a] */
+    var mapToArray = function (obj, f) {
+      var r = [];
+      each(obj, function(value, name) {
+        r.push(f(value, name));
+      });
+      return r;
+    };
+
+    /** find :: (JsObj(k, v), (v, k, JsObj(k, v) -> Bool)) -> Option v */
+    var find = function (obj, pred) {
+      var props = keys(obj);
+      for (var k = 0, len = props.length; k < len; k++) {
+        var i = props[k];
+        var x = obj[i];
+        if (pred(x, i, obj)) {
+          return Option.some(x);
+        }
+      }
+      return Option.none();
+    };
+
+    /** values :: JsObj(k, v) -> [v] */
+    var values = function (obj) {
+      return mapToArray(obj, function (v) {
+        return v;
+      });
+    };
+
+    var size = function (obj) {
+      return values(obj).length;
+    };
+
+    return {
+      bifilter: bifilter,
+      each: each,
+      map: objectMap,
+      mapToArray: mapToArray,
+      tupleMap: tupleMap,
+      find: find,
+      keys: keys,
+      values: values,
+      size: size
+    };
+  }
+);
+define(
+  'ephox.katamari.util.BagUtils',
+
+  [
+    'ephox.katamari.api.Arr',
+    'ephox.katamari.api.Type',
+    'global!Error'
+  ],
+
+  function (Arr, Type, Error) {
+    var sort = function (arr) {
+      return arr.slice(0).sort();
+    };
+
+    var reqMessage = function (required, keys) {
+      throw new Error('All required keys (' + sort(required).join(', ') + ') were not specified. Specified keys were: ' + sort(keys).join(', ') + '.');
+    };
+
+    var unsuppMessage = function (unsupported) {
+      throw new Error('Unsupported keys for object: ' + sort(unsupported).join(', '));
+    };
+
+    var validateStrArr = function (label, array) {
+      if (!Type.isArray(array)) throw new Error('The ' + label + ' fields must be an array. Was: ' + array + '.');
+      Arr.each(array, function (a) {
+        if (!Type.isString(a)) throw new Error('The value ' + a + ' in the ' + label + ' fields was not a string.');
+      });
+    };
+
+    var invalidTypeMessage = function (incorrect, type) {
+      throw new Error('All values need to be of type: ' + type + '. Keys (' + sort(incorrect).join(', ') + ') were not.');
+    };
+
+    var checkDupes = function (everything) {
+      var sorted = sort(everything);
+      var dupe = Arr.find(sorted, function (s, i) {
+        return i < sorted.length -1 && s === sorted[i + 1];
+      });
+
+      dupe.each(function (d) {
+        throw new Error('The field: ' + d + ' occurs more than once in the combined fields: [' + sorted.join(', ') + '].');
+      });
+    };
+
+    return {
+      sort: sort,
+      reqMessage: reqMessage,
+      unsuppMessage: unsuppMessage,
+      validateStrArr: validateStrArr,
+      invalidTypeMessage: invalidTypeMessage,
+      checkDupes: checkDupes
+    };
+  }
+);
+define(
+  'ephox.katamari.data.MixedBag',
+
+  [
+    'ephox.katamari.api.Arr',
+    'ephox.katamari.api.Fun',
+    'ephox.katamari.api.Obj',
+    'ephox.katamari.api.Option',
+    'ephox.katamari.util.BagUtils',
+    'global!Error',
+    'global!Object'
+  ],
+
+  function (Arr, Fun, Obj, Option, BagUtils, Error, Object) {
+    
+    return function (required, optional) {
+      var everything = required.concat(optional);
+      if (everything.length === 0) throw new Error('You must specify at least one required or optional field.');
+
+      BagUtils.validateStrArr('required', required);
+      BagUtils.validateStrArr('optional', optional);
+
+      BagUtils.checkDupes(everything);
+
+      return function (obj) {
+        var keys = Obj.keys(obj);
+
+        // Ensure all required keys are present.
+        var allReqd = Arr.forall(required, function (req) {
+          return Arr.contains(keys, req);
+        });
+
+        if (! allReqd) BagUtils.reqMessage(required, keys);
+
+        var unsupported = Arr.filter(keys, function (key) {
+          return !Arr.contains(everything, key);
+        });
+
+        if (unsupported.length > 0) BagUtils.unsuppMessage(unsupported);
+
+        var r = {};
+        Arr.each(required, function (req) {
+          r[req] = Fun.constant(obj[req]);
+        });
+
+        Arr.each(optional, function (opt) {
+          r[opt] = Fun.constant(Object.prototype.hasOwnProperty.call(obj, opt) ? Option.some(obj[opt]): Option.none());
+        });
+
+        return r;
+      };
+    };
+  }
+);
+define(
+  'ephox.katamari.api.Struct',
+
+  [
+    'ephox.katamari.data.Immutable',
+    'ephox.katamari.data.MixedBag'
+  ],
+
+  function (Immutable, MixedBag) {
+    return {
+      immutable: Immutable,
+      immutableBag: MixedBag
+    };
+  }
+);
+
+define(
+  'ephox.sugar.alien.Recurse',
+
+  [
+
+  ],
+
+  function () {
+    /**
+     * Applies f repeatedly until it completes (by returning Option.none()).
+     *
+     * Normally would just use recursion, but JavaScript lacks tail call optimisation.
+     *
+     * This is what recursion looks like when manually unravelled :)
+     */
+    var toArray = function (target, f) {
+      var r = [];
+
+      var recurse = function (e) {
+        r.push(e);
+        return f(e);
+      };
+
+      var cur = f(target);
+      do {
+        cur = cur.bind(recurse);
+      } while (cur.isSome());
+
+      return r;
+    };
+
+    return {
+      toArray: toArray
+    };
+  }
+);
+define(
+  'ephox.katamari.api.Global',
+
+  [
+  ],
+
+  function () {
+    // Use window object as the global if it's available since CSP will block script evals
+    if (typeof window !== 'undefined') {
+      return window;
+    } else {
+      return Function('return this;')();
+    }
+  }
+);
+
+
+define(
+  'ephox.katamari.api.Resolve',
+
+  [
+    'ephox.katamari.api.Global'
+  ],
+
+  function (Global) {
+    /** path :: ([String], JsObj?) -> JsObj */
+    var path = function (parts, scope) {
+      var o = scope !== undefined ? scope : Global;
+      for (var i = 0; i < parts.length && o !== undefined && o !== null; ++i)
+        o = o[parts[i]];
+      return o;
+    };
+
+    /** resolve :: (String, JsObj?) -> JsObj */
+    var resolve = function (p, scope) {
+      var parts = p.split('.');
+      return path(parts, scope);
+    };
+
+    /** step :: (JsObj, String) -> JsObj */
+    var step = function (o, part) {
+      if (o[part] === undefined || o[part] === null)
+        o[part] = {};
+      return o[part];
+    };
+
+    /** forge :: ([String], JsObj?) -> JsObj */
+    var forge = function (parts, target) {
+      var o = target !== undefined ? target : Global;      
+      for (var i = 0; i < parts.length; ++i)
+        o = step(o, parts[i]);
+      return o;
+    };
+
+    /** namespace :: (String, JsObj?) -> JsObj */
+    var namespace = function (name, target) {
+      var parts = name.split('.');
+      return forge(parts, target);
+    };
+
+    return {
+      path: path,
+      resolve: resolve,
+      forge: forge,
+      namespace: namespace
+    };
+  }
+);
+
+
+define(
+  'ephox.sand.util.Global',
+
+  [
+    'ephox.katamari.api.Resolve'
+  ],
+
+  function (Resolve) {
+    var unsafe = function (name, scope) {
+      return Resolve.resolve(name, scope);
+    };
+
+    var getOrDie = function (name, scope) {
+      var actual = unsafe(name, scope);
+
+      if (actual === undefined) throw name + ' not available on this browser';
+      return actual;
+    };
+
+    return {
+      getOrDie: getOrDie
+    };
+  }
+);
+define(
+  'ephox.sand.api.Node',
+
+  [
+    'ephox.sand.util.Global'
+  ],
+
+  function (Global) {
+    /*
+     * MDN says (yes) for IE, but it's undefined on IE8
+     */
+    var node = function () {
+      var f = Global.getOrDie('Node');
+      return f;
+    };
+
+    /*
+     * Most of numerosity doesn't alter the methods on the object.
+     * We're making an exception for Node, because bitwise and is so easy to get wrong.
+     *
+     * Might be nice to ADT this at some point instead of having individual methods.
+     */
+
+    var compareDocumentPosition = function (a, b, match) {
+      // Returns: 0 if e1 and e2 are the same node, or a bitmask comparing the positions
+      // of nodes e1 and e2 in their documents. See the URL below for bitmask interpretation
+      // https://developer.mozilla.org/en-US/docs/Web/API/Node/compareDocumentPosition
+      return (a.compareDocumentPosition(b) & match) !== 0;
+    };
+
+    var documentPositionPreceding = function (a, b) {
+      return compareDocumentPosition(a, b, node().DOCUMENT_POSITION_PRECEDING);
+    };
+
+    var documentPositionContainedBy = function (a, b) {
+      return compareDocumentPosition(a, b, node().DOCUMENT_POSITION_CONTAINED_BY);
+    };
+
+    return {
+      documentPositionPreceding: documentPositionPreceding,
+      documentPositionContainedBy: documentPositionContainedBy
+    };
+  }
+);
+defineGlobal("global!Number", Number);
+define(
+  'ephox.sand.detect.Version',
+
+  [
+    'ephox.katamari.api.Arr',
+    'global!Number',
+    'global!String'
+  ],
+
+  function (Arr, Number, String) {
+    var firstMatch = function (regexes, s) {
+      for (var i = 0; i < regexes.length; i++) {
+        var x = regexes[i];
+        if (x.test(s)) return x;
+      }
+      return undefined;
+    };
+
+    var find = function (regexes, agent) {
+      var r = firstMatch(regexes, agent);
+      if (!r) return { major : 0, minor : 0 };
+      var group = function(i) {
+        return Number(agent.replace(r, '$' + i));
+      };
+      return nu(group(1), group(2));
+    };
+
+    var detect = function (versionRegexes, agent) {
+      var cleanedAgent = String(agent).toLowerCase();
+
+      if (versionRegexes.length === 0) return unknown();
+      return find(versionRegexes, cleanedAgent);
+    };
+
+    var unknown = function () {
+      return nu(0, 0);
+    };
+
+    var nu = function (major, minor) {
+      return { major: major, minor: minor };
+    };
+
+    return {
+      nu: nu,
+      detect: detect,
+      unknown: unknown
+    };
+  }
+);
+define(
+  'ephox.sand.core.Browser',
+
+  [
+    'ephox.katamari.api.Fun',
+    'ephox.sand.detect.Version'
+  ],
+
+  function (Fun, Version) {
+    var edge = 'Edge';
+    var chrome = 'Chrome';
+    var ie = 'IE';
+    var opera = 'Opera';
+    var firefox = 'Firefox';
+    var safari = 'Safari';
+
+    var isBrowser = function (name, current) {
+      return function () {
+        return current === name;
+      };
+    };
+
+    var unknown = function () {
+      return nu({
+        current: undefined,
+        version: Version.unknown()
+      });
+    };
+
+    var nu = function (info) {
+      var current = info.current;
+      var version = info.version;
+
+      return {
+        current: current,
+        version: version,
+
+        // INVESTIGATE: Rename to Edge ?
+        isEdge: isBrowser(edge, current),
+        isChrome: isBrowser(chrome, current),
+        // NOTE: isIe just looks too weird
+        isIE: isBrowser(ie, current),
+        isOpera: isBrowser(opera, current),
+        isFirefox: isBrowser(firefox, current),
+        isSafari: isBrowser(safari, current)
+      };
+    };
+
+    return {
+      unknown: unknown,
+      nu: nu,
+      edge: Fun.constant(edge),
+      chrome: Fun.constant(chrome),
+      ie: Fun.constant(ie),
+      opera: Fun.constant(opera),
+      firefox: Fun.constant(firefox),
+      safari: Fun.constant(safari)
+    };
+  }
+);
+define(
+  'ephox.sand.core.OperatingSystem',
+
+  [
+    'ephox.katamari.api.Fun',
+    'ephox.sand.detect.Version'
+  ],
+
+  function (Fun, Version) {
+    var windows = 'Windows';
+    var ios = 'iOS';
+    var android = 'Android';
+    var linux = 'Linux';
+    var osx = 'OSX';
+    var solaris = 'Solaris';
+    var freebsd = 'FreeBSD';
+
+    // Though there is a bit of dupe with this and Browser, trying to 
+    // reuse code makes it much harder to follow and change.
+    var isOS = function (name, current) {
+      return function () {
+        return current === name;
+      };
+    };
+
+    var unknown = function () {
+      return nu({
+        current: undefined,
+        version: Version.unknown()
+      });
+    };
+
+    var nu = function (info) {
+      var current = info.current;
+      var version = info.version;
+
+      return {
+        current: current,
+        version: version,
+
+        isWindows: isOS(windows, current),
+        // TODO: Fix capitalisation
+        isiOS: isOS(ios, current),
+        isAndroid: isOS(android, current),
+        isOSX: isOS(osx, current),
+        isLinux: isOS(linux, current),
+        isSolaris: isOS(solaris, current),
+        isFreeBSD: isOS(freebsd, current)
+      };
+    };
+
+    return {
+      unknown: unknown,
+      nu: nu,
+
+      windows: Fun.constant(windows),
+      ios: Fun.constant(ios),
+      android: Fun.constant(android),
+      linux: Fun.constant(linux),
+      osx: Fun.constant(osx),
+      solaris: Fun.constant(solaris),
+      freebsd: Fun.constant(freebsd)
+    };
+  }
+);
+define(
+  'ephox.sand.detect.DeviceType',
+
+  [
+    'ephox.katamari.api.Fun'
+  ],
+
+  function (Fun) {
+    return function (os, browser, userAgent) {
+      var isiPad = os.isiOS() && /ipad/i.test(userAgent) === true;
+      var isiPhone = os.isiOS() && !isiPad;
+      var isAndroid3 = os.isAndroid() && os.version.major === 3;
+      var isAndroid4 = os.isAndroid() && os.version.major === 4;
+      var isTablet = isiPad || isAndroid3 || ( isAndroid4 && /mobile/i.test(userAgent) === true );
+      var isTouch = os.isiOS() || os.isAndroid();
+      var isPhone = isTouch && !isTablet;
+
+      var iOSwebview = browser.isSafari() && os.isiOS() && /safari/i.test(userAgent) === false;
+
+      return {
+        isiPad : Fun.constant(isiPad),
+        isiPhone: Fun.constant(isiPhone),
+        isTablet: Fun.constant(isTablet),
+        isPhone: Fun.constant(isPhone),
+        isTouch: Fun.constant(isTouch),
+        isAndroid: os.isAndroid,
+        isiOS: os.isiOS,
+        isWebView: Fun.constant(iOSwebview)
+      };
+    };
+  }
+);
+define(
+  'ephox.sand.detect.UaString',
+
+  [
+    'ephox.katamari.api.Arr',
+    'ephox.sand.detect.Version',
+    'global!String'
+  ],
+
+  function (Arr, Version, String) {
+    var detect = function (candidates, userAgent) {
+      var agent = String(userAgent).toLowerCase();
+      return Arr.find(candidates, function (candidate) {
+        return candidate.search(agent);
+      });
+    };
+
+    // They (browser and os) are the same at the moment, but they might
+    // not stay that way.
+    var detectBrowser = function (browsers, userAgent) {
+      return detect(browsers, userAgent).map(function (browser) {
+        var version = Version.detect(browser.versionRegexes, userAgent);
+        return {
+          current: browser.name,
+          version: version
+        };
+      });
+    };
+
+    var detectOs = function (oses, userAgent) {
+      return detect(oses, userAgent).map(function (os) {
+        var version = Version.detect(os.versionRegexes, userAgent);
+        return {
+          current: os.name,
+          version: version
+        };
+      });
+    };
+
+    return {
+      detectBrowser: detectBrowser,
+      detectOs: detectOs
+    };
+  }
+);
+define(
+  'ephox.katamari.str.StrAppend',
+
+  [
+
+  ],
+
+  function () {
+    var addToStart = function (str, prefix) {
+      return prefix + str;
+    };
+
+    var addToEnd = function (str, suffix) {
+      return str + suffix;
+    };
+
+    var removeFromStart = function (str, numChars) {
+      return str.substring(numChars);
+    };
+
+    var removeFromEnd = function (str, numChars) {
+      return str.substring(0, str.length - numChars);
+    };
+ 
+    return {
+      addToStart: addToStart,
+      addToEnd: addToEnd,
+      removeFromStart: removeFromStart,
+      removeFromEnd: removeFromEnd
+    };
+  }
+);
+define(
+  'ephox.katamari.str.StringParts',
+
+  [
+    'ephox.katamari.api.Option',
+    'global!Error'
+  ],
+
+  function (Option, Error) {
+    /** Return the first 'count' letters from 'str'.
+-     *  e.g. first("abcde", 2) === "ab"
+-     */
+    var first = function(str, count) {
+     return str.substr(0, count);
+    };
+
+    /** Return the last 'count' letters from 'str'.
+    *  e.g. last("abcde", 2) === "de"
+    */
+    var last = function(str, count) {
+     return str.substr(str.length - count, str.length);
+    };
+
+    var head = function(str) {
+      return str === '' ? Option.none() : Option.some(str.substr(0, 1));
+    };
+
+    var tail = function(str) {
+      return str === '' ? Option.none() : Option.some(str.substring(1));
+    };
+
+    return {
+      first: first,
+      last: last,
+      head: head,
+      tail: tail
+    };
+  }
+);
+define(
+  'ephox.katamari.api.Strings',
+
+  [
+    'ephox.katamari.str.StrAppend',
+    'ephox.katamari.str.StringParts',
+    'global!Error'
+  ],
+
+  function (StrAppend, StringParts, Error) {
+    var checkRange = function(str, substr, start) {
+      if (substr === '') return true;
+      if (str.length < substr.length) return false;
+      var x = str.substr(start, start + substr.length);
+      return x === substr;
+    };
+
+    /** Given a string and object, perform template-replacements on the string, as specified by the object.
+     * Any template fields of the form ${name} are replaced by the string or number specified as obj["name"]
+     * Based on Douglas Crockford's 'supplant' method for template-replace of strings. Uses different template format.
+     */
+    var supplant = function(str, obj) {
+      var isStringOrNumber = function(a) {
+        var t = typeof a;
+        return t === 'string' || t === 'number';
+      };
+
+      return str.replace(/\${([^{}]*)}/g,
+        function (a, b) {
+          var value = obj[b];
+          return isStringOrNumber(value) ? value : a;
+        }
+      );
+    };
+
+    var removeLeading = function (str, prefix) {
+      return startsWith(str, prefix) ? StrAppend.removeFromStart(str, prefix.length) : str;
+    };
+
+    var removeTrailing = function (str, prefix) {
+      return endsWith(str, prefix) ? StrAppend.removeFromEnd(str, prefix.length) : str;
+    };
+
+    var ensureLeading = function (str, prefix) {
+      return startsWith(str, prefix) ? str : StrAppend.addToStart(str, prefix);
+    };
+
+    var ensureTrailing = function (str, prefix) {
+      return endsWith(str, prefix) ? str : StrAppend.addToEnd(str, prefix);
+    };
+ 
+    var contains = function(str, substr) {
+      return str.indexOf(substr) !== -1;
+    };
+
+    var capitalize = function(str) {
+      return StringParts.head(str).bind(function (head) {
+        return StringParts.tail(str).map(function (tail) {
+          return head.toUpperCase() + tail;
+        });
+      }).getOr(str);
+    };
+
+    /** Does 'str' start with 'prefix'?
+     *  Note: all strings start with the empty string.
+     *        More formally, for all strings x, startsWith(x, "").
+     *        This is so that for all strings x and y, startsWith(y + x, y)
+     */
+    var startsWith = function(str, prefix) {
+      return checkRange(str, prefix, 0);
+    };
+
+    /** Does 'str' end with 'suffix'?
+     *  Note: all strings end with the empty string.
+     *        More formally, for all strings x, endsWith(x, "").
+     *        This is so that for all strings x and y, endsWith(x + y, y)
+     */
+    var endsWith = function(str, suffix) {
+      return checkRange(str, suffix, str.length - suffix.length);
+    };
+
+   
+    /** removes all leading and trailing spaces */
+    var trim = function(str) {
+      return str.replace(/^\s+|\s+$/g, '');
+    };
+
+    var lTrim = function(str) {
+      return str.replace(/^\s+/g, '');
+    };
+
+    var rTrim = function(str) {
+      return str.replace(/\s+$/g, '');
+    };
+
+    return {
+      supplant: supplant,
+      startsWith: startsWith,
+      removeLeading: removeLeading,
+      removeTrailing: removeTrailing,
+      ensureLeading: ensureLeading,
+      ensureTrailing: ensureTrailing,
+      endsWith: endsWith,
+      contains: contains,
+      trim: trim,
+      lTrim: lTrim,
+      rTrim: rTrim,
+      capitalize: capitalize
+    };
+  }
+);
+
+define(
+  'ephox.sand.info.PlatformInfo',
+
+  [
+    'ephox.katamari.api.Fun',
+    'ephox.katamari.api.Strings'
+  ],
+
+  function (Fun, Strings) {
+    var normalVersionRegex = /.*?version\/\ ?([0-9]+)\.([0-9]+).*/;
+
+    var checkContains = function (target) {
+      return function (uastring) {
+        return Strings.contains(uastring, target);
+      };
+    };
+
+    var browsers = [
+      {
+        name : 'Edge',
+        versionRegexes: [/.*?edge\/ ?([0-9]+)\.([0-9]+)$/],
+        search: function (uastring) {
+          var monstrosity = Strings.contains(uastring, 'edge/') && Strings.contains(uastring, 'chrome') && Strings.contains(uastring, 'safari') && Strings.contains(uastring, 'applewebkit');
+          return monstrosity;
+        }
+      },
+      {
+        name : 'Chrome',
+        versionRegexes: [/.*?chrome\/([0-9]+)\.([0-9]+).*/, normalVersionRegex],
+        search : function (uastring) {
+          return Strings.contains(uastring, 'chrome') && !Strings.contains(uastring, 'chromeframe');
+        }
+      },
+      {
+        name : 'IE',
+        versionRegexes: [/.*?msie\ ?([0-9]+)\.([0-9]+).*/, /.*?rv:([0-9]+)\.([0-9]+).*/],
+        search: function (uastring) {
+          return Strings.contains(uastring, 'msie') || Strings.contains(uastring, 'trident');
+        }
+      },
+      // INVESTIGATE: Is this still the Opera user agent?
+      {
+        name : 'Opera',
+        versionRegexes: [normalVersionRegex, /.*?opera\/([0-9]+)\.([0-9]+).*/],
+        search : checkContains('opera')
+      },
+      {
+        name : 'Firefox',
+        versionRegexes: [/.*?firefox\/\ ?([0-9]+)\.([0-9]+).*/],
+        search : checkContains('firefox')
+      },
+      {
+        name : 'Safari',
+        versionRegexes: [normalVersionRegex, /.*?cpu os ([0-9]+)_([0-9]+).*/],
+        search : function (uastring) {
+          return (Strings.contains(uastring, 'safari') || Strings.contains(uastring, 'mobile/')) && Strings.contains(uastring, 'applewebkit');
+        }
+      }
+    ];
+
+    var oses = [
+      {
+        name : 'Windows',
+        search : checkContains('win'),
+        versionRegexes: [/.*?windows\ nt\ ?([0-9]+)\.([0-9]+).*/]
+      },
+      {
+        name : 'iOS',
+        search : function (uastring) {
+          return Strings.contains(uastring, 'iphone') || Strings.contains(uastring, 'ipad');
+        },
+        versionRegexes: [/.*?version\/\ ?([0-9]+)\.([0-9]+).*/, /.*cpu os ([0-9]+)_([0-9]+).*/, /.*cpu iphone os ([0-9]+)_([0-9]+).*/]
+      },
+      {
+        name : 'Android',
+        search : checkContains('android'),
+        versionRegexes: [/.*?android\ ?([0-9]+)\.([0-9]+).*/]
+      },
+      {
+        name : 'OSX',
+        search : checkContains('os x'),
+        versionRegexes: [/.*?os\ x\ ?([0-9]+)_([0-9]+).*/]
+      },
+      {
+        name : 'Linux',
+        search : checkContains('linux'),
+        versionRegexes: [ ]
+      },
+      { name : 'Solaris',
+        search : checkContains('sunos'),
+        versionRegexes: [ ]
+      },
+      {
+       name : 'FreeBSD',
+       search : checkContains('freebsd'),
+       versionRegexes: [ ]
+      }
+    ];
+
+    return {
+      browsers: Fun.constant(browsers),
+      oses: Fun.constant(oses)
+    };
+  }
+);
+define(
+  'ephox.sand.core.PlatformDetection',
+
+  [
+    'ephox.sand.core.Browser',
+    'ephox.sand.core.OperatingSystem',
+    'ephox.sand.detect.DeviceType',
+    'ephox.sand.detect.UaString',
+    'ephox.sand.info.PlatformInfo'
+  ],
+
+  function (Browser, OperatingSystem, DeviceType, UaString, PlatformInfo) {
+    var detect = function (userAgent) {
+      var browsers = PlatformInfo.browsers();
+      var oses = PlatformInfo.oses();
+
+      var browser = UaString.detectBrowser(browsers, userAgent).fold(
+        Browser.unknown,
+        Browser.nu
+      );
+      var os = UaString.detectOs(oses, userAgent).fold(
+        OperatingSystem.unknown,
+        OperatingSystem.nu
+      );
+      var deviceType = DeviceType(os, browser, userAgent);
+
+      return {
+        browser: browser,
+        os: os,
+        deviceType: deviceType
+      };
+    };
+
+    return {
+      detect: detect
+    };
+  }
+);
+defineGlobal("global!navigator", navigator);
+define(
+  'ephox.sand.api.PlatformDetection',
+
+  [
+    'ephox.katamari.api.Thunk',
+    'ephox.sand.core.PlatformDetection',
+    'global!navigator'
+  ],
+
+  function (Thunk, PlatformDetection, navigator) {
+    var detect = Thunk.cached(function () {
+      var userAgent = navigator.userAgent;
+      return PlatformDetection.detect(userAgent);
+    });
+
+    return {
+      detect: detect
+    };
+  }
+);
+define(
+  'ephox.sugar.api.search.Selectors',
+
+  [
+    'ephox.katamari.api.Arr',
+    'ephox.katamari.api.Option',
+    'ephox.sugar.api.node.Element',
+    'ephox.sugar.api.node.NodeTypes',
+    'global!Error',
+    'global!document'
+  ],
+
+  function (Arr, Option, Element, NodeTypes, Error, document) {
+    /*
+     * There's a lot of code here; the aim is to allow the browser to optimise constant comparisons,
+     * instead of doing object lookup feature detection on every call
+     */
+    var STANDARD = 0;
+    var MSSTANDARD = 1;
+    var WEBKITSTANDARD = 2;
+    var FIREFOXSTANDARD = 3;
+
+    var selectorType = (function () {
+      var test = document.createElement('span');
+      // As of Chrome 34 / Safari 7.1 / FireFox 34, everyone except IE has the unprefixed function.
+      // Still check for the others, but do it last.
+      return test.matches !== undefined ? STANDARD :
+             test.msMatchesSelector !== undefined ? MSSTANDARD :
+             test.webkitMatchesSelector !== undefined ? WEBKITSTANDARD :
+             test.mozMatchesSelector !== undefined ? FIREFOXSTANDARD :
+             -1;
+    })();
+
+
+    var ELEMENT = NodeTypes.ELEMENT;
+    var DOCUMENT = NodeTypes.DOCUMENT;
+
+    var is = function (element, selector) {
+      var elem = element.dom();
+      if (elem.nodeType !== ELEMENT) return false; // documents have querySelector but not matches
+
+      // As of Chrome 34 / Safari 7.1 / FireFox 34, everyone except IE has the unprefixed function.
+      // Still check for the others, but do it last.
+      else if (selectorType === STANDARD) return elem.matches(selector);
+      else if (selectorType === MSSTANDARD) return elem.msMatchesSelector(selector);
+      else if (selectorType === WEBKITSTANDARD) return elem.webkitMatchesSelector(selector);
+      else if (selectorType === FIREFOXSTANDARD) return elem.mozMatchesSelector(selector);
+      else throw new Error('Browser lacks native selectors'); // unfortunately we can't throw this on startup :(
+    };
+
+    var bypassSelector = function (dom) {
+      // Only elements and documents support querySelector
+      return dom.nodeType !== ELEMENT && dom.nodeType !== DOCUMENT ||
+              // IE fix for complex queries on empty nodes: http://jsfiddle.net/spyder/fv9ptr5L/
+              dom.childElementCount === 0;
+    };
+
+    var all = function (selector, scope) {
+      var base = scope === undefined ? document : scope.dom();
+      return bypassSelector(base) ? [] : Arr.map(base.querySelectorAll(selector), Element.fromDom);
+    };
+
+    var one = function (selector, scope) {
+      var base = scope === undefined ? document : scope.dom();
+      return bypassSelector(base) ? Option.none() : Option.from(base.querySelector(selector)).map(Element.fromDom);
+    };
+
+    return {
+      all: all,
+      is: is,
+      one: one
+    };
+  }
+);
+
+define(
+  'ephox.sugar.api.dom.Compare',
+
+  [
+    'ephox.katamari.api.Arr',
+    'ephox.katamari.api.Fun',
+    'ephox.sand.api.Node',
+    'ephox.sand.api.PlatformDetection',
+    'ephox.sugar.api.search.Selectors'
+  ],
+
+  function (Arr, Fun, Node, PlatformDetection, Selectors) {
+
+    var eq = function (e1, e2) {
+      return e1.dom() === e2.dom();
+    };
+
+    var isEqualNode = function (e1, e2) {
+      return e1.dom().isEqualNode(e2.dom());
+    };
+
+    var member = function (element, elements) {
+      return Arr.exists(elements, Fun.curry(eq, element));
+    };
+
+    // DOM contains() method returns true if e1===e2, we define our contains() to return false (a node does not contain itself).
+    var regularContains = function (e1, e2) {
+      var d1 = e1.dom(), d2 = e2.dom();
+      return d1 === d2 ? false : d1.contains(d2);
+    };
+
+    var ieContains = function (e1, e2) {
+      // IE only implements the contains() method for Element nodes.
+      // It fails for Text nodes, so implement it using compareDocumentPosition()
+      // https://connect.microsoft.com/IE/feedback/details/780874/node-contains-is-incorrect
+      // Note that compareDocumentPosition returns CONTAINED_BY if 'e2 *is_contained_by* e1':
+      // Also, compareDocumentPosition defines a node containing itself as false.
+      return Node.documentPositionContainedBy(e1.dom(), e2.dom());
+    };
+
+    var browser = PlatformDetection.detect().browser;
+
+    // Returns: true if node e1 contains e2, otherwise false.
+    // (returns false if e1===e2: A node does not contain itself).
+    var contains = browser.isIE() ? ieContains : regularContains;
+
+    return {
+      eq: eq,
+      isEqualNode: isEqualNode,
+      member: member,
+      contains: contains,
+
+      // Only used by DomUniverse. Remove (or should Selectors.is move here?)
+      is: Selectors.is
+    };
+  }
+);
+
+define(
+  'ephox.sugar.api.search.Traverse',
+
+  [
+    'ephox.katamari.api.Type',
+    'ephox.katamari.api.Arr',
+    'ephox.katamari.api.Fun',
+    'ephox.katamari.api.Option',
+    'ephox.katamari.api.Struct',
+    'ephox.sugar.alien.Recurse',
+    'ephox.sugar.api.dom.Compare',
+    'ephox.sugar.api.node.Element'
+  ],
+
+  function (Type, Arr, Fun, Option, Struct, Recurse, Compare, Element) {
+    // The document associated with the current element
+    var owner = function (element) {
+      return Element.fromDom(element.dom().ownerDocument);
+    };
+
+    var documentElement = function (element) {
+      // TODO: Avoid unnecessary wrap/unwrap here
+      var doc = owner(element);
+      return Element.fromDom(doc.dom().documentElement);
+    };
+
+    // The window element associated with the element
+    var defaultView = function (element) {
+      var el = element.dom();
+      var defaultView = el.ownerDocument.defaultView;
+      return Element.fromDom(defaultView);
+    };
+
+    var parent = function (element) {
+      var dom = element.dom();
+      return Option.from(dom.parentNode).map(Element.fromDom);
+    };
+
+    var findIndex = function (element) {
+      return parent(element).bind(function (p) {
+        // TODO: Refactor out children so we can avoid the constant unwrapping
+        var kin = children(p);
+        return Arr.findIndex(kin, function (elem) {
+          return Compare.eq(element, elem);
+        });
+      });
+    };
+
+    var parents = function (element, isRoot) {
+      var stop = Type.isFunction(isRoot) ? isRoot : Fun.constant(false);
+
+      // This is used a *lot* so it needs to be performant, not recursive
+      var dom = element.dom();
+      var ret = [];
+
+      while (dom.parentNode !== null && dom.parentNode !== undefined) {
+        var rawParent = dom.parentNode;
+        var parent = Element.fromDom(rawParent);
+        ret.push(parent);
+
+        if (stop(parent) === true) break;
+        else dom = rawParent;
+      }
+      return ret;
+    };
+
+    var siblings = function (element) {
+      // TODO: Refactor out children so we can just not add self instead of filtering afterwards
+      var filterSelf = function (elements) {
+        return Arr.filter(elements, function (x) {
+          return !Compare.eq(element, x);
+        });
+      };
+
+      return parent(element).map(children).map(filterSelf).getOr([]);
+    };
+
+    var offsetParent = function (element) {
+      var dom = element.dom();
+      return Option.from(dom.offsetParent).map(Element.fromDom);
+    };
+
+    var prevSibling = function (element) {
+      var dom = element.dom();
+      return Option.from(dom.previousSibling).map(Element.fromDom);
+    };
+
+    var nextSibling = function (element) {
+      var dom = element.dom();
+      return Option.from(dom.nextSibling).map(Element.fromDom);
+    };
+
+    var prevSiblings = function (element) {
+      // This one needs to be reversed, so they're still in DOM order
+      return Arr.reverse(Recurse.toArray(element, prevSibling));
+    };
+
+    var nextSiblings = function (element) {
+      return Recurse.toArray(element, nextSibling);
+    };
+
+    var children = function (element) {
+      var dom = element.dom();
+      return Arr.map(dom.childNodes, Element.fromDom);
+    };
+
+    var child = function (element, index) {
+      var children = element.dom().childNodes;
+      return Option.from(children[index]).map(Element.fromDom);
+    };
+
+    var firstChild = function (element) {
+      return child(element, 0);
+    };
+
+    var lastChild = function (element) {
+      return child(element, element.dom().childNodes.length - 1);
+    };
+
+    var childNodesCount = function (element, index) {
+      return element.dom().childNodes.length;
+    };
+
+    var spot = Struct.immutable('element', 'offset');
+    var leaf = function (element, offset) {
+      var cs = children(element);
+      return cs.length > 0 && offset < cs.length ? spot(cs[offset], 0) : spot(element, offset);
+    };
+
+    return {
+      owner: owner,
+      defaultView: defaultView,
+      documentElement: documentElement,
+      parent: parent,
+      findIndex: findIndex,
+      parents: parents,
+      siblings: siblings,
+      prevSibling: prevSibling,
+      offsetParent: offsetParent,
+      prevSiblings: prevSiblings,
+      nextSibling: nextSibling,
+      nextSiblings: nextSiblings,
+      children: children,
+      child: child,
+      firstChild: firstChild,
+      lastChild: lastChild,
+      childNodesCount: childNodesCount,
+      leaf: leaf
+    };
+  }
+);
+
+define(
+  'ephox.sugar.api.search.PredicateFilter',
+
+  [
+    'ephox.katamari.api.Arr',
+    'ephox.sugar.api.node.Body',
+    'ephox.sugar.api.search.Traverse'
+  ],
+
+  function (Arr, Body, Traverse) {
+    // maybe TraverseWith, similar to traverse but with a predicate?
+
+    var all = function (predicate) {
+      return descendants(Body.body(), predicate);
+    };
+
+    var ancestors = function (scope, predicate, isRoot) {
+      return Arr.filter(Traverse.parents(scope, isRoot), predicate);
+    };
+
+    var siblings = function (scope, predicate) {
+      return Arr.filter(Traverse.siblings(scope), predicate);
+    };
+
+    var children = function (scope, predicate) {
+      return Arr.filter(Traverse.children(scope), predicate);
+    };
+
+    var descendants = function (scope, predicate) {
+      var result = [];
+
+      // Recurse.toArray() might help here
+      Arr.each(Traverse.children(scope), function (x) {
+        if (predicate(x)) {
+          result = result.concat([ x ]);
+        }
+        result = result.concat(descendants(x, predicate));
+      });
+      return result;
+    };
+
+    return {
+      all: all,
+      ancestors: ancestors,
+      siblings: siblings,
+      children: children,
+      descendants: descendants
+    };
+  }
+);
+
+define(
+  'ephox.sugar.api.search.SelectorFilter',
+
+  [
+    'ephox.sugar.api.search.PredicateFilter',
+    'ephox.sugar.api.search.Selectors'
+  ],
+
+  function (PredicateFilter, Selectors) {
+    var all = function (selector) {
+      return Selectors.all(selector);
+    };
+
+    // For all of the following:
+    //
+    // jQuery does siblings of firstChild. IE9+ supports scope.dom().children (similar to Traverse.children but elements only).
+    // Traverse should also do this (but probably not by default).
+    //
+
+    var ancestors = function (scope, selector, isRoot) {
+      // It may surprise you to learn this is exactly what JQuery does
+      // TODO: Avoid all this wrapping and unwrapping
+      return PredicateFilter.ancestors(scope, function (e) {
+        return Selectors.is(e, selector);
+      }, isRoot);
+    };
+
+    var siblings = function (scope, selector) {
+      // It may surprise you to learn this is exactly what JQuery does
+      // TODO: Avoid all the wrapping and unwrapping
+      return PredicateFilter.siblings(scope, function (e) {
+        return Selectors.is(e, selector);
+      });
+    };
+
+    var children = function (scope, selector) {
+      // It may surprise you to learn this is exactly what JQuery does
+      // TODO: Avoid all the wrapping and unwrapping
+      return PredicateFilter.children(scope, function (e) {
+        return Selectors.is(e, selector);
+      });
+    };
+
+    var descendants = function (scope, selector) {
+      return Selectors.all(selector, scope);
+    };
+
+    return {
+      all: all,
+      ancestors: ancestors,
+      siblings: siblings,
+      children: children,
+      descendants: descendants
+    };
+  }
+);
+
+/**
+ * LinkTargets.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2017 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+/**
+ * This module is enables you to get anything that you can link to in a element.
+ *
+ * @private
+ * @class tinymce.ui.LinkTargets
+ */
+define(
+  'tinymce.ui.content.LinkTargets',
+  [
+    'ephox.katamari.api.Arr',
+    'ephox.katamari.api.Fun',
+    'ephox.katamari.api.Id',
+    'ephox.sugar.api.node.Element',
+    'ephox.sugar.api.search.SelectorFilter',
+    'tinymce.core.dom.DOMUtils',
+    'tinymce.core.util.Tools'
+  ],
+  function (Arr, Fun, Id, Element, SelectorFilter, DOMUtils, Tools) {
+    var trim = Tools.trim;
+    var hasContentEditableState = function (value) {
+      return function (node) {
+        if (node && node.nodeType === 1) {
+          if (node.contentEditable === value) {
+            return true;
+          }
+
+          if (node.getAttribute('data-mce-contenteditable') === value) {
+            return true;
+          }
+        }
+
+        return false;
+      };
+    };
+
+    var isContentEditableTrue = hasContentEditableState('true');
+    var isContentEditableFalse = hasContentEditableState('false');
+
+    var create = function (type, title, url, level, attach) {
+      return {
+        type: type,
+        title: title,
+        url: url,
+        level: level,
+        attach: attach
+      };
+    };
+
+    var isChildOfContentEditableTrue = function (node) {
+      while ((node = node.parentNode)) {
+        var value = node.contentEditable;
+        if (value && value !== 'inherit') {
+          return isContentEditableTrue(node);
+        }
+      }
+
+      return false;
+    };
+
+    var select = function (selector, root) {
+      return Arr.map(SelectorFilter.descendants(Element.fromDom(root), selector), function (element) {
+        return element.dom();
+      });
+    };
+
+    var getElementText = function (elm) {
+      return elm.innerText || elm.textContent;
+    };
+
+    var getOrGenerateId = function (elm) {
+      return elm.id ? elm.id : Id.generate('h');
+    };
+
+    var isAnchor = function (elm) {
+      return elm && elm.nodeName === 'A' && (elm.id || elm.name);
+    };
+
+    var isValidAnchor = function (elm) {
+      return isAnchor(elm) && isEditable(elm);
+    };
+
+    var isHeader = function (elm) {
+      return elm && /^(H[1-6])$/.test(elm.nodeName);
+    };
+
+    var isEditable = function (elm) {
+      return isChildOfContentEditableTrue(elm) && !isContentEditableFalse(elm);
+    };
+
+    var isValidHeader = function (elm) {
+      return isHeader(elm) && isEditable(elm);
+    };
+
+    var getLevel = function (elm) {
+      return isHeader(elm) ? parseInt(elm.nodeName.substr(1), 10) : 0;
+    };
+
+    var headerTarget = function (elm) {
+      var headerId = getOrGenerateId(elm);
+
+      var attach = function () {
+        elm.id = headerId;
+      };
+
+      return create('header', getElementText(elm), '#' + headerId, getLevel(elm), attach);
+    };
+
+    var anchorTarget = function (elm) {
+      var anchorId = elm.id || elm.name;
+      var anchorText = getElementText(elm);
+
+      return create('anchor', anchorText ? anchorText : '#' + anchorId, '#' + anchorId, 0, Fun.noop);
+    };
+
+    var getHeaderTargets = function (elms) {
+      return Arr.map(Arr.filter(elms, isValidHeader), headerTarget);
+    };
+
+    var getAnchorTargets = function (elms) {
+      return Arr.map(Arr.filter(elms, isValidAnchor), anchorTarget);
+    };
+
+    var getTargetElements = function (elm) {
+      var elms = select('h1,h2,h3,h4,h5,h6,a:not([href])', elm);
+      return elms;
+    };
+
+    var hasTitle = function (target) {
+      return trim(target.title).length > 0;
+    };
+
+    var find = function (elm) {
+      var elms = getTargetElements(elm);
+      return Arr.filter(getHeaderTargets(elms).concat(getAnchorTargets(elms)), hasTitle);
+    };
+
+    return {
+      find: find
+    };
+  }
+);
+
+/**
+ * FilePicker.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2017 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+/**
+ * This class creates a file picker control.
+ *
+ * @class tinymce.ui.FilePicker
+ * @extends tinymce.ui.ComboBox
+ */
+define(
+  'tinymce.ui.FilePicker',
+  [
+    'ephox.katamari.api.Arr',
+    'ephox.katamari.api.Fun',
+    'global!window',
+    'tinymce.ui.content.LinkTargets',
+    'tinymce.core.EditorManager',
+    'tinymce.ui.ComboBox',
+    'tinymce.core.util.Tools'
+  ],
+  function (Arr, Fun, window, LinkTargets, EditorManager, ComboBox, Tools) {
+    "use strict";
+
+    var getActiveEditor = function () {
+      return window.tinymce ? window.tinymce.activeEditor : EditorManager.activeEditor;
+    };
+
+    var history = {};
+    var HISTORY_LENGTH = 5;
+
+    var clearHistory = function () {
+      history = {};
+    };
+
+    var toMenuItem = function (target) {
+      return {
+        title: target.title,
+        value: {
+          title: { raw: target.title },
+          url: target.url,
+          attach: target.attach
+        }
+      };
+    };
+
+    var toMenuItems = function (targets) {
+      return Tools.map(targets, toMenuItem);
+    };
+
+    var staticMenuItem = function (title, url) {
+      return {
+        title: title,
+        value: {
+          title: title,
+          url: url,
+          attach: Fun.noop
+        }
+      };
+    };
+
+    var isUniqueUrl = function (url, targets) {
+      var foundTarget = Arr.exists(targets, function (target) {
+        return target.url === url;
+      });
+
+      return !foundTarget;
+    };
+
+    var getSetting = function (editorSettings, name, defaultValue) {
+      var value = name in editorSettings ? editorSettings[name] : defaultValue;
+      return value === false ? null : value;
+    };
+
+    var createMenuItems = function (term, targets, fileType, editorSettings) {
+      var separator = { title: '-' };
+
+      var fromHistoryMenuItems = function (history) {
+        var historyItems = history.hasOwnProperty(fileType) ? history[fileType] : [ ];
+        var uniqueHistory = Arr.filter(historyItems, function (url) {
+          return isUniqueUrl(url, targets);
+        });
+
+        return Tools.map(uniqueHistory, function (url) {
+          return {
+            title: url,
+            value: {
+              title: url,
+              url: url,
+              attach: Fun.noop
+            }
+          };
+        });
+      };
+
+      var fromMenuItems = function (type) {
+        var filteredTargets = Arr.filter(targets, function (target) {
+          return target.type === type;
+        });
+
+        return toMenuItems(filteredTargets);
+      };
+
+      var anchorMenuItems = function () {
+        var anchorMenuItems = fromMenuItems('anchor');
+        var topAnchor = getSetting(editorSettings, 'anchor_top', '#top');
+        var bottomAchor = getSetting(editorSettings, 'anchor_bottom', '#bottom');
+
+        if (topAnchor !== null) {
+          anchorMenuItems.unshift(staticMenuItem('<top>', topAnchor));
+        }
+
+        if (bottomAchor !== null) {
+          anchorMenuItems.push(staticMenuItem('<bottom>', bottomAchor));
+        }
+
+        return anchorMenuItems;
+      };
+
+      var join = function (items) {
+        return Arr.foldl(items, function (a, b) {
+          var bothEmpty = a.length === 0 || b.length === 0;
+          return bothEmpty ? a.concat(b) : a.concat(separator, b);
+        }, []);
+      };
+
+      if (editorSettings.typeahead_urls === false) {
+        return [];
+      }
+
+      return fileType === 'file' ? join([
+        filterByQuery(term, fromHistoryMenuItems(history)),
+        filterByQuery(term, fromMenuItems('header')),
+        filterByQuery(term, anchorMenuItems())
+      ]) : filterByQuery(term, fromHistoryMenuItems(history));
+    };
+
+    var addToHistory = function (url, fileType) {
+      var items = history[fileType];
+
+      if (!/^https?/.test(url)) {
+        return;
+      }
+
+      if (items) {
+        if (Arr.indexOf(items, url) === -1) {
+          history[fileType] = items.slice(0, HISTORY_LENGTH).concat(url);
+        }
+      } else {
+        history[fileType] = [url];
+      }
+    };
+
+    var filterByQuery = function (term, menuItems) {
+      var lowerCaseTerm = term.toLowerCase();
+      var result = Tools.grep(menuItems, function (item) {
+        return item.title.toLowerCase().indexOf(lowerCaseTerm) !== -1;
+      });
+
+      return result.length === 1 && result[0].title === term ? [] : result;
+    };
+
+    var getTitle = function (linkDetails) {
+      var title = linkDetails.title;
+      return title.raw ? title.raw : title;
+    };
+
+    var setupAutoCompleteHandler = function (ctrl, editorSettings, bodyElm, fileType) {
+      var autocomplete = function (term) {
+        var linkTargets = LinkTargets.find(bodyElm);
+        var menuItems = createMenuItems(term, linkTargets, fileType, editorSettings);
+        ctrl.showAutoComplete(menuItems, term);
+      };
+
+      ctrl.on('autocomplete', function () {
+        autocomplete(ctrl.value());
+      });
+
+      ctrl.on('selectitem', function (e) {
+        var linkDetails = e.value;
+
+        ctrl.value(linkDetails.url);
+        var title = getTitle(linkDetails);
+
+        if (fileType === 'image') {
+          ctrl.fire('change', { meta: { alt: title, attach: linkDetails.attach } });
+        } else {
+          ctrl.fire('change', { meta: { text: title, attach: linkDetails.attach } });
+        }
+
+        ctrl.focus();
+      });
+
+      ctrl.on('click', function (e) {
+        if (ctrl.value().length === 0 && e.target.nodeName === 'INPUT') {
+          autocomplete('');
+        }
+      });
+
+      ctrl.on('PostRender', function () {
+        ctrl.getRoot().on('submit', function (e) {
+          if (!e.isDefaultPrevented()) {
+            addToHistory(ctrl.value(), fileType);
+          }
+        });
+      });
+    };
+
+    var statusToUiState = function (result) {
+      var status = result.status, message = result.message;
+
+      if (status === 'valid') {
+        return { status: 'ok', message: message };
+      } else if (status === 'unknown') {
+        return { status: 'warn', message: message };
+      } else if (status === 'invalid') {
+        return { status: 'warn', message: message };
+      } else {
+        return { status: 'none', message: '' };
+      }
+    };
+
+    var setupLinkValidatorHandler = function (ctrl, editorSettings, fileType) {
+      var validatorHandler = editorSettings.filepicker_validator_handler;
+      if (validatorHandler) {
+        var validateUrl = function (url) {
+          if (url.length === 0) {
+            ctrl.statusLevel('none');
+            return;
+          }
+
+          validatorHandler({
+            url: url,
+            type: fileType
+          }, function (result) {
+            var uiState = statusToUiState(result);
+
+            ctrl.statusMessage(uiState.message);
+            ctrl.statusLevel(uiState.status);
+          });
+        };
+
+        ctrl.state.on('change:value', function (e) {
+          validateUrl(e.value);
+        });
+      }
+    };
+
+    return ComboBox.extend({
+      Statics: {
+        clearHistory: clearHistory
+      },
+
+      /**
+       * Constructs a new control instance with the specified settings.
+       *
+       * @constructor
+       * @param {Object} settings Name/value object with settings.
+       */
+      init: function (settings) {
+        var self = this, editor = getActiveEditor(), editorSettings = editor.settings;
+        var actionCallback, fileBrowserCallback, fileBrowserCallbackTypes;
+        var fileType = settings.filetype;
+
+        settings.spellcheck = false;
+
+        fileBrowserCallbackTypes = editorSettings.file_picker_types || editorSettings.file_browser_callback_types;
+        if (fileBrowserCallbackTypes) {
+          fileBrowserCallbackTypes = Tools.makeMap(fileBrowserCallbackTypes, /[, ]/);
+        }
+
+        if (!fileBrowserCallbackTypes || fileBrowserCallbackTypes[fileType]) {
+          fileBrowserCallback = editorSettings.file_picker_callback;
+          if (fileBrowserCallback && (!fileBrowserCallbackTypes || fileBrowserCallbackTypes[fileType])) {
+            actionCallback = function () {
+              var meta = self.fire('beforecall').meta;
+
+              meta = Tools.extend({ filetype: fileType }, meta);
+
+              // file_picker_callback(callback, currentValue, metaData)
+              fileBrowserCallback.call(
+                editor,
+                function (value, meta) {
+                  self.value(value).fire('change', { meta: meta });
+                },
+                self.value(),
+                meta
+              );
+            };
+          } else {
+            // Legacy callback: file_picker_callback(id, currentValue, filetype, window)
+            fileBrowserCallback = editorSettings.file_browser_callback;
+            if (fileBrowserCallback && (!fileBrowserCallbackTypes || fileBrowserCallbackTypes[fileType])) {
+              actionCallback = function () {
+                fileBrowserCallback(
+                  self.getEl('inp').id,
+                  self.value(),
+                  fileType,
+                  window
+                );
+              };
+            }
+          }
+        }
+
+        if (actionCallback) {
+          settings.icon = 'browse';
+          settings.onaction = actionCallback;
+        }
+
+        self._super(settings);
+
+        setupAutoCompleteHandler(self, editorSettings, editor.getBody(), fileType);
+        setupLinkValidatorHandler(self, editorSettings, fileType);
+      }
+    });
+  }
+);
+/**
+ * FitLayout.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2017 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+/**
+ * This layout manager will resize the control to be the size of it's parent container.
+ * In other words width: 100% and height: 100%.
+ *
+ * @-x-less FitLayout.less
+ * @class tinymce.ui.FitLayout
+ * @extends tinymce.ui.AbsoluteLayout
+ */
+define(
+  'tinymce.ui.FitLayout',
+  [
+    "tinymce.ui.AbsoluteLayout"
+  ],
+  function (AbsoluteLayout) {
+    "use strict";
+
+    return AbsoluteLayout.extend({
+      /**
+       * Recalculates the positions of the controls in the specified container.
+       *
+       * @method recalc
+       * @param {tinymce.ui.Container} container Container instance to recalc.
+       */
+      recalc: function (container) {
+        var contLayoutRect = container.layoutRect(), paddingBox = container.paddingBox;
+
+        container.items().filter(':visible').each(function (ctrl) {
+          ctrl.layoutRect({
+            x: paddingBox.left,
+            y: paddingBox.top,
+            w: contLayoutRect.innerW - paddingBox.right - paddingBox.left,
+            h: contLayoutRect.innerH - paddingBox.top - paddingBox.bottom
+          });
+
+          if (ctrl.recalc) {
+            ctrl.recalc();
+          }
+        });
+      }
+    });
+  }
+);
+/**
+ * FlexLayout.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2017 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+/**
+ * This layout manager works similar to the CSS flex box.
+ *
+ * @setting {String} direction row|row-reverse|column|column-reverse
+ * @setting {Number} flex A positive-number to flex by.
+ * @setting {String} align start|end|center|stretch
+ * @setting {String} pack start|end|justify
+ *
+ * @class tinymce.ui.FlexLayout
+ * @extends tinymce.ui.AbsoluteLayout
+ */
+define(
+  'tinymce.ui.FlexLayout',
+  [
+    "tinymce.ui.AbsoluteLayout"
+  ],
+  function (AbsoluteLayout) {
+    "use strict";
+
+    return AbsoluteLayout.extend({
+      /**
+       * Recalculates the positions of the controls in the specified container.
+       *
+       * @method recalc
+       * @param {tinymce.ui.Container} container Container instance to recalc.
+       */
+      recalc: function (container) {
+        // A ton of variables, needs to be in the same scope for performance
+        var i, l, items, contLayoutRect, contPaddingBox, contSettings, align, pack, spacing, totalFlex, availableSpace, direction;
+        var ctrl, ctrlLayoutRect, ctrlSettings, flex, maxSizeItems = [], size, maxSize, ratio, rect, pos, maxAlignEndPos;
+        var sizeName, minSizeName, posName, maxSizeName, beforeName, innerSizeName, deltaSizeName, contentSizeName;
+        var alignAxisName, alignInnerSizeName, alignSizeName, alignMinSizeName, alignBeforeName, alignAfterName;
+        var alignDeltaSizeName, alignContentSizeName;
+        var max = Math.max, min = Math.min;
+
+        // Get container items, properties and settings
+        items = container.items().filter(':visible');
+        contLayoutRect = container.layoutRect();
+        contPaddingBox = container.paddingBox;
+        contSettings = container.settings;
+        direction = container.isRtl() ? (contSettings.direction || 'row-reversed') : contSettings.direction;
+        align = contSettings.align;
+        pack = container.isRtl() ? (contSettings.pack || 'end') : contSettings.pack;
+        spacing = contSettings.spacing || 0;
+
+        if (direction == "row-reversed" || direction == "column-reverse") {
+          items = items.set(items.toArray().reverse());
+          direction = direction.split('-')[0];
+        }
+
+        // Setup axis variable name for row/column direction since the calculations is the same
+        if (direction == "column") {
+          posName = "y";
+          sizeName = "h";
+          minSizeName = "minH";
+          maxSizeName = "maxH";
+          innerSizeName = "innerH";
+          beforeName = 'top';
+          deltaSizeName = "deltaH";
+          contentSizeName = "contentH";
+
+          alignBeforeName = "left";
+          alignSizeName = "w";
+          alignAxisName = "x";
+          alignInnerSizeName = "innerW";
+          alignMinSizeName = "minW";
+          alignAfterName = "right";
+          alignDeltaSizeName = "deltaW";
+          alignContentSizeName = "contentW";
+        } else {
+          posName = "x";
+          sizeName = "w";
+          minSizeName = "minW";
+          maxSizeName = "maxW";
+          innerSizeName = "innerW";
+          beforeName = 'left';
+          deltaSizeName = "deltaW";
+          contentSizeName = "contentW";
+
+          alignBeforeName = "top";
+          alignSizeName = "h";
+          alignAxisName = "y";
+          alignInnerSizeName = "innerH";
+          alignMinSizeName = "minH";
+          alignAfterName = "bottom";
+          alignDeltaSizeName = "deltaH";
+          alignContentSizeName = "contentH";
+        }
+
+        // Figure out total flex, availableSpace and collect any max size elements
+        availableSpace = contLayoutRect[innerSizeName] - contPaddingBox[beforeName] - contPaddingBox[beforeName];
+        maxAlignEndPos = totalFlex = 0;
+        for (i = 0, l = items.length; i < l; i++) {
+          ctrl = items[i];
+          ctrlLayoutRect = ctrl.layoutRect();
+          ctrlSettings = ctrl.settings;
+          flex = ctrlSettings.flex;
+          availableSpace -= (i < l - 1 ? spacing : 0);
+
+          if (flex > 0) {
+            totalFlex += flex;
+
+            // Flexed item has a max size then we need to check if we will hit that size
+            if (ctrlLayoutRect[maxSizeName]) {
+              maxSizeItems.push(ctrl);
+            }
+
+            ctrlLayoutRect.flex = flex;
+          }
+
+          availableSpace -= ctrlLayoutRect[minSizeName];
+
+          // Calculate the align end position to be used to check for overflow/underflow
+          size = contPaddingBox[alignBeforeName] + ctrlLayoutRect[alignMinSizeName] + contPaddingBox[alignAfterName];
+          if (size > maxAlignEndPos) {
+            maxAlignEndPos = size;
+          }
+        }
+
+        // Calculate minW/minH
+        rect = {};
+        if (availableSpace < 0) {
+          rect[minSizeName] = contLayoutRect[minSizeName] - availableSpace + contLayoutRect[deltaSizeName];
+        } else {
+          rect[minSizeName] = contLayoutRect[innerSizeName] - availableSpace + contLayoutRect[deltaSizeName];
+        }
+
+        rect[alignMinSizeName] = maxAlignEndPos + contLayoutRect[alignDeltaSizeName];
+
+        rect[contentSizeName] = contLayoutRect[innerSizeName] - availableSpace;
+        rect[alignContentSizeName] = maxAlignEndPos;
+        rect.minW = min(rect.minW, contLayoutRect.maxW);
+        rect.minH = min(rect.minH, contLayoutRect.maxH);
+        rect.minW = max(rect.minW, contLayoutRect.startMinWidth);
+        rect.minH = max(rect.minH, contLayoutRect.startMinHeight);
+
+        // Resize container container if minSize was changed
+        if (contLayoutRect.autoResize && (rect.minW != contLayoutRect.minW || rect.minH != contLayoutRect.minH)) {
+          rect.w = rect.minW;
+          rect.h = rect.minH;
+
+          container.layoutRect(rect);
+          this.recalc(container);
+
+          // Forced recalc for example if items are hidden/shown
+          if (container._lastRect === null) {
+            var parentCtrl = container.parent();
+            if (parentCtrl) {
+              parentCtrl._lastRect = null;
+              parentCtrl.recalc();
+            }
+          }
+
+          return;
+        }
+
+        // Handle max size elements, check if they will become to wide with current options
+        ratio = availableSpace / totalFlex;
+        for (i = 0, l = maxSizeItems.length; i < l; i++) {
+          ctrl = maxSizeItems[i];
+          ctrlLayoutRect = ctrl.layoutRect();
+          maxSize = ctrlLayoutRect[maxSizeName];
+          size = ctrlLayoutRect[minSizeName] + ctrlLayoutRect.flex * ratio;
+
+          if (size > maxSize) {
+            availableSpace -= (ctrlLayoutRect[maxSizeName] - ctrlLayoutRect[minSizeName]);
+            totalFlex -= ctrlLayoutRect.flex;
+            ctrlLayoutRect.flex = 0;
+            ctrlLayoutRect.maxFlexSize = maxSize;
+          } else {
+            ctrlLayoutRect.maxFlexSize = 0;
+          }
+        }
+
+        // Setup new ratio, target layout rect, start position
+        ratio = availableSpace / totalFlex;
+        pos = contPaddingBox[beforeName];
+        rect = {};
+
+        // Handle pack setting moves the start position to end, center
+        if (totalFlex === 0) {
+          if (pack == "end") {
+            pos = availableSpace + contPaddingBox[beforeName];
+          } else if (pack == "center") {
+            pos = Math.round(
+              (contLayoutRect[innerSizeName] / 2) - ((contLayoutRect[innerSizeName] - availableSpace) / 2)
+            ) + contPaddingBox[beforeName];
+
+            if (pos < 0) {
+              pos = contPaddingBox[beforeName];
+            }
+          } else if (pack == "justify") {
+            pos = contPaddingBox[beforeName];
+            spacing = Math.floor(availableSpace / (items.length - 1));
+          }
+        }
+
+        // Default aligning (start) the other ones needs to be calculated while doing the layout
+        rect[alignAxisName] = contPaddingBox[alignBeforeName];
+
+        // Start laying out controls
+        for (i = 0, l = items.length; i < l; i++) {
+          ctrl = items[i];
+          ctrlLayoutRect = ctrl.layoutRect();
+          size = ctrlLayoutRect.maxFlexSize || ctrlLayoutRect[minSizeName];
+
+          // Align the control on the other axis
+          if (align === "center") {
+            rect[alignAxisName] = Math.round((contLayoutRect[alignInnerSizeName] / 2) - (ctrlLayoutRect[alignSizeName] / 2));
+          } else if (align === "stretch") {
+            rect[alignSizeName] = max(
+              ctrlLayoutRect[alignMinSizeName] || 0,
+              contLayoutRect[alignInnerSizeName] - contPaddingBox[alignBeforeName] - contPaddingBox[alignAfterName]
+            );
+            rect[alignAxisName] = contPaddingBox[alignBeforeName];
+          } else if (align === "end") {
+            rect[alignAxisName] = contLayoutRect[alignInnerSizeName] - ctrlLayoutRect[alignSizeName] - contPaddingBox.top;
+          }
+
+          // Calculate new size based on flex
+          if (ctrlLayoutRect.flex > 0) {
+            size += ctrlLayoutRect.flex * ratio;
+          }
+
+          rect[sizeName] = size;
+          rect[posName] = pos;
+          ctrl.layoutRect(rect);
+
+          // Recalculate containers
+          if (ctrl.recalc) {
+            ctrl.recalc();
+          }
+
+          // Move x/y position
+          pos += size + spacing;
+        }
+      }
+    });
+  }
+);
+/**
+ * FlowLayout.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2017 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+/**
+ * This layout manager will place the controls by using the browsers native layout.
+ *
+ * @-x-less FlowLayout.less
+ * @class tinymce.ui.FlowLayout
+ * @extends tinymce.ui.Layout
+ */
+define(
+  'tinymce.ui.FlowLayout',
+  [
+    "tinymce.ui.Layout"
+  ],
+  function (Layout) {
+    return Layout.extend({
+      Defaults: {
+        containerClass: 'flow-layout',
+        controlClass: 'flow-layout-item',
+        endClass: 'break'
+      },
+
+      /**
+       * Recalculates the positions of the controls in the specified container.
+       *
+       * @method recalc
+       * @param {tinymce.ui.Container} container Container instance to recalc.
+       */
+      recalc: function (container) {
+        container.items().filter(':visible').each(function (ctrl) {
+          if (ctrl.recalc) {
+            ctrl.recalc();
+          }
+        });
+      },
+
+      isNative: function () {
+        return true;
+      }
+    });
+  }
+);
+define(
+  'ephox.sugar.impl.ClosestOrAncestor',
+
+  [
+    'ephox.katamari.api.Type',
+    'ephox.katamari.api.Option'
+  ],
+
+  function (Type, Option) {
+    return function (is, ancestor, scope, a, isRoot) {
+      return is(scope, a) ?
+              Option.some(scope) :
+              Type.isFunction(isRoot) && isRoot(scope) ?
+                  Option.none() :
+                  ancestor(scope, a, isRoot);
+    };
+  }
+);
+define(
+  'ephox.sugar.api.search.PredicateFind',
+
+  [
+    'ephox.katamari.api.Type',
+    'ephox.katamari.api.Arr',
+    'ephox.katamari.api.Fun',
+    'ephox.katamari.api.Option',
+    'ephox.sugar.api.node.Body',
+    'ephox.sugar.api.dom.Compare',
+    'ephox.sugar.api.node.Element',
+    'ephox.sugar.impl.ClosestOrAncestor'
+  ],
+
+  function (Type, Arr, Fun, Option, Body, Compare, Element, ClosestOrAncestor) {
+    var first = function (predicate) {
+      return descendant(Body.body(), predicate);
+    };
+
+    var ancestor = function (scope, predicate, isRoot) {
+      var element = scope.dom();
+      var stop = Type.isFunction(isRoot) ? isRoot : Fun.constant(false);
+
+      while (element.parentNode) {
+        element = element.parentNode;
+        var el = Element.fromDom(element);
+
+        if (predicate(el)) return Option.some(el);
+        else if (stop(el)) break;
+      }
+      return Option.none();
+    };
+
+    var closest = function (scope, predicate, isRoot) {
+      // This is required to avoid ClosestOrAncestor passing the predicate to itself
+      var is = function (scope) {
+        return predicate(scope);
+      };
+      return ClosestOrAncestor(is, ancestor, scope, predicate, isRoot);
+    };
+
+    var sibling = function (scope, predicate) {
+      var element = scope.dom();
+      if (!element.parentNode) return Option.none();
+
+      return child(Element.fromDom(element.parentNode), function (x) {
+        return !Compare.eq(scope, x) && predicate(x);
+      });
+    };
+
+    var child = function (scope, predicate) {
+      var result = Arr.find(scope.dom().childNodes,
+        Fun.compose(predicate, Element.fromDom));
+      return result.map(Element.fromDom);
+    };
+
+    var descendant = function (scope, predicate) {
+      var descend = function (element) {
+        for (var i = 0; i < element.childNodes.length; i++) {
+          if (predicate(Element.fromDom(element.childNodes[i])))
+            return Option.some(Element.fromDom(element.childNodes[i]));
+
+          var res = descend(element.childNodes[i]);
+          if (res.isSome())
+            return res;
+        }
+
+        return Option.none();
+      };
+
+      return descend(scope.dom());
+    };
+
+    return {
+      first: first,
+      ancestor: ancestor,
+      closest: closest,
+      sibling: sibling,
+      child: child,
+      descendant: descendant
+    };
+  }
+);
+
+define(
+  'ephox.sugar.api.search.SelectorFind',
+
+  [
+    'ephox.sugar.api.search.PredicateFind',
+    'ephox.sugar.api.search.Selectors',
+    'ephox.sugar.impl.ClosestOrAncestor'
+  ],
+
+  function (PredicateFind, Selectors, ClosestOrAncestor) {
+    // TODO: An internal SelectorFilter module that doesn't Element.fromDom() everything
+
+    var first = function (selector) {
+      return Selectors.one(selector);
+    };
+
+    var ancestor = function (scope, selector, isRoot) {
+      return PredicateFind.ancestor(scope, function (e) {
+        return Selectors.is(e, selector);
+      }, isRoot);
+    };
+
+    var sibling = function (scope, selector) {
+      return PredicateFind.sibling(scope, function (e) {
+        return Selectors.is(e, selector);
+      });
+    };
+
+    var child = function (scope, selector) {
+      return PredicateFind.child(scope, function (e) {
+        return Selectors.is(e, selector);
+      });
+    };
+
+    var descendant = function (scope, selector) {
+      return Selectors.one(selector, scope);
+    };
+
+    // Returns Some(closest ancestor element (sugared)) matching 'selector' up to isRoot, or None() otherwise
+    var closest = function (scope, selector, isRoot) {
+      return ClosestOrAncestor(Selectors.is, ancestor, scope, selector, isRoot);
+    };
+
+    return {
+      first: first,
+      ancestor: ancestor,
+      sibling: sibling,
+      child: child,
+      descendant: descendant,
+      closest: closest
+    };
+  }
+);
+
+/**
+ * FormatUtils.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2017 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+define(
+  'tinymce.ui.editorui.FormatUtils',
+  [
+  ],
+  function () {
+    var toggleFormat = function (editor, fmt) {
+      return function () {
+        editor.execCommand('mceToggleFormat', false, fmt);
+      };
+    };
+
+    var postRenderFormat = function (editor, name) {
+      return function () {
+        var self = this;
+
+        // TODO: Fix this
+        if (editor.formatter) {
+          editor.formatter.formatChanged(name, function (state) {
+            self.active(state);
+          });
+        } else {
+          editor.on('init', function () {
+            editor.formatter.formatChanged(name, function (state) {
+              self.active(state);
+            });
+          });
+        }
+      };
+    };
+
+    return {
+      toggleFormat: toggleFormat,
+      postRenderFormat: postRenderFormat
+    };
+  }
+);
+
+/**
+ * Align.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2017 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+define(
+  'tinymce.ui.editorui.Align',
+  [
+    'tinymce.core.util.Tools',
+    'tinymce.ui.editorui.FormatUtils'
+  ],
+  function (Tools, FormatUtils) {
+    var register = function (editor) {
+      editor.addMenuItem('align', {
+        text: 'Align',
+        menu: [
+          { text: 'Left', icon: 'alignleft', onclick: FormatUtils.toggleFormat(editor, 'alignleft') },
+          { text: 'Center', icon: 'aligncenter', onclick: FormatUtils.toggleFormat(editor, 'aligncenter') },
+          { text: 'Right', icon: 'alignright', onclick: FormatUtils.toggleFormat(editor, 'alignright') },
+          { text: 'Justify', icon: 'alignjustify', onclick: FormatUtils.toggleFormat(editor, 'alignjustify') }
+        ]
+      });
+
+      Tools.each({
+        alignleft: ['Align left', 'JustifyLeft'],
+        aligncenter: ['Align center', 'JustifyCenter'],
+        alignright: ['Align right', 'JustifyRight'],
+        alignjustify: ['Justify', 'JustifyFull'],
+        alignnone: ['No alignment', 'JustifyNone']
+      }, function (item, name) {
+        editor.addButton(name, {
+          tooltip: item[0],
+          cmd: item[1],
+          onPostRender: FormatUtils.postRenderFormat(editor, name)
+        });
+      });
+    };
+
+    return {
+      register: register
+    };
+  }
+);
+
+/**
+ * FontInfo.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2017 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+/**
+ * Internal class for computing font size for elements.
+ *
+ * @private
+ * @class tinymce.fmt.FontInfo
+ */
+define(
+  'tinymce.ui.fmt.FontInfo',
+  [
+    'ephox.katamari.api.Fun',
+    'ephox.katamari.api.Option',
+    'ephox.sugar.api.node.Element',
+    'ephox.sugar.api.node.Node',
+    'tinymce.core.dom.DOMUtils'
+  ],
+  function (Fun, Option, Element, Node, DOMUtils) {
+    var getSpecifiedFontProp = function (propName, rootElm, elm) {
+      while (elm !== rootElm) {
+        if (elm.style[propName]) {
+          var foundStyle = elm.style[propName];
+          return foundStyle !== '' ? Option.some(foundStyle) : Option.none();
+        }
+        elm = elm.parentNode;
+      }
+      return Option.none();
+    };
+
+    var round = function (number, precision) {
+      var factor = Math.pow(10, precision);
+      return Math.round(number * factor) / factor;
+    };
+
+    var toPt = function (fontSize, precision) {
+      if (/[0-9.]+px$/.test(fontSize)) {
+        // Round to the nearest 0.5
+        return round(parseInt(fontSize, 10) * 72 / 96, precision || 0) + 'pt';
+      }
+      return fontSize;
+    };
+
+    var normalizeFontFamily = function (fontFamily) {
+      // 'Font name', Font -> Font name,Font
+      return fontFamily.replace(/[\'\"]/g, '').replace(/,\s+/g, ',');
+    };
+
+    var getComputedFontProp = function (propName, elm) {
+      return Option.from(DOMUtils.DOM.getStyle(elm, propName, true));
+    };
+
+    var getFontProp = function (propName) {
+      return function (rootElm, elm) {
+        return Option.from(elm)
+          .map(Element.fromDom)
+          .filter(Node.isElement)
+          .bind(function (element) {
+            return getSpecifiedFontProp(propName, rootElm, element.dom())
+              .or(getComputedFontProp(propName, element.dom()));
+          })
+          .getOr('');
+      };
+    };
+
+    return {
+      getFontSize: getFontProp('fontSize'),
+      getFontFamily: Fun.compose(normalizeFontFamily, getFontProp('fontFamily')),
+      toPt: toPt
+    };
+  }
+);
+
+/**
+ * FontSelect.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2017 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+define(
+  'tinymce.ui.editorui.FontSelect',
+  [
+    'tinymce.core.util.Tools',
+    'tinymce.ui.fmt.FontInfo'
+  ],
+  function (Tools, FontInfo) {
+    var getFirstFont = function (fontFamily) {
+      return fontFamily ? fontFamily.split(',')[0] : '';
+    };
+
+    var findMatchingValue = function (items, fontFamily) {
+      var value;
+
+      Tools.each(items, function (item) {
+        if (item.value.toLowerCase() === fontFamily.toLowerCase()) {
+          value = item.value;
+        }
+      });
+
+      Tools.each(items, function (item) {
+        if (!value && getFirstFont(item.value).toLowerCase() === getFirstFont(fontFamily).toLowerCase()) {
+          value = item.value;
+        }
+      });
+
+      return value;
+    };
+
+    var createFontNameListBoxChangeHandler = function (editor, items) {
+      return function () {
+        var self = this;
+
+        editor.on('init nodeChange', function (e) {
+          var fontFamily = FontInfo.getFontFamily(editor.getBody(), e.element);
+          var match = findMatchingValue(items, fontFamily);
+
+          self.value(match ? match : null);
+
+          if (!match && fontFamily) {
+            self.text(getFirstFont(fontFamily));
+          }
+        });
+      };
+    };
+
+    var createFormats = function (formats) {
+      formats = formats.replace(/;$/, '').split(';');
+
+      var i = formats.length;
+      while (i--) {
+        formats[i] = formats[i].split('=');
+      }
+
+      return formats;
+    };
+
+    var getFontItems = function (editor) {
+      var defaultFontsFormats = (
+        'Andale Mono=andale mono,monospace;' +
+        'Arial=arial,helvetica,sans-serif;' +
+        'Arial Black=arial black,sans-serif;' +
+        'Book Antiqua=book antiqua,palatino,serif;' +
+        'Comic Sans MS=comic sans ms,sans-serif;' +
+        'Courier New=courier new,courier,monospace;' +
+        'Georgia=georgia,palatino,serif;' +
+        'Helvetica=helvetica,arial,sans-serif;' +
+        'Impact=impact,sans-serif;' +
+        'Symbol=symbol;' +
+        'Tahoma=tahoma,arial,helvetica,sans-serif;' +
+        'Terminal=terminal,monaco,monospace;' +
+        'Times New Roman=times new roman,times,serif;' +
+        'Trebuchet MS=trebuchet ms,geneva,sans-serif;' +
+        'Verdana=verdana,geneva,sans-serif;' +
+        'Webdings=webdings;' +
+        'Wingdings=wingdings,zapf dingbats'
+      );
+
+      var fonts = createFormats(editor.settings.font_formats || defaultFontsFormats);
+
+      return Tools.map(fonts, function (font) {
+        return {
+          text: { raw: font[0] },
+          value: font[1],
+          textStyle: font[1].indexOf('dings') === -1 ? 'font-family:' + font[1] : ''
+        };
+      });
+    };
+
+    var registerButtons = function (editor) {
+      editor.addButton('fontselect', function () {
+        var items = getFontItems(editor);
+
+        return {
+          type: 'listbox',
+          text: 'Font Family',
+          tooltip: 'Font Family',
+          values: items,
+          fixedWidth: true,
+          onPostRender: createFontNameListBoxChangeHandler(editor, items),
+          onselect: function (e) {
+            if (e.control.settings.value) {
+              editor.execCommand('FontName', false, e.control.settings.value);
+            }
+          }
+        };
+      });
+    };
+
+    var register = function (editor) {
+      registerButtons(editor);
+    };
+
+    return {
+      register: register
+    };
+  }
+);
+
+/**
+ * FontSizeSelect.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2017 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+define(
+  'tinymce.ui.editorui.FontSizeSelect',
+  [
+    'tinymce.core.util.Tools',
+    'tinymce.ui.fmt.FontInfo'
+  ],
+  function (Tools, FontInfo) {
+    var findMatchingValue = function (items, pt, px) {
+      var value;
+
+      Tools.each(items, function (item) {
+        if (item.value === px) {
+          value = px;
+        } else if (item.value === pt) {
+          value = pt;
+        }
+      });
+
+      return value;
+    };
+
+    var createFontSizeListBoxChangeHandler = function (editor, items) {
+      return function () {
+        var self = this;
+
+        editor.on('init nodeChange', function (e) {
+          var px, pt, precision, match;
+
+          px = FontInfo.getFontSize(editor.getBody(), e.element);
+          if (px) {
+            // checking for three digits after decimal point, should be precise enough
+            for (precision = 3; !match && precision >= 0; precision--) {
+              pt = FontInfo.toPt(px, precision);
+              match = findMatchingValue(items, pt, px);
+            }
+          }
+
+          self.value(match ? match : null);
+
+          if (!match) {
+            self.text(pt);
+          }
+        });
+      };
+    };
+
+    var getFontSizeItems = function (editor) {
+      var defaultFontsizeFormats = '8pt 10pt 12pt 14pt 18pt 24pt 36pt';
+      var fontsizeFormats = editor.settings.fontsize_formats || defaultFontsizeFormats;
+
+      return Tools.map(fontsizeFormats.split(' '), function (item) {
+        var text = item, value = item;
+        // Allow text=value font sizes.
+        var values = item.split('=');
+        if (values.length > 1) {
+          text = values[0];
+          value = values[1];
+        }
+
+        return { text: text, value: value };
+      });
+    };
+
+    var registerButtons = function (editor) {
+      editor.addButton('fontsizeselect', function () {
+        var items = getFontSizeItems(editor);
+
+        return {
+          type: 'listbox',
+          text: 'Font Sizes',
+          tooltip: 'Font Sizes',
+          values: items,
+          fixedWidth: true,
+          onPostRender: createFontSizeListBoxChangeHandler(editor, items),
+          onclick: function (e) {
+            if (e.control.settings.value) {
+              editor.execCommand('FontSize', false, e.control.settings.value);
+            }
+          }
+        };
+      });
+    };
+
+    var register = function (editor) {
+      registerButtons(editor);
+    };
+
+    return {
+      register: register
+    };
+  }
+);
+
+/**
+ * FormatSelect.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2017 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+define(
+  'tinymce.ui.editorui.FormatSelect',
+  [
+    'tinymce.core.util.Tools',
+    'tinymce.ui.editorui.FormatUtils'
+  ],
+  function (Tools, FormatUtils) {
+    var defaultBlocks = (
+      'Paragraph=p;' +
+      'Heading 1=h1;' +
+      'Heading 2=h2;' +
+      'Heading 3=h3;' +
+      'Heading 4=h4;' +
+      'Heading 5=h5;' +
+      'Heading 6=h6;' +
+      'Preformatted=pre'
+    );
+
+    var createFormats = function (formats) {
+      formats = formats.replace(/;$/, '').split(';');
+
+      var i = formats.length;
+      while (i--) {
+        formats[i] = formats[i].split('=');
+      }
+
+      return formats;
+    };
+
+    var createListBoxChangeHandler = function (editor, items, formatName) {
+      return function () {
+        var self = this;
+
+        editor.on('nodeChange', function (e) {
+          var formatter = editor.formatter;
+          var value = null;
+
+          Tools.each(e.parents, function (node) {
+            Tools.each(items, function (item) {
+              if (formatName) {
+                if (formatter.matchNode(node, formatName, { value: item.value })) {
+                  value = item.value;
+                }
+              } else {
+                if (formatter.matchNode(node, item.value)) {
+                  value = item.value;
+                }
+              }
+
+              if (value) {
+                return false;
+              }
+            });
+
+            if (value) {
+              return false;
+            }
+          });
+
+          self.value(value);
+        });
+      };
+    };
+
+    var lazyFormatSelectBoxItems = function (editor, blocks) {
+      return function () {
+        var items = [];
+
+        Tools.each(blocks, function (block) {
+          items.push({
+            text: block[0],
+            value: block[1],
+            textStyle: function () {
+              return editor.formatter.getCssText(block[1]);
+            }
+          });
+        });
+
+        return {
+          type: 'listbox',
+          text: blocks[0][0],
+          values: items,
+          fixedWidth: true,
+          onselect: function (e) {
+            if (e.control) {
+              var fmt = e.control.value();
+              FormatUtils.toggleFormat(editor, fmt)();
+            }
+          },
+          onPostRender: createListBoxChangeHandler(editor, items)
+        };
+      };
+    };
+
+    var buildMenuItems = function (editor, blocks) {
+      return Tools.map(blocks, function (block) {
+        return {
+          text: block[0],
+          onclick: FormatUtils.toggleFormat(editor, block[1]),
+          textStyle: function () {
+            return editor.formatter.getCssText(block[1]);
+          }
+        };
+      });
+    };
+
+    var register = function (editor) {
+      var blocks = createFormats(editor.settings.block_formats || defaultBlocks);
+
+      editor.addMenuItem('blockformats', {
+        text: 'Blocks',
+        menu: buildMenuItems(editor, blocks)
+      });
+
+      editor.addButton('formatselect', lazyFormatSelectBoxItems(editor, blocks));
+    };
+
+    return {
+      register: register
+    };
+  }
+);
+
+
+/**
+ * Formats.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2017 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+define(
+  'tinymce.ui.editorui.Formats',
+  [
+    'tinymce.core.util.Tools',
+    'tinymce.ui.editorui.FormatUtils'
+  ],
+  function (Tools, FormatUtils) {
+    var hideMenuObjects = function (editor, menu) {
+      var count = menu.length;
+
+      Tools.each(menu, function (item) {
+        if (item.menu) {
+          item.hidden = hideMenuObjects(editor, item.menu) === 0;
+        }
+
+        var formatName = item.format;
+        if (formatName) {
+          item.hidden = !editor.formatter.canApply(formatName);
+        }
+
+        if (item.hidden) {
+          count--;
+        }
+      });
+
+      return count;
+    };
+
+    var hideFormatMenuItems = function (editor, menu) {
+      var count = menu.items().length;
+
+      menu.items().each(function (item) {
+        if (item.menu) {
+          item.visible(hideFormatMenuItems(editor, item.menu) > 0);
+        }
+
+        if (!item.menu && item.settings.menu) {
+          item.visible(hideMenuObjects(editor, item.settings.menu) > 0);
+        }
+
+        var formatName = item.settings.format;
+        if (formatName) {
+          item.visible(editor.formatter.canApply(formatName));
+        }
+
+        if (!item.visible()) {
+          count--;
+        }
+      });
+
+      return count;
+    };
+
+    var createFormatMenu = function (editor) {
+      var count = 0, newFormats = [];
+
+      var defaultStyleFormats = [
+        {
+          title: 'Headings', items: [
+            { title: 'Heading 1', format: 'h1' },
+            { title: 'Heading 2', format: 'h2' },
+            { title: 'Heading 3', format: 'h3' },
+            { title: 'Heading 4', format: 'h4' },
+            { title: 'Heading 5', format: 'h5' },
+            { title: 'Heading 6', format: 'h6' }
+          ]
+        },
+
+        {
+          title: 'Inline', items: [
+            { title: 'Bold', icon: 'bold', format: 'bold' },
+            { title: 'Italic', icon: 'italic', format: 'italic' },
+            { title: 'Underline', icon: 'underline', format: 'underline' },
+            { title: 'Strikethrough', icon: 'strikethrough', format: 'strikethrough' },
+            { title: 'Superscript', icon: 'superscript', format: 'superscript' },
+            { title: 'Subscript', icon: 'subscript', format: 'subscript' },
+            { title: 'Code', icon: 'code', format: 'code' }
+          ]
+        },
+
+        {
+          title: 'Blocks', items: [
+            { title: 'Paragraph', format: 'p' },
+            { title: 'Blockquote', format: 'blockquote' },
+            { title: 'Div', format: 'div' },
+            { title: 'Pre', format: 'pre' }
+          ]
+        },
+
+        {
+          title: 'Alignment', items: [
+            { title: 'Left', icon: 'alignleft', format: 'alignleft' },
+            { title: 'Center', icon: 'aligncenter', format: 'aligncenter' },
+            { title: 'Right', icon: 'alignright', format: 'alignright' },
+            { title: 'Justify', icon: 'alignjustify', format: 'alignjustify' }
+          ]
+        }
+      ];
+
+      var createMenu = function (formats) {
+        var menu = [];
+
+        if (!formats) {
+          return;
+        }
+
+        Tools.each(formats, function (format) {
+          var menuItem = {
+            text: format.title,
+            icon: format.icon
+          };
+
+          if (format.items) {
+            menuItem.menu = createMenu(format.items);
+          } else {
+            var formatName = format.format || "custom" + count++;
+
+            if (!format.format) {
+              format.name = formatName;
+              newFormats.push(format);
+            }
+
+            menuItem.format = formatName;
+            menuItem.cmd = format.cmd;
+          }
+
+          menu.push(menuItem);
+        });
+
+        return menu;
+      };
+
+      var createStylesMenu = function () {
+        var menu;
+
+        if (editor.settings.style_formats_merge) {
+          if (editor.settings.style_formats) {
+            menu = createMenu(defaultStyleFormats.concat(editor.settings.style_formats));
+          } else {
+            menu = createMenu(defaultStyleFormats);
+          }
+        } else {
+          menu = createMenu(editor.settings.style_formats || defaultStyleFormats);
+        }
+
+        return menu;
+      };
+
+      editor.on('init', function () {
+        Tools.each(newFormats, function (format) {
+          editor.formatter.register(format.name, format);
+        });
+      });
+
+      return {
+        type: 'menu',
+        items: createStylesMenu(),
+        onPostRender: function (e) {
+          editor.fire('renderFormatsMenu', { control: e.control });
+        },
+        itemDefaults: {
+          preview: true,
+
+          textStyle: function () {
+            if (this.settings.format) {
+              return editor.formatter.getCssText(this.settings.format);
+            }
+          },
+
+          onPostRender: function () {
+            var self = this;
+
+            self.parent().on('show', function () {
+              var formatName, command;
+
+              formatName = self.settings.format;
+              if (formatName) {
+                self.disabled(!editor.formatter.canApply(formatName));
+                self.active(editor.formatter.match(formatName));
+              }
+
+              command = self.settings.cmd;
+              if (command) {
+                self.active(editor.queryCommandState(command));
+              }
+            });
+          },
+
+          onclick: function () {
+            if (this.settings.format) {
+              FormatUtils.toggleFormat(editor, this.settings.format)();
+            }
+
+            if (this.settings.cmd) {
+              editor.execCommand(this.settings.cmd);
+            }
+          }
+        }
+      };
+    };
+
+    var registerMenuItems = function (editor, formatMenu) {
+      editor.addMenuItem('formats', {
+        text: 'Formats',
+        menu: formatMenu
+      });
+    };
+
+    var registerButtons = function (editor, formatMenu) {
+      editor.addButton('styleselect', {
+        type: 'menubutton',
+        text: 'Formats',
+        menu: formatMenu,
+        onShowMenu: function () {
+          if (editor.settings.style_formats_autohide) {
+            hideFormatMenuItems(editor, this.menu);
+          }
+        }
+      });
+    };
+
+    var register = function (editor) {
+      var formatMenu = createFormatMenu(editor);
+
+      registerMenuItems(editor, formatMenu);
+      registerButtons(editor, formatMenu);
+    };
+
+    return {
+      register: register
+    };
+  }
+);
+
+/**
+ * InsertButton.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2017 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+define(
+  'tinymce.ui.editorui.InsertButton',
+  [
+    'ephox.katamari.api.Arr',
+    'tinymce.core.util.Tools'
+  ],
+  function (Arr, Tools) {
+    var createCustomMenuItems = function (editor, names) {
+      var items, nameList;
+
+      if (typeof names === 'string') {
+        nameList = names.split(' ');
+      } else if (Tools.isArray(names)) {
+        return Arr.flatten(Tools.map(names, function (names) {
+          return createCustomMenuItems(editor, names);
+        }));
+      }
+
+      items = Tools.grep(nameList, function (name) {
+        return name === '|' || name in editor.menuItems;
+      });
+
+      return Tools.map(items, function (name) {
+        return name === '|' ? { text: '-' } : editor.menuItems[name];
+      });
+    };
+
+    var isSeparator = function (menuItem) {
+      return menuItem && menuItem.text === '-';
+    };
+
+    var trimMenuItems = function (menuItems) {
+      var menuItems2 = Arr.filter(menuItems, function (menuItem, i, menuItems) {
+        return !isSeparator(menuItem) || !isSeparator(menuItems[i - 1]);
+      });
+
+      return Arr.filter(menuItems2, function (menuItem, i, menuItems) {
+        return !isSeparator(menuItem) || i > 0 && i < menuItems.length - 1;
+      });
+    };
+
+    var createContextMenuItems = function (editor, context) {
+      var outputMenuItems = [{ text: '-' }];
+      var menuItems = Tools.grep(editor.menuItems, function (menuItem) {
+        return menuItem.context === context;
+      });
+
+      Tools.each(menuItems, function (menuItem) {
+        if (menuItem.separator === 'before') {
+          outputMenuItems.push({ text: '|' });
+        }
+
+        if (menuItem.prependToContext) {
+          outputMenuItems.unshift(menuItem);
+        } else {
+          outputMenuItems.push(menuItem);
+        }
+
+        if (menuItem.separator === 'after') {
+          outputMenuItems.push({ text: '|' });
+        }
+      });
+
+      return outputMenuItems;
+    };
+
+    var createInsertMenu = function (editor) {
+      var insertButtonItems = editor.settings.insert_button_items;
+
+      if (insertButtonItems) {
+        return trimMenuItems(createCustomMenuItems(editor, insertButtonItems));
+      } else {
+        return trimMenuItems(createContextMenuItems(editor, 'insert'));
+      }
+    };
+
+    var registerButtons = function (editor) {
+      editor.addButton('insert', {
+        type: 'menubutton',
+        icon: 'insert',
+        menu: [],
+        oncreatemenu: function () {
+          this.menu.add(createInsertMenu(editor));
+          this.menu.renderNew();
+        }
+      });
+    };
+
+    var register = function (editor) {
+      registerButtons(editor);
+    };
+
+    return {
+      register: register
+    };
+  }
+);
+
+/**
+ * SimpleControls.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2017 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+define(
+  'tinymce.ui.editorui.SimpleControls',
+  [
+    'tinymce.core.util.Tools',
+    'tinymce.ui.editorui.FormatUtils'
+  ],
+  function (Tools, FormatUtils) {
+    var registerFormatButtons = function (editor) {
+      Tools.each({
+        bold: 'Bold',
+        italic: 'Italic',
+        underline: 'Underline',
+        strikethrough: 'Strikethrough',
+        subscript: 'Subscript',
+        superscript: 'Superscript'
+      }, function (text, name) {
+        editor.addButton(name, {
+          tooltip: text,
+          onPostRender: FormatUtils.postRenderFormat(editor, name),
+          onclick: FormatUtils.toggleFormat(editor, name)
+        });
+      });
+    };
+
+    var registerCommandButtons = function (editor) {
+      Tools.each({
+        outdent: ['Decrease indent', 'Outdent'],
+        indent: ['Increase indent', 'Indent'],
+        cut: ['Cut', 'Cut'],
+        copy: ['Copy', 'Copy'],
+        paste: ['Paste', 'Paste'],
+        help: ['Help', 'mceHelp'],
+        selectall: ['Select all', 'SelectAll'],
+        visualaid: ['Visual aids', 'mceToggleVisualAid'],
+        newdocument: ['New document', 'mceNewDocument'],
+        removeformat: ['Clear formatting', 'RemoveFormat'],
+        remove: ['Remove', 'Delete']
+      }, function (item, name) {
+        editor.addButton(name, {
+          tooltip: item[0],
+          cmd: item[1]
+        });
+      });
+    };
+
+    var registerCommandToggleButtons = function (editor) {
+      Tools.each({
+        blockquote: ['Blockquote', 'mceBlockQuote'],
+        subscript: ['Subscript', 'Subscript'],
+        superscript: ['Superscript', 'Superscript']
+      }, function (item, name) {
+        editor.addButton(name, {
+          tooltip: item[0],
+          cmd: item[1],
+          onPostRender: FormatUtils.postRenderFormat(editor, name)
+        });
+      });
+    };
+
+    var registerButtons = function (editor) {
+      registerFormatButtons(editor);
+      registerCommandButtons(editor);
+      registerCommandToggleButtons(editor);
+    };
+
+    var registerMenuItems = function (editor) {
+      Tools.each({
+        bold: ['Bold', 'Bold', 'Meta+B'],
+        italic: ['Italic', 'Italic', 'Meta+I'],
+        underline: ['Underline', 'Underline', 'Meta+U'],
+        strikethrough: ['Strikethrough', 'Strikethrough'],
+        subscript: ['Subscript', 'Subscript'],
+        superscript: ['Superscript', 'Superscript'],
+        removeformat: ['Clear formatting', 'RemoveFormat'],
+        newdocument: ['New document', 'mceNewDocument'],
+        cut: ['Cut', 'Cut', 'Meta+X'],
+        copy: ['Copy', 'Copy', 'Meta+C'],
+        paste: ['Paste', 'Paste', 'Meta+V'],
+        selectall: ['Select all', 'SelectAll', 'Meta+A']
+      }, function (item, name) {
+        editor.addMenuItem(name, {
+          text: item[0],
+          icon: name,
+          shortcut: item[2],
+          cmd: item[1]
+        });
+      });
+
+      editor.addMenuItem('codeformat', {
+        text: 'Code',
+        icon: 'code',
+        onclick: FormatUtils.toggleFormat(editor, 'code')
+      });
+    };
+
+    var register = function (editor) {
+      registerButtons(editor);
+      registerMenuItems(editor);
+    };
+
+    return {
+      register: register
+    };
+  }
+);
+
+/**
+ * UndoRedo.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2017 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+define(
+  'tinymce.ui.editorui.UndoRedo',
+  [
+  ],
+  function () {
+    var toggleUndoRedoState = function (editor, type) {
+      return function () {
+        var self = this;
+
+        var checkState = function () {
+          var typeFn = type === 'redo' ? 'hasRedo' : 'hasUndo';
+          return editor.undoManager ? editor.undoManager[typeFn]() : false;
+        };
+
+        self.disabled(!checkState());
+        editor.on('Undo Redo AddUndo TypingUndo ClearUndos SwitchMode', function () {
+          self.disabled(editor.readonly || !checkState());
+        });
+      };
+    };
+
+    var registerMenuItems = function (editor) {
+      editor.addMenuItem('undo', {
+        text: 'Undo',
+        icon: 'undo',
+        shortcut: 'Meta+Z',
+        onPostRender: toggleUndoRedoState(editor, 'undo'),
+        cmd: 'undo'
+      });
+
+      editor.addMenuItem('redo', {
+        text: 'Redo',
+        icon: 'redo',
+        shortcut: 'Meta+Y',
+        onPostRender: toggleUndoRedoState(editor, 'redo'),
+        cmd: 'redo'
+      });
+    };
+
+    var registerButtons = function (editor) {
+      editor.addButton('undo', {
+        tooltip: 'Undo',
+        onPostRender: toggleUndoRedoState(editor, 'undo'),
+        cmd: 'undo'
+      });
+
+      editor.addButton('redo', {
+        tooltip: 'Redo',
+        onPostRender: toggleUndoRedoState(editor, 'redo'),
+        cmd: 'redo'
+      });
+    };
+
+    var register = function (editor) {
+      registerMenuItems(editor);
+      registerButtons(editor);
+    };
+
+    return {
+      register: register
+    };
+  }
+);
+
+/**
+ * VisualAid.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2017 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+define(
+  'tinymce.ui.editorui.VisualAid',
+  [
+  ],
+  function () {
+    var toggleVisualAidState = function (editor) {
+      return function () {
+        var self = this;
+
+        editor.on('VisualAid', function (e) {
+          self.active(e.hasVisual);
+        });
+
+        self.active(editor.hasVisual);
+      };
+    };
+
+    var registerMenuItems = function (editor) {
+      editor.addMenuItem('visualaid', {
+        text: 'Visual aids',
+        selectable: true,
+        onPostRender: toggleVisualAidState(editor),
+        cmd: 'mceToggleVisualAid'
+      });
+    };
+
+    var register = function (editor) {
+      registerMenuItems(editor);
+    };
+
+    return {
+      register: register
+    };
+  }
+);
+
+/**
+ * FormatControls.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2017 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+define(
+  'tinymce.ui.FormatControls',
+  [
+    'ephox.katamari.api.Fun',
+    'ephox.sugar.api.node.Element',
+    'ephox.sugar.api.search.SelectorFind',
+    'global!document',
+    'tinymce.core.EditorManager',
+    'tinymce.core.Env',
+    'tinymce.ui.Control',
+    'tinymce.ui.FloatPanel',
+    'tinymce.ui.Widget',
+    'tinymce.ui.editorui.Align',
+    'tinymce.ui.editorui.FontSelect',
+    'tinymce.ui.editorui.FontSizeSelect',
+    'tinymce.ui.editorui.FormatSelect',
+    'tinymce.ui.editorui.Formats',
+    'tinymce.ui.editorui.InsertButton',
+    'tinymce.ui.editorui.SimpleControls',
+    'tinymce.ui.editorui.UndoRedo',
+    'tinymce.ui.editorui.VisualAid'
+  ],
+  function (
+    Fun, Element, SelectorFind, document, EditorManager, Env, Control, FloatPanel, Widget, Align, FontSelect, FontSizeSelect, FormatSelect, Formats, InsertButton,
+    SimpleControls, UndoRedo, VisualAid
+  ) {
+    var setupEnvironment = function () {
+      Widget.tooltips = !Env.iOS;
+
+      Control.translate = function (text) {
+        return EditorManager.translate(text);
+      };
+    };
+
+    var setupUiContainer = function (editor) {
+      if (editor.settings.ui_container) {
+        Env.container = SelectorFind.descendant(Element.fromDom(document.body), editor.settings.ui_container).fold(Fun.constant(null), function (elm) {
+          return elm.dom();
+        });
+      }
+    };
+
+    var setupRtlMode = function (editor) {
+      if (editor.rtl) {
+        Control.rtl = true;
+      }
+    };
+
+    var setupHideFloatPanels = function (editor) {
+      editor.on('mousedown', function () {
+        FloatPanel.hideAll();
+      });
+    };
+
+    var setup = function (editor) {
+      setupRtlMode(editor);
+      setupHideFloatPanels(editor);
+      setupUiContainer(editor);
+      setupEnvironment(editor);
+
+      FormatSelect.register(editor);
+      Align.register(editor);
+      SimpleControls.register(editor);
+      UndoRedo.register(editor);
+      FontSizeSelect.register(editor);
+      FontSelect.register(editor);
+      Formats.register(editor);
+      VisualAid.register(editor);
+      InsertButton.register(editor);
+    };
+
+    return {
+      setup: setup
+    };
+  }
+);
+
+/**
+ * GridLayout.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2017 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+/**
+ * This layout manager places controls in a grid.
+ *
+ * @setting {Number} spacing Spacing between controls.
+ * @setting {Number} spacingH Horizontal spacing between controls.
+ * @setting {Number} spacingV Vertical spacing between controls.
+ * @setting {Number} columns Number of columns to use.
+ * @setting {String/Array} alignH start|end|center|stretch or array of values for each column.
+ * @setting {String/Array} alignV start|end|center|stretch or array of values for each column.
+ * @setting {String} pack start|end
+ *
+ * @class tinymce.ui.GridLayout
+ * @extends tinymce.ui.AbsoluteLayout
+ */
+define(
+  'tinymce.ui.GridLayout',
+  [
+    "tinymce.ui.AbsoluteLayout"
+  ],
+  function (AbsoluteLayout) {
+    "use strict";
+
+    return AbsoluteLayout.extend({
+      /**
+       * Recalculates the positions of the controls in the specified container.
+       *
+       * @method recalc
+       * @param {tinymce.ui.Container} container Container instance to recalc.
+       */
+      recalc: function (container) {
+        var settings, rows, cols, items, contLayoutRect, width, height, rect,
+          ctrlLayoutRect, ctrl, x, y, posX, posY, ctrlSettings, contPaddingBox, align, spacingH, spacingV, alignH, alignV, maxX, maxY,
+          colWidths = [], rowHeights = [], ctrlMinWidth, ctrlMinHeight, availableWidth, availableHeight, reverseRows, idx;
+
+        // Get layout settings
+        settings = container.settings;
+        items = container.items().filter(':visible');
+        contLayoutRect = container.layoutRect();
+        cols = settings.columns || Math.ceil(Math.sqrt(items.length));
+        rows = Math.ceil(items.length / cols);
+        spacingH = settings.spacingH || settings.spacing || 0;
+        spacingV = settings.spacingV || settings.spacing || 0;
+        alignH = settings.alignH || settings.align;
+        alignV = settings.alignV || settings.align;
+        contPaddingBox = container.paddingBox;
+        reverseRows = 'reverseRows' in settings ? settings.reverseRows : container.isRtl();
+
+        if (alignH && typeof alignH == "string") {
+          alignH = [alignH];
+        }
+
+        if (alignV && typeof alignV == "string") {
+          alignV = [alignV];
+        }
+
+        // Zero padd columnWidths
+        for (x = 0; x < cols; x++) {
+          colWidths.push(0);
+        }
+
+        // Zero padd rowHeights
+        for (y = 0; y < rows; y++) {
+          rowHeights.push(0);
+        }
+
+        // Calculate columnWidths and rowHeights
+        for (y = 0; y < rows; y++) {
+          for (x = 0; x < cols; x++) {
+            ctrl = items[y * cols + x];
+
+            // Out of bounds
+            if (!ctrl) {
+              break;
+            }
+
+            ctrlLayoutRect = ctrl.layoutRect();
+            ctrlMinWidth = ctrlLayoutRect.minW;
+            ctrlMinHeight = ctrlLayoutRect.minH;
+
+            colWidths[x] = ctrlMinWidth > colWidths[x] ? ctrlMinWidth : colWidths[x];
+            rowHeights[y] = ctrlMinHeight > rowHeights[y] ? ctrlMinHeight : rowHeights[y];
+          }
+        }
+
+        // Calculate maxX
+        availableWidth = contLayoutRect.innerW - contPaddingBox.left - contPaddingBox.right;
+        for (maxX = 0, x = 0; x < cols; x++) {
+          maxX += colWidths[x] + (x > 0 ? spacingH : 0);
+          availableWidth -= (x > 0 ? spacingH : 0) + colWidths[x];
+        }
+
+        // Calculate maxY
+        availableHeight = contLayoutRect.innerH - contPaddingBox.top - contPaddingBox.bottom;
+        for (maxY = 0, y = 0; y < rows; y++) {
+          maxY += rowHeights[y] + (y > 0 ? spacingV : 0);
+          availableHeight -= (y > 0 ? spacingV : 0) + rowHeights[y];
+        }
+
+        maxX += contPaddingBox.left + contPaddingBox.right;
+        maxY += contPaddingBox.top + contPaddingBox.bottom;
+
+        // Calculate minW/minH
+        rect = {};
+        rect.minW = maxX + (contLayoutRect.w - contLayoutRect.innerW);
+        rect.minH = maxY + (contLayoutRect.h - contLayoutRect.innerH);
+
+        rect.contentW = rect.minW - contLayoutRect.deltaW;
+        rect.contentH = rect.minH - contLayoutRect.deltaH;
+        rect.minW = Math.min(rect.minW, contLayoutRect.maxW);
+        rect.minH = Math.min(rect.minH, contLayoutRect.maxH);
+        rect.minW = Math.max(rect.minW, contLayoutRect.startMinWidth);
+        rect.minH = Math.max(rect.minH, contLayoutRect.startMinHeight);
+
+        // Resize container container if minSize was changed
+        if (contLayoutRect.autoResize && (rect.minW != contLayoutRect.minW || rect.minH != contLayoutRect.minH)) {
+          rect.w = rect.minW;
+          rect.h = rect.minH;
+
+          container.layoutRect(rect);
+          this.recalc(container);
+
+          // Forced recalc for example if items are hidden/shown
+          if (container._lastRect === null) {
+            var parentCtrl = container.parent();
+            if (parentCtrl) {
+              parentCtrl._lastRect = null;
+              parentCtrl.recalc();
+            }
+          }
+
+          return;
+        }
+
+        // Update contentW/contentH so absEnd moves correctly
+        if (contLayoutRect.autoResize) {
+          rect = container.layoutRect(rect);
+          rect.contentW = rect.minW - contLayoutRect.deltaW;
+          rect.contentH = rect.minH - contLayoutRect.deltaH;
+        }
+
+        var flexV;
+
+        if (settings.packV == 'start') {
+          flexV = 0;
+        } else {
+          flexV = availableHeight > 0 ? Math.floor(availableHeight / rows) : 0;
+        }
+
+        // Calculate totalFlex
+        var totalFlex = 0;
+        var flexWidths = settings.flexWidths;
+        if (flexWidths) {
+          for (x = 0; x < flexWidths.length; x++) {
+            totalFlex += flexWidths[x];
+          }
+        } else {
+          totalFlex = cols;
+        }
+
+        // Calculate new column widths based on flex values
+        var ratio = availableWidth / totalFlex;
+        for (x = 0; x < cols; x++) {
+          colWidths[x] += flexWidths ? flexWidths[x] * ratio : ratio;
+        }
+
+        // Move/resize controls
+        posY = contPaddingBox.top;
+        for (y = 0; y < rows; y++) {
+          posX = contPaddingBox.left;
+          height = rowHeights[y] + flexV;
+
+          for (x = 0; x < cols; x++) {
+            if (reverseRows) {
+              idx = y * cols + cols - 1 - x;
+            } else {
+              idx = y * cols + x;
+            }
+
+            ctrl = items[idx];
+
+            // No more controls to render then break
+            if (!ctrl) {
+              break;
+            }
+
+            // Get control settings and calculate x, y
+            ctrlSettings = ctrl.settings;
+            ctrlLayoutRect = ctrl.layoutRect();
+            width = Math.max(colWidths[x], ctrlLayoutRect.startMinWidth);
+            ctrlLayoutRect.x = posX;
+            ctrlLayoutRect.y = posY;
+
+            // Align control horizontal
+            align = ctrlSettings.alignH || (alignH ? (alignH[x] || alignH[0]) : null);
+            if (align == "center") {
+              ctrlLayoutRect.x = posX + (width / 2) - (ctrlLayoutRect.w / 2);
+            } else if (align == "right") {
+              ctrlLayoutRect.x = posX + width - ctrlLayoutRect.w;
+            } else if (align == "stretch") {
+              ctrlLayoutRect.w = width;
+            }
+
+            // Align control vertical
+            align = ctrlSettings.alignV || (alignV ? (alignV[x] || alignV[0]) : null);
+            if (align == "center") {
+              ctrlLayoutRect.y = posY + (height / 2) - (ctrlLayoutRect.h / 2);
+            } else if (align == "bottom") {
+              ctrlLayoutRect.y = posY + height - ctrlLayoutRect.h;
+            } else if (align == "stretch") {
+              ctrlLayoutRect.h = height;
+            }
+
+            ctrl.layoutRect(ctrlLayoutRect);
+
+            posX += width + spacingH;
+
+            if (ctrl.recalc) {
+              ctrl.recalc();
+            }
+          }
+
+          posY += height + spacingV;
+        }
+      }
+    });
+  }
+);
+
+/**
+ * Iframe.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2017 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+/*jshint scripturl:true */
+
+/**
+ * This class creates an iframe.
+ *
+ * @setting {String} url Url to open in the iframe.
+ *
+ * @-x-less Iframe.less
+ * @class tinymce.ui.Iframe
+ * @extends tinymce.ui.Widget
+ */
+define(
+  'tinymce.ui.Iframe',
+  [
+    "tinymce.ui.Widget",
+    "tinymce.core.util.Delay"
+  ],
+  function (Widget, Delay) {
+    "use strict";
+
+    return Widget.extend({
+      /**
+       * Renders the control as a HTML string.
+       *
+       * @method renderHtml
+       * @return {String} HTML representing the control.
+       */
+      renderHtml: function () {
+        var self = this;
+
+        self.classes.add('iframe');
+        self.canFocus = false;
+
+        /*eslint no-script-url:0 */
+        return (
+          '<iframe id="' + self._id + '" class="' + self.classes + '" tabindex="-1" src="' +
+          (self.settings.url || "javascript:''") + '" frameborder="0"></iframe>'
+        );
+      },
+
+      /**
+       * Setter for the iframe source.
+       *
+       * @method src
+       * @param {String} src Source URL for iframe.
+       */
+      src: function (src) {
+        this.getEl().src = src;
+      },
+
+      /**
+       * Inner HTML for the iframe.
+       *
+       * @method html
+       * @param {String} html HTML string to set as HTML inside the iframe.
+       * @param {function} callback Optional callback to execute when the iframe body is filled with contents.
+       * @return {tinymce.ui.Iframe} Current iframe control.
+       */
+      html: function (html, callback) {
+        var self = this, body = this.getEl().contentWindow.document.body;
+
+        // Wait for iframe to initialize IE 10 takes time
+        if (!body) {
+          Delay.setTimeout(function () {
+            self.html(html);
+          });
+        } else {
+          body.innerHTML = html;
+
+          if (callback) {
+            callback();
+          }
+        }
+
+        return this;
+      }
+    });
+  }
+);
+
+/**
+ * InfoBox.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2017 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+/**
+ * ....
+ *
+ * @-x-less InfoBox.less
+ * @class tinymce.ui.InfoBox
+ * @extends tinymce.ui.Widget
+ */
+define(
+  'tinymce.ui.InfoBox',
+  [
+    "tinymce.ui.Widget"
+  ],
+  function (Widget) {
+    "use strict";
+
+    return Widget.extend({
+      /**
+       * Constructs a instance with the specified settings.
+       *
+       * @constructor
+       * @param {Object} settings Name/value object with settings.
+       * @setting {Boolean} multiline Multiline label.
+       */
+      init: function (settings) {
+        var self = this;
+
+        self._super(settings);
+        self.classes.add('widget').add('infobox');
+        self.canFocus = false;
+      },
+
+      severity: function (level) {
+        this.classes.remove('error');
+        this.classes.remove('warning');
+        this.classes.remove('success');
+        this.classes.add(level);
+      },
+
+      help: function (state) {
+        this.state.set('help', state);
+      },
+
+      /**
+       * Renders the control as a HTML string.
+       *
+       * @method renderHtml
+       * @return {String} HTML representing the control.
+       */
+      renderHtml: function () {
+        var self = this, prefix = self.classPrefix;
+
+        return (
+          '<div id="' + self._id + '" class="' + self.classes + '">' +
+          '<div id="' + self._id + '-body">' +
+          self.encode(self.state.get('text')) +
+          '<button role="button" tabindex="-1">' +
+          '<i class="' + prefix + 'ico ' + prefix + 'i-help"></i>' +
+          '</button>' +
+          '</div>' +
+          '</div>'
+        );
+      },
+
+      bindStates: function () {
+        var self = this;
+
+        self.state.on('change:text', function (e) {
+          self.getEl('body').firstChild.data = self.encode(e.value);
+
+          if (self.state.get('rendered')) {
+            self.updateLayoutRect();
+          }
+        });
+
+        self.state.on('change:help', function (e) {
+          self.classes.toggle('has-help', e.value);
+
+          if (self.state.get('rendered')) {
+            self.updateLayoutRect();
+          }
+        });
+
+        return self._super();
+      }
+    });
+  }
+);
+
+/**
+ * Label.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2017 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+/**
+ * This class creates a label element. A label is a simple text control
+ * that can be bound to other controls.
+ *
+ * @-x-less Label.less
+ * @class tinymce.ui.Label
+ * @extends tinymce.ui.Widget
+ */
+define(
+  'tinymce.ui.Label',
+  [
+    "tinymce.ui.Widget",
+    "tinymce.ui.DomUtils"
+  ],
+  function (Widget, DomUtils) {
+    "use strict";
+
+    return Widget.extend({
+      /**
+       * Constructs a instance with the specified settings.
+       *
+       * @constructor
+       * @param {Object} settings Name/value object with settings.
+       * @setting {Boolean} multiline Multiline label.
+       */
+      init: function (settings) {
+        var self = this;
+
+        self._super(settings);
+        self.classes.add('widget').add('label');
+        self.canFocus = false;
+
+        if (settings.multiline) {
+          self.classes.add('autoscroll');
+        }
+
+        if (settings.strong) {
+          self.classes.add('strong');
+        }
+      },
+
+      /**
+       * Initializes the current controls layout rect.
+       * This will be executed by the layout managers to determine the
+       * default minWidth/minHeight etc.
+       *
+       * @method initLayoutRect
+       * @return {Object} Layout rect instance.
+       */
+      initLayoutRect: function () {
+        var self = this, layoutRect = self._super();
+
+        if (self.settings.multiline) {
+          var size = DomUtils.getSize(self.getEl());
+
+          // Check if the text fits within maxW if not then try word wrapping it
+          if (size.width > layoutRect.maxW) {
+            layoutRect.minW = layoutRect.maxW;
+            self.classes.add('multiline');
+          }
+
+          self.getEl().style.width = layoutRect.minW + 'px';
+          layoutRect.startMinH = layoutRect.h = layoutRect.minH = Math.min(layoutRect.maxH, DomUtils.getSize(self.getEl()).height);
+        }
+
+        return layoutRect;
+      },
+
+      /**
+       * Repaints the control after a layout operation.
+       *
+       * @method repaint
+       */
+      repaint: function () {
+        var self = this;
+
+        if (!self.settings.multiline) {
+          self.getEl().style.lineHeight = self.layoutRect().h + 'px';
+        }
+
+        return self._super();
+      },
+
+      severity: function (level) {
+        this.classes.remove('error');
+        this.classes.remove('warning');
+        this.classes.remove('success');
+        this.classes.add(level);
+      },
+
+      /**
+       * Renders the control as a HTML string.
+       *
+       * @method renderHtml
+       * @return {String} HTML representing the control.
+       */
+      renderHtml: function () {
+        var self = this, targetCtrl, forName, forId = self.settings.forId;
+        var text = self.settings.html ? self.settings.html : self.encode(self.state.get('text'));
+
+        if (!forId && (forName = self.settings.forName)) {
+          targetCtrl = self.getRoot().find('#' + forName)[0];
+
+          if (targetCtrl) {
+            forId = targetCtrl._id;
+          }
+        }
+
+        if (forId) {
+          return (
+            '<label id="' + self._id + '" class="' + self.classes + '"' + (forId ? ' for="' + forId + '"' : '') + '>' +
+            text +
+            '</label>'
+          );
+        }
+
+        return (
+          '<span id="' + self._id + '" class="' + self.classes + '">' +
+          text +
+          '</span>'
+        );
+      },
+
+      bindStates: function () {
+        var self = this;
+
+        self.state.on('change:text', function (e) {
+          self.innerHtml(self.encode(e.value));
+
+          if (self.state.get('rendered')) {
+            self.updateLayoutRect();
+          }
+        });
+
+        return self._super();
+      }
+    });
+  }
+);
+
+/**
+ * Toolbar.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2017 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+/**
+ * Creates a new toolbar.
+ *
+ * @class tinymce.ui.Toolbar
+ * @extends tinymce.ui.Container
+ */
+define(
+  'tinymce.ui.Toolbar',
+  [
+    "tinymce.ui.Container"
+  ],
+  function (Container) {
+    "use strict";
+
+    return Container.extend({
+      Defaults: {
+        role: 'toolbar',
+        layout: 'flow'
+      },
+
+      /**
+       * Constructs a instance with the specified settings.
+       *
+       * @constructor
+       * @param {Object} settings Name/value object with settings.
+       */
+      init: function (settings) {
+        var self = this;
+
+        self._super(settings);
+        self.classes.add('toolbar');
+      },
+
+      /**
+       * Called after the control has been rendered.
+       *
+       * @method postRender
+       */
+      postRender: function () {
+        var self = this;
+
+        self.items().each(function (ctrl) {
+          ctrl.classes.add('toolbar-item');
+        });
+
+        return self._super();
+      }
+    });
+  }
+);
+/**
+ * MenuBar.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2017 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+/**
+ * Creates a new menubar.
+ *
+ * @-x-less MenuBar.less
+ * @class tinymce.ui.MenuBar
+ * @extends tinymce.ui.Container
+ */
+define(
+  'tinymce.ui.MenuBar',
+  [
+    "tinymce.ui.Toolbar"
+  ],
+  function (Toolbar) {
+    "use strict";
+
+    return Toolbar.extend({
+      Defaults: {
+        role: 'menubar',
+        containerCls: 'menubar',
+        ariaRoot: true,
+        defaults: {
+          type: 'menubutton'
+        }
+      }
+    });
+  }
+);
+/**
+ * MenuButton.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2017 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+/**
+ * Creates a new menu button.
+ *
+ * @-x-less MenuButton.less
+ * @class tinymce.ui.MenuButton
+ * @extends tinymce.ui.Button
+ */
+define(
+  'tinymce.ui.MenuButton',
+  [
+    'global!window',
+    'tinymce.core.ui.Factory',
+    'tinymce.ui.Button',
+    'tinymce.ui.MenuBar'
+  ],
+  function (window, Factory, Button, MenuBar) {
+    "use strict";
+
+    // TODO: Maybe add as some global function
+    function isChildOf(node, parent) {
+      while (node) {
+        if (parent === node) {
+          return true;
+        }
+
+        node = node.parentNode;
+      }
+
+      return false;
+    }
+
+    var MenuButton = Button.extend({
+      /**
+       * Constructs a instance with the specified settings.
+       *
+       * @constructor
+       * @param {Object} settings Name/value object with settings.
+       */
+      init: function (settings) {
+        var self = this;
+
+        self._renderOpen = true;
+
+        self._super(settings);
+        settings = self.settings;
+
+        self.classes.add('menubtn');
+
+        if (settings.fixedWidth) {
+          self.classes.add('fixed-width');
+        }
+
+        self.aria('haspopup', true);
+
+        self.state.set('menu', settings.menu || self.render());
+      },
+
+      /**
+       * Shows the menu for the button.
+       *
+       * @method showMenu
+       */
+      showMenu: function (toggle) {
+        var self = this, menu;
+
+        if (self.menu && self.menu.visible() && toggle !== false) {
+          return self.hideMenu();
+        }
+
+        if (!self.menu) {
+          menu = self.state.get('menu') || [];
+          self.classes.add('opened');
+
+          // Is menu array then auto constuct menu control
+          if (menu.length) {
+            menu = {
+              type: 'menu',
+              animate: true,
+              items: menu
+            };
+          } else {
+            menu.type = menu.type || 'menu';
+            menu.animate = true;
+          }
+
+          if (!menu.renderTo) {
+            self.menu = Factory.create(menu).parent(self).renderTo();
+          } else {
+            self.menu = menu.parent(self).show().renderTo();
+          }
+
+          self.fire('createmenu');
+          self.menu.reflow();
+          self.menu.on('cancel', function (e) {
+            if (e.control.parent() === self.menu) {
+              e.stopPropagation();
+              self.focus();
+              self.hideMenu();
+            }
+          });
+
+          // Move focus to button when a menu item is selected/clicked
+          self.menu.on('select', function () {
+            self.focus();
+          });
+
+          self.menu.on('show hide', function (e) {
+            if (e.control === self.menu) {
+              self.activeMenu(e.type == 'show');
+              self.classes.toggle('opened', e.type == 'show');
+            }
+
+            self.aria('expanded', e.type == 'show');
+          }).fire('show');
+        }
+
+        self.menu.show();
+        self.menu.layoutRect({ w: self.layoutRect().w });
+        self.menu.moveRel(self.getEl(), self.isRtl() ? ['br-tr', 'tr-br'] : ['bl-tl', 'tl-bl']);
+        self.fire('showmenu');
+      },
+
+      /**
+       * Hides the menu for the button.
+       *
+       * @method hideMenu
+       */
+      hideMenu: function () {
+        var self = this;
+
+        if (self.menu) {
+          self.menu.items().each(function (item) {
+            if (item.hideMenu) {
+              item.hideMenu();
+            }
+          });
+
+          self.menu.hide();
+        }
+      },
+
+      /**
+       * Sets the active menu state.
+       *
+       * @private
+       */
+      activeMenu: function (state) {
+        this.classes.toggle('active', state);
+      },
+
+      /**
+       * Renders the control as a HTML string.
+       *
+       * @method renderHtml
+       * @return {String} HTML representing the control.
+       */
+      renderHtml: function () {
+        var self = this, id = self._id, prefix = self.classPrefix;
+        var icon = self.settings.icon, image, text = self.state.get('text'),
+          textHtml = '';
+
+        image = self.settings.image;
+        if (image) {
+          icon = 'none';
+
+          // Support for [high dpi, low dpi] image sources
+          if (typeof image != "string") {
+            image = window.getSelection ? image[0] : image[1];
+          }
+
+          image = ' style="background-image: url(\'' + image + '\')"';
+        } else {
+          image = '';
+        }
+
+        if (text) {
+          self.classes.add('btn-has-text');
+          textHtml = '<span class="' + prefix + 'txt">' + self.encode(text) + '</span>';
+        }
+
+        icon = self.settings.icon ? prefix + 'ico ' + prefix + 'i-' + icon : '';
+
+        self.aria('role', self.parent() instanceof MenuBar ? 'menuitem' : 'button');
+
+        return (
+          '<div id="' + id + '" class="' + self.classes + '" tabindex="-1" aria-labelledby="' + id + '">' +
+          '<button id="' + id + '-open" role="presentation" type="button" tabindex="-1">' +
+          (icon ? '<i class="' + icon + '"' + image + '></i>' : '') +
+          textHtml +
+          ' <i class="' + prefix + 'caret"></i>' +
+          '</button>' +
+          '</div>'
+        );
+      },
+
+      /**
+       * Gets invoked after the control has been rendered.
+       *
+       * @method postRender
+       */
+      postRender: function () {
+        var self = this;
+
+        self.on('click', function (e) {
+          if (e.control === self && isChildOf(e.target, self.getEl())) {
+            self.focus();
+            self.showMenu(!e.aria);
+
+            if (e.aria) {
+              self.menu.items().filter(':visible')[0].focus();
+            }
+          }
+        });
+
+        self.on('mouseenter', function (e) {
+          var overCtrl = e.control, parent = self.parent(), hasVisibleSiblingMenu;
+
+          if (overCtrl && parent && overCtrl instanceof MenuButton && overCtrl.parent() == parent) {
+            parent.items().filter('MenuButton').each(function (ctrl) {
+              if (ctrl.hideMenu && ctrl != overCtrl) {
+                if (ctrl.menu && ctrl.menu.visible()) {
+                  hasVisibleSiblingMenu = true;
+                }
+
+                ctrl.hideMenu();
+              }
+            });
+
+            if (hasVisibleSiblingMenu) {
+              overCtrl.focus(); // Fix for: #5887
+              overCtrl.showMenu();
+            }
+          }
+        });
+
+        return self._super();
+      },
+
+      bindStates: function () {
+        var self = this;
+
+        self.state.on('change:menu', function () {
+          if (self.menu) {
+            self.menu.remove();
+          }
+
+          self.menu = null;
+        });
+
+        return self._super();
+      },
+
+      /**
+       * Removes the control and it's menus.
+       *
+       * @method remove
+       */
+      remove: function () {
+        this._super();
+
+        if (this.menu) {
+          this.menu.remove();
+        }
+      }
+    });
+
+    return MenuButton;
+  }
+);
+
+/**
+ * MenuItem.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2017 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+/**
+ * Creates a new menu item.
+ *
+ * @-x-less MenuItem.less
+ * @class tinymce.ui.MenuItem
+ * @extends tinymce.ui.Control
+ */
+define(
+  'tinymce.ui.MenuItem',
+  [
+    "tinymce.ui.Widget",
+    "tinymce.core.ui.Factory",
+    "tinymce.core.Env",
+    "tinymce.core.util.Delay"
+  ],
+  function (Widget, Factory, Env, Delay) {
+    "use strict";
+
+    var toggleTextStyle = function (ctrl, state) {
+      var textStyle = ctrl._textStyle;
+      if (textStyle) {
+        var textElm = ctrl.getEl('text');
+        textElm.setAttribute('style', textStyle);
+
+        if (state) {
+          textElm.style.color = '';
+          textElm.style.backgroundColor = '';
+        }
+      }
+    };
+
+    return Widget.extend({
+      Defaults: {
+        border: 0,
+        role: 'menuitem'
+      },
+
+      /**
+       * Constructs a instance with the specified settings.
+       *
+       * @constructor
+       * @param {Object} settings Name/value object with settings.
+       * @setting {Boolean} selectable Selectable menu.
+       * @setting {Array} menu Submenu array with items.
+       * @setting {String} shortcut Shortcut to display for menu item. Example: Ctrl+X
+       */
+      init: function (settings) {
+        var self = this, text;
+
+        self._super(settings);
+
+        settings = self.settings;
+
+        self.classes.add('menu-item');
+
+        if (settings.menu) {
+          self.classes.add('menu-item-expand');
+        }
+
+        if (settings.preview) {
+          self.classes.add('menu-item-preview');
+        }
+
+        text = self.state.get('text');
+        if (text === '-' || text === '|') {
+          self.classes.add('menu-item-sep');
+          self.aria('role', 'separator');
+          self.state.set('text', '-');
+        }
+
+        if (settings.selectable) {
+          self.aria('role', 'menuitemcheckbox');
+          self.classes.add('menu-item-checkbox');
+          settings.icon = 'selected';
+        }
+
+        if (!settings.preview && !settings.selectable) {
+          self.classes.add('menu-item-normal');
+        }
+
+        self.on('mousedown', function (e) {
+          e.preventDefault();
+        });
+
+        if (settings.menu && !settings.ariaHideMenu) {
+          self.aria('haspopup', true);
+        }
+      },
+
+      /**
+       * Returns true/false if the menuitem has sub menu.
+       *
+       * @method hasMenus
+       * @return {Boolean} True/false state if it has submenu.
+       */
+      hasMenus: function () {
+        return !!this.settings.menu;
+      },
+
+      /**
+       * Shows the menu for the menu item.
+       *
+       * @method showMenu
+       */
+      showMenu: function () {
+        var self = this, settings = self.settings, menu, parent = self.parent();
+
+        parent.items().each(function (ctrl) {
+          if (ctrl !== self) {
+            ctrl.hideMenu();
+          }
+        });
+
+        if (settings.menu) {
+          menu = self.menu;
+
+          if (!menu) {
+            menu = settings.menu;
+
+            // Is menu array then auto constuct menu control
+            if (menu.length) {
+              menu = {
+                type: 'menu',
+                animate: true,
+                items: menu
+              };
+            } else {
+              menu.type = menu.type || 'menu';
+              menu.animate = true;
+            }
+
+            if (parent.settings.itemDefaults) {
+              menu.itemDefaults = parent.settings.itemDefaults;
+            }
+
+            menu = self.menu = Factory.create(menu).parent(self).renderTo();
+            menu.reflow();
+            menu.on('cancel', function (e) {
+              e.stopPropagation();
+              self.focus();
+              menu.hide();
+            });
+            menu.on('show hide', function (e) {
+              if (e.control.items) {
+                e.control.items().each(function (ctrl) {
+                  ctrl.active(ctrl.settings.selected);
+                });
+              }
+            }).fire('show');
+
+            menu.on('hide', function (e) {
+              if (e.control === menu) {
+                self.classes.remove('selected');
+              }
+            });
+
+            menu.submenu = true;
+          } else {
+            menu.show();
+          }
+
+          menu._parentMenu = parent;
+
+          menu.classes.add('menu-sub');
+
+          var rel = menu.testMoveRel(
+            self.getEl(),
+            self.isRtl() ? ['tl-tr', 'bl-br', 'tr-tl', 'br-bl'] : ['tr-tl', 'br-bl', 'tl-tr', 'bl-br']
+          );
+
+          menu.moveRel(self.getEl(), rel);
+          menu.rel = rel;
+
+          rel = 'menu-sub-' + rel;
+          menu.classes.remove(menu._lastRel).add(rel);
+          menu._lastRel = rel;
+
+          self.classes.add('selected');
+          self.aria('expanded', true);
+        }
+      },
+
+      /**
+       * Hides the menu for the menu item.
+       *
+       * @method hideMenu
+       */
+      hideMenu: function () {
+        var self = this;
+
+        if (self.menu) {
+          self.menu.items().each(function (item) {
+            if (item.hideMenu) {
+              item.hideMenu();
+            }
+          });
+
+          self.menu.hide();
+          self.aria('expanded', false);
+        }
+
+        return self;
+      },
+
+      /**
+       * Renders the control as a HTML string.
+       *
+       * @method renderHtml
+       * @return {String} HTML representing the control.
+       */
+      renderHtml: function () {
+        var self = this, id = self._id, settings = self.settings, prefix = self.classPrefix, text = self.state.get('text');
+        var icon = self.settings.icon, image = '', shortcut = settings.shortcut;
+        var url = self.encode(settings.url), iconHtml = '';
+
+        // Converts shortcut format to Mac/PC variants
+        function convertShortcut(shortcut) {
+          var i, value, replace = {};
+
+          if (Env.mac) {
+            replace = {
+              alt: '&#x2325;',
+              ctrl: '&#x2318;',
+              shift: '&#x21E7;',
+              meta: '&#x2318;'
+            };
+          } else {
+            replace = {
+              meta: 'Ctrl'
+            };
+          }
+
+          shortcut = shortcut.split('+');
+
+          for (i = 0; i < shortcut.length; i++) {
+            value = replace[shortcut[i].toLowerCase()];
+
+            if (value) {
+              shortcut[i] = value;
+            }
+          }
+
+          return shortcut.join('+');
+        }
+
+        function escapeRegExp(str) {
+          return str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+        }
+
+        function markMatches(text) {
+          var match = settings.match || '';
+
+          return match ? text.replace(new RegExp(escapeRegExp(match), 'gi'), function (match) {
+            return '!mce~match[' + match + ']mce~match!';
+          }) : text;
+        }
+
+        function boldMatches(text) {
+          return text.
+            replace(new RegExp(escapeRegExp('!mce~match['), 'g'), '<b>').
+            replace(new RegExp(escapeRegExp(']mce~match!'), 'g'), '</b>');
+        }
+
+        if (icon) {
+          self.parent().classes.add('menu-has-icons');
+        }
+
+        if (settings.image) {
+          image = ' style="background-image: url(\'' + settings.image + '\')"';
+        }
+
+        if (shortcut) {
+          shortcut = convertShortcut(shortcut);
+        }
+
+        icon = prefix + 'ico ' + prefix + 'i-' + (self.settings.icon || 'none');
+        iconHtml = (text !== '-' ? '<i class="' + icon + '"' + image + '></i>\u00a0' : '');
+
+        text = boldMatches(self.encode(markMatches(text)));
+        url = boldMatches(self.encode(markMatches(url)));
+
+        return (
+          '<div id="' + id + '" class="' + self.classes + '" tabindex="-1">' +
+          iconHtml +
+          (text !== '-' ? '<span id="' + id + '-text" class="' + prefix + 'text">' + text + '</span>' : '') +
+          (shortcut ? '<div id="' + id + '-shortcut" class="' + prefix + 'menu-shortcut">' + shortcut + '</div>' : '') +
+          (settings.menu ? '<div class="' + prefix + 'caret"></div>' : '') +
+          (url ? '<div class="' + prefix + 'menu-item-link">' + url + '</div>' : '') +
+          '</div>'
+        );
+      },
+
+      /**
+       * Gets invoked after the control has been rendered.
+       *
+       * @method postRender
+       */
+      postRender: function () {
+        var self = this, settings = self.settings;
+
+        var textStyle = settings.textStyle;
+        if (typeof textStyle === "function") {
+          textStyle = textStyle.call(this);
+        }
+
+        if (textStyle) {
+          var textElm = self.getEl('text');
+          if (textElm) {
+            textElm.setAttribute('style', textStyle);
+            self._textStyle = textStyle;
+          }
+        }
+
+        self.on('mouseenter click', function (e) {
+          if (e.control === self) {
+            if (!settings.menu && e.type === 'click') {
+              self.fire('select');
+
+              // Edge will crash if you stress it see #2660
+              Delay.requestAnimationFrame(function () {
+                self.parent().hideAll();
+              });
+            } else {
+              self.showMenu();
+
+              if (e.aria) {
+                self.menu.focus(true);
+              }
+            }
+          }
+        });
+
+        self._super();
+
+        return self;
+      },
+
+      hover: function () {
+        var self = this;
+
+        self.parent().items().each(function (ctrl) {
+          ctrl.classes.remove('selected');
+        });
+
+        self.classes.toggle('selected', true);
+
+        return self;
+      },
+
+      active: function (state) {
+        toggleTextStyle(this, state);
+
+        if (typeof state != "undefined") {
+          this.aria('checked', state);
+        }
+
+        return this._super(state);
+      },
+
+      /**
+       * Removes the control and it's menus.
+       *
+       * @method remove
+       */
+      remove: function () {
+        this._super();
+
+        if (this.menu) {
+          this.menu.remove();
+        }
+      }
+    });
+  }
+);
+
+/**
+ * Menu.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2017 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+/**
+ * Creates a new menu.
+ *
+ * @-x-less Menu.less
+ * @class tinymce.ui.Menu
+ * @extends tinymce.ui.FloatPanel
+ */
+define(
+  'tinymce.ui.Menu',
+  [
+    'tinymce.core.Env',
+    'tinymce.core.util.Delay',
+    'tinymce.core.util.Tools',
+    'tinymce.ui.FloatPanel',
+    'tinymce.ui.MenuItem',
+    'tinymce.ui.Throbber'
+  ],
+  function (Env, Delay, Tools, FloatPanel, MenuItem, Throbber) {
+    "use strict";
+
+    return FloatPanel.extend({
+      Defaults: {
+        defaultType: 'menuitem',
+        border: 1,
+        layout: 'stack',
+        role: 'application',
+        bodyRole: 'menu',
+        ariaRoot: true
+      },
+
+      /**
+       * Constructs a instance with the specified settings.
+       *
+       * @constructor
+       * @param {Object} settings Name/value object with settings.
+       */
+      init: function (settings) {
+        var self = this;
+
+        settings.autohide = true;
+        settings.constrainToViewport = true;
+
+        if (typeof settings.items === 'function') {
+          settings.itemsFactory = settings.items;
+          settings.items = [];
+        }
+
+        if (settings.itemDefaults) {
+          var items = settings.items, i = items.length;
+
+          while (i--) {
+            items[i] = Tools.extend({}, settings.itemDefaults, items[i]);
+          }
+        }
+
+        self._super(settings);
+        self.classes.add('menu');
+
+        if (settings.animate && Env.ie !== 11) {
+          // IE 11 can't handle transforms it looks horrible and blurry so lets disable that
+          self.classes.add('animate');
+        }
+      },
+
+      /**
+       * Repaints the control after a layout operation.
+       *
+       * @method repaint
+       */
+      repaint: function () {
+        this.classes.toggle('menu-align', true);
+
+        this._super();
+
+        this.getEl().style.height = '';
+        this.getEl('body').style.height = '';
+
+        return this;
+      },
+
+      /**
+       * Hides/closes the menu.
+       *
+       * @method cancel
+       */
+      cancel: function () {
+        var self = this;
+
+        self.hideAll();
+        self.fire('select');
+      },
+
+      /**
+       * Loads new items from the factory items function.
+       *
+       * @method load
+       */
+      load: function () {
+        var self = this, time, factory;
+
+        function hideThrobber() {
+          if (self.throbber) {
+            self.throbber.hide();
+            self.throbber = null;
+          }
+        }
+
+        factory = self.settings.itemsFactory;
+        if (!factory) {
+          return;
+        }
+
+        if (!self.throbber) {
+          self.throbber = new Throbber(self.getEl('body'), true);
+
+          if (self.items().length === 0) {
+            self.throbber.show();
+            self.fire('loading');
+          } else {
+            self.throbber.show(100, function () {
+              self.items().remove();
+              self.fire('loading');
+            });
+          }
+
+          self.on('hide close', hideThrobber);
+        }
+
+        self.requestTime = time = new Date().getTime();
+
+        self.settings.itemsFactory(function (items) {
+          if (items.length === 0) {
+            self.hide();
+            return;
+          }
+
+          if (self.requestTime !== time) {
+            return;
+          }
+
+          self.getEl().style.width = '';
+          self.getEl('body').style.width = '';
+
+          hideThrobber();
+          self.items().remove();
+          self.getEl('body').innerHTML = '';
+
+          self.add(items);
+          self.renderNew();
+          self.fire('loaded');
+        });
+      },
+
+      /**
+       * Hide menu and all sub menus.
+       *
+       * @method hideAll
+       */
+      hideAll: function () {
+        var self = this;
+
+        this.find('menuitem').exec('hideMenu');
+
+        return self._super();
+      },
+
+      /**
+       * Invoked before the menu is rendered.
+       *
+       * @method preRender
+       */
+      preRender: function () {
+        var self = this;
+
+        self.items().each(function (ctrl) {
+          var settings = ctrl.settings;
+
+          if (settings.icon || settings.image || settings.selectable) {
+            self._hasIcons = true;
+            return false;
+          }
+        });
+
+        if (self.settings.itemsFactory) {
+          self.on('postrender', function () {
+            if (self.settings.itemsFactory) {
+              self.load();
+            }
+          });
+        }
+
+        self.on('show hide', function (e) {
+          if (e.control === self) {
+            if (e.type === 'show') {
+              Delay.setTimeout(function () {
+                self.classes.add('in');
+              }, 0);
+            } else {
+              self.classes.remove('in');
+            }
+          }
+        });
+
+        return self._super();
+      }
+    });
+  }
+);
+
+/**
+ * ListBox.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2017 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+/**
+ * Creates a new list box control.
+ *
+ * @-x-less ListBox.less
+ * @class tinymce.ui.ListBox
+ * @extends tinymce.ui.MenuButton
+ */
+define(
+  'tinymce.ui.ListBox',
+  [
+    "tinymce.ui.MenuButton",
+    "tinymce.ui.Menu"
+  ],
+  function (MenuButton, Menu) {
+    "use strict";
+
+    return MenuButton.extend({
+      /**
+       * Constructs a instance with the specified settings.
+       *
+       * @constructor
+       * @param {Object} settings Name/value object with settings.
+       * @setting {Array} values Array with values to add to list box.
+       */
+      init: function (settings) {
+        var self = this, values, selected, selectedText, lastItemCtrl;
+
+        function setSelected(menuValues) {
+          // Try to find a selected value
+          for (var i = 0; i < menuValues.length; i++) {
+            selected = menuValues[i].selected || settings.value === menuValues[i].value;
+
+            if (selected) {
+              selectedText = selectedText || menuValues[i].text;
+              self.state.set('value', menuValues[i].value);
+              return true;
+            }
+
+            // If the value has a submenu, try to find the selected values in that menu
+            if (menuValues[i].menu) {
+              if (setSelected(menuValues[i].menu)) {
+                return true;
+              }
+            }
+          }
+        }
+
+        self._super(settings);
+        settings = self.settings;
+
+        self._values = values = settings.values;
+        if (values) {
+          if (typeof settings.value != "undefined") {
+            setSelected(values);
+          }
+
+          // Default with first item
+          if (!selected && values.length > 0) {
+            selectedText = values[0].text;
+            self.state.set('value', values[0].value);
+          }
+
+          self.state.set('menu', values);
+        }
+
+        self.state.set('text', settings.text || selectedText);
+
+        self.classes.add('listbox');
+
+        self.on('select', function (e) {
+          var ctrl = e.control;
+
+          if (lastItemCtrl) {
+            e.lastControl = lastItemCtrl;
+          }
+
+          if (settings.multiple) {
+            ctrl.active(!ctrl.active());
+          } else {
+            self.value(e.control.value());
+          }
+
+          lastItemCtrl = ctrl;
+        });
+      },
+
+      /**
+       * Getter/setter function for the control value.
+       *
+       * @method value
+       * @param {String} [value] Value to be set.
+       * @return {Boolean/tinymce.ui.ListBox} Value or self if it's a set operation.
+       */
+      bindStates: function () {
+        var self = this;
+
+        function activateMenuItemsByValue(menu, value) {
+          if (menu instanceof Menu) {
+            menu.items().each(function (ctrl) {
+              if (!ctrl.hasMenus()) {
+                ctrl.active(ctrl.value() === value);
+              }
+            });
+          }
+        }
+
+        function getSelectedItem(menuValues, value) {
+          var selectedItem;
+
+          if (!menuValues) {
+            return;
+          }
+
+          for (var i = 0; i < menuValues.length; i++) {
+            if (menuValues[i].value === value) {
+              return menuValues[i];
+            }
+
+            if (menuValues[i].menu) {
+              selectedItem = getSelectedItem(menuValues[i].menu, value);
+              if (selectedItem) {
+                return selectedItem;
+              }
+            }
+          }
+        }
+
+        self.on('show', function (e) {
+          activateMenuItemsByValue(e.control, self.value());
+        });
+
+        self.state.on('change:value', function (e) {
+          var selectedItem = getSelectedItem(self.state.get('menu'), e.value);
+
+          if (selectedItem) {
+            self.text(selectedItem.text);
+          } else {
+            self.text(self.settings.text);
+          }
+        });
+
+        return self._super();
+      }
+    });
+  }
+);
+
+/**
+ * Radio.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2017 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+/**
+ * Creates a new radio button.
+ *
+ * @-x-less Radio.less
+ * @class tinymce.ui.Radio
+ * @extends tinymce.ui.Checkbox
+ */
+define(
+  'tinymce.ui.Radio',
+  [
+    "tinymce.ui.Checkbox"
+  ],
+  function (Checkbox) {
+    "use strict";
+
+    return Checkbox.extend({
+      Defaults: {
+        classes: "radio",
+        role: "radio"
+      }
+    });
+  }
+);
+/**
+ * ResizeHandle.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2017 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+/**
+ * Renders a resize handle that fires ResizeStart, Resize and ResizeEnd events.
+ *
+ * @-x-less ResizeHandle.less
+ * @class tinymce.ui.ResizeHandle
+ * @extends tinymce.ui.Widget
+ */
+define(
+  'tinymce.ui.ResizeHandle',
+  [
+    "tinymce.ui.Widget",
+    "tinymce.ui.DragHelper"
+  ],
+  function (Widget, DragHelper) {
+    "use strict";
+
+    return Widget.extend({
+      /**
+       * Renders the control as a HTML string.
+       *
+       * @method renderHtml
+       * @return {String} HTML representing the control.
+       */
+      renderHtml: function () {
+        var self = this, prefix = self.classPrefix;
+
+        self.classes.add('resizehandle');
+
+        if (self.settings.direction == "both") {
+          self.classes.add('resizehandle-both');
+        }
+
+        self.canFocus = false;
+
+        return (
+          '<div id="' + self._id + '" class="' + self.classes + '">' +
+          '<i class="' + prefix + 'ico ' + prefix + 'i-resize"></i>' +
+          '</div>'
+        );
+      },
+
+      /**
+       * Called after the control has been rendered.
+       *
+       * @method postRender
+       */
+      postRender: function () {
+        var self = this;
+
+        self._super();
+
+        self.resizeDragHelper = new DragHelper(this._id, {
+          start: function () {
+            self.fire('ResizeStart');
+          },
+
+          drag: function (e) {
+            if (self.settings.direction != "both") {
+              e.deltaX = 0;
+            }
+
+            self.fire('Resize', e);
+          },
+
+          stop: function () {
+            self.fire('ResizeEnd');
+          }
+        });
+      },
+
+      remove: function () {
+        if (this.resizeDragHelper) {
+          this.resizeDragHelper.destroy();
+        }
+
+        return this._super();
+      }
+    });
+  }
+);
+
+/**
+ * SelectBox.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2017 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+/**
+ * Creates a new select box control.
+ *
+ * @-x-less SelectBox.less
+ * @class tinymce.ui.SelectBox
+ * @extends tinymce.ui.Widget
+ */
+define(
+  'tinymce.ui.SelectBox',
+  [
+    "tinymce.ui.Widget"
+  ],
+  function (Widget) {
+    "use strict";
+
+    function createOptions(options) {
+      var strOptions = '';
+      if (options) {
+        for (var i = 0; i < options.length; i++) {
+          strOptions += '<option value="' + options[i] + '">' + options[i] + '</option>';
+        }
+      }
+      return strOptions;
+    }
+
+    return Widget.extend({
+      Defaults: {
+        classes: "selectbox",
+        role: "selectbox",
+        options: []
+      },
+      /**
+       * Constructs a instance with the specified settings.
+       *
+       * @constructor
+       * @param {Object} settings Name/value object with settings.
+       * @setting {Array} options Array with options to add to the select box.
+       */
+      init: function (settings) {
+        var self = this;
+
+        self._super(settings);
+
+        if (self.settings.size) {
+          self.size = self.settings.size;
+        }
+
+        if (self.settings.options) {
+          self._options = self.settings.options;
+        }
+
+        self.on('keydown', function (e) {
+          var rootControl;
+
+          if (e.keyCode == 13) {
+            e.preventDefault();
+
+            // Find root control that we can do toJSON on
+            self.parents().reverse().each(function (ctrl) {
+              if (ctrl.toJSON) {
+                rootControl = ctrl;
+                return false;
+              }
+            });
+
+            // Fire event on current text box with the serialized data of the whole form
+            self.fire('submit', { data: rootControl.toJSON() });
+          }
+        });
+      },
+
+      /**
+       * Getter/setter function for the options state.
+       *
+       * @method options
+       * @param {Array} [state] State to be set.
+       * @return {Array|tinymce.ui.SelectBox} Array of string options.
+       */
+      options: function (state) {
+        if (!arguments.length) {
+          return this.state.get('options');
+        }
+
+        this.state.set('options', state);
+
+        return this;
+      },
+
+      renderHtml: function () {
+        var self = this, options, size = '';
+
+        options = createOptions(self._options);
+
+        if (self.size) {
+          size = ' size = "' + self.size + '"';
+        }
+
+        return (
+          '<select id="' + self._id + '" class="' + self.classes + '"' + size + '>' +
+          options +
+          '</select>'
+        );
+      },
+
+      bindStates: function () {
+        var self = this;
+
+        self.state.on('change:options', function (e) {
+          self.getEl().innerHTML = createOptions(e.value);
+        });
+
+        return self._super();
+      }
+    });
+  }
+);
+
+/**
+ * Slider.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2017 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+/**
+ * Slider control.
+ *
+ * @-x-less Slider.less
+ * @class tinymce.ui.Slider
+ * @extends tinymce.ui.Widget
+ */
+define(
+  'tinymce.ui.Slider',
+  [
+    "tinymce.ui.Widget",
+    "tinymce.ui.DragHelper",
+    "tinymce.ui.DomUtils"
+  ],
+  function (Widget, DragHelper, DomUtils) {
+    "use strict";
+
+    function constrain(value, minVal, maxVal) {
+      if (value < minVal) {
+        value = minVal;
+      }
+
+      if (value > maxVal) {
+        value = maxVal;
+      }
+
+      return value;
+    }
+
+    function setAriaProp(el, name, value) {
+      el.setAttribute('aria-' + name, value);
+    }
+
+    function updateSliderHandle(ctrl, value) {
+      var maxHandlePos, shortSizeName, sizeName, stylePosName, styleValue, handleEl;
+
+      if (ctrl.settings.orientation == "v") {
+        stylePosName = "top";
+        sizeName = "height";
+        shortSizeName = "h";
+      } else {
+        stylePosName = "left";
+        sizeName = "width";
+        shortSizeName = "w";
+      }
+
+      handleEl = ctrl.getEl('handle');
+      maxHandlePos = (ctrl.layoutRect()[shortSizeName] || 100) - DomUtils.getSize(handleEl)[sizeName];
+
+      styleValue = (maxHandlePos * ((value - ctrl._minValue) / (ctrl._maxValue - ctrl._minValue))) + 'px';
+      handleEl.style[stylePosName] = styleValue;
+      handleEl.style.height = ctrl.layoutRect().h + 'px';
+
+      setAriaProp(handleEl, 'valuenow', value);
+      setAriaProp(handleEl, 'valuetext', '' + ctrl.settings.previewFilter(value));
+      setAriaProp(handleEl, 'valuemin', ctrl._minValue);
+      setAriaProp(handleEl, 'valuemax', ctrl._maxValue);
+    }
+
+    return Widget.extend({
+      init: function (settings) {
+        var self = this;
+
+        if (!settings.previewFilter) {
+          settings.previewFilter = function (value) {
+            return Math.round(value * 100) / 100.0;
+          };
+        }
+
+        self._super(settings);
+        self.classes.add('slider');
+
+        if (settings.orientation == "v") {
+          self.classes.add('vertical');
+        }
+
+        self._minValue = settings.minValue || 0;
+        self._maxValue = settings.maxValue || 100;
+        self._initValue = self.state.get('value');
+      },
+
+      renderHtml: function () {
+        var self = this, id = self._id, prefix = self.classPrefix;
+
+        return (
+          '<div id="' + id + '" class="' + self.classes + '">' +
+          '<div id="' + id + '-handle" class="' + prefix + 'slider-handle" role="slider" tabindex="-1"></div>' +
+          '</div>'
+        );
+      },
+
+      reset: function () {
+        this.value(this._initValue).repaint();
+      },
+
+      postRender: function () {
+        var self = this, minValue, maxValue, screenCordName,
+          stylePosName, sizeName, shortSizeName;
+
+        function toFraction(min, max, val) {
+          return (val + min) / (max - min);
+        }
+
+        function fromFraction(min, max, val) {
+          return (val * (max - min)) - min;
+        }
+
+        function handleKeyboard(minValue, maxValue) {
+          function alter(delta) {
+            var value;
+
+            value = self.value();
+            value = fromFraction(minValue, maxValue, toFraction(minValue, maxValue, value) + (delta * 0.05));
+            value = constrain(value, minValue, maxValue);
+
+            self.value(value);
+
+            self.fire('dragstart', { value: value });
+            self.fire('drag', { value: value });
+            self.fire('dragend', { value: value });
+          }
+
+          self.on('keydown', function (e) {
+            switch (e.keyCode) {
+              case 37:
+              case 38:
+                alter(-1);
+                break;
+
+              case 39:
+              case 40:
+                alter(1);
+                break;
+            }
+          });
+        }
+
+        function handleDrag(minValue, maxValue, handleEl) {
+          var startPos, startHandlePos, maxHandlePos, handlePos, value;
+
+          self._dragHelper = new DragHelper(self._id, {
+            handle: self._id + "-handle",
+
+            start: function (e) {
+              startPos = e[screenCordName];
+              startHandlePos = parseInt(self.getEl('handle').style[stylePosName], 10);
+              maxHandlePos = (self.layoutRect()[shortSizeName] || 100) - DomUtils.getSize(handleEl)[sizeName];
+              self.fire('dragstart', { value: value });
+            },
+
+            drag: function (e) {
+              var delta = e[screenCordName] - startPos;
+
+              handlePos = constrain(startHandlePos + delta, 0, maxHandlePos);
+              handleEl.style[stylePosName] = handlePos + 'px';
+
+              value = minValue + (handlePos / maxHandlePos) * (maxValue - minValue);
+              self.value(value);
+
+              self.tooltip().text('' + self.settings.previewFilter(value)).show().moveRel(handleEl, 'bc tc');
+
+              self.fire('drag', { value: value });
+            },
+
+            stop: function () {
+              self.tooltip().hide();
+              self.fire('dragend', { value: value });
+            }
+          });
+        }
+
+        minValue = self._minValue;
+        maxValue = self._maxValue;
+
+        if (self.settings.orientation == "v") {
+          screenCordName = "screenY";
+          stylePosName = "top";
+          sizeName = "height";
+          shortSizeName = "h";
+        } else {
+          screenCordName = "screenX";
+          stylePosName = "left";
+          sizeName = "width";
+          shortSizeName = "w";
+        }
+
+        self._super();
+
+        handleKeyboard(minValue, maxValue, self.getEl('handle'));
+        handleDrag(minValue, maxValue, self.getEl('handle'));
+      },
+
+      repaint: function () {
+        this._super();
+        updateSliderHandle(this, this.value());
+      },
+
+      bindStates: function () {
+        var self = this;
+
+        self.state.on('change:value', function (e) {
+          updateSliderHandle(self, e.value);
+        });
+
+        return self._super();
+      }
+    });
+  }
+);
+/**
+ * Spacer.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2017 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+/**
+ * Creates a spacer. This control is used in flex layouts for example.
+ *
+ * @-x-less Spacer.less
+ * @class tinymce.ui.Spacer
+ * @extends tinymce.ui.Widget
+ */
+define(
+  'tinymce.ui.Spacer',
+  [
+    "tinymce.ui.Widget"
+  ],
+  function (Widget) {
+    "use strict";
+
+    return Widget.extend({
+      /**
+       * Renders the control as a HTML string.
+       *
+       * @method renderHtml
+       * @return {String} HTML representing the control.
+       */
+      renderHtml: function () {
+        var self = this;
+
+        self.classes.add('spacer');
+        self.canFocus = false;
+
+        return '<div id="' + self._id + '" class="' + self.classes + '"></div>';
+      }
+    });
+  }
+);
+/**
+ * SplitButton.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2017 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+/**
+ * Creates a split button.
+ *
+ * @-x-less SplitButton.less
+ * @class tinymce.ui.SplitButton
+ * @extends tinymce.ui.Button
+ */
+define(
+  'tinymce.ui.SplitButton',
+  [
+    'global!window',
+    'tinymce.core.dom.DomQuery',
+    'tinymce.ui.DomUtils',
+    'tinymce.ui.MenuButton'
+  ],
+  function (window, DomQuery, DomUtils, MenuButton) {
+    return MenuButton.extend({
+      Defaults: {
+        classes: "widget btn splitbtn",
+        role: "button"
+      },
+
+      /**
+       * Repaints the control after a layout operation.
+       *
+       * @method repaint
+       */
+      repaint: function () {
+        var self = this, elm = self.getEl(), rect = self.layoutRect(), mainButtonElm, menuButtonElm;
+
+        self._super();
+
+        mainButtonElm = elm.firstChild;
+        menuButtonElm = elm.lastChild;
+
+        DomQuery(mainButtonElm).css({
+          width: rect.w - DomUtils.getSize(menuButtonElm).width,
+          height: rect.h - 2
+        });
+
+        DomQuery(menuButtonElm).css({
+          height: rect.h - 2
+        });
+
+        return self;
+      },
+
+      /**
+       * Sets the active menu state.
+       *
+       * @private
+       */
+      activeMenu: function (state) {
+        var self = this;
+
+        DomQuery(self.getEl().lastChild).toggleClass(self.classPrefix + 'active', state);
+      },
+
+      /**
+       * Renders the control as a HTML string.
+       *
+       * @method renderHtml
+       * @return {String} HTML representing the control.
+       */
+      renderHtml: function () {
+        var self = this, id = self._id, prefix = self.classPrefix, image;
+        var icon = self.state.get('icon'), text = self.state.get('text'),
+          textHtml = '';
+
+        image = self.settings.image;
+        if (image) {
+          icon = 'none';
+
+          // Support for [high dpi, low dpi] image sources
+          if (typeof image != "string") {
+            image = window.getSelection ? image[0] : image[1];
+          }
+
+          image = ' style="background-image: url(\'' + image + '\')"';
+        } else {
+          image = '';
+        }
+
+        icon = self.settings.icon ? prefix + 'ico ' + prefix + 'i-' + icon : '';
+
+        if (text) {
+          self.classes.add('btn-has-text');
+          textHtml = '<span class="' + prefix + 'txt">' + self.encode(text) + '</span>';
+        }
+
+        return (
+          '<div id="' + id + '" class="' + self.classes + '" role="button" tabindex="-1">' +
+          '<button type="button" hidefocus="1" tabindex="-1">' +
+          (icon ? '<i class="' + icon + '"' + image + '></i>' : '') +
+          textHtml +
+          '</button>' +
+          '<button type="button" class="' + prefix + 'open" hidefocus="1" tabindex="-1">' +
+          //(icon ? '<i class="' + icon + '"></i>' : '') +
+          (self._menuBtnText ? (icon ? '\u00a0' : '') + self._menuBtnText : '') +
+          ' <i class="' + prefix + 'caret"></i>' +
+          '</button>' +
+          '</div>'
+        );
+      },
+
+      /**
+       * Called after the control has been rendered.
+       *
+       * @method postRender
+       */
+      postRender: function () {
+        var self = this, onClickHandler = self.settings.onclick;
+
+        self.on('click', function (e) {
+          var node = e.target;
+
+          if (e.control == this) {
+            // Find clicks that is on the main button
+            while (node) {
+              if ((e.aria && e.aria.key != 'down') || (node.nodeName == 'BUTTON' && node.className.indexOf('open') == -1)) {
+                e.stopImmediatePropagation();
+
+                if (onClickHandler) {
+                  onClickHandler.call(this, e);
+                }
+
+                return;
+              }
+
+              node = node.parentNode;
+            }
+          }
+        });
+
+        delete self.settings.onclick;
+
+        return self._super();
+      }
+    });
+  }
+);
+/**
+ * StackLayout.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2017 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+/**
+ * This layout uses the browsers layout when the items are blocks.
+ *
+ * @-x-less StackLayout.less
+ * @class tinymce.ui.StackLayout
+ * @extends tinymce.ui.FlowLayout
+ */
+define(
+  'tinymce.ui.StackLayout',
+  [
+    "tinymce.ui.FlowLayout"
+  ],
+  function (FlowLayout) {
+    "use strict";
+
+    return FlowLayout.extend({
+      Defaults: {
+        containerClass: 'stack-layout',
+        controlClass: 'stack-layout-item',
+        endClass: 'break'
+      },
+
+      isNative: function () {
+        return true;
+      }
+    });
+  }
+);
+/**
+ * TabPanel.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2017 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+/**
+ * Creates a tab panel control.
+ *
+ * @-x-less TabPanel.less
+ * @class tinymce.ui.TabPanel
+ * @extends tinymce.ui.Panel
+ *
+ * @setting {Number} activeTab Active tab index.
+ */
+define(
+  'tinymce.ui.TabPanel',
+  [
+    "tinymce.ui.Panel",
+    "tinymce.core.dom.DomQuery",
+    "tinymce.ui.DomUtils"
+  ],
+  function (Panel, $, DomUtils) {
+    "use strict";
+
+    return Panel.extend({
+      Defaults: {
+        layout: 'absolute',
+        defaults: {
+          type: 'panel'
+        }
+      },
+
+      /**
+       * Activates the specified tab by index.
+       *
+       * @method activateTab
+       * @param {Number} idx Index of the tab to activate.
+       */
+      activateTab: function (idx) {
+        var activeTabElm;
+
+        if (this.activeTabId) {
+          activeTabElm = this.getEl(this.activeTabId);
+          $(activeTabElm).removeClass(this.classPrefix + 'active');
+          activeTabElm.setAttribute('aria-selected', "false");
+        }
+
+        this.activeTabId = 't' + idx;
+
+        activeTabElm = this.getEl('t' + idx);
+        activeTabElm.setAttribute('aria-selected', "true");
+        $(activeTabElm).addClass(this.classPrefix + 'active');
+
+        this.items()[idx].show().fire('showtab');
+        this.reflow();
+
+        this.items().each(function (item, i) {
+          if (idx != i) {
+            item.hide();
+          }
+        });
+      },
+
+      /**
+       * Renders the control as a HTML string.
+       *
+       * @method renderHtml
+       * @return {String} HTML representing the control.
+       */
+      renderHtml: function () {
+        var self = this, layout = self._layout, tabsHtml = '', prefix = self.classPrefix;
+
+        self.preRender();
+        layout.preRender(self);
+
+        self.items().each(function (ctrl, i) {
+          var id = self._id + '-t' + i;
+
+          ctrl.aria('role', 'tabpanel');
+          ctrl.aria('labelledby', id);
+
+          tabsHtml += (
+            '<div id="' + id + '" class="' + prefix + 'tab" ' +
+            'unselectable="on" role="tab" aria-controls="' + ctrl._id + '" aria-selected="false" tabIndex="-1">' +
+            self.encode(ctrl.settings.title) +
+            '</div>'
+          );
+        });
+
+        return (
+          '<div id="' + self._id + '" class="' + self.classes + '" hidefocus="1" tabindex="-1">' +
+          '<div id="' + self._id + '-head" class="' + prefix + 'tabs" role="tablist">' +
+          tabsHtml +
+          '</div>' +
+          '<div id="' + self._id + '-body" class="' + self.bodyClasses + '">' +
+          layout.renderHtml(self) +
+          '</div>' +
+          '</div>'
+        );
+      },
+
+      /**
+       * Called after the control has been rendered.
+       *
+       * @method postRender
+       */
+      postRender: function () {
+        var self = this;
+
+        self._super();
+
+        self.settings.activeTab = self.settings.activeTab || 0;
+        self.activateTab(self.settings.activeTab);
+
+        this.on('click', function (e) {
+          var targetParent = e.target.parentNode;
+
+          if (targetParent && targetParent.id == self._id + '-head') {
+            var i = targetParent.childNodes.length;
+
+            while (i--) {
+              if (targetParent.childNodes[i] == e.target) {
+                self.activateTab(i);
+              }
+            }
+          }
+        });
+      },
+
+      /**
+       * Initializes the current controls layout rect.
+       * This will be executed by the layout managers to determine the
+       * default minWidth/minHeight etc.
+       *
+       * @method initLayoutRect
+       * @return {Object} Layout rect instance.
+       */
+      initLayoutRect: function () {
+        var self = this, rect, minW, minH;
+
+        minW = DomUtils.getSize(self.getEl('head')).width;
+        minW = minW < 0 ? 0 : minW;
+        minH = 0;
+
+        self.items().each(function (item) {
+          minW = Math.max(minW, item.layoutRect().minW);
+          minH = Math.max(minH, item.layoutRect().minH);
+        });
+
+        self.items().each(function (ctrl) {
+          ctrl.settings.x = 0;
+          ctrl.settings.y = 0;
+          ctrl.settings.w = minW;
+          ctrl.settings.h = minH;
+
+          ctrl.layoutRect({
+            x: 0,
+            y: 0,
+            w: minW,
+            h: minH
+          });
+        });
+
+        var headH = DomUtils.getSize(self.getEl('head')).height;
+
+        self.settings.minWidth = minW;
+        self.settings.minHeight = minH + headH;
+
+        rect = self._super();
+        rect.deltaH += headH;
+        rect.innerH = rect.h - rect.deltaH;
+
+        return rect;
+      }
+    });
+  }
+);
+
+/**
+ * TextBox.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2017 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+/**
+ * Creates a new textbox.
+ *
+ * @-x-less TextBox.less
+ * @class tinymce.ui.TextBox
+ * @extends tinymce.ui.Widget
+ */
+define(
+  'tinymce.ui.TextBox',
+  [
+    'global!document',
+    'tinymce.core.util.Tools',
+    'tinymce.ui.DomUtils',
+    'tinymce.ui.Widget'
+  ],
+  function (document, Tools, DomUtils, Widget) {
+    return Widget.extend({
+      /**
+       * Constructs a instance with the specified settings.
+       *
+       * @constructor
+       * @param {Object} settings Name/value object with settings.
+       * @setting {Boolean} multiline True if the textbox is a multiline control.
+       * @setting {Number} maxLength Max length for the textbox.
+       * @setting {Number} size Size of the textbox in characters.
+       */
+      init: function (settings) {
+        var self = this;
+
+        self._super(settings);
+
+        self.classes.add('textbox');
+
+        if (settings.multiline) {
+          self.classes.add('multiline');
+        } else {
+          self.on('keydown', function (e) {
+            var rootControl;
+
+            if (e.keyCode == 13) {
+              e.preventDefault();
+
+              // Find root control that we can do toJSON on
+              self.parents().reverse().each(function (ctrl) {
+                if (ctrl.toJSON) {
+                  rootControl = ctrl;
+                  return false;
+                }
+              });
+
+              // Fire event on current text box with the serialized data of the whole form
+              self.fire('submit', { data: rootControl.toJSON() });
+            }
+          });
+
+          self.on('keyup', function (e) {
+            self.state.set('value', e.target.value);
+          });
+        }
+      },
+
+      /**
+       * Repaints the control after a layout operation.
+       *
+       * @method repaint
+       */
+      repaint: function () {
+        var self = this, style, rect, borderBox, borderW, borderH = 0, lastRepaintRect;
+
+        style = self.getEl().style;
+        rect = self._layoutRect;
+        lastRepaintRect = self._lastRepaintRect || {};
+
+        // Detect old IE 7+8 add lineHeight to align caret vertically in the middle
+        var doc = document;
+        if (!self.settings.multiline && doc.all && (!doc.documentMode || doc.documentMode <= 8)) {
+          style.lineHeight = (rect.h - borderH) + 'px';
+        }
+
+        borderBox = self.borderBox;
+        borderW = borderBox.left + borderBox.right + 8;
+        borderH = borderBox.top + borderBox.bottom + (self.settings.multiline ? 8 : 0);
+
+        if (rect.x !== lastRepaintRect.x) {
+          style.left = rect.x + 'px';
+          lastRepaintRect.x = rect.x;
+        }
+
+        if (rect.y !== lastRepaintRect.y) {
+          style.top = rect.y + 'px';
+          lastRepaintRect.y = rect.y;
+        }
+
+        if (rect.w !== lastRepaintRect.w) {
+          style.width = (rect.w - borderW) + 'px';
+          lastRepaintRect.w = rect.w;
+        }
+
+        if (rect.h !== lastRepaintRect.h) {
+          style.height = (rect.h - borderH) + 'px';
+          lastRepaintRect.h = rect.h;
+        }
+
+        self._lastRepaintRect = lastRepaintRect;
+        self.fire('repaint', {}, false);
+
+        return self;
+      },
+
+      /**
+       * Renders the control as a HTML string.
+       *
+       * @method renderHtml
+       * @return {String} HTML representing the control.
+       */
+      renderHtml: function () {
+        var self = this, settings = self.settings, attrs, elm;
+
+        attrs = {
+          id: self._id,
+          hidefocus: '1'
+        };
+
+        Tools.each([
+          'rows', 'spellcheck', 'maxLength', 'size', 'readonly', 'min',
+          'max', 'step', 'list', 'pattern', 'placeholder', 'required', 'multiple'
+        ], function (name) {
+          attrs[name] = settings[name];
+        });
+
+        if (self.disabled()) {
+          attrs.disabled = 'disabled';
+        }
+
+        if (settings.subtype) {
+          attrs.type = settings.subtype;
+        }
+
+        elm = DomUtils.create(settings.multiline ? 'textarea' : 'input', attrs);
+        elm.value = self.state.get('value');
+        elm.className = self.classes;
+
+        return elm.outerHTML;
+      },
+
+      value: function (value) {
+        if (arguments.length) {
+          this.state.set('value', value);
+          return this;
+        }
+
+        // Make sure the real state is in sync
+        if (this.state.get('rendered')) {
+          this.state.set('value', this.getEl().value);
+        }
+
+        return this.state.get('value');
+      },
+
+      /**
+       * Called after the control has been rendered.
+       *
+       * @method postRender
+       */
+      postRender: function () {
+        var self = this;
+
+        self.getEl().value = self.state.get('value');
+        self._super();
+
+        self.$el.on('change', function (e) {
+          self.state.set('value', e.target.value);
+          self.fire('change', e);
+        });
+      },
+
+      bindStates: function () {
+        var self = this;
+
+        self.state.on('change:value', function (e) {
+          if (self.getEl().value != e.value) {
+            self.getEl().value = e.value;
+          }
+        });
+
+        self.state.on('change:disabled', function (e) {
+          self.getEl().disabled = e.value;
+        });
+
+        return self._super();
+      },
+
+      remove: function () {
+        this.$el.off();
+        this._super();
+      }
+    });
+  }
+);
+
+/**
+ * Api.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2017 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+define(
+  'tinymce.ui.Api',
+  [
+    'tinymce.core.ui.Factory',
+    'tinymce.core.util.Tools',
+    'tinymce.ui.AbsoluteLayout',
+    'tinymce.ui.BrowseButton',
+    'tinymce.ui.Button',
+    'tinymce.ui.ButtonGroup',
+    'tinymce.ui.Checkbox',
+    'tinymce.ui.Collection',
+    'tinymce.ui.ColorBox',
+    'tinymce.ui.ColorButton',
+    'tinymce.ui.ColorPicker',
+    'tinymce.ui.ComboBox',
+    'tinymce.ui.Container',
+    'tinymce.ui.Control',
+    'tinymce.ui.DragHelper',
+    'tinymce.ui.DropZone',
+    'tinymce.ui.ElementPath',
+    'tinymce.ui.FieldSet',
+    'tinymce.ui.FilePicker',
+    'tinymce.ui.FitLayout',
+    'tinymce.ui.FlexLayout',
+    'tinymce.ui.FloatPanel',
+    'tinymce.ui.FlowLayout',
+    'tinymce.ui.Form',
+    'tinymce.ui.FormatControls',
+    'tinymce.ui.FormItem',
+    'tinymce.ui.GridLayout',
+    'tinymce.ui.Iframe',
+    'tinymce.ui.InfoBox',
+    'tinymce.ui.KeyboardNavigation',
+    'tinymce.ui.Label',
+    'tinymce.ui.Layout',
+    'tinymce.ui.ListBox',
+    'tinymce.ui.Menu',
+    'tinymce.ui.MenuBar',
+    'tinymce.ui.MenuButton',
+    'tinymce.ui.MenuItem',
+    'tinymce.ui.MessageBox',
+    'tinymce.ui.Movable',
+    'tinymce.ui.Notification',
+    'tinymce.ui.Panel',
+    'tinymce.ui.PanelButton',
+    'tinymce.ui.Path',
+    'tinymce.ui.Progress',
+    'tinymce.ui.Radio',
+    'tinymce.ui.ReflowQueue',
+    'tinymce.ui.Resizable',
+    'tinymce.ui.ResizeHandle',
+    'tinymce.ui.Scrollable',
+    'tinymce.ui.SelectBox',
+    'tinymce.ui.Selector',
+    'tinymce.ui.Slider',
+    'tinymce.ui.Spacer',
+    'tinymce.ui.SplitButton',
+    'tinymce.ui.StackLayout',
+    'tinymce.ui.TabPanel',
+    'tinymce.ui.TextBox',
+    'tinymce.ui.Throbber',
+    'tinymce.ui.Toolbar',
+    'tinymce.ui.Tooltip',
+    'tinymce.ui.Widget',
+    'tinymce.ui.Window'
+  ],
+  function (
+    Factory, Tools, AbsoluteLayout, BrowseButton, Button, ButtonGroup, Checkbox, Collection, ColorBox, ColorButton, ColorPicker, ComboBox, Container, Control,
+    DragHelper, DropZone, ElementPath, FieldSet, FilePicker, FitLayout, FlexLayout, FloatPanel, FlowLayout, Form, FormatControls, FormItem, GridLayout, Iframe,
+    InfoBox, KeyboardNavigation, Label, Layout, ListBox, Menu, MenuBar, MenuButton, MenuItem, MessageBox, Movable, Notification, Panel, PanelButton, Path, Progress,
+    Radio, ReflowQueue, Resizable, ResizeHandle, Scrollable, SelectBox, Selector, Slider, Spacer, SplitButton, StackLayout, TabPanel, TextBox, Throbber, Toolbar,
+    Tooltip, Widget, Window
+  ) {
+    var getApi = function () {
+      return {
+        Selector: Selector,
+        Collection: Collection,
+        ReflowQueue: ReflowQueue,
+        Control: Control,
+        Factory: Factory,
+        KeyboardNavigation: KeyboardNavigation,
+        Container: Container,
+        DragHelper: DragHelper,
+        Scrollable: Scrollable,
+        Panel: Panel,
+        Movable: Movable,
+        Resizable: Resizable,
+        FloatPanel: FloatPanel,
+        Window: Window,
+        MessageBox: MessageBox,
+        Tooltip: Tooltip,
+        Widget: Widget,
+        Progress: Progress,
+        Notification: Notification,
+        Layout: Layout,
+        AbsoluteLayout: AbsoluteLayout,
+        Button: Button,
+        ButtonGroup: ButtonGroup,
+        Checkbox: Checkbox,
+        ComboBox: ComboBox,
+        ColorBox: ColorBox,
+        PanelButton: PanelButton,
+        ColorButton: ColorButton,
+        ColorPicker: ColorPicker,
+        Path: Path,
+        ElementPath: ElementPath,
+        FormItem: FormItem,
+        Form: Form,
+        FieldSet: FieldSet,
+        FilePicker: FilePicker,
+        FitLayout: FitLayout,
+        FlexLayout: FlexLayout,
+        FlowLayout: FlowLayout,
+        FormatControls: FormatControls,
+        GridLayout: GridLayout,
+        Iframe: Iframe,
+        InfoBox: InfoBox,
+        Label: Label,
+        Toolbar: Toolbar,
+        MenuBar: MenuBar,
+        MenuButton: MenuButton,
+        MenuItem: MenuItem,
+        Throbber: Throbber,
+        Menu: Menu,
+        ListBox: ListBox,
+        Radio: Radio,
+        ResizeHandle: ResizeHandle,
+        SelectBox: SelectBox,
+        Slider: Slider,
+        Spacer: Spacer,
+        SplitButton: SplitButton,
+        StackLayout: StackLayout,
+        TabPanel: TabPanel,
+        TextBox: TextBox,
+        DropZone: DropZone,
+        BrowseButton: BrowseButton
+      };
+    };
+
+    var appendTo = function (target) {
+      if (target.ui) {
+        Tools.each(getApi(), function (ref, key) {
+          target.ui[key] = ref;
+        });
+      } else {
+        target.ui = getApi();
+      }
+    };
+
+    var registerToFactory = function () {
+      Tools.each(getApi(), function (ref, key) {
+        Factory.add(key, ref);
+      });
+    };
+
+    var Api = {
+      appendTo: appendTo,
+      registerToFactory: registerToFactory
+    };
+
+    return Api;
+  }
+);
+/**
+ * Theme.js
+ *
+ * Released under LGPL License.
+ * Copyright (c) 1999-2016 Ephox Corp. All rights reserved
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
+
+define(
+  'tinymce.themes.modern.Theme',
+  [
+    'global!window',
+    'tinymce.core.ThemeManager',
+    'tinymce.themes.modern.api.ThemeApi',
+    'tinymce.ui.Api',
+    'tinymce.ui.FormatControls'
+  ],
+  function (window, ThemeManager, ThemeApi, Api, FormatControls) {
+    Api.registerToFactory();
+    Api.appendTo(window.tinymce ? window.tinymce : {});
+
+    ThemeManager.add('modern', function (editor) {
+      FormatControls.setup(editor);
+      return ThemeApi.get(editor);
+    });
+
+    return function () { };
+  }
+);
+
+dem('tinymce.themes.modern.Theme')();
+})();
