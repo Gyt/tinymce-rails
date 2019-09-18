@@ -14,6 +14,8 @@
   <% end %>
 </ul>
 
-<%= text_area_tag :editor, "", :class => "tinymce", :rows => 20, :cols => 60 %>
+<%= text_area_tag :editor1, "", :class => "tinymce", :rows => 20, :cols => 60 %>
+<%= text_area_tag :editor2, "", :class => "tinymce", :rows => 20, :cols => 60 %>
 
-<%= tinymce :language => I18n.locale %>
+<%= tinymce :selector => "#editor1", :language => I18n.locale %>
+<%= tinymce :custom, :selector => "#editor2", :language => I18n.locale %>
